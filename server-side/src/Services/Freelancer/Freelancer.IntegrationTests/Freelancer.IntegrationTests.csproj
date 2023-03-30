@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
@@ -23,15 +23,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\JobManagement.API\JobManagement.API.csproj" />
-    <ProjectReference Include="..\JobManagement.Application\JobManagement.Application.csproj" />
-    <ProjectReference Include="..\JobManagement.Domain\JobManagement.Domain.csproj" />
-    <ProjectReference Include="..\JobManagement.Infrastructure\JobManagement.Infrastructure.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Application\" />
-    <Folder Include="Domain\" />
+    <ProjectReference Include="..\ProfileManagemenet.API\Freelancer.API.csproj" />
+    <ProjectReference Include="..\ProfileManagemenet.Domain\Freelancer.Domain.csproj" />
+    <ProjectReference Include="..\ProfileManagemenet.Infrastructure\Freelancer.Infrastructure.csproj" />
+    <ProjectReference Include="..\ProfileManagement.Application\Freelancer.Application.csproj" />
   </ItemGroup>
 
 </Project>

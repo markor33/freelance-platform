@@ -11,7 +11,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\ProfileManagemenet.Domain\ProfileManagement.Domain.csproj" />
+    <ProjectReference Include="..\ProfileManagemenet.Domain\Freelancer.Domain.csproj" />
+    <ProjectReference Include="..\ProfileManagement.Application\Freelancer.Application.csproj" />
   </ItemGroup>
 
 </Project>

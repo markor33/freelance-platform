@@ -10,7 +10,6 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.3.2" />
-    <PackageReference Include="Shouldly" Version="4.1.0" />
     <PackageReference Include="xunit" Version="2.4.2" />
     <PackageReference Include="xunit.runner.visualstudio" Version="2.4.5">
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
@@ -23,10 +22,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\ProfileManagemenet.API\ProfileManagemenet.API.csproj" />
-    <ProjectReference Include="..\ProfileManagemenet.Domain\ProfileManagement.Domain.csproj" />
-    <ProjectReference Include="..\ProfileManagemenet.Infrastructure\ProfileManagement.Infrastructure.csproj" />
-    <ProjectReference Include="..\ProfileManagement.Application\ProfileManagement.Application.csproj" />
+    <ProjectReference Include="..\Freelancer.API\Freelancer.API.csproj" />
+    <ProjectReference Include="..\Freelancer.Application\Freelancer.Application.csproj" />
+    <ProjectReference Include="..\Freelancer.Domain\Freelancer.Domain.csproj" />
+    <ProjectReference Include="..\Freelancer.Infrastructure\Freelancer.Infrastructure.csproj" />
   </ItemGroup>
 
 </Project>
