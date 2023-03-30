@@ -11,35 +11,39 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Identity", "Identity", "{A5
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Identity.API", "src\Services\Identity\Identity.API\Identity.API.csproj", "{EE9FE6A6-5768-4037-8406-390D9DAAD04B}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ProfileManagement", "ProfileManagement", "{C8C31333-BE75-4DC7-8C3C-C2AB7FBB39DB}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Freelancer", "Freelancer", "{C8C31333-BE75-4DC7-8C3C-C2AB7FBB39DB}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "JobManagement", "JobManagement", "{87866C97-5162-4CD3-B910-6AA03EAB527A}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Job", "Job", "{87866C97-5162-4CD3-B910-6AA03EAB527A}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProfileManagement.Application", "src\Services\ProfileManagement\ProfileManagement.Application\ProfileManagement.Application.csproj", "{42B154AB-8E18-4BB4-B8CA-C3555EE96A90}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Freelancer.Application", "src\Services\Freelancer\Freelancer.Application\Freelancer.Application.csproj", "{42B154AB-8E18-4BB4-B8CA-C3555EE96A90}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProfileManagement.Domain", "src\Services\ProfileManagement\ProfileManagemenet.Domain\ProfileManagement.Domain.csproj", "{17426B72-0BD2-4D52-865D-90B7B364A5E0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Freelancer.Domain", "src\Services\Freelancer\Freelancer.Domain\Freelancer.Domain.csproj", "{17426B72-0BD2-4D52-865D-90B7B364A5E0}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProfileManagement.Infrastructure", "src\Services\ProfileManagement\ProfileManagemenet.Infrastructure\ProfileManagement.Infrastructure.csproj", "{21ADD145-3249-4943-8536-04CF9212503A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Freelancer.Infrastructure", "src\Services\Freelancer\Freelancer.Infrastructure\Freelancer.Infrastructure.csproj", "{21ADD145-3249-4943-8536-04CF9212503A}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProfileManagemenet.API", "src\Services\ProfileManagement\ProfileManagemenet.API\ProfileManagemenet.API.csproj", "{468DEC90-07E4-44F2-A1CA-2F5CD55BD9B2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Freelancer.API", "src\Services\Freelancer\Freelancer.API\Freelancer.API.csproj", "{468DEC90-07E4-44F2-A1CA-2F5CD55BD9B2}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JobManagement.Domain", "src\Services\JobManagement\JobManagement.Domain\JobManagement.Domain.csproj", "{CB3F739B-3ADC-4E86-903D-59AA1100A09D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Job.Domain", "src\Services\Job\Job.Domain\Job.Domain.csproj", "{CB3F739B-3ADC-4E86-903D-59AA1100A09D}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JobManagement.Application", "src\Services\JobManagement\JobManagement.Application\JobManagement.Application.csproj", "{AE8C3B25-439B-4DF4-8D22-6BBAF8E8DBAB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Job.Application", "src\Services\Job\Job.Application\Job.Application.csproj", "{AE8C3B25-439B-4DF4-8D22-6BBAF8E8DBAB}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JobManagement.Infrastructure", "src\Services\JobManagement\JobManagement.Infrastructure\JobManagement.Infrastructure.csproj", "{2EB08009-2F7C-4A9C-B0BC-E1C7D5525F1F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Job.Infrastructure", "src\Services\Job\Job.Infrastructure\Job.Infrastructure.csproj", "{2EB08009-2F7C-4A9C-B0BC-E1C7D5525F1F}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JobManagement.API", "src\Services\JobManagement\JobManagement.API\JobManagement.API.csproj", "{70BF60FF-D784-47E4-8987-66DC3581B2B7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Job.API", "src\Services\Job\Job.API\Job.API.csproj", "{70BF60FF-D784-47E4-8987-66DC3581B2B7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProfileManagement.UnitTests", "src\Services\ProfileManagement\TestProject3\ProfileManagement.UnitTests.csproj", "{C4E4FCE1-0774-4642-B79A-9F4334DDED8D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Job.UnitTests", "src\Services\Job\Job.UnitTests\Job.UnitTests.csproj", "{D3B3C533-07BF-4168-A8E4-DF628A5D29FC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JobManagement.UnitTests", "src\Services\JobManagement\JobManagement.UnitTests\JobManagement.UnitTests.csproj", "{D3B3C533-07BF-4168-A8E4-DF628A5D29FC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Job.IntegrationTests", "src\Services\Job\Job.IntegrationTests\Job.IntegrationTests.csproj", "{CC0EC385-E84A-4975-92BB-06BCF93E3200}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JobManagement.IntegrationTests", "src\Services\JobManagement\JobManagement.IntegrationTests\JobManagement.IntegrationTests.csproj", "{CC0EC385-E84A-4975-92BB-06BCF93E3200}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProfileManagement.IntegrationTests", "src\Services\ProfileManagement\ProfileManagement.IntegrationTests\ProfileManagement.IntegrationTests.csproj", "{E75724E6-30CF-41F2-BDBC-4351D714DC88}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Freelancer.IntegrationTests", "src\Services\Freelancer\Freelancer.IntegrationTests\Freelancer.IntegrationTests.csproj", "{E75724E6-30CF-41F2-BDBC-4351D714DC88}"
 EndProject
 Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{2ABA66FF-53F8-49C0-A6AD-51CB4F2483CC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Freelancer.UnitTests", "src\Services\Freelancer\Freelancer.UnitTests\Freelancer.UnitTests.csproj", "{DA675B4A-7B62-46B5-BF06-2D1C5BB58C52}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Client", "Client", "{57323A84-CFEB-4070-8B5D-18E88A2D94C3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Client.API", "src\Services\Client\Client.API\Client.API.csproj", "{90DA85DE-8E3D-448E-95C0-DD4BB904A716}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -83,10 +87,6 @@ Global
 		{70BF60FF-D784-47E4-8987-66DC3581B2B7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{70BF60FF-D784-47E4-8987-66DC3581B2B7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{70BF60FF-D784-47E4-8987-66DC3581B2B7}.Release|Any CPU.Build.0 = Release|Any CPU
-		{C4E4FCE1-0774-4642-B79A-9F4334DDED8D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{C4E4FCE1-0774-4642-B79A-9F4334DDED8D}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{C4E4FCE1-0774-4642-B79A-9F4334DDED8D}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{C4E4FCE1-0774-4642-B79A-9F4334DDED8D}.Release|Any CPU.Build.0 = Release|Any CPU
 		{D3B3C533-07BF-4168-A8E4-DF628A5D29FC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{D3B3C533-07BF-4168-A8E4-DF628A5D29FC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D3B3C533-07BF-4168-A8E4-DF628A5D29FC}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -103,6 +103,14 @@ Global
 		{2ABA66FF-53F8-49C0-A6AD-51CB4F2483CC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2ABA66FF-53F8-49C0-A6AD-51CB4F2483CC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2ABA66FF-53F8-49C0-A6AD-51CB4F2483CC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DA675B4A-7B62-46B5-BF06-2D1C5BB58C52}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DA675B4A-7B62-46B5-BF06-2D1C5BB58C52}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DA675B4A-7B62-46B5-BF06-2D1C5BB58C52}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DA675B4A-7B62-46B5-BF06-2D1C5BB58C52}.Release|Any CPU.Build.0 = Release|Any CPU
+		{90DA85DE-8E3D-448E-95C0-DD4BB904A716}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{90DA85DE-8E3D-448E-95C0-DD4BB904A716}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{90DA85DE-8E3D-448E-95C0-DD4BB904A716}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{90DA85DE-8E3D-448E-95C0-DD4BB904A716}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -121,10 +129,12 @@ Global
 		{AE8C3B25-439B-4DF4-8D22-6BBAF8E8DBAB} = {87866C97-5162-4CD3-B910-6AA03EAB527A}
 		{2EB08009-2F7C-4A9C-B0BC-E1C7D5525F1F} = {87866C97-5162-4CD3-B910-6AA03EAB527A}
 		{70BF60FF-D784-47E4-8987-66DC3581B2B7} = {87866C97-5162-4CD3-B910-6AA03EAB527A}
-		{C4E4FCE1-0774-4642-B79A-9F4334DDED8D} = {C8C31333-BE75-4DC7-8C3C-C2AB7FBB39DB}
 		{D3B3C533-07BF-4168-A8E4-DF628A5D29FC} = {87866C97-5162-4CD3-B910-6AA03EAB527A}
 		{CC0EC385-E84A-4975-92BB-06BCF93E3200} = {87866C97-5162-4CD3-B910-6AA03EAB527A}
 		{E75724E6-30CF-41F2-BDBC-4351D714DC88} = {C8C31333-BE75-4DC7-8C3C-C2AB7FBB39DB}
+		{DA675B4A-7B62-46B5-BF06-2D1C5BB58C52} = {C8C31333-BE75-4DC7-8C3C-C2AB7FBB39DB}
+		{57323A84-CFEB-4070-8B5D-18E88A2D94C3} = {CD7CDB33-4F00-4266-8BAD-B2A789918803}
+		{90DA85DE-8E3D-448E-95C0-DD4BB904A716} = {57323A84-CFEB-4070-8B5D-18E88A2D94C3}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {92BDE447-A322-40F5-8E79-71D05B3A578B}

@@ -10,17 +10,17 @@ services:
      - 50000:80
 
   jobmanagement.api:
-    image: ${DOCKER_REGISTRY-}jobmanagementapi
+    image: ${DOCKER_REGISTRY-}jobapi
     build:
       context: .
-      dockerfile: src/Services/JobManagement/JobManagement.API/Dockerfile
+      dockerfile: src/Services/Job/Job.API/Dockerfile
     ports:
      - 51000:80
 
   profilemanagemenet.api:
-    image: ${DOCKER_REGISTRY-}profilemanagemenetapi
+    image: ${DOCKER_REGISTRY-}freelancerapi
     build:
       context: .
-      dockerfile: src/Services/ProfileManagement/ProfileManagemenet.API/Dockerfile
+      dockerfile: src/Services/Freelancer/Freelancer.API/Dockerfile
     ports:
      - 52000:80

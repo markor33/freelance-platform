@@ -15,13 +15,13 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\ProfileManagemenet.Domain\ProfileManagement.Domain.csproj" />
-    <ProjectReference Include="..\ProfileManagemenet.Infrastructure\ProfileManagement.Infrastructure.csproj" />
-    <ProjectReference Include="..\ProfileManagement.Application\ProfileManagement.Application.csproj" />
+    <Folder Include="Controllers\" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Controllers\" />
+    <ProjectReference Include="..\Job.Application\Job.Application.csproj" />
+    <ProjectReference Include="..\Job.Domain\Job.Domain.csproj" />
+    <ProjectReference Include="..\Job.Infrastructure\Job.Infrastructure.csproj" />
   </ItemGroup>
 
 </Project>

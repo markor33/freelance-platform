@@ -23,15 +23,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Application\" />
-    <Folder Include="Domain\" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\ProfileManagemenet.API\ProfileManagemenet.API.csproj" />
-    <ProjectReference Include="..\ProfileManagemenet.Domain\ProfileManagement.Domain.csproj" />
-    <ProjectReference Include="..\ProfileManagemenet.Infrastructure\ProfileManagement.Infrastructure.csproj" />
-    <ProjectReference Include="..\ProfileManagement.Application\ProfileManagement.Application.csproj" />
+    <ProjectReference Include="..\Job.API\Job.API.csproj" />
+    <ProjectReference Include="..\Job.Application\Job.Application.csproj" />
+    <ProjectReference Include="..\Job.Domain\Job.Domain.csproj" />
+    <ProjectReference Include="..\Job.Infrastructure\Job.Infrastructure.csproj" />
   </ItemGroup>
 
 </Project>

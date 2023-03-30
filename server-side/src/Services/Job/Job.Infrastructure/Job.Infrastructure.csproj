@@ -11,8 +11,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\JobManagement.Application\JobManagement.Application.csproj" />
-    <ProjectReference Include="..\JobManagement.Domain\JobManagement.Domain.csproj" />
+    <ProjectReference Include="..\Job.Application\Job.Application.csproj" />
+    <ProjectReference Include="..\Job.Domain\Job.Domain.csproj" />
   </ItemGroup>
 
 </Project>
