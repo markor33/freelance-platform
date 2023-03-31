@@ -7,14 +7,21 @@ services:
     ports:
       - "80"
 
-  jobmanagement.api:
+  freelancer.api:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
     ports:
       - "80"
 
 
-  profilemanagemenet.api:
+  job.api:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+    ports:
+      - "80"
+
+
+  web.bff:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
     ports:
