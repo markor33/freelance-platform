@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
@@ -25,7 +25,6 @@
     <ProjectReference Include="..\Freelancer.API\Freelancer.API.csproj" />
     <ProjectReference Include="..\Freelancer.Application\Freelancer.Application.csproj" />
     <ProjectReference Include="..\Freelancer.Domain\Freelancer.Domain.csproj" />
-    <ProjectReference Include="..\Freelancer.Infrastructure\Freelancer.Infrastructure.csproj" />
   </ItemGroup>
 
 </Project>

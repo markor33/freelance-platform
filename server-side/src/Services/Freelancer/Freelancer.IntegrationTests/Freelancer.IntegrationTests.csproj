@@ -23,10 +23,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\ProfileManagemenet.API\Freelancer.API.csproj" />
-    <ProjectReference Include="..\ProfileManagemenet.Domain\Freelancer.Domain.csproj" />
-    <ProjectReference Include="..\ProfileManagemenet.Infrastructure\Freelancer.Infrastructure.csproj" />
-    <ProjectReference Include="..\ProfileManagement.Application\Freelancer.Application.csproj" />
+    <ProjectReference Include="..\Freelancer.API\Freelancer.API.csproj" />
+    <ProjectReference Include="..\Freelancer.Application\Freelancer.Application.csproj" />
+    <ProjectReference Include="..\Freelancer.Domain\Freelancer.Domain.csproj" />
   </ItemGroup>
 
 </Project>

@@ -6,10 +6,12 @@ services:
     build:
       context: .
       dockerfile: src/Services/Identity/Identity.API/Dockerfile
+    depends_on:
+     - identity.db
     ports:
      - 50000:80
 
-  jobmanagement.api:
+  job.api:
     image: ${DOCKER_REGISTRY-}jobapi
     build:
       context: .
@@ -17,10 +19,32 @@ services:
     ports:
      - 51000:80
 
-  profilemanagemenet.api:
+  freelancer.api:
     image: ${DOCKER_REGISTRY-}freelancerapi
     build:
       context: .
       dockerfile: src/Services/Freelancer/Freelancer.API/Dockerfile
     ports:
      - 52000:80
+
+  identity.db:
+    image: postgres
+    restart: always
+    environment:
+     POSTGRES_USERNAME: postgres
+     POSTGRES_PASSWORD: 123456
+    volumes:
+     - identity-data:/var/lib/postgresql/data
+    ports:
+     - 40000:5432
+
+  web.bff:
+    image: ${DOCKER_REGISTRY-}webbff
+    build:
+      context: .
+      dockerfile: src/ApiGateways/Web.Bff/Web.Bff/Dockerfile
+    ports:
+     - 10000:80
+
+volumes:
+ identity-data:
