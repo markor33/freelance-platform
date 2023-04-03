@@ -1,4 +1,5 @@
-﻿using IdentityServer4.Models;
+﻿using IdentityModel;
+using IdentityServer4.Models;
 
 namespace Identity.API.Configuration
 {
@@ -18,9 +19,30 @@ namespace Identity.API.Configuration
         {
             return new List<ApiScope>
             {
-                new ApiScope("freelancer", "Freelancer Service"),
-                new ApiScope("client", "Client Service"),
+                new ApiScope("freelancer", "Freelancer Service")
+                {
+                    UserClaims =
+                    {
+                        JwtClaimTypes.Name,
+                        JwtClaimTypes.Role
+                    }
+                },
+                new ApiScope("client", "Client Service")
+                {
+                    UserClaims =
+                    {
+                        JwtClaimTypes.Name,
+                        JwtClaimTypes.Role
+                    }
+                },
                 new ApiScope("job", "Job Service")
+                {
+                    UserClaims =
+                    {
+                        JwtClaimTypes.Name,
+                        JwtClaimTypes.Role
+                    }
+                }
             };
         }
 

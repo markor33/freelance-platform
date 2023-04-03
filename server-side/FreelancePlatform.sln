@@ -11,17 +11,17 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Identity", "Identity", "{A5
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Identity.API", "src\Services\Identity\Identity.API\Identity.API.csproj", "{EE9FE6A6-5768-4037-8406-390D9DAAD04B}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Freelancer", "Freelancer", "{C8C31333-BE75-4DC7-8C3C-C2AB7FBB39DB}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "FreelancerProfile", "FreelancerProfile", "{C8C31333-BE75-4DC7-8C3C-C2AB7FBB39DB}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Job", "Job", "{87866C97-5162-4CD3-B910-6AA03EAB527A}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Freelancer.Application", "src\Services\Freelancer\Freelancer.Application\Freelancer.Application.csproj", "{42B154AB-8E18-4BB4-B8CA-C3555EE96A90}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FreelancerProfile.Application", "src\Services\FreelancerProfile\FreelancerProfile.Application\FreelancerProfile.Application.csproj", "{42B154AB-8E18-4BB4-B8CA-C3555EE96A90}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Freelancer.Domain", "src\Services\Freelancer\Freelancer.Domain\Freelancer.Domain.csproj", "{17426B72-0BD2-4D52-865D-90B7B364A5E0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FreelancerProfile.Domain", "src\Services\FreelancerProfile\FreelancerProfile.Domain\FreelancerProfile.Domain.csproj", "{17426B72-0BD2-4D52-865D-90B7B364A5E0}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Freelancer.Infrastructure", "src\Services\Freelancer\Freelancer.Infrastructure\Freelancer.Infrastructure.csproj", "{21ADD145-3249-4943-8536-04CF9212503A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FreelancerProfile.Infrastructure", "src\Services\FreelancerProfile\FreelancerProfile.Infrastructure\FreelancerProfile.Infrastructure.csproj", "{21ADD145-3249-4943-8536-04CF9212503A}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Freelancer.API", "src\Services\Freelancer\Freelancer.API\Freelancer.API.csproj", "{468DEC90-07E4-44F2-A1CA-2F5CD55BD9B2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FreelancerProfile.API", "src\Services\FreelancerProfile\FreelancerProfile.API\FreelancerProfile.API.csproj", "{468DEC90-07E4-44F2-A1CA-2F5CD55BD9B2}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Job.Domain", "src\Services\Job\Job.Domain\Job.Domain.csproj", "{CB3F739B-3ADC-4E86-903D-59AA1100A09D}"
 EndProject
@@ -35,11 +35,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Job.UnitTests", "src\Servic
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Job.IntegrationTests", "src\Services\Job\Job.IntegrationTests\Job.IntegrationTests.csproj", "{CC0EC385-E84A-4975-92BB-06BCF93E3200}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Freelancer.IntegrationTests", "src\Services\Freelancer\Freelancer.IntegrationTests\Freelancer.IntegrationTests.csproj", "{E75724E6-30CF-41F2-BDBC-4351D714DC88}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FreelancerProfile.IntegrationTests", "src\Services\FreelancerProfile\FreelancerProfile.IntegrationTests\FreelancerProfile.IntegrationTests.csproj", "{E75724E6-30CF-41F2-BDBC-4351D714DC88}"
 EndProject
 Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{2ABA66FF-53F8-49C0-A6AD-51CB4F2483CC}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Freelancer.UnitTests", "src\Services\Freelancer\Freelancer.UnitTests\Freelancer.UnitTests.csproj", "{DA675B4A-7B62-46B5-BF06-2D1C5BB58C52}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FreelancerProfile.UnitTests", "src\Services\FreelancerProfile\FreelancerProfile.UnitTests\FreelancerProfile.UnitTests.csproj", "{DA675B4A-7B62-46B5-BF06-2D1C5BB58C52}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Client", "Client", "{57323A84-CFEB-4070-8B5D-18E88A2D94C3}"
 EndProject
@@ -49,7 +49,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ApiGateways", "ApiGateways"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Web.Bff", "Web.Bff", "{6933216D-822D-4EDC-989D-10BECF9B711D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Web.Bff", "src\ApiGateways\Web.Bff\Web.Bff\Web.Bff.csproj", "{736F6B04-C836-4294-BE7A-7DA66CC02D4D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Web.Bff", "src\ApiGateways\Web.Bff\Web.Bff\Web.Bff.csproj", "{736F6B04-C836-4294-BE7A-7DA66CC02D4D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
