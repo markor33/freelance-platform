@@ -7,7 +7,7 @@ services:
     ports:
       - "80"
 
-  freelancer.api:
+  freelancer-profile.api:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
     ports:

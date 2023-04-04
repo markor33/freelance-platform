@@ -19,11 +19,13 @@ services:
     ports:
      - 51000:80
 
-  freelancer.api:
+  freelancer-profile.api:
     image: ${DOCKER_REGISTRY-}freelancerapi
     build:
       context: .
-      dockerfile: src/Services/Freelancer/Freelancer.API/Dockerfile
+      dockerfile: src/Services/FreelancerProfile/FreelancerProfile.API/Dockerfile
+    depends_on:
+     - freelancer-profile.db
     ports:
      - 52000:80
 
@@ -38,6 +40,17 @@ services:
     ports:
      - 40000:5432
 
+  freelancer-profile.db:
+    image: postgres
+    restart: always
+    environment:
+     POSTGRES_USERNAME: postgres
+     POSTGRES_PASSWORD: 123456
+    volumes:
+     - freelancer-profile-data:/var/lib/postgresql/data
+    ports:
+     - 41000:5432
+
   web.bff:
     image: ${DOCKER_REGISTRY-}webbff
     build:
@@ -48,3 +61,4 @@ services:
 
 volumes:
  identity-data:
+ freelancer-profile-data:
