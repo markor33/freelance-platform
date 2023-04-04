@@ -11,7 +11,7 @@ namespace FreelancerProfile.API.Security
             _context = context;
         }
 
-        public Guid GetUserdId()
+        public Guid GetUserId()
         {
             return new Guid(_context.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value);
         }

@@ -1,0 +1,37 @@
+form h2 {
+    text-align: center;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    padding: 2% 15% 0% 15%;
+}
+
+.name-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-top: 5%;
+}
+
+.address-container {
+    display: flex;
+    flex-direction: column;
+}
+
+.address-container div {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.submit-button-container {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.submit-button-container button {
+    margin-top: 5%;
+    font-size: large;
+}

@@ -22,7 +22,7 @@ namespace FreelancerProfile.IntegrationTests
         {
             var mediator = scope.ServiceProvider.GetRequiredService<IMediator>();
             var identityService = new Mock<IIdentityService>();
-            identityService.Setup(i => i.GetUserdId()).Returns(userId);
+            identityService.Setup(i => i.GetUserId()).Returns(userId);
             return new FreelancerController(mediator, identityService.Object);
         }
 

@@ -20,7 +20,7 @@ namespace FreelancerProfile.Infrastructure.Repositories
             return (await _context.AddAsync(freelancer)).Entity;
         }
 
-        public async Task<Freelancer> GetByUserId(Guid userId)
+        public async Task<Freelancer> GetByUserIdAsync(Guid userId)
         {
             return await _context.Freelancers.Where(f => f.UserId== userId).FirstOrDefaultAsync();
         }
