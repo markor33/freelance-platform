@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Freelancer } from '../models/freelancer.model';
 import { BehaviorSubject, Observable, map } from 'rxjs';
 import { AuthService } from '../../auth/services/auth.service';
+import { CreateFreelancerCommand } from '../models/create-freelancer-command.model';
 
 @Injectable({
   providedIn: 'root'
@@ -33,8 +34,8 @@ export class FreelancerService {
     });
   }
 
-  completeRegistration(freelancer: Freelancer): Observable<any> {
-    return this.httpClient.post<any>('api/freelancer/freelancer', freelancer, this.httpOptions)
+  completeRegistration(createCommand: CreateFreelancerCommand): Observable<any> {
+    return this.httpClient.post<any>('api/freelancer/freelancer', createCommand, this.httpOptions)
     .pipe(
       map((res) => {
         this.freelancerSource.next(new Freelancer())

@@ -2,6 +2,8 @@
 using FreelancerProfile.API.Security;
 using FreelancerProfile.Application.Commands;
 using FreelancerProfile.Domain.AggregatesModel.FreelancerAggregate;
+using FreelancerProfile.Domain.AggregatesModel.FreelancerAggregate.Enums;
+using FreelancerProfile.Domain.AggregatesModel.FreelancerAggregate.ValueObjects;
 using FreelancerProfile.IntegrationTests.Setup;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -23,7 +25,7 @@ namespace FreelancerProfile.IntegrationTests
             var mediator = scope.ServiceProvider.GetRequiredService<IMediator>();
             var identityService = new Mock<IIdentityService>();
             identityService.Setup(i => i.GetUserId()).Returns(userId);
-            return new FreelancerController(mediator, identityService.Object);
+            return new FreelancerController(mediator, null, identityService.Object);
         }
 
         [Fact]
@@ -56,12 +58,20 @@ namespace FreelancerProfile.IntegrationTests
             => new(Guid.NewGuid(),
                 "Pera",
                 "Peric",
-                "Serbia",
-                "Belgrade",
-                "Knez Mihajlova",
-                "111",
-                "11000",
-                "0556456561",
-                "Central Europe Standard Time");
+                new Contact("Central Europe Standard Time",
+                    new Address(
+                        "Serbia",
+                        "Belgrade",
+                        "Knez Mihajlova",
+                        "111",
+                        "11000"),
+                    "0556456561"),
+                new ProfileSummary("Title", "Desc"),
+                new HourlyRate(10, "USD"),
+                Availability.FULL_TIME,
+                ExperienceLevel.SENIOR,
+                Guid.Parse("523c9ba1-4e91-4a75-85c3-cf386c078aa9"),
+                0,
+                LanguageProficiencyLevel.NATIVE);
     }
 }

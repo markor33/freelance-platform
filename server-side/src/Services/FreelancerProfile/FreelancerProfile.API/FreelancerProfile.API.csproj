@@ -26,4 +26,8 @@
 	<InternalsVisibleTo Include="..\FreelancerProfile.IntegrationTests\FreelancerProfile.IntegrationTests.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="DTO\" />
+  </ItemGroup>
+
 </Project>

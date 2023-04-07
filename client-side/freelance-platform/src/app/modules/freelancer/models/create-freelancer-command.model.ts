@@ -1,11 +1,17 @@
+import { Contact } from "../../shared/models/contact.model";
+import { LanguageProficiencyLevel } from "../../shared/models/language.model";
+import { ProfileSummary, HourlyRate, Availability, ExperienceLevel } from "./freelancer.model";
+
 export class CreateFreelancerCommand {
     firstName: string = '';
     lastName: string = '';
-    phoneNumber: string = '';
-    timeZoneId: string = 'Central Europe Standard Time';
-    country: string = '';
-    city: string = '';
-    street: string = '';
-    number: string = '';
-    zipCode: string = '';
+    contact: Contact = new Contact();
+    profileSummary: ProfileSummary = new ProfileSummary();
+    hourlyRate: HourlyRate = new HourlyRate();
+    isProfilePublic: boolean = false;
+    availability: Availability = Availability.FULL_TIME;
+    professionId: string = '';
+    experienceLevel: ExperienceLevel = ExperienceLevel.JUNIOR;
+    languageId : number = 0;
+    languageProficiencyLevel: LanguageProficiencyLevel = LanguageProficiencyLevel.CONVERSATIONAL;
 }

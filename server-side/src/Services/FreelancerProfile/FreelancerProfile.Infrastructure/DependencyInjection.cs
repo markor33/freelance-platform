@@ -1,4 +1,6 @@
-﻿using FreelancerProfile.Domain.AggregatesModel.FreelancerAggregate;
+﻿using FreelancerProfile.Application.Queries;
+using FreelancerProfile.Domain.AggregatesModel.FreelancerAggregate;
+using FreelancerProfile.Infrastructure.Queries;
 using FreelancerProfile.Infrastructure.Repositories;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -9,6 +11,11 @@ namespace ProfileManagemenet.Infrastructure
         public static IServiceCollection AddInfrastructure(this IServiceCollection services)
         {
             services.AddTransient(typeof(IFreelancerRepository), typeof(FreelancerRepository));
+
+            // queries
+            services.AddTransient(typeof(ILanguageQueries), typeof(LanguageQueries));
+            services.AddTransient(typeof(IProfessionQueries), typeof(ProfessionQueries));
+
             return services;
         }
     }

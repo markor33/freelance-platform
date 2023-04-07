@@ -1,4 +1,6 @@
 ﻿using FreelancerProfile.Domain.AggregatesModel.FreelancerAggregate;
+using FreelancerProfile.Domain.AggregatesModel.FreelancerAggregate.Enums;
+using FreelancerProfile.Domain.AggregatesModel.FreelancerAggregate.ValueObjects;
 using MediatR;
 using System.Runtime.Serialization;
 using System.Text.Json.Serialization;
@@ -15,37 +17,44 @@ namespace FreelancerProfile.Application.Commands
         [DataMember]
         public string LastName { get; private set; }
         [DataMember]
-        public string Country { get; private set; }
+        public Contact Contact { get; private set; }
         [DataMember]
-        public string City { get; private set; }
+        public bool IsProfilePublic { get; private set; }
         [DataMember]
-        public string Street { get; private set; }
+        public ProfileSummary ProfileSummary { get; private set; }
         [DataMember]
-        public string Number { get; private set; }
+        public HourlyRate HourlyRate { get; private set; }
         [DataMember]
-        public string ZipCode { get; private set; }
+        public Availability Availability { get; private set; }
         [DataMember]
-        public string PhoneNumber { get; private set; }
+        public ExperienceLevel ExperienceLevel { get; private set; }
         [DataMember]
-        public string TimeZoneId { get; private set; }
+        public Guid ProfessionId { get; private set; }
+        [DataMember]
+        public int LanguageId { get; private set; }
+        [DataMember]
+        public LanguageProficiencyLevel LanguageProficiencyLevel { get; private set; }
 
         public CreateFreelancerCommand() { }
 
         [JsonConstructor]
-        public CreateFreelancerCommand(Guid userId, string firstName, string lastName, 
-            string country, string city, string street, string number, string zipCode,
-            string phoneNumber, string timeZoneId)
+        public CreateFreelancerCommand(Guid userId, string firstName, string lastName,
+            Contact contact, bool isProfilePublic, ProfileSummary profileSummary, HourlyRate hourlyRate,
+            Availability availability, ExperienceLevel experienceLevel, Guid professionId,
+            int languageId, LanguageProficiencyLevel languageProficiencyLevel)
         {
             UserId = userId;
             FirstName = firstName;
             LastName = lastName;
-            Country = country;
-            City = city;
-            Street = street;
-            Number = number;
-            ZipCode = zipCode;
-            PhoneNumber = phoneNumber;
-            TimeZoneId = timeZoneId;
+            Contact = contact;
+            IsProfilePublic = isProfilePublic;
+            ProfileSummary = profileSummary;
+            HourlyRate = hourlyRate;
+            Availability = availability;
+            ExperienceLevel = experienceLevel;
+            ProfessionId = professionId;
+            LanguageId = languageId;
+            LanguageProficiencyLevel = languageProficiencyLevel;
         }
 
     }

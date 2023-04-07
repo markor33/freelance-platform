@@ -17,7 +17,6 @@ export class HomeComponent {
     private dialog: MatDialog, 
     private authService: AuthService,
     private freelancerService: FreelancerService) { 
-      console.log('asdasdasd');
       this.authService.loginObserver.subscribe({
         next: (val) => this.isUserLogged = val
       });
@@ -27,10 +26,9 @@ export class HomeComponent {
     this.freelancerService.freelancerObserver.subscribe((freelancer) => {
       if (freelancer != null || !this.authService.isLogged())
         return;
-      console.log(freelancer);
       this.dialog.open(CompleteRegisterDialogComponent, {
         width: '40%',
-        height: '60%'
+        height: '65%'
       });
     })
   }

@@ -1,6 +1,8 @@
 ﻿using FreelancerProfile.Domain.SeedWork;
+using System.Runtime.Serialization;
+using System.Text.Json.Serialization;
 
-namespace FreelancerProfile.Domain.AggregatesModel.FreelancerAggregate
+namespace FreelancerProfile.Domain.AggregatesModel.FreelancerAggregate.ValueObjects
 {
     public class Contact : ValueObject
     {
@@ -8,11 +10,11 @@ namespace FreelancerProfile.Domain.AggregatesModel.FreelancerAggregate
         public Address Address { get; private set; }
         public string PhoneNumber { get; private set; }
         private TimeZoneInfo _timeZone = null;
-        public TimeZoneInfo TimeZone 
-        { 
+        public TimeZoneInfo TimeZone
+        {
             get
             {
-                if (_timeZone is not null) 
+                if (_timeZone is not null)
                     return _timeZone;
                 _timeZone = TimeZoneInfo.FindSystemTimeZoneById(TimeZoneId);
                 return _timeZone;
@@ -22,6 +24,7 @@ namespace FreelancerProfile.Domain.AggregatesModel.FreelancerAggregate
 
         public Contact() { }
 
+        [JsonConstructor]
         public Contact(string timeZoneId, Address address, string phoneNumber)
         {
             TimeZoneId = timeZoneId;
