@@ -4,6 +4,6 @@ namespace FreelancerProfile.Application.Queries
 {
     public interface IFreelancerQueries
     {
-        Task<FreelancerViewModel> GetFreelancerFromUserAsync(Guid userId);
+        Task<Freelancer> GetFreelancerFromUserAsync(Guid userId);
     }
 }

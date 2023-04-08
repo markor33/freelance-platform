@@ -28,7 +28,7 @@ namespace FreelancerProfile.API.Controllers
 
         [HttpGet]
         [Authorize(Roles = "FREELANCER")]
-        public async Task<ActionResult<FreelancerViewModel>> Get()
+        public async Task<ActionResult<Freelancer>> Get()
         {
             var userId = _identityService.GetUserId();
             var freelancer = await _queries.GetFreelancerFromUserAsync(userId);

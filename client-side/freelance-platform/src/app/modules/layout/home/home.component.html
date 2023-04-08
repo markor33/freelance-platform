@@ -5,9 +5,13 @@
         <mat-icon>person</mat-icon>
     </button>
     <mat-menu #menu="matMenu">
+        <button mat-menu-item>My profile</button>
         <button mat-menu-item (click)="logout()">Logout</button>
       </mat-menu>
     <button mat-icon-button routerLink="/auth/login" *ngIf="!isUserLogged">
         <mat-icon>login</mat-icon>
     </button>
 </mat-toolbar>
+<div style="height: 100%; width: 100%; margin-top: 1%;">
+    <router-outlet></router-outlet>
+</div>

@@ -13,14 +13,17 @@ import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import { HttpClientModule } from '@angular/common/http';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatIconModule } from '@angular/material/icon';
+import { FreelancerProfileComponent } from './freelancer-profile/freelancer-profile.component';
+import { MatCardModule } from '@angular/material/card';
 
-const routes: Routes = [
-  { path: 'complete', component: CompleteRegisterDialogComponent}
+export const freelancerRoutes: Routes = [
+  { path: 'freelancer/profile', component: FreelancerProfileComponent}
 ];
 
 @NgModule({
   declarations: [
-    CompleteRegisterDialogComponent
+    CompleteRegisterDialogComponent,
+    FreelancerProfileComponent
   ],
   imports: [
     HttpClientModule,
@@ -31,12 +34,12 @@ const routes: Routes = [
     MatStepperModule,
     MatSelectModule,
     MatRadioModule,
+    MatCardModule,
     MatProgressSpinnerModule,
     MatCheckboxModule,
     MatIconModule,
     ReactiveFormsModule,
-    MatGridListModule,
-    RouterModule.forRoot(routes)
+    MatGridListModule
   ]
 })
 export class FreelancerModule { }

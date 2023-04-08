@@ -8,11 +8,7 @@ namespace FreelancerProfile.Application.Queries
     {
         public MappingProfile()
         {
-            CreateMap<Address, AddressViewModel>();
-
-            CreateMap<Contact, ContactViewModel>();
-
-            CreateMap<Freelancer, FreelancerViewModel>();
+            
         }
     }
 }

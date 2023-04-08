@@ -1,0 +1,90 @@
+<div class="container">
+    <div class="side-content">
+        <div class="general-info">
+            <img class="profile-picture" src="https://pbs.twimg.com/media/FjU2lkcWYAgNG6d.jpg">
+            <span class="name">{{freelancer.firstName + ' ' + freelancer.lastName.charAt(0)}}.</span>
+            <div>
+                <span class="icon-text-align">
+                    <mat-icon>location_on</mat-icon>&nbsp;
+                    {{freelancer.contact.address.city + ', ' + freelancer.contact.address.country}}
+                </span>
+                <span class="icon-text-align">
+                    <mat-icon>schedule</mat-icon>&nbsp;
+                    Currently 02:50 PM here
+                </span>
+                <span class="icon-text-align">
+                    <mat-icon>euro</mat-icon>&nbsp;
+                    {{freelancer.hourlyRate.amount + ' / hour ' + freelancer.hourlyRate.currency}}
+                </span>
+                <span class="icon-text-align">
+                    <mat-icon>loyalty</mat-icon>&nbsp;
+                    Joined July 25, 2018
+                </span>
+            </div>
+        </div>
+        <div class="about-me">
+            <div class="languages">
+                <span class="icon-text-align">
+                    <mat-icon>translate</mat-icon>&nbsp;
+                    <b>Languages:</b>
+                </span>
+                <div *ngFor="let languageKnowledge of freelancer.languageKnowledges">
+                    <span><b>{{languageKnowledge.language.name}}:</b></span>&nbsp;<span>{{languageProficiencyLevelToString(languageKnowledge.profiencyLevel)}}</span><br>
+                </div>
+            </div>
+            <span class="availability icon-text-align">
+                <mat-icon>calendar_month</mat-icon>&nbsp;
+                <span><b>Availability:</b></span>&nbsp;<span>{{availabilityToString(freelancer.availability)}}</span>
+            </span>
+        </div>
+        <div class="profession">
+            <div>
+                <span class="icon-text-align">
+                    <mat-icon>construction</mat-icon>&nbsp;
+                    <b>Profession:</b>&nbsp;<span>{{freelancer.profession.name}}</span>
+                </span>
+            </div>
+            <div>
+                <span class="icon-text-align">
+                    <mat-icon>bolt</mat-icon>&nbsp;
+                    <b>Experience level:</b>&nbsp;<span>{{experienceLevelToString(freelancer.experienceLevel)}}</span>
+                </span>
+            </div>
+        </div>
+    </div>
+    <div class="main-content">
+        <div class="profile-summary">
+            <h2>.NET Developer</h2>
+            <p>
+                I'm a .NET / C# engineer with over 10 years of experience in software development.<br>
+                During this time I've mostly worked as a full-stack engineer with a stronger focus on back-end systems.<br>
+                I have solid knowledge of full SDLC and best practices.<br>
+                <br>
+                I'm doing my best on every project to bring the best quality, as soon as possible.<br>
+                <br>
+                <br>
+                Technologies i'm experienced with:<br>
+                .NET / C#<br>
+                ASP.NET<br>
+                ASP.NET MVC / MVC WebAPI<br>
+                .NET Core,<br>
+                .NET Core MVC / API,<br>
+                WPF<br>
+                WinForms<br>
+                WebAPI<br>
+                WCF<br>
+                PHP<br>
+                HTML<br>
+                CSS<br>
+                JS / Jquery<br>
+                Angular ( js, 2+)<br>
+                MSSQL<br>
+                MySQL<br>
+                MongoDB<br>
+                PostgreSQL<br>
+                Azure / AWS<br>
+                SignalR<br>
+            </p>
+        </div>
+    </div>
+</div>
