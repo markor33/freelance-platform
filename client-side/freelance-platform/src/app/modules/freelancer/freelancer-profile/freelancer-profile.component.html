@@ -54,37 +54,23 @@
     </div>
     <div class="main-content">
         <div class="profile-summary">
-            <h2>.NET Developer</h2>
-            <p>
-                I'm a .NET / C# engineer with over 10 years of experience in software development.<br>
-                During this time I've mostly worked as a full-stack engineer with a stronger focus on back-end systems.<br>
-                I have solid knowledge of full SDLC and best practices.<br>
-                <br>
-                I'm doing my best on every project to bring the best quality, as soon as possible.<br>
-                <br>
-                <br>
-                Technologies i'm experienced with:<br>
-                .NET / C#<br>
-                ASP.NET<br>
-                ASP.NET MVC / MVC WebAPI<br>
-                .NET Core,<br>
-                .NET Core MVC / API,<br>
-                WPF<br>
-                WinForms<br>
-                WebAPI<br>
-                WCF<br>
-                PHP<br>
-                HTML<br>
-                CSS<br>
-                JS / Jquery<br>
-                Angular ( js, 2+)<br>
-                MSSQL<br>
-                MySQL<br>
-                MongoDB<br>
-                PostgreSQL<br>
-                Azure / AWS<br>
-                SignalR<br>
-            </p>
+            <h2>{{freelancer.profileSummary.title}}</h2>
+            <p>{{freelancer.profileSummary.description}}</p>
+        </div>
+        <div class="education">
+            <span class="title icon-text-align">
+                <h2>Education:</h2>&nbsp;
+                <button mat-icon-button color="primary" (click)="openAddEducationDialog()">
+                    <mat-icon>add_circle</mat-icon>
+                </button>
+            </span>
+            <div class="education-content">
+                <div *ngFor="let education of freelancer.educations">
+                    <h3>{{education.schoolName}}</h3>
+                    <span>{{education.degree}}</span>
+                    <span>{{education.attended.start}}</span>
+                </div>
+            </div>
         </div>
     </div>
 </div>

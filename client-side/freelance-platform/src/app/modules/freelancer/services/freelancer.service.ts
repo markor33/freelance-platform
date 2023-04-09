@@ -1,9 +1,10 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Freelancer } from '../models/freelancer.model';
+import { Education, Freelancer } from '../models/freelancer.model';
 import { BehaviorSubject, Observable, map } from 'rxjs';
 import { AuthService } from '../../auth/services/auth.service';
 import { CreateFreelancerCommand } from '../models/create-freelancer-command.model';
+import { AddEducationCommand } from '../models/add-education-command.model';
 
 @Injectable({
   providedIn: 'root'
@@ -41,6 +42,10 @@ export class FreelancerService {
         this.freelancerSource.next(new Freelancer())
       })
     );
+  }
+
+  addEducation(addEducationCommand: AddEducationCommand): Observable<Education> {
+    return this.httpClient.post<Education>('api/freelancer/freelancer/education', addEducationCommand, this.httpOptions);
   }
 
 }

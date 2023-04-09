@@ -28,8 +28,8 @@ export class CompleteRegisterDialogComponent {
     {id: 2, name: 'Serbian', 'shortName': 'sr'}, 
     {id: 3, name: 'German', 'shortName': 'de'}];
   professions: Profession[] = [
-    {id: '11409707-7807-4e21-9c49-04b70e34c5e8', name: 'Graphic designer'},
-    {id: '14c01c08-bc78-481e-b47d-b7354d8a6362', name: 'Software engineer'}];
+    {id: '5d9c0a7f-cf11-4c29-930a-0842fe6be2ad', name: 'Graphic designer'},
+    {id: 'd6861f65-0950-4c7f-b5b1-de644f923fbb', name: 'Software engineer'}];
 
   generalFormGroup = this.formBuilder.group({
     firstName: new FormControl('', Validators.required),
@@ -107,6 +107,7 @@ export class CompleteRegisterDialogComponent {
 
   completeRegistration(): void {
     var createCommand = this.parseToCommandModel();
+    console.log(createCommand);
     this.freelancerService.completeRegistration(createCommand).subscribe({
       complete: () => this.dialogRef.close(),
       error: () => console.log('error')

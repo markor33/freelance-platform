@@ -31,21 +31,21 @@ namespace FreelancerProfile.Application.Validations
 
             RuleFor(x => x.ProfileSummary.Title).NotEmpty().MaximumLength(50);
 
-            RuleFor(x => x.ProfileSummary.Description).NotEmpty().MaximumLength(250);
+            RuleFor(x => x.ProfileSummary.Description).NotEmpty();
 
             RuleFor(x => x.HourlyRate.Amount).NotEmpty().GreaterThan(0);
 
             RuleFor(x => x.HourlyRate.Currency).NotEmpty().MaximumLength(5);
 
-            RuleFor(x => x.Availability).NotEmpty();
+            RuleFor(x => x.Availability).IsInEnum();
 
-            RuleFor(x => x.ExperienceLevel).NotEmpty();
+            RuleFor(x => x.ExperienceLevel).IsInEnum();
 
             RuleFor(x => x.ProfessionId).NotEmpty();
 
             RuleFor(x => x.LanguageId).NotEmpty();
 
-            RuleFor(x => x.LanguageProficiencyLevel).NotEmpty();
+            RuleFor(x => x.LanguageProficiencyLevel).IsInEnum();
         }
     }
 }

@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import { Availability, ExperienceLevel, Freelancer } from '../models/freelancer.model';
 import { FreelancerService } from '../services/freelancer.service';
 import { LanguageProficiencyLevel } from '../../shared/models/language.model';
+import { MatDialog } from '@angular/material/dialog';
+import { AddEducationDialogComponent } from './dialogs/add-education-dialog/add-education-dialog.component';
 
 @Component({
   selector: 'app-freelancer-profile',
@@ -12,7 +14,9 @@ export class FreelancerProfileComponent {
 
   freelancer: Freelancer = new Freelancer();
 
-  constructor(private freelancerService: FreelancerService) { }
+  constructor(
+    private freelancerService: FreelancerService,
+    private dialog: MatDialog) { }
 
   ngOnInit() {
     this.freelancerService.freelancerObserver.subscribe({
@@ -27,7 +31,6 @@ export class FreelancerProfileComponent {
   }
 
   experienceLevelToString(experienceLevel: ExperienceLevel): string {
-    console.log(this.freelancer);
     if (experienceLevel == ExperienceLevel.JUNIOR)
       return 'Junior';
     else if (experienceLevel == ExperienceLevel.MEDIOR)
@@ -43,6 +46,13 @@ export class FreelancerProfileComponent {
     else if (languageProficiencyLevel == LanguageProficiencyLevel.FLUENT)
       return 'Fluent';
     return 'Native';
+  }
+
+  openAddEducationDialog() {
+    this.dialog.open(AddEducationDialogComponent, {
+      width: '40%',
+      height: '47%'
+    })
   }
 
 }

@@ -32,6 +32,16 @@ namespace FreelancerProfile.Infrastructure.EntityConfiguration
 
             builder.HasMany(f => f.Skills)
                 .WithMany(s => s.Freelancers);
+
+            builder.HasMany(f => f.LanguageKnowledges).WithOne().IsRequired();
+
+            builder.HasMany(f => f.Educations).WithOne().IsRequired();
+
+            builder.HasMany(f => f.Certifications).WithOne().IsRequired();
+
+            builder.HasMany(f => f.Employments).WithOne().IsRequired();
+
+            builder.HasMany(f => f.PortfolioProjects).WithOne().IsRequired();
         }
     }
 }

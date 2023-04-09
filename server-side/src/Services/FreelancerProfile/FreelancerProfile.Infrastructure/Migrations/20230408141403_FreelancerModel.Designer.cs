@@ -12,8 +12,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace FreelancerProfile.Infrastructure.Migrations
 {
     [DbContext(typeof(FreelancerProfileContext))]
-    [Migration("20230405011559_FreelancerModelUpdate")]
-    partial class FreelancerModelUpdate
+    [Migration("20230408141403_FreelancerModel")]
+    partial class FreelancerModel
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -23,6 +23,84 @@ namespace FreelancerProfile.Infrastructure.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
+
+            modelBuilder.Entity("FreelancerProfile.Domain.AggregatesModel.FreelancerAggregate.Entites.Certification", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("text");
+
+                    b.Property<Guid>("FreelancerId")
+                        .HasColumnType("uuid");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("Provider")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("FreelancerId");
+
+                    b.ToTable("Certifications", (string)null);
+                });
+
+            modelBuilder.Entity("FreelancerProfile.Domain.AggregatesModel.FreelancerAggregate.Entites.Education", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<string>("Degree")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<Guid>("FreelancerId")
+                        .HasColumnType("uuid");
+
+                    b.Property<string>("SchoolName")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("FreelancerId");
+
+                    b.ToTable("Educations", (string)null);
+                });
+
+            modelBuilder.Entity("FreelancerProfile.Domain.AggregatesModel.FreelancerAggregate.Entites.Employment", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<string>("Company")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("text");
+
+                    b.Property<Guid>("FreelancerId")
+                        .HasColumnType("uuid");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("FreelancerId");
+
+                    b.ToTable("Employments", (string)null);
+                });
 
             modelBuilder.Entity("FreelancerProfile.Domain.AggregatesModel.FreelancerAggregate.Entites.Language", b =>
                 {
@@ -73,7 +151,7 @@ namespace FreelancerProfile.Infrastructure.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
 
-                    b.Property<Guid?>("FreelancerId")
+                    b.Property<Guid>("FreelancerId")
                         .HasColumnType("uuid");
 
                     b.Property<int>("LanguageId")
@@ -89,6 +167,30 @@ namespace FreelancerProfile.Infrastructure.Migrations
                     b.HasIndex("LanguageId");
 
                     b.ToTable("LanguageKnowledges", (string)null);
+                });
+
+            modelBuilder.Entity("FreelancerProfile.Domain.AggregatesModel.FreelancerAggregate.Entites.PortfolioProject", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<Guid>("FreelancerId")
+                        .HasColumnType("uuid");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("FreelancerId");
+
+                    b.ToTable("PortfolioProjects", (string)null);
                 });
 
             modelBuilder.Entity("FreelancerProfile.Domain.AggregatesModel.FreelancerAggregate.Entites.Profession", b =>
@@ -114,13 +216,13 @@ namespace FreelancerProfile.Infrastructure.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("14c01c08-bc78-481e-b47d-b7354d8a6362"),
+                            Id = new Guid("d6861f65-0950-4c7f-b5b1-de644f923fbb"),
                             Description = "Software engineer",
                             Name = "Software engineer"
                         },
                         new
                         {
-                            Id = new Guid("11409707-7807-4e21-9c49-04b70e34c5e8"),
+                            Id = new Guid("5d9c0a7f-cf11-4c29-930a-0842fe6be2ad"),
                             Description = "Graphic designer",
                             Name = "Graphic designer"
                         });
@@ -154,45 +256,45 @@ namespace FreelancerProfile.Infrastructure.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("de38b093-b6b2-4090-912a-1cc492a21b24"),
+                            Id = new Guid("4320c74f-4b82-4a54-abf7-6097fbfd0078"),
                             Description = "Programming language",
                             Name = "Java",
-                            ProfessionId = new Guid("14c01c08-bc78-481e-b47d-b7354d8a6362")
+                            ProfessionId = new Guid("d6861f65-0950-4c7f-b5b1-de644f923fbb")
                         },
                         new
                         {
-                            Id = new Guid("decdb9a3-57dd-4168-ad02-6c9235ebb037"),
+                            Id = new Guid("93098c08-85ff-4c31-994b-5dec79c17d79"),
                             Description = "Programming language",
                             Name = "C#",
-                            ProfessionId = new Guid("14c01c08-bc78-481e-b47d-b7354d8a6362")
+                            ProfessionId = new Guid("d6861f65-0950-4c7f-b5b1-de644f923fbb")
                         },
                         new
                         {
-                            Id = new Guid("05efc309-4190-45be-8a5d-0e05feb25c63"),
+                            Id = new Guid("ea1627e1-2d59-427d-b5b4-13ab7e944c7f"),
                             Description = "Web framework",
                             Name = "ASP>NET CORE",
-                            ProfessionId = new Guid("14c01c08-bc78-481e-b47d-b7354d8a6362")
+                            ProfessionId = new Guid("d6861f65-0950-4c7f-b5b1-de644f923fbb")
                         },
                         new
                         {
-                            Id = new Guid("bf691946-8211-4681-b0ac-3b8fa99936a3"),
+                            Id = new Guid("39855c82-eb88-4794-b539-85407fbb59c5"),
                             Description = "Design software",
                             Name = "Adobe Illustrator",
-                            ProfessionId = new Guid("11409707-7807-4e21-9c49-04b70e34c5e8")
+                            ProfessionId = new Guid("5d9c0a7f-cf11-4c29-930a-0842fe6be2ad")
                         },
                         new
                         {
-                            Id = new Guid("2931d233-4d0f-4eb9-b1d4-ca8dff1abd1b"),
+                            Id = new Guid("336dda85-0a33-42b8-a591-b18a29dbcaa6"),
                             Description = "Design software",
                             Name = "Adobe Photoshop",
-                            ProfessionId = new Guid("11409707-7807-4e21-9c49-04b70e34c5e8")
+                            ProfessionId = new Guid("5d9c0a7f-cf11-4c29-930a-0842fe6be2ad")
                         },
                         new
                         {
-                            Id = new Guid("80e7ea5c-9f97-4882-92bf-51f33e69dad2"),
+                            Id = new Guid("75b05ed6-9847-4564-ab1d-8f34acf657bc"),
                             Description = "Design software",
                             Name = "CorelDRAW Graphics Suite",
-                            ProfessionId = new Guid("11409707-7807-4e21-9c49-04b70e34c5e8")
+                            ProfessionId = new Guid("5d9c0a7f-cf11-4c29-930a-0842fe6be2ad")
                         });
                 });
 
@@ -252,11 +354,106 @@ namespace FreelancerProfile.Infrastructure.Migrations
                     b.ToTable("FreelancerSkill");
                 });
 
+            modelBuilder.Entity("FreelancerProfile.Domain.AggregatesModel.FreelancerAggregate.Entites.Certification", b =>
+                {
+                    b.HasOne("FreelancerProfile.Domain.AggregatesModel.FreelancerAggregate.Freelancer", null)
+                        .WithMany("Certifications")
+                        .HasForeignKey("FreelancerId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.OwnsOne("FreelancerProfile.Domain.AggregatesModel.FreelancerAggregate.ValueObjects.DateRange", "Attended", b1 =>
+                        {
+                            b1.Property<Guid>("CertificationId")
+                                .HasColumnType("uuid");
+
+                            b1.Property<DateOnly>("End")
+                                .HasColumnType("date");
+
+                            b1.Property<DateOnly>("Start")
+                                .HasColumnType("date");
+
+                            b1.HasKey("CertificationId");
+
+                            b1.ToTable("Certifications");
+
+                            b1.WithOwner()
+                                .HasForeignKey("CertificationId");
+                        });
+
+                    b.Navigation("Attended")
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("FreelancerProfile.Domain.AggregatesModel.FreelancerAggregate.Entites.Education", b =>
+                {
+                    b.HasOne("FreelancerProfile.Domain.AggregatesModel.FreelancerAggregate.Freelancer", null)
+                        .WithMany("Educations")
+                        .HasForeignKey("FreelancerId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.OwnsOne("FreelancerProfile.Domain.AggregatesModel.FreelancerAggregate.ValueObjects.DateRange", "Attended", b1 =>
+                        {
+                            b1.Property<Guid>("EducationId")
+                                .HasColumnType("uuid");
+
+                            b1.Property<DateOnly>("End")
+                                .HasColumnType("date");
+
+                            b1.Property<DateOnly>("Start")
+                                .HasColumnType("date");
+
+                            b1.HasKey("EducationId");
+
+                            b1.ToTable("Educations");
+
+                            b1.WithOwner()
+                                .HasForeignKey("EducationId");
+                        });
+
+                    b.Navigation("Attended")
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("FreelancerProfile.Domain.AggregatesModel.FreelancerAggregate.Entites.Employment", b =>
+                {
+                    b.HasOne("FreelancerProfile.Domain.AggregatesModel.FreelancerAggregate.Freelancer", null)
+                        .WithMany("Employments")
+                        .HasForeignKey("FreelancerId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.OwnsOne("FreelancerProfile.Domain.AggregatesModel.FreelancerAggregate.ValueObjects.DateRange", "Period", b1 =>
+                        {
+                            b1.Property<Guid>("EmploymentId")
+                                .HasColumnType("uuid");
+
+                            b1.Property<DateOnly>("End")
+                                .HasColumnType("date");
+
+                            b1.Property<DateOnly>("Start")
+                                .HasColumnType("date");
+
+                            b1.HasKey("EmploymentId");
+
+                            b1.ToTable("Employments");
+
+                            b1.WithOwner()
+                                .HasForeignKey("EmploymentId");
+                        });
+
+                    b.Navigation("Period")
+                        .IsRequired();
+                });
+
             modelBuilder.Entity("FreelancerProfile.Domain.AggregatesModel.FreelancerAggregate.Entites.LanguageKnowledge", b =>
                 {
                     b.HasOne("FreelancerProfile.Domain.AggregatesModel.FreelancerAggregate.Freelancer", null)
                         .WithMany("LanguageKnowledges")
-                        .HasForeignKey("FreelancerId");
+                        .HasForeignKey("FreelancerId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("FreelancerProfile.Domain.AggregatesModel.FreelancerAggregate.Entites.Language", "Language")
                         .WithMany()
@@ -265,6 +462,37 @@ namespace FreelancerProfile.Infrastructure.Migrations
                         .IsRequired();
 
                     b.Navigation("Language");
+                });
+
+            modelBuilder.Entity("FreelancerProfile.Domain.AggregatesModel.FreelancerAggregate.Entites.PortfolioProject", b =>
+                {
+                    b.HasOne("FreelancerProfile.Domain.AggregatesModel.FreelancerAggregate.Freelancer", null)
+                        .WithMany("PortfolioProjects")
+                        .HasForeignKey("FreelancerId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.OwnsOne("FreelancerProfile.Domain.AggregatesModel.FreelancerAggregate.ValueObjects.DateRange", "Period", b1 =>
+                        {
+                            b1.Property<Guid>("PortfolioProjectId")
+                                .HasColumnType("uuid");
+
+                            b1.Property<DateOnly>("End")
+                                .HasColumnType("date");
+
+                            b1.Property<DateOnly>("Start")
+                                .HasColumnType("date");
+
+                            b1.HasKey("PortfolioProjectId");
+
+                            b1.ToTable("PortfolioProjects");
+
+                            b1.WithOwner()
+                                .HasForeignKey("PortfolioProjectId");
+                        });
+
+                    b.Navigation("Period")
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("FreelancerProfile.Domain.AggregatesModel.FreelancerAggregate.Entites.Skill", b =>
@@ -418,7 +646,15 @@ namespace FreelancerProfile.Infrastructure.Migrations
 
             modelBuilder.Entity("FreelancerProfile.Domain.AggregatesModel.FreelancerAggregate.Freelancer", b =>
                 {
+                    b.Navigation("Certifications");
+
+                    b.Navigation("Educations");
+
+                    b.Navigation("Employments");
+
                     b.Navigation("LanguageKnowledges");
+
+                    b.Navigation("PortfolioProjects");
                 });
 #pragma warning restore 612, 618
         }

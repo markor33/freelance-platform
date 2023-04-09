@@ -9,12 +9,15 @@ import {MatStepperModule} from '@angular/material/stepper';
 import {MatSelectModule} from '@angular/material/select';
 import {MatGridListModule} from '@angular/material/grid-list';
 import {MatCheckboxModule} from '@angular/material/checkbox';
+import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import { HttpClientModule } from '@angular/common/http';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatIconModule } from '@angular/material/icon';
 import { FreelancerProfileComponent } from './freelancer-profile/freelancer-profile.component';
 import { MatCardModule } from '@angular/material/card';
+import { AddEducationDialogComponent } from './freelancer-profile/dialogs/add-education-dialog/add-education-dialog.component';
+import { MatNativeDateModule } from '@angular/material/core';
 
 export const freelancerRoutes: Routes = [
   { path: 'freelancer/profile', component: FreelancerProfileComponent}
@@ -23,7 +26,8 @@ export const freelancerRoutes: Routes = [
 @NgModule({
   declarations: [
     CompleteRegisterDialogComponent,
-    FreelancerProfileComponent
+    FreelancerProfileComponent,
+    AddEducationDialogComponent
   ],
   imports: [
     HttpClientModule,
@@ -34,6 +38,8 @@ export const freelancerRoutes: Routes = [
     MatStepperModule,
     MatSelectModule,
     MatRadioModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
     MatCardModule,
     MatProgressSpinnerModule,
     MatCheckboxModule,

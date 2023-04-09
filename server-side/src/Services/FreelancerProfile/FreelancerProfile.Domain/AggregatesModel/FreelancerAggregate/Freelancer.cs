@@ -20,8 +20,20 @@ namespace FreelancerProfile.Domain.AggregatesModel.FreelancerAggregate
         public ExperienceLevel ExperienceLevel { get; private set; }
         public Profession Profession { get; private set; }
         public List<Skill> Skills { get; private set; }
+        public List<Education> Educations { get; private set; }
+        public List<Certification> Certifications { get; private set; }
+        public List<Employment> Employments { get; private set; }
+        public List<PortfolioProject> PortfolioProjects { get; private set; }
 
-        public Freelancer() { }
+        public Freelancer()
+        {
+            LanguageKnowledges = new List<LanguageKnowledge>();
+            Skills = new List<Skill>();
+            Educations = new List<Education>();
+            Certifications = new List<Certification>();
+            Employments = new List<Employment>();
+            PortfolioProjects = new List<PortfolioProject>();
+        }
 
         public Freelancer(
             Guid userId, 
@@ -51,7 +63,7 @@ namespace FreelancerProfile.Domain.AggregatesModel.FreelancerAggregate
 
         public void AddLanguageKnowledge(LanguageKnowledge languageKnowledge)
         {
-            this.LanguageKnowledges.Add(languageKnowledge);
+            LanguageKnowledges.Add(languageKnowledge);
         }
 
         public void AddSkill(Skill skill)
@@ -65,6 +77,26 @@ namespace FreelancerProfile.Domain.AggregatesModel.FreelancerAggregate
         {
             foreach(var skill in skills)
                 AddSkill(skill);
+        }
+
+        public void AddEducation(Education education)
+        {
+            Educations.Add(education);
+        }
+
+        public void AddCertification(Certification certification)
+        {
+            Certifications.Add(certification);
+        }
+
+        public void AddEmployment(Employment employment)
+        {
+            Employments.Add(employment);
+        }
+
+        public void AddPortfolioProject(PortfolioProject portfolioProject)
+        {
+            PortfolioProjects.Add(portfolioProject);
         }
 
     }

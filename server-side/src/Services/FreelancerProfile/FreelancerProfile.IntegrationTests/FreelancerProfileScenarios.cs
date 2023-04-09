@@ -55,23 +55,6 @@ namespace FreelancerProfile.IntegrationTests
 
 
         private static CreateFreelancerCommand GetTestCreateFreelancerCommand()
-            => new(Guid.NewGuid(),
-                "Pera",
-                "Peric",
-                new Contact("Central Europe Standard Time",
-                    new Address(
-                        "Serbia",
-                        "Belgrade",
-                        "Knez Mihajlova",
-                        "111",
-                        "11000"),
-                    "0556456561"),
-                new ProfileSummary("Title", "Desc"),
-                new HourlyRate(10, "USD"),
-                Availability.FULL_TIME,
-                ExperienceLevel.SENIOR,
-                Guid.Parse("523c9ba1-4e91-4a75-85c3-cf386c078aa9"),
-                0,
-                LanguageProficiencyLevel.NATIVE);
+            => new();
     }
 }

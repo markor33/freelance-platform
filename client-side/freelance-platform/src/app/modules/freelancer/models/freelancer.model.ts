@@ -1,4 +1,5 @@
 import { Contact } from "../../shared/models/contact.model";
+import { DateRange } from "../../shared/models/date-range.model";
 import { LanguageKnowledge } from "../../shared/models/language.model";
 import { Profession } from "../../shared/models/profession.mode";
 
@@ -13,6 +14,7 @@ export class Freelancer {
     languageKnowledges: LanguageKnowledge[] = new Array();
     profession: Profession = new Profession();
     experienceLevel: ExperienceLevel = ExperienceLevel.JUNIOR;
+    educations: Education[] = new Array();
 }
 
 export class ProfileSummary {
@@ -34,4 +36,11 @@ export enum ExperienceLevel {
     JUNIOR,
     MEDIOR,
     SENIOR
+}
+
+export class Education {
+    id: string = '';
+    schoolName: string = '';
+    degree: string = '';
+    attended: DateRange = new DateRange();
 }
