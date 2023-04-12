@@ -65,10 +65,31 @@
                 </button>
             </span>
             <div class="education-content">
-                <div *ngFor="let education of freelancer.educations">
-                    <h3>{{education.schoolName}}</h3>
-                    <span>{{education.degree}}</span>
-                    <span>{{education.attended.start}}</span>
+                <div *ngFor="let education of freelancer.educations; let last = last">
+                    <div>
+                        <h3>{{education.schoolName}}</h3>
+                        <span>{{education.degree}}</span><br>
+                        <span>{{education.attended.start.toString().substr(0, 4)}} - {{education.attended.end.toString().substr(0, 4)}}</span>
+                    </div>
+                    <mat-divider *ngIf="!last"></mat-divider>
+                </div>
+            </div>
+        </div>
+        <div class="certification">
+            <span class="title icon-text-align">
+                <h2>Certification:</h2>&nbsp;
+                <button mat-icon-button color="primary" (click)="openAddCertificationDialog()">
+                    <mat-icon>add_circle</mat-icon>
+                </button>
+            </span>
+            <div class="certification-content">
+                <div *ngFor="let certification of freelancer.certifications; let last = last;">
+                    <div>
+                        <h3>{{certification.name}}</h3>
+                        <span>{{certification.provider}}</span><br>
+                        <span>{{certification.attended.start.toString().substr(0, 4)}} - {{certification.attended.end.toString().substr(0, 4)}}</span>
+                    </div>
+                    <mat-divider *ngIf="!last"></mat-divider>
                 </div>
             </div>
         </div>

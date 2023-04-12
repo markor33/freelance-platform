@@ -1,12 +1,12 @@
-<h2>Add education</h2>
+<h2>Add certification</h2>
 <form (ngSubmit)="add()">
     <mat-form-field>
-        <mat-label>School name</mat-label>
-        <input matInput type="text" required name="schoolName" [(ngModel)]="addEducationCommand.schoolName">
+        <mat-label>Name</mat-label>
+        <input matInput type="text" required name="schoolName" [(ngModel)]="addCertificationCommand.name">
     </mat-form-field>
     <mat-form-field>
-        <mat-label>Degree</mat-label>
-        <input matInput type="text" required name="degree" [(ngModel)]="addEducationCommand.degree">
+        <mat-label>Provider</mat-label>
+        <input matInput type="text" required name="schoolName" [(ngModel)]="addCertificationCommand.provider">
     </mat-form-field>
     <div class="attended">
         <mat-form-field>
@@ -22,6 +22,10 @@
             <mat-datepicker #endDate></mat-datepicker>
         </mat-form-field>
     </div>
+    <mat-form-field>
+        <mat-label>Description</mat-label>
+        <textarea matInput [rows]="10" name="description" [(ngModel)]="addCertificationCommand.description"></textarea>
+    </mat-form-field>
     <div class="add-button">
         <button mat-raised-button color="primary">Add</button>
     </div>

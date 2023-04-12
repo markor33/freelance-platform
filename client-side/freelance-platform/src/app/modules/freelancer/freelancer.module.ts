@@ -14,10 +14,14 @@ import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import { HttpClientModule } from '@angular/common/http';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatIconModule } from '@angular/material/icon';
+import {MatDividerModule} from '@angular/material/divider';
 import { FreelancerProfileComponent } from './freelancer-profile/freelancer-profile.component';
 import { MatCardModule } from '@angular/material/card';
 import { AddEducationDialogComponent } from './freelancer-profile/dialogs/add-education-dialog/add-education-dialog.component';
 import { MatNativeDateModule } from '@angular/material/core';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { SharedModule } from '../shared/shared.module';
+import { AddCertificationDialogComponent } from './freelancer-profile/dialogs/add-certification-dialog/add-certification-dialog.component';
 
 export const freelancerRoutes: Routes = [
   { path: 'freelancer/profile', component: FreelancerProfileComponent}
@@ -27,18 +31,22 @@ export const freelancerRoutes: Routes = [
   declarations: [
     CompleteRegisterDialogComponent,
     FreelancerProfileComponent,
-    AddEducationDialogComponent
+    AddEducationDialogComponent,
+    AddCertificationDialogComponent
   ],
   imports: [
     HttpClientModule,
     FormsModule,
     MatInputModule,
     CommonModule,
+    SharedModule,
     MatButtonModule,
     MatStepperModule,
     MatSelectModule,
     MatRadioModule,
     MatDatepickerModule,
+    MatDividerModule,
+    MatSnackBarModule,
     MatNativeDateModule,
     MatCardModule,
     MatProgressSpinnerModule,

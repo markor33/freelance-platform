@@ -349,7 +349,7 @@ namespace FreelancerProfile.Infrastructure.Migrations
 
                     b.HasIndex("SkillsId");
 
-                    b.ToTable("FreelancerSkill");
+                    b.ToTable("FreelancerSkill", (string)null);
                 });
 
             modelBuilder.Entity("FreelancerProfile.Domain.AggregatesModel.FreelancerAggregate.Entites.Certification", b =>
@@ -360,7 +360,7 @@ namespace FreelancerProfile.Infrastructure.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.OwnsOne("FreelancerProfile.Domain.AggregatesModel.FreelancerAggregate.ValueObjects.DateRange", "Attended", b1 =>
+                    b.OwnsOne("FreelancerProfile.Domain.AggregatesModel.FreelancerAggregate.Entites.Certification.Attended#FreelancerProfile.Domain.AggregatesModel.FreelancerAggregate.ValueObjects.DateRange", "Attended", b1 =>
                         {
                             b1.Property<Guid>("CertificationId")
                                 .HasColumnType("uuid");
@@ -373,7 +373,7 @@ namespace FreelancerProfile.Infrastructure.Migrations
 
                             b1.HasKey("CertificationId");
 
-                            b1.ToTable("Certifications");
+                            b1.ToTable("Certifications", (string)null);
 
                             b1.WithOwner()
                                 .HasForeignKey("CertificationId");
@@ -391,7 +391,7 @@ namespace FreelancerProfile.Infrastructure.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.OwnsOne("FreelancerProfile.Domain.AggregatesModel.FreelancerAggregate.ValueObjects.DateRange", "Attended", b1 =>
+                    b.OwnsOne("FreelancerProfile.Domain.AggregatesModel.FreelancerAggregate.Entites.Education.Attended#FreelancerProfile.Domain.AggregatesModel.FreelancerAggregate.ValueObjects.DateRange", "Attended", b1 =>
                         {
                             b1.Property<Guid>("EducationId")
                                 .HasColumnType("uuid");
@@ -404,7 +404,7 @@ namespace FreelancerProfile.Infrastructure.Migrations
 
                             b1.HasKey("EducationId");
 
-                            b1.ToTable("Educations");
+                            b1.ToTable("Educations", (string)null);
 
                             b1.WithOwner()
                                 .HasForeignKey("EducationId");
@@ -422,7 +422,7 @@ namespace FreelancerProfile.Infrastructure.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.OwnsOne("FreelancerProfile.Domain.AggregatesModel.FreelancerAggregate.ValueObjects.DateRange", "Period", b1 =>
+                    b.OwnsOne("FreelancerProfile.Domain.AggregatesModel.FreelancerAggregate.Entites.Employment.Period#FreelancerProfile.Domain.AggregatesModel.FreelancerAggregate.ValueObjects.DateRange", "Period", b1 =>
                         {
                             b1.Property<Guid>("EmploymentId")
                                 .HasColumnType("uuid");
@@ -435,7 +435,7 @@ namespace FreelancerProfile.Infrastructure.Migrations
 
                             b1.HasKey("EmploymentId");
 
-                            b1.ToTable("Employments");
+                            b1.ToTable("Employments", (string)null);
 
                             b1.WithOwner()
                                 .HasForeignKey("EmploymentId");
@@ -470,7 +470,7 @@ namespace FreelancerProfile.Infrastructure.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.OwnsOne("FreelancerProfile.Domain.AggregatesModel.FreelancerAggregate.ValueObjects.DateRange", "Period", b1 =>
+                    b.OwnsOne("FreelancerProfile.Domain.AggregatesModel.FreelancerAggregate.Entites.PortfolioProject.Period#FreelancerProfile.Domain.AggregatesModel.FreelancerAggregate.ValueObjects.DateRange", "Period", b1 =>
                         {
                             b1.Property<Guid>("PortfolioProjectId")
                                 .HasColumnType("uuid");
@@ -483,7 +483,7 @@ namespace FreelancerProfile.Infrastructure.Migrations
 
                             b1.HasKey("PortfolioProjectId");
 
-                            b1.ToTable("PortfolioProjects");
+                            b1.ToTable("PortfolioProjects", (string)null);
 
                             b1.WithOwner()
                                 .HasForeignKey("PortfolioProjectId");
@@ -512,7 +512,7 @@ namespace FreelancerProfile.Infrastructure.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.OwnsOne("FreelancerProfile.Domain.AggregatesModel.FreelancerAggregate.ValueObjects.Contact", "Contact", b1 =>
+                    b.OwnsOne("FreelancerProfile.Domain.AggregatesModel.FreelancerAggregate.Freelancer.Contact#FreelancerProfile.Domain.AggregatesModel.FreelancerAggregate.ValueObjects.Contact", "Contact", b1 =>
                         {
                             b1.Property<Guid>("FreelancerId")
                                 .HasColumnType("uuid");
@@ -527,12 +527,12 @@ namespace FreelancerProfile.Infrastructure.Migrations
 
                             b1.HasKey("FreelancerId");
 
-                            b1.ToTable("Freelancers");
+                            b1.ToTable("Freelancers", (string)null);
 
                             b1.WithOwner()
                                 .HasForeignKey("FreelancerId");
 
-                            b1.OwnsOne("FreelancerProfile.Domain.AggregatesModel.FreelancerAggregate.ValueObjects.Address", "Address", b2 =>
+                            b1.OwnsOne("FreelancerProfile.Domain.AggregatesModel.FreelancerAggregate.Freelancer.Contact#FreelancerProfile.Domain.AggregatesModel.FreelancerAggregate.ValueObjects.Contact.Address#FreelancerProfile.Domain.AggregatesModel.FreelancerAggregate.ValueObjects.Address", "Address", b2 =>
                                 {
                                     b2.Property<Guid>("ContactFreelancerId")
                                         .HasColumnType("uuid");
@@ -559,7 +559,7 @@ namespace FreelancerProfile.Infrastructure.Migrations
 
                                     b2.HasKey("ContactFreelancerId");
 
-                                    b2.ToTable("Freelancers");
+                                    b2.ToTable("Freelancers", (string)null);
 
                                     b2.WithOwner()
                                         .HasForeignKey("ContactFreelancerId");
@@ -569,7 +569,7 @@ namespace FreelancerProfile.Infrastructure.Migrations
                                 .IsRequired();
                         });
 
-                    b.OwnsOne("FreelancerProfile.Domain.AggregatesModel.FreelancerAggregate.ValueObjects.HourlyRate", "HourlyRate", b1 =>
+                    b.OwnsOne("FreelancerProfile.Domain.AggregatesModel.FreelancerAggregate.Freelancer.HourlyRate#FreelancerProfile.Domain.AggregatesModel.FreelancerAggregate.ValueObjects.HourlyRate", "HourlyRate", b1 =>
                         {
                             b1.Property<Guid>("FreelancerId")
                                 .HasColumnType("uuid");
@@ -583,13 +583,13 @@ namespace FreelancerProfile.Infrastructure.Migrations
 
                             b1.HasKey("FreelancerId");
 
-                            b1.ToTable("Freelancers");
+                            b1.ToTable("Freelancers", (string)null);
 
                             b1.WithOwner()
                                 .HasForeignKey("FreelancerId");
                         });
 
-                    b.OwnsOne("FreelancerProfile.Domain.AggregatesModel.FreelancerAggregate.ValueObjects.ProfileSummary", "ProfileSummary", b1 =>
+                    b.OwnsOne("FreelancerProfile.Domain.AggregatesModel.FreelancerAggregate.Freelancer.ProfileSummary#FreelancerProfile.Domain.AggregatesModel.FreelancerAggregate.ValueObjects.ProfileSummary", "ProfileSummary", b1 =>
                         {
                             b1.Property<Guid>("FreelancerId")
                                 .HasColumnType("uuid");
@@ -604,7 +604,7 @@ namespace FreelancerProfile.Infrastructure.Migrations
 
                             b1.HasKey("FreelancerId");
 
-                            b1.ToTable("Freelancers");
+                            b1.ToTable("Freelancers", (string)null);
 
                             b1.WithOwner()
                                 .HasForeignKey("FreelancerId");

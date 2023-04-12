@@ -4,6 +4,7 @@ import { FreelancerService } from '../services/freelancer.service';
 import { LanguageProficiencyLevel } from '../../shared/models/language.model';
 import { MatDialog } from '@angular/material/dialog';
 import { AddEducationDialogComponent } from './dialogs/add-education-dialog/add-education-dialog.component';
+import { AddCertificationDialogComponent } from './dialogs/add-certification-dialog/add-certification-dialog.component';
 
 @Component({
   selector: 'app-freelancer-profile',
@@ -53,6 +54,13 @@ export class FreelancerProfileComponent {
       width: '40%',
       height: '47%'
     })
+  }
+
+  openAddCertificationDialog() {
+    this.dialog.open(AddCertificationDialogComponent, {
+      width: '40%',
+      height: '72%'
+    });
   }
 
 }

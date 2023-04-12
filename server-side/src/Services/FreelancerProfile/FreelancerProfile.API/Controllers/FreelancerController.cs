@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace FreelancerProfile.API.Controllers
 {
     [Route("api/[controller]")]
+    [Authorize(Roles = "FREELANCER")]
     [ApiController]
     public class FreelancerController : ControllerBase
     {
@@ -28,7 +29,6 @@ namespace FreelancerProfile.API.Controllers
         }
 
         [HttpGet]
-        [Authorize(Roles = "FREELANCER")]
         public async Task<ActionResult<Freelancer>> Get()
         {
             var userId = _identityService.GetUserId();
@@ -39,7 +39,6 @@ namespace FreelancerProfile.API.Controllers
         }
 
         [HttpPost]
-        [Authorize(Roles = "FREELANCER")]
         public async Task<ActionResult<Freelancer>> Create(CreateFreelancerCommand command)
         {
             command.UserId = _identityService.GetUserId();
@@ -50,8 +49,17 @@ namespace FreelancerProfile.API.Controllers
         }
 
         [HttpPost("education")]
-        [Authorize(Roles = "FREELANCER")]
         public async Task<ActionResult<Education>> AddEducation(AddEducationCommand command)
+        {
+            command.UserId = _identityService.GetUserId();
+            var commandResult = await _mediator.Send(command);
+            if (commandResult is null)
+                return BadRequest();
+            return Ok(commandResult);
+        }
+
+        [HttpPost("certification")]
+        public async Task<ActionResult<Certification>> AddCertification(AddCertificationCommand command)
         {
             command.UserId = _identityService.GetUserId();
             var commandResult = await _mediator.Send(command);

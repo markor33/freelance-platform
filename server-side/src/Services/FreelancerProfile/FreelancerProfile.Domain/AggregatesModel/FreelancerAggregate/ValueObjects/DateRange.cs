@@ -5,13 +5,13 @@ namespace FreelancerProfile.Domain.AggregatesModel.FreelancerAggregate.ValueObje
 {
     public class DateRange : ValueObject
     {
-        public DateOnly Start { get; private set; }
-        public DateOnly End { get; private set; }
+        public DateTime Start { get; private set; }
+        public DateTime End { get; private set; }
 
         public DateRange() { }
 
         [JsonConstructor]
-        public DateRange(DateOnly start, DateOnly end)
+        public DateRange(DateTime start, DateTime end)
         {
             Start = start;
             End = end;

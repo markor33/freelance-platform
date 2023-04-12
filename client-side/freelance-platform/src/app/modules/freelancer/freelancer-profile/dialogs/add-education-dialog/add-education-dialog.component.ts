@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { AddEducationCommand } from '../../../models/add-education-command.model';
 import { FreelancerService } from '../../../services/freelancer.service';
-import * as moment from 'moment';
-import { Education } from '../../../models/freelancer.model';
+import { MatDialogRef } from '@angular/material/dialog';
+import { SnackBarsService } from 'src/app/modules/shared/services/snack-bars.service';
 
 @Component({
   selector: 'app-add-education-dialog',
@@ -17,19 +17,23 @@ export class AddEducationDialogComponent {
     end: new Date()
   }
 
-  constructor(private freelancerService: FreelancerService) { }
+  constructor(
+    private dialogRef: MatDialogRef<AddEducationDialogComponent>,
+    private freelancerService: FreelancerService, 
+    private snackBars: SnackBarsService) { }
 
   add() {
     this.addEducationCommand.start = this.convertToUTCDate(this.attended.start);
     this.addEducationCommand.end = this.convertToUTCDate(this.attended.end);
     this.freelancerService.addEducation(this.addEducationCommand).subscribe({
-      next: this.educationSuccessfullyAdded,
+      complete: this.educationSuccessfullyAdded.bind(this),
       error: (err) => console.log(err)
     });
   }
 
-  educationSuccessfullyAdded(education: Education): void {
-    console.log(education);
+  educationSuccessfullyAdded(): void {
+    this.snackBars.primary('Education successfully added');
+    this.dialogRef.close()
   }
 
   convertToUTCDate(date: Date) {

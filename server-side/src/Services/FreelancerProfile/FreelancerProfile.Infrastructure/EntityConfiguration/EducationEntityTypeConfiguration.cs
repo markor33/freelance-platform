@@ -16,7 +16,11 @@ namespace FreelancerProfile.Infrastructure.EntityConfiguration
 
             builder.Property(e => e.Degree).IsRequired();
 
-            builder.OwnsOne(e => e.Attended);
+            builder.OwnsOne(e => e.Attended, a =>
+            {
+                a.Property(a => a.Start).HasColumnType("date");
+                a.Property(a => a.End).HasColumnType("date");
+            });
         }
     }
 }

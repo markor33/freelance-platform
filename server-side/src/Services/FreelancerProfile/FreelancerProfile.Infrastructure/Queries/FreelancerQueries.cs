@@ -19,6 +19,7 @@ namespace FreelancerProfile.Infrastructure.Queries
                     .ThenInclude(lk => lk.Language)
                 .Include(f => f.Profession)
                 .Include(f => f.Educations)
+                .Include(f => f.Certifications)
                 .Where(f => f.UserId == userId)
                 .FirstOrDefaultAsync();
     }

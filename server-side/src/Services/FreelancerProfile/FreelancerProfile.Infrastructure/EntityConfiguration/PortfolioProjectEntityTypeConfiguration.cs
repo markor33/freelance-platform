@@ -16,7 +16,11 @@ namespace FreelancerProfile.Infrastructure.EntityConfiguration
 
             builder.Property(p => p.Description).IsRequired();
 
-            builder.OwnsOne(p => p.Period);
+            builder.OwnsOne(p => p.Period, p =>
+            {
+                p.Property(p => p.Start).HasColumnType("date");
+                p.Property(p => p.End).HasColumnType("date");
+            });
         }
     }
 }

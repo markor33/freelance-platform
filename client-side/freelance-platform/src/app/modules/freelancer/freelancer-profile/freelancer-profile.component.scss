@@ -106,3 +106,25 @@ $my-palette: mat.define-palette(mat.$indigo-palette);
 .profession div {
     margin-bottom: 2%;
 }
+
+.education {
+    padding: 0% 5% 5% 5%;
+    border-bottom: solid 1px mat.get-color-from-palette($my-palette);
+}
+
+.education-content div {
+    margin-left: 0%;
+}
+
+.education-content mat-divider {
+    margin-top: 1%;
+}
+
+.certification {
+    padding: 0% 5% 5% 5%;
+    border-bottom: solid 1px mat.get-color-from-palette($my-palette);
+}
+
+.certification-content mat-divider {
+    margin-top: 1%;
+}

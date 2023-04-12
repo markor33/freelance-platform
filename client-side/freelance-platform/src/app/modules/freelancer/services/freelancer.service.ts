@@ -1,10 +1,11 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Education, Freelancer } from '../models/freelancer.model';
+import { Certification, Education, Freelancer } from '../models/freelancer.model';
 import { BehaviorSubject, Observable, map } from 'rxjs';
 import { AuthService } from '../../auth/services/auth.service';
 import { CreateFreelancerCommand } from '../models/create-freelancer-command.model';
 import { AddEducationCommand } from '../models/add-education-command.model';
+import { AddCertificationCommand } from '../models/add-certification-command.model';
 
 @Injectable({
   providedIn: 'root'
@@ -30,7 +31,9 @@ export class FreelancerService {
       return;
     }
     this.httpClient.get<Freelancer>('api/freelancer/freelancer', this.httpOptions).subscribe({
-      next: (freelancer) => this.freelancerSource.next(freelancer),
+      next: (freelancer) => {
+        this.freelancerSource.next(freelancer)
+      },
       error: (err) => this.freelancerSource.next(null)
     });
   }
@@ -44,8 +47,22 @@ export class FreelancerService {
     );
   }
 
-  addEducation(addEducationCommand: AddEducationCommand): Observable<Education> {
-    return this.httpClient.post<Education>('api/freelancer/freelancer/education', addEducationCommand, this.httpOptions);
+  addEducation(addEducationCommand: AddEducationCommand): Observable<void> {
+    return this.httpClient.post<Education>('api/freelancer/freelancer/education', addEducationCommand, this.httpOptions)
+      .pipe(
+        map((education) => {
+          this.freelancerSource.value?.educations.push(education);
+        })
+      );
   }
+
+  addCertification(addCertificationCommand: AddCertificationCommand): Observable<void> {
+    return this.httpClient.post<Certification>('api/freelancer/freelancer/certification', addCertificationCommand, this.httpOptions)
+      .pipe(
+        map((certification) => {
+          this.freelancerSource.value?.certifications.push(certification);
+        })
+      );
+  } 
 
 }

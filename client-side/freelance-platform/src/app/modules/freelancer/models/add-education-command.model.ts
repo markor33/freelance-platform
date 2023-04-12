@@ -5,5 +5,4 @@ export class AddEducationCommand {
     degree: string = '';
     start : Date = new Date();
     end: Date = new Date();
-    //attended: DateRange = new DateRange();
 }
