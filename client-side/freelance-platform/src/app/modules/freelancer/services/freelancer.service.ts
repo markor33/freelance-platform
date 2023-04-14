@@ -1,11 +1,12 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Certification, Education, Freelancer } from '../models/freelancer.model';
+import { Certification, Education, Employment, Freelancer } from '../models/freelancer.model';
 import { BehaviorSubject, Observable, map } from 'rxjs';
 import { AuthService } from '../../auth/services/auth.service';
 import { CreateFreelancerCommand } from '../models/create-freelancer-command.model';
 import { AddEducationCommand } from '../models/add-education-command.model';
 import { AddCertificationCommand } from '../models/add-certification-command.model';
+import { AddEmploymentCommand } from '../models/add-employment-command.model';
 
 @Injectable({
   providedIn: 'root'
@@ -63,6 +64,15 @@ export class FreelancerService {
           this.freelancerSource.value?.certifications.push(certification);
         })
       );
-  } 
+  }
+
+  addEmployment(addEmploymentCommand: AddEmploymentCommand): Observable<void> {
+    return this.httpClient.post<Employment>('api/freelancer/freelancer/employment', addEmploymentCommand, this.httpOptions)
+      .pipe(
+        map((employment) => {
+          this.freelancerSource.value?.employments.push(employment);
+        })
+      );
+  }
 
 }

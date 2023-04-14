@@ -21,7 +21,7 @@ $my-palette: mat.define-palette(mat.$indigo-palette);
 
 .side-content {
     width: 25%;
-    height: 100%;
+    height: auto;
     display: flex;
     flex-direction: column;
     border-right: solid 1px mat.get-color-from-palette($my-palette);
@@ -126,5 +126,13 @@ $my-palette: mat.define-palette(mat.$indigo-palette);
 }
 
 .certification-content mat-divider {
+    margin-top: 1%;
+}
+
+.employment {
+    padding: 0% 5% 5% 5%;
+}
+
+.employment-content mat-divider {
     margin-top: 1%;
 }

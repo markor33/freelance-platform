@@ -93,5 +93,23 @@
                 </div>
             </div>
         </div>
+        <div class="employment">
+            <span class="title icon-text-align">
+                <h2>Employment:</h2>&nbsp;
+                <button mat-icon-button color="primary" (click)="openAddEmploymentDialog()">
+                    <mat-icon>add_circle</mat-icon>
+                </button>
+            </span>
+            <div class="employment-content">
+                <div *ngFor="let employment of freelancer.employments; let last = last;">
+                    <div>
+                        <h3>{{employment.title}}</h3>
+                        <span>{{employment.company}}</span><br>
+                        <span>{{employment.period.start.toString().substr(0, 4)}} - {{employment.period.end.toString().substr(0, 4)}}</span>
+                    </div>
+                    <mat-divider *ngIf="!last"></mat-divider>
+                </div>
+            </div>
+        </div>
     </div>
 </div>

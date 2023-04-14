@@ -3,6 +3,7 @@ import { AddCertificationCommand } from '../../../models/add-certification-comma
 import { MatDialogRef } from '@angular/material/dialog';
 import { FreelancerService } from '../../../services/freelancer.service';
 import { SnackBarsService } from 'src/app/modules/shared/services/snack-bars.service';
+import { convertToUTCDate } from 'src/app/modules/shared/utils/date-helper.util';
 
 @Component({
   selector: 'app-add-certification-dialog',
@@ -23,8 +24,8 @@ export class AddCertificationDialogComponent {
     private snackBars: SnackBarsService) {}
 
   add() {
-    this.addCertificationCommand.start = this.convertToUTCDate(this.attended.start);
-    this.addCertificationCommand.end = this.convertToUTCDate(this.attended.end);
+    this.addCertificationCommand.start = convertToUTCDate(this.attended.start);
+    this.addCertificationCommand.end = convertToUTCDate(this.attended.end);
     this.freelancerService.addCertification(this.addCertificationCommand).subscribe({
       complete: this.certificationSuccessfullyAdded.bind(this)
     });
@@ -33,12 +34,6 @@ export class AddCertificationDialogComponent {
   certificationSuccessfullyAdded() {
     this.snackBars.primary('Certification successfully added');
     this.dialogRef.close()
-  }
-
-  convertToUTCDate(date: Date) {
-    const timezoneOffset = this.attended.start.getTimezoneOffset();
-    const utcDate = new Date(date.getTime() - timezoneOffset * 60 * 1000);
-    return utcDate;
   }
 
 }

@@ -68,5 +68,15 @@ namespace FreelancerProfile.API.Controllers
             return Ok(commandResult);
         }
 
+        [HttpPost("employment")]
+        public async Task<ActionResult<Employment>> AddEmployment(AddEmploymentCommand command)
+        {
+            command.UserId = _identityService.GetUserId();
+            var commandResult = await _mediator.Send(command);
+            if (commandResult is null)
+                return BadRequest();
+            return Ok(commandResult);
+        }
+
     }
 }

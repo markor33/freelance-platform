@@ -22,6 +22,7 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { SharedModule } from '../shared/shared.module';
 import { AddCertificationDialogComponent } from './freelancer-profile/dialogs/add-certification-dialog/add-certification-dialog.component';
+import { AddEmploymentDialogComponent } from './freelancer-profile/dialogs/add-employment-dialog/add-employment-dialog.component';
 
 export const freelancerRoutes: Routes = [
   { path: 'freelancer/profile', component: FreelancerProfileComponent}
@@ -32,7 +33,8 @@ export const freelancerRoutes: Routes = [
     CompleteRegisterDialogComponent,
     FreelancerProfileComponent,
     AddEducationDialogComponent,
-    AddCertificationDialogComponent
+    AddCertificationDialogComponent,
+    AddEmploymentDialogComponent
   ],
   imports: [
     HttpClientModule,

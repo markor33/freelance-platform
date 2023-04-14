@@ -16,6 +16,7 @@ export class Freelancer {
     experienceLevel: ExperienceLevel = ExperienceLevel.JUNIOR;
     educations: Education[] = new Array();
     certifications: Certification[] = new Array();
+    employments: Employment[] = new Array();
 }
 
 export class ProfileSummary {
@@ -51,5 +52,13 @@ export class Certification {
     name: string = '';
     provider: string = '';
     attended: DateRange = new DateRange();
+    description: string = '';
+}
+
+export class Employment {
+    id: string = '';
+    title: string = '';
+    company: string = '';
+    period: DateRange = new DateRange();
     description: string = '';
 }
