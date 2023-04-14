@@ -18,7 +18,7 @@
                 </span>
                 <span class="icon-text-align">
                     <mat-icon>loyalty</mat-icon>&nbsp;
-                    Joined July 25, 2018
+                    Joined {{freelancer.joined}}
                 </span>
             </div>
         </div>
@@ -55,7 +55,7 @@
     <div class="main-content">
         <div class="profile-summary">
             <h2>{{freelancer.profileSummary.title}}</h2>
-            <p>{{freelancer.profileSummary.description}}</p>
+            <div class="description">{{freelancer.profileSummary.description}}</div>
         </div>
         <div class="education">
             <span class="title icon-text-align">
@@ -91,6 +91,19 @@
                     </div>
                     <mat-divider *ngIf="!last"></mat-divider>
                 </div>
+            </div>
+        </div>
+        <div class="skill">
+            <span class="title icon-text-align">
+                <h2>Skills:</h2>&nbsp;
+                <button mat-icon-button color="primary" (click)="openAddSkillDialog()">
+                    <mat-icon>add_circle</mat-icon>
+                </button>
+            </span>
+            <div class="skill-content">
+                <mat-chip-listbox>
+                    <mat-chip *ngFor="let skill of freelancer.skills">{{skill.name}}</mat-chip>
+                </mat-chip-listbox>
             </div>
         </div>
         <div class="employment">

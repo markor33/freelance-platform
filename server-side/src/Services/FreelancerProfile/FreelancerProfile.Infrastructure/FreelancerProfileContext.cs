@@ -12,6 +12,7 @@ namespace FreelancerProfile.Infrastructure
         public DbSet<Freelancer> Freelancers { get; set; }
         public DbSet<Language> Languages { get; set; }
         public DbSet<Profession> Professions { get; set; }
+        public DbSet<Skill> Skills { get; set; }
 
         public FreelancerProfileContext(DbContextOptions<FreelancerProfileContext> options) : base(options) { }
 

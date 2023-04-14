@@ -30,6 +30,8 @@ namespace FreelancerProfile.Infrastructure.EntityConfiguration
 
             builder.OwnsOne(f => f.HourlyRate);
 
+            builder.Property(f => f.Joined).HasColumnType("date");
+
             builder.HasMany(f => f.Skills)
                 .WithMany(s => s.Freelancers);
 

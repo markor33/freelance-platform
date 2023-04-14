@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using FreelancerProfile.Domain.AggregatesModel.FreelancerAggregate;
+using FreelancerProfile.Domain.AggregatesModel.FreelancerAggregate.Entites;
 using FreelancerProfile.Domain.AggregatesModel.FreelancerAggregate.ValueObjects;
 
 namespace FreelancerProfile.Application.Queries
@@ -8,7 +9,17 @@ namespace FreelancerProfile.Application.Queries
     {
         public MappingProfile()
         {
-            
+            CreateMap<Skill, SkillViewModel>();
+
+            CreateMap<Profession, ProfessionViewModel>();
+
+            CreateMap<Education, EducationViewModel>();
+
+            CreateMap<Employment, EmploymentViewModel>();
+
+            CreateMap<Certification, CertificationViewModel>();
+
+            CreateMap<Freelancer, FreelancerViewModel>();
         }
     }
 }

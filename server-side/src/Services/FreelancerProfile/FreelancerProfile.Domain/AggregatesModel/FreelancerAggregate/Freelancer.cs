@@ -12,12 +12,14 @@ namespace FreelancerProfile.Domain.AggregatesModel.FreelancerAggregate
         public string FirstName { get; private set; }
         public string LastName { get; private set;}
         public Contact Contact { get; private set; }
+        public DateTime Joined { get; private set; }
         public bool IsProfilePublic { get; private set; }
         public ProfileSummary ProfileSummary { get; private set; }
         public HourlyRate HourlyRate { get; private set; }
         public List<LanguageKnowledge> LanguageKnowledges { get; private set; }
         public Availability Availability { get; private set; }
         public ExperienceLevel ExperienceLevel { get; private set; }
+        public Guid ProfessionId { get; private set; }
         public Profession Profession { get; private set; }
         public List<Skill> Skills { get; private set; }
         public List<Education> Educations { get; private set; }
@@ -53,6 +55,7 @@ namespace FreelancerProfile.Domain.AggregatesModel.FreelancerAggregate
             LastName = lastName;
             Contact = contact;
             IsProfilePublic = isProfilePublic;
+            Joined = DateTime.Now;
             ProfileSummary = profileSummary;
             HourlyRate = hourlyRate;
             Availability = availability;
@@ -68,7 +71,7 @@ namespace FreelancerProfile.Domain.AggregatesModel.FreelancerAggregate
 
         public void AddSkill(Skill skill)
         {
-            if (skill.Profession != Profession)
+            if (skill.ProfessionId != ProfessionId)
                 throw new FreelancerProfileDomainException($"Freelancer profession({Profession.Name}) does not contain {skill.Name} skill");
             Skills.Add(skill);
         }

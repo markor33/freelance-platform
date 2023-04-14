@@ -16,6 +16,7 @@ namespace ProfileManagemenet.Infrastructure
             services.AddTransient(typeof(IFreelancerQueries), typeof(FreelancerQueries));
             services.AddTransient(typeof(ILanguageQueries), typeof(LanguageQueries));
             services.AddTransient(typeof(IProfessionQueries), typeof(ProfessionQueries));
+            services.AddTransient(typeof(ISkillQueries), typeof(SkillQueries));
 
             return services;
         }

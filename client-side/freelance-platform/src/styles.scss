@@ -51,3 +51,15 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
   border: 2px solid green;
   border-radius: 5px;
 }
+
+// SCROLL
+::-webkit-scrollbar {
+  width: 7px;
+  border-radius: 5px;
+  background-color: #F5F5F5; /* set the background color of the scrollbar */
+}
+
+::-webkit-scrollbar-thumb {
+  border-radius: 5px;
+  background-color: #3f51b5; /* set the color of the scrollbar thumb */
+}

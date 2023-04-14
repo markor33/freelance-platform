@@ -7,6 +7,8 @@ import { CreateFreelancerCommand } from '../models/create-freelancer-command.mod
 import { AddEducationCommand } from '../models/add-education-command.model';
 import { AddCertificationCommand } from '../models/add-certification-command.model';
 import { AddEmploymentCommand } from '../models/add-employment-command.model';
+import { AddSkillCommand } from '../models/add-skill-command.model';
+import { Skill } from '../../shared/models/profession.mode';
 
 @Injectable({
   providedIn: 'root'
@@ -71,6 +73,19 @@ export class FreelancerService {
       .pipe(
         map((employment) => {
           this.freelancerSource.value?.employments.push(employment);
+        })
+      );
+  }
+
+  addSkills(skills: Skill[]): Observable<void> {
+    let addSkillsCommand = new AddSkillCommand();
+    for (const skill of skills) {
+      addSkillsCommand.skills.push(skill.id);
+    }
+    return this.httpClient.post<any>('api/freelancer/freelancer/skill', addSkillsCommand, this.httpOptions)
+      .pipe(
+        map((res) => {
+          this.freelancerSource.value?.skills.concat(skills);
         })
       );
   }

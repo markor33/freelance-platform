@@ -6,6 +6,7 @@ namespace FreelancerProfile.Domain.AggregatesModel.FreelancerAggregate.Entites
     {
         public string Name { get; private set; }
         public string Description { get; private set; }
+        public Guid ProfessionId { get; private set; }
         public Profession Profession { get; private set; }
         public List<Freelancer> Freelancers { get; private set; }
 

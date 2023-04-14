@@ -50,7 +50,7 @@ $my-palette: mat.define-palette(mat.$indigo-palette);
 }
 
 .profile-picture {
-    width: 50%;
+    width: 65%;
     height: 50%;
     border-radius: 50%;
 }
@@ -68,12 +68,19 @@ $my-palette: mat.define-palette(mat.$indigo-palette);
 }
 
 .profile-summary {
+    position: relative;
     padding-left: 5%;
     padding-right: 5%;
-    height: 30%;
+    height: 300px;
     overflow-y: scroll;
     border-bottom: solid 1px mat.get-color-from-palette($my-palette);
-}  
+}
+
+.profile-summary .description {
+    position: absolute;
+    white-space: pre-line;
+    padding-bottom: 2%;
+}
 
 .about-me {
     margin-top: 10%;
@@ -135,4 +142,9 @@ $my-palette: mat.define-palette(mat.$indigo-palette);
 
 .employment-content mat-divider {
     margin-top: 1%;
+}
+
+.skill {
+    padding: 0% 5% 5% 5%;
+    border-bottom: solid 1px mat.get-color-from-palette($my-palette);
 }

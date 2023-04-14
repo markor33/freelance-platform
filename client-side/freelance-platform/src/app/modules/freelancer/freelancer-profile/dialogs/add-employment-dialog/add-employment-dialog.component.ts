@@ -33,7 +33,7 @@ export class AddEmploymentDialogComponent {
 
   employmentSuccessfullyAdded() {
     this.snackBars.primary('Employment successfully added');
-    this.dialogRef.close()
+    this.dialogRef.close();
   }
 
 }

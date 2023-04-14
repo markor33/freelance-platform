@@ -6,6 +6,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { AddEducationDialogComponent } from './dialogs/add-education-dialog/add-education-dialog.component';
 import { AddCertificationDialogComponent } from './dialogs/add-certification-dialog/add-certification-dialog.component';
 import { AddEmploymentDialogComponent } from './dialogs/add-employment-dialog/add-employment-dialog.component';
+import { AddSkillDialogComponent } from './dialogs/add-skill-dialog/add-skill-dialog.component';
 
 @Component({
   selector: 'app-freelancer-profile',
@@ -58,6 +59,7 @@ export class FreelancerProfileComponent {
   }
 
   openAddCertificationDialog() {
+    console.log(this.freelancer);
     this.dialog.open(AddCertificationDialogComponent, {
       width: '40%',
       height: '72%'
@@ -66,6 +68,13 @@ export class FreelancerProfileComponent {
 
   openAddEmploymentDialog() {
     this.dialog.open(AddEmploymentDialogComponent, {
+      width: '40%',
+      height: '72%'
+    });
+  }
+
+  openAddSkillDialog() {
+    this.dialog.open(AddSkillDialogComponent, {
       width: '40%',
       height: '72%'
     });

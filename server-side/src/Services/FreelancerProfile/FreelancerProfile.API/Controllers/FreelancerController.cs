@@ -29,7 +29,7 @@ namespace FreelancerProfile.API.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<Freelancer>> Get()
+        public async Task<ActionResult<FreelancerViewModel>> Get()
         {
             var userId = _identityService.GetUserId();
             var freelancer = await _queries.GetFreelancerFromUserAsync(userId);
@@ -76,6 +76,16 @@ namespace FreelancerProfile.API.Controllers
             if (commandResult is null)
                 return BadRequest();
             return Ok(commandResult);
+        }
+
+        [HttpPost("skill")]
+        public async Task<IActionResult> AddSkill(AddSkillCommand command)
+        {
+            command.UserId = _identityService.GetUserId();
+            var commandResult = await _mediator.Send(command);
+            if (!commandResult)
+                return BadRequest();
+            return Ok();
         }
 
     }
