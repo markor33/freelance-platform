@@ -27,7 +27,6 @@ $freelance-platform-theme: mat.define-light-theme((
     warn: $freelance-platform-warn
   )
 ));
-
 // Include theme styles for core and each component used in your app.
 // Alternatively, you can import and @include the theme mixins for each component
 // that you are using.
@@ -51,4 +50,16 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 .register-complete-dialog {
   border: 2px solid green;
   border-radius: 5px;
+}
+
+// SCROLL
+::-webkit-scrollbar {
+  width: 7px;
+  border-radius: 5px;
+  background-color: #F5F5F5; /* set the background color of the scrollbar */
+}
+
+::-webkit-scrollbar-thumb {
+  border-radius: 5px;
+  background-color: #3f51b5; /* set the color of the scrollbar thumb */
 }

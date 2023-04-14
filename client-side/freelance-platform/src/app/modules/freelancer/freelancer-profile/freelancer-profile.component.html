@@ -1,0 +1,128 @@
+<div class="container">
+    <div class="side-content">
+        <div class="general-info">
+            <img class="profile-picture" src="https://pbs.twimg.com/media/FjU2lkcWYAgNG6d.jpg">
+            <span class="name">{{freelancer.firstName + ' ' + freelancer.lastName.charAt(0)}}.</span>
+            <div>
+                <span class="icon-text-align">
+                    <mat-icon>location_on</mat-icon>&nbsp;
+                    {{freelancer.contact.address.city + ', ' + freelancer.contact.address.country}}
+                </span>
+                <span class="icon-text-align">
+                    <mat-icon>schedule</mat-icon>&nbsp;
+                    Currently 02:50 PM here
+                </span>
+                <span class="icon-text-align">
+                    <mat-icon>euro</mat-icon>&nbsp;
+                    {{freelancer.hourlyRate.amount + ' / hour ' + freelancer.hourlyRate.currency}}
+                </span>
+                <span class="icon-text-align">
+                    <mat-icon>loyalty</mat-icon>&nbsp;
+                    Joined {{freelancer.joined.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}}
+                </span>
+            </div>
+        </div>
+        <div class="about-me">
+            <div class="languages">
+                <span class="icon-text-align">
+                    <mat-icon>translate</mat-icon>&nbsp;
+                    <b>Languages:</b>
+                </span>
+                <div *ngFor="let languageKnowledge of freelancer.languageKnowledges">
+                    <span><b>{{languageKnowledge.language.name}}:</b></span>&nbsp;<span>{{languageProficiencyLevelToString(languageKnowledge.profiencyLevel)}}</span><br>
+                </div>
+            </div>
+            <span class="availability icon-text-align">
+                <mat-icon>calendar_month</mat-icon>&nbsp;
+                <span><b>Availability:</b></span>&nbsp;<span>{{availabilityToString(freelancer.availability)}}</span>
+            </span>
+        </div>
+        <div class="profession">
+            <div>
+                <span class="icon-text-align">
+                    <mat-icon>construction</mat-icon>&nbsp;
+                    <b>Profession:</b>&nbsp;<span>{{freelancer.profession.name}}</span>
+                </span>
+            </div>
+            <div>
+                <span class="icon-text-align">
+                    <mat-icon>bolt</mat-icon>&nbsp;
+                    <b>Experience level:</b>&nbsp;<span>{{experienceLevelToString(freelancer.experienceLevel)}}</span>
+                </span>
+            </div>
+        </div>
+    </div>
+    <div class="main-content">
+        <div class="profile-summary">
+            <h2>{{freelancer.profileSummary.title}}</h2>
+            <div class="description">{{freelancer.profileSummary.description}}</div>
+        </div>
+        <div class="education">
+            <span class="title icon-text-align">
+                <h2>Education:</h2>&nbsp;
+                <button mat-icon-button color="primary" (click)="openAddEducationDialog()">
+                    <mat-icon>add_circle</mat-icon>
+                </button>
+            </span>
+            <div class="education-content">
+                <div *ngFor="let education of freelancer.educations; let last = last">
+                    <div>
+                        <h3>{{education.schoolName}}</h3>
+                        <span>{{education.degree}}</span><br>
+                        <span>{{education.attended.start.getFullYear()}} - {{education.attended.end.getFullYear()}}</span>
+                    </div>
+                    <mat-divider *ngIf="!last"></mat-divider>
+                </div>
+            </div>
+        </div>
+        <div class="certification">
+            <span class="title icon-text-align">
+                <h2>Certification:</h2>&nbsp;
+                <button mat-icon-button color="primary" (click)="openAddCertificationDialog()">
+                    <mat-icon>add_circle</mat-icon>
+                </button>
+            </span>
+            <div class="certification-content">
+                <div *ngFor="let certification of freelancer.certifications; let last = last;">
+                    <div>
+                        <h3>{{certification.name}}</h3>
+                        <span>{{certification.provider}}</span><br>
+                        <span>{{certification.attended.start.getFullYear()}} - {{certification.attended.end.getFullYear()}}</span>
+                    </div>
+                    <mat-divider *ngIf="!last"></mat-divider>
+                </div>
+            </div>
+        </div>
+        <div class="skill">
+            <span class="title icon-text-align">
+                <h2>Skills:</h2>&nbsp;
+                <button mat-icon-button color="primary" (click)="openAddSkillDialog()">
+                    <mat-icon>add_circle</mat-icon>
+                </button>
+            </span>
+            <div class="skill-content">
+                <mat-chip-listbox>
+                    <mat-chip *ngFor="let skill of freelancer.skills">{{skill.name}}</mat-chip>
+                </mat-chip-listbox>
+            </div>
+        </div>
+        <div class="employment">
+            <span class="title icon-text-align">
+                <h2>Employment:</h2>&nbsp;
+                <button mat-icon-button color="primary" (click)="openAddEmploymentDialog()">
+                    <mat-icon>add_circle</mat-icon>
+                </button>
+            </span>
+            <div class="employment-content">
+                <div *ngFor="let employment of freelancer.employments; let last = last;">
+                    <div>
+                        <h3>{{employment.title}}</h3>
+                        <span>{{employment.company}}</span><br>
+                        <span>{{employment.period.start.getFullYear()}} - {{employment.period.end.getFullYear()}}</span>
+                    </div>
+                    <mat-divider *ngIf="!last"></mat-divider>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

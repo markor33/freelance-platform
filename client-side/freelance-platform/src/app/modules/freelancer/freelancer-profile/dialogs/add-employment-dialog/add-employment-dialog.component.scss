@@ -1,0 +1,27 @@
+h2 {
+    padding-left: 5%;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    padding: 5%;
+}
+
+.period {
+    display: flex;
+    flex-direction: row;
+    gap: 5%;
+    justify-content: center;
+}
+
+.add-button {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    margin-top: 5%;
+}
+
+.add-button button {
+    font-size: large;
+}

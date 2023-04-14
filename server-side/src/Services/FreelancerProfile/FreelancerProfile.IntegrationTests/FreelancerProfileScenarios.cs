@@ -2,6 +2,8 @@
 using FreelancerProfile.API.Security;
 using FreelancerProfile.Application.Commands;
 using FreelancerProfile.Domain.AggregatesModel.FreelancerAggregate;
+using FreelancerProfile.Domain.AggregatesModel.FreelancerAggregate.Enums;
+using FreelancerProfile.Domain.AggregatesModel.FreelancerAggregate.ValueObjects;
 using FreelancerProfile.IntegrationTests.Setup;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -23,7 +25,7 @@ namespace FreelancerProfile.IntegrationTests
             var mediator = scope.ServiceProvider.GetRequiredService<IMediator>();
             var identityService = new Mock<IIdentityService>();
             identityService.Setup(i => i.GetUserId()).Returns(userId);
-            return new FreelancerController(mediator, identityService.Object);
+            return new FreelancerController(mediator, null, identityService.Object);
         }
 
         [Fact]
@@ -53,15 +55,6 @@ namespace FreelancerProfile.IntegrationTests
 
 
         private static CreateFreelancerCommand GetTestCreateFreelancerCommand()
-            => new(Guid.NewGuid(),
-                "Pera",
-                "Peric",
-                "Serbia",
-                "Belgrade",
-                "Knez Mihajlova",
-                "111",
-                "11000",
-                "0556456561",
-                "Central Europe Standard Time");
+            => new();
     }
 }

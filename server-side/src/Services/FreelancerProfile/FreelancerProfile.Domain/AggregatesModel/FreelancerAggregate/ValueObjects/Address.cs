@@ -1,6 +1,7 @@
 ﻿using FreelancerProfile.Domain.SeedWork;
+using System.Text.Json.Serialization;
 
-namespace FreelancerProfile.Domain.AggregatesModel.FreelancerAggregate
+namespace FreelancerProfile.Domain.AggregatesModel.FreelancerAggregate.ValueObjects
 {
     public class Address : ValueObject
     {
@@ -12,13 +13,14 @@ namespace FreelancerProfile.Domain.AggregatesModel.FreelancerAggregate
 
         public Address() { }
 
+        [JsonConstructor]
         public Address(string country, string city, string street, string number, string zipcode)
         {
             Country = country;
             City = city;
             Street = street;
             Number = number;
-            ZipCode = zipcode;  
+            ZipCode = zipcode;
         }
 
         protected override IEnumerable<object> GetEqualityComponents()
