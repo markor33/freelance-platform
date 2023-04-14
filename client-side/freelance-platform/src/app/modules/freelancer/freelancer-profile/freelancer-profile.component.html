@@ -18,7 +18,7 @@
                 </span>
                 <span class="icon-text-align">
                     <mat-icon>loyalty</mat-icon>&nbsp;
-                    Joined {{freelancer.joined}}
+                    Joined {{freelancer.joined.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}}
                 </span>
             </div>
         </div>
@@ -69,7 +69,7 @@
                     <div>
                         <h3>{{education.schoolName}}</h3>
                         <span>{{education.degree}}</span><br>
-                        <span>{{education.attended.start.toString().substr(0, 4)}} - {{education.attended.end.toString().substr(0, 4)}}</span>
+                        <span>{{education.attended.start.getFullYear()}} - {{education.attended.end.getFullYear()}}</span>
                     </div>
                     <mat-divider *ngIf="!last"></mat-divider>
                 </div>
@@ -87,7 +87,7 @@
                     <div>
                         <h3>{{certification.name}}</h3>
                         <span>{{certification.provider}}</span><br>
-                        <span>{{certification.attended.start.toString().substr(0, 4)}} - {{certification.attended.end.toString().substr(0, 4)}}</span>
+                        <span>{{certification.attended.start.getFullYear()}} - {{certification.attended.end.getFullYear()}}</span>
                     </div>
                     <mat-divider *ngIf="!last"></mat-divider>
                 </div>
@@ -118,7 +118,7 @@
                     <div>
                         <h3>{{employment.title}}</h3>
                         <span>{{employment.company}}</span><br>
-                        <span>{{employment.period.start.toString().substr(0, 4)}} - {{employment.period.end.toString().substr(0, 4)}}</span>
+                        <span>{{employment.period.start.getFullYear()}} - {{employment.period.end.getFullYear()}}</span>
                     </div>
                     <mat-divider *ngIf="!last"></mat-divider>
                 </div>

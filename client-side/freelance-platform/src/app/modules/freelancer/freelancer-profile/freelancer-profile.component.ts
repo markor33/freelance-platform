@@ -59,7 +59,6 @@ export class FreelancerProfileComponent {
   }
 
   openAddCertificationDialog() {
-    console.log(this.freelancer);
     this.dialog.open(AddCertificationDialogComponent, {
       width: '40%',
       height: '72%'

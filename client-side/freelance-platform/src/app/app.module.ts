@@ -10,6 +10,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FreelancerModule } from './modules/freelancer/freelancer.module';
 import { SharedModule } from './modules/shared/shared.module';
 import { LayoutModule } from './modules/layout/layout.module';
+import { JsonDateInterceptor } from './modules/shared/utils/json-date-interceptor';
 
 @NgModule({
     declarations: [
@@ -32,7 +33,8 @@ import { LayoutModule } from './modules/layout/layout.module';
         })
     ],
     providers: [
-        { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true}
+        { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true},
+        { provide: HTTP_INTERCEPTORS, useClass: JsonDateInterceptor, multi: true}
     ],
 })
 export class AppModule { }
