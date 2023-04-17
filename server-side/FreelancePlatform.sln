@@ -41,9 +41,9 @@ Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-co
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FreelancerProfile.UnitTests", "src\Services\FreelancerProfile\FreelancerProfile.UnitTests\FreelancerProfile.UnitTests.csproj", "{DA675B4A-7B62-46B5-BF06-2D1C5BB58C52}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Client", "Client", "{57323A84-CFEB-4070-8B5D-18E88A2D94C3}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ClientProfile", "ClientProfile", "{57323A84-CFEB-4070-8B5D-18E88A2D94C3}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Client.API", "src\Services\Client\Client.API\Client.API.csproj", "{90DA85DE-8E3D-448E-95C0-DD4BB904A716}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ClientProfile.API", "src\Services\ClientProfile\ClientProfile.API\ClientProfile.API.csproj", "{90DA85DE-8E3D-448E-95C0-DD4BB904A716}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ApiGateways", "ApiGateways", "{3DE09F57-1932-42E2-ACF4-03A79364492A}"
 EndProject

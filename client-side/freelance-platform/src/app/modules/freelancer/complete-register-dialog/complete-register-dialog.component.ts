@@ -107,7 +107,6 @@ export class CompleteRegisterDialogComponent {
 
   completeRegistration(): void {
     var createCommand = this.parseToCommandModel();
-    console.log(createCommand);
     this.freelancerService.completeRegistration(createCommand).subscribe({
       complete: () => this.dialogRef.close(),
       error: () => console.log('error')

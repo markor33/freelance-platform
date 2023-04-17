@@ -29,6 +29,16 @@ services:
     ports:
      - 52000:80
 
+  client-profile.api:
+    image: ${DOCKER_REGISTRY-}clientprofileapi
+    build:
+      context: .
+      dockerfile: src/Services/ClientProfile/ClientProfile.API/Dockerfile
+    depends_on:
+     - client-profile.db
+    ports:
+     - 53000:80
+
   identity.db:
     image: postgres
     restart: always
@@ -51,6 +61,17 @@ services:
     ports:
      - 41000:5432
 
+  client-profile.db:
+    image: postgres
+    restart: always
+    environment:
+     POSTGRES_USERNAME: postgres
+     POSTGRES_PASSWORD: 123456
+    volumes:
+     - client-profile-data:/var/lib/postgresql/data
+    ports:
+     - 42000:5432
+
   web.bff:
     image: ${DOCKER_REGISTRY-}webbff
     build:
@@ -62,3 +83,4 @@ services:
 volumes:
  identity-data:
  freelancer-profile-data:
+ client-profile-data:
