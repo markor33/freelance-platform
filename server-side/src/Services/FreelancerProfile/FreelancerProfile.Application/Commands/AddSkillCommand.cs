@@ -1,11 +1,12 @@
-﻿using MediatR;
+﻿using FluentResults;
+using MediatR;
 using System.Runtime.Serialization;
 using System.Text.Json.Serialization;
 
 namespace FreelancerProfile.Application.Commands
 {
     [DataContract]
-    public class AddSkillCommand : IRequest<bool>
+    public class AddSkillCommand : IRequest<Result>
     {
         [DataMember]
         public Guid UserId { get; set; }

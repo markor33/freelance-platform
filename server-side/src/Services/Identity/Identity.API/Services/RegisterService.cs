@@ -18,7 +18,7 @@ namespace Identity.API.Services
             var newUser = new ApplicationUser()
             {
                 Email = registerViewModel.Email,
-                UserName =registerViewModel.Username
+                UserName = registerViewModel.Username
             };
             var result =  await _userManager.CreateAsync(newUser, registerViewModel.Password);
             if (!result.Succeeded)

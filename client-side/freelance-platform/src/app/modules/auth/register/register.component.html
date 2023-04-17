@@ -33,8 +33,8 @@
             <section>
                 <label>I am:</label>
                 <mat-radio-group [(ngModel)]="registration.role" name="role">
-                    <mat-radio-button value="0">Freelancer</mat-radio-button>
-                    <mat-radio-button value="1">Client</mat-radio-button>
+                    <mat-radio-button [value]="0">Freelancer</mat-radio-button>
+                    <mat-radio-button [value]="1">Client</mat-radio-button>
                 </mat-radio-group>
             </section>
             <button mat-raised-button color="primary" type="submit">Register</button>

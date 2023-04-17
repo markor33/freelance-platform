@@ -24,7 +24,6 @@ export class RegisterComponent {
     private snackBars: SnackBarsService) { }
 
   register(): void {
-    this.registration.role = Number(this.registration.role);
     if (!this.validateForm())
       return;
     this.authService.register(this.registration).subscribe({
@@ -43,7 +42,7 @@ export class RegisterComponent {
   }
 
   registrationError(err: any): void {
-    this.snackBars.error(err.error[0].description as string);
+    this.snackBars.error(err.error[0] as string);
   }
 
   validateForm(): boolean {

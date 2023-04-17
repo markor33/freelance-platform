@@ -63,6 +63,7 @@ export class FreelancerService {
     return this.httpClient.post<Certification>('api/freelancer/freelancer/certification', addCertificationCommand, this.httpOptions)
       .pipe(
         map((certification) => {
+          console.log(certification);
           this.freelancerSource.value?.certifications.push(certification);
         })
       );

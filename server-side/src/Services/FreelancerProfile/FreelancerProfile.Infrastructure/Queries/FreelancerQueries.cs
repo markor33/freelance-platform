@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using FluentResults;
 using FreelancerProfile.Application.Queries;
 using Microsoft.EntityFrameworkCore;
 
@@ -15,7 +16,7 @@ namespace FreelancerProfile.Infrastructure.Queries
             _mapper = mapper;
         }
 
-        public async Task<FreelancerViewModel> GetFreelancerFromUserAsync(Guid userId)
+        public async Task<Result<FreelancerViewModel>> GetFreelancerFromUserAsync(Guid userId)
         {
             var freelancer = await _context.Freelancers
                                     .Include(f => f.LanguageKnowledges)
@@ -28,8 +29,8 @@ namespace FreelancerProfile.Infrastructure.Queries
                                     .Where(f => f.UserId == userId)
                                     .FirstOrDefaultAsync();
             if (freelancer is null)
-                return null;
-            return _mapper.Map<FreelancerViewModel>(freelancer);
+                return Result.Fail("Freelancer does not exist");
+            return Result.Ok(_mapper.Map<FreelancerViewModel>(freelancer));
         }
 
     }
