@@ -1,4 +1,5 @@
-﻿using FreelancerProfile.Domain.AggregatesModel.FreelancerAggregate.Entites;
+﻿using FluentResults;
+using FreelancerProfile.Domain.AggregatesModel.FreelancerAggregate.Entites;
 
 namespace FreelancerProfile.Application.Queries
 {

@@ -1,9 +1,9 @@
-﻿using FreelancerProfile.Domain.AggregatesModel.FreelancerAggregate;
+﻿using FluentResults;
 
 namespace FreelancerProfile.Application.Queries
 {
     public interface IFreelancerQueries
     {
-        Task<FreelancerViewModel> GetFreelancerFromUserAsync(Guid userId);
+        Task<Result<FreelancerViewModel>> GetFreelancerFromUserAsync(Guid userId);
     }
 }

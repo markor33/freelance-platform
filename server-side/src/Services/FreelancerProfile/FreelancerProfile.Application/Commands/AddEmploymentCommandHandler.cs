@@ -1,11 +1,12 @@
-﻿using FreelancerProfile.Domain.AggregatesModel.FreelancerAggregate;
+﻿using FluentResults;
+using FreelancerProfile.Domain.AggregatesModel.FreelancerAggregate;
 using FreelancerProfile.Domain.AggregatesModel.FreelancerAggregate.Entites;
 using FreelancerProfile.Domain.AggregatesModel.FreelancerAggregate.ValueObjects;
 using MediatR;
 
 namespace FreelancerProfile.Application.Commands
 {
-    public class AddEmploymentCommandHandler : IRequestHandler<AddEmploymentCommand, Employment>
+    public class AddEmploymentCommandHandler : IRequestHandler<AddEmploymentCommand, Result<Employment>>
     {
         private readonly IFreelancerRepository _freelancerRepository;
 
@@ -14,11 +15,11 @@ namespace FreelancerProfile.Application.Commands
             _freelancerRepository = freelancerRepository;
         }
 
-        public async Task<Employment> Handle(AddEmploymentCommand request, CancellationToken cancellationToken)
+        public async Task<Result<Employment>> Handle(AddEmploymentCommand request, CancellationToken cancellationToken)
         {
             var freelancer = await _freelancerRepository.GetByUserIdAsync(request.UserId);
             if (freelancer is null)
-                return null;
+                return Result.Fail("Freelancer does not exist");
 
             var period = new DateRange(request.Start, request.End);
             var employment = new Employment(request.Company, request.Title, period, request.Description);
@@ -27,8 +28,8 @@ namespace FreelancerProfile.Application.Commands
             var result = await _freelancerRepository.UnitOfWork.SaveChangesAsync(cancellationToken);
 
             if (result == 0)
-                return null;
-            return employment;
+                return Result.Fail("Employment creation failed");
+            return Result.Ok(employment);
         }
     }
 }

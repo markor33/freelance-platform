@@ -1,4 +1,5 @@
-﻿using FreelancerProfile.Domain.AggregatesModel.FreelancerAggregate;
+﻿using FluentResults;
+using FreelancerProfile.Domain.AggregatesModel.FreelancerAggregate;
 using FreelancerProfile.Domain.AggregatesModel.FreelancerAggregate.Enums;
 using FreelancerProfile.Domain.AggregatesModel.FreelancerAggregate.ValueObjects;
 using MediatR;
@@ -8,7 +9,7 @@ using System.Text.Json.Serialization;
 namespace FreelancerProfile.Application.Commands
 {
     [DataContract]
-    public class CreateFreelancerCommand : IRequest<Freelancer>
+    public class CreateFreelancerCommand : IRequest<Result<string>>
     {
         [DataMember]
         public Guid UserId { get; set; }

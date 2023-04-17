@@ -1,4 +1,5 @@
-﻿using FreelancerProfile.Domain.AggregatesModel.FreelancerAggregate.Entites;
+﻿using FluentResults;
+using FreelancerProfile.Domain.AggregatesModel.FreelancerAggregate.Entites;
 using MediatR;
 using System.Runtime.Serialization;
 using System.Text.Json.Serialization;
@@ -6,7 +7,7 @@ using System.Text.Json.Serialization;
 namespace FreelancerProfile.Application.Commands
 {
     [DataContract]
-    public class AddEmploymentCommand : IRequest<Employment>
+    public class AddEmploymentCommand : IRequest<Result<Employment>>
     {
         [DataMember]
         public Guid UserId { get; set; }

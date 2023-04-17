@@ -1,4 +1,5 @@
-﻿using Identity.API.Models.ViewModels;
+﻿using Identity.API.Extensions;
+using Identity.API.Models.ViewModels;
 using Identity.API.Services;
 using Microsoft.AspNetCore.Mvc;
 
@@ -22,7 +23,7 @@ namespace Identity.API.Controllers
                 return BadRequest(ModelState);
             var result = await _registerService.RegisterAsync(registerViewModel);
             if (!result.Succeeded)
-                return BadRequest(result.Errors);
+                return BadRequest(result.Errors.ToStringList());
             return Ok();
         }
 
