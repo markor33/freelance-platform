@@ -3,6 +3,10 @@ import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { CompleteRegisterDialogComponent } from '../../freelancer/complete-register-dialog/complete-register-dialog.component';
 import { FreelancerService } from '../../freelancer/services/freelancer.service';
 import { AuthService } from '../../auth/services/auth.service';
+import { ClientCompleteRegistrationComponent } from '../../client/client-complete-registration/client-complete-registration.component';
+import { ClientService } from '../../client/services/client.service';
+import { Observable } from 'rxjs';
+import { ComponentType } from '@angular/cdk/portal';
 
 @Component({
   selector: 'app-home',
@@ -16,21 +20,41 @@ export class HomeComponent {
   constructor(
     private dialog: MatDialog, 
     private authService: AuthService,
-    private freelancerService: FreelancerService) { 
+    private freelancerService: FreelancerService,
+    private clientService: ClientService) { 
       this.authService.loginObserver.subscribe({
         next: (val) => this.isUserLogged = val
       });
   }
 
   ngOnInit() {
-    this.freelancerService.freelancerObserver.subscribe((freelancer) => {
+    if (!this.authService.isLogged())
+      return;
+    const role = this.authService.getUserRole(); 
+    if (role === 'FREELANCER')
+      this.isRegistrationComplete(this.freelancerService.freelancerObserver, CompleteRegisterDialogComponent);
+    else
+      this.isRegistrationComplete(this.clientService.clientObserver, ClientCompleteRegistrationComponent);
+
+    /*this.freelancerService.freelancerObserver.subscribe((freelancer) => {
       if (freelancer != null || !this.authService.isLogged())
         return;
       this.dialog.open(CompleteRegisterDialogComponent, {
         width: '40%',
         height: '65%'
       });
-    })
+    })*/
+  }
+
+  isRegistrationComplete(profileObserver: Observable<any | null>, dialog: ComponentType<any>): void {
+    profileObserver.subscribe((profile) => {
+      if (profile != null)
+        return;
+        this.dialog.open(dialog, {
+          width: '40%',
+          height: '65%'
+        });
+    });
   }
 
   logout() {

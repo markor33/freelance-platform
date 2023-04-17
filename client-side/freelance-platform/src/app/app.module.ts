@@ -11,6 +11,7 @@ import { FreelancerModule } from './modules/freelancer/freelancer.module';
 import { SharedModule } from './modules/shared/shared.module';
 import { LayoutModule } from './modules/layout/layout.module';
 import { JsonDateInterceptor } from './modules/shared/utils/json-date-interceptor';
+import { ClientModule } from './modules/client/client.module';
 
 @NgModule({
     declarations: [
@@ -25,6 +26,7 @@ import { JsonDateInterceptor } from './modules/shared/utils/json-date-intercepto
         SharedModule,
         AuthModule,
         FreelancerModule,
+        ClientModule,
         LayoutModule,
         JwtModule.forRoot({
             config: {
