@@ -13,7 +13,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Identity.API", "src\Service
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "FreelancerProfile", "FreelancerProfile", "{C8C31333-BE75-4DC7-8C3C-C2AB7FBB39DB}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Job", "Job", "{87866C97-5162-4CD3-B910-6AA03EAB527A}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "JobManagement", "JobManagement", "{87866C97-5162-4CD3-B910-6AA03EAB527A}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FreelancerProfile.Application", "src\Services\FreelancerProfile\FreelancerProfile.Application\FreelancerProfile.Application.csproj", "{42B154AB-8E18-4BB4-B8CA-C3555EE96A90}"
 EndProject
@@ -23,17 +23,17 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FreelancerProfile.Infrastru
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FreelancerProfile.API", "src\Services\FreelancerProfile\FreelancerProfile.API\FreelancerProfile.API.csproj", "{468DEC90-07E4-44F2-A1CA-2F5CD55BD9B2}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Job.Domain", "src\Services\Job\Job.Domain\Job.Domain.csproj", "{CB3F739B-3ADC-4E86-903D-59AA1100A09D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JobManagement.Domain", "src\Services\JobManagement\JobManagement.Domain\JobManagement.Domain.csproj", "{CB3F739B-3ADC-4E86-903D-59AA1100A09D}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Job.Application", "src\Services\Job\Job.Application\Job.Application.csproj", "{AE8C3B25-439B-4DF4-8D22-6BBAF8E8DBAB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JobManagement.Application", "src\Services\JobManagement\JobManagement.Application\JobManagement.Application.csproj", "{AE8C3B25-439B-4DF4-8D22-6BBAF8E8DBAB}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Job.Infrastructure", "src\Services\Job\Job.Infrastructure\Job.Infrastructure.csproj", "{2EB08009-2F7C-4A9C-B0BC-E1C7D5525F1F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JobManagement.Infrastructure", "src\Services\JobManagement\JobManagement.Infrastructure\JobManagement.Infrastructure.csproj", "{2EB08009-2F7C-4A9C-B0BC-E1C7D5525F1F}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Job.API", "src\Services\Job\Job.API\Job.API.csproj", "{70BF60FF-D784-47E4-8987-66DC3581B2B7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JobManagement.API", "src\Services\JobManagement\JobManagement.API\JobManagement.API.csproj", "{70BF60FF-D784-47E4-8987-66DC3581B2B7}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Job.UnitTests", "src\Services\Job\Job.UnitTests\Job.UnitTests.csproj", "{D3B3C533-07BF-4168-A8E4-DF628A5D29FC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JobManagement.UnitTests", "src\Services\JobManagement\JobManagement.UnitTests\JobManagement.UnitTests.csproj", "{D3B3C533-07BF-4168-A8E4-DF628A5D29FC}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Job.IntegrationTests", "src\Services\Job\Job.IntegrationTests\Job.IntegrationTests.csproj", "{CC0EC385-E84A-4975-92BB-06BCF93E3200}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JobManagement.IntegrationTests", "src\Services\JobManagement\JobManagement.IntegrationTests\JobManagement.IntegrationTests.csproj", "{CC0EC385-E84A-4975-92BB-06BCF93E3200}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FreelancerProfile.IntegrationTests", "src\Services\FreelancerProfile\FreelancerProfile.IntegrationTests\FreelancerProfile.IntegrationTests.csproj", "{E75724E6-30CF-41F2-BDBC-4351D714DC88}"
 EndProject

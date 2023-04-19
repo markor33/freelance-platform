@@ -1,7 +1,6 @@
 ﻿using AutoMapper;
 using FreelancerProfile.Domain.AggregatesModel.FreelancerAggregate;
-using FreelancerProfile.Domain.AggregatesModel.FreelancerAggregate.Entites;
-using FreelancerProfile.Domain.AggregatesModel.FreelancerAggregate.ValueObjects;
+using FreelancerProfile.Domain.AggregatesModel.FreelancerAggregate.Entities;
 
 namespace FreelancerProfile.Application.Queries
 {

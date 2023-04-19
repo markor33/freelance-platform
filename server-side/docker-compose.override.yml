@@ -14,7 +14,7 @@ services:
       - "80"
 
 
-  job.api:
+  job-management.api:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
     ports:

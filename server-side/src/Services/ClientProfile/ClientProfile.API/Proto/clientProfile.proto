@@ -1,0 +1,17 @@
+﻿syntax = "proto3";
+
+option csharp_namespace = "GrpcClientProfile";
+
+service ClientProfileGrpc {
+	rpc GetClientByUserId(GetClientByUserIdRequest) returns (ClientDTO);
+}
+
+message GetClientByUserIdRequest {
+	string userId = 1;
+}
+
+message ClientDTO {
+	string id = 1;
+	string firstName = 2;
+	string lastName = 3;
+}

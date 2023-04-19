@@ -1,6 +1,6 @@
 using ClientProfile.API.Infrastructure;
 using ClientProfile.API.Infrastructure.Repositories;
-using FreelancerProfile.API.Security;
+using ClientProfile.API.Security;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 

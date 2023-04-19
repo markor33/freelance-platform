@@ -1,4 +1,4 @@
-﻿using FreelancerProfile.Domain.AggregatesModel.FreelancerAggregate.Entites;
+﻿using FreelancerProfile.Domain.AggregatesModel.FreelancerAggregate.Entities;
 using FreelancerProfile.Domain.AggregatesModel.FreelancerAggregate.Enums;
 using FreelancerProfile.Domain.AggregatesModel.FreelancerAggregate.ValueObjects;
 using FreelancerProfile.Domain.Exceptions;

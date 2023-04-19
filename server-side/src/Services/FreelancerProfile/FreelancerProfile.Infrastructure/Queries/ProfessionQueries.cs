@@ -1,5 +1,5 @@
 ﻿using FreelancerProfile.Application.Queries;
-using FreelancerProfile.Domain.AggregatesModel.FreelancerAggregate.Entites;
+using FreelancerProfile.Domain.AggregatesModel.FreelancerAggregate.Entities;
 using Microsoft.EntityFrameworkCore;
 
 namespace FreelancerProfile.Infrastructure.Queries

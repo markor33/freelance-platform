@@ -1,6 +1,6 @@
 ﻿using FluentResults;
 using FreelancerProfile.Domain.AggregatesModel.FreelancerAggregate;
-using FreelancerProfile.Domain.AggregatesModel.FreelancerAggregate.Entites;
+using FreelancerProfile.Domain.AggregatesModel.FreelancerAggregate.Entities;
 using FreelancerProfile.Domain.AggregatesModel.FreelancerAggregate.ValueObjects;
 using MediatR;
 
