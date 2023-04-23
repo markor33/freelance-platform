@@ -1,0 +1,29 @@
+h2 {
+    text-align: center;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    padding: 5%;
+}
+
+button {
+    font-size: large;
+}
+
+mat-expansion-panel {
+    margin-bottom: 3%;
+}
+
+.payment {
+    display: flex;
+    gap: 1%;
+}
+
+.submit-button {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    margin-top: 5%;
+}

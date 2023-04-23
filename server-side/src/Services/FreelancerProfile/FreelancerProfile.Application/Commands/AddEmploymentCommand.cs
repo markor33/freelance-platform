@@ -1,5 +1,5 @@
 ﻿using FluentResults;
-using FreelancerProfile.Domain.AggregatesModel.FreelancerAggregate.Entites;
+using FreelancerProfile.Domain.AggregatesModel.FreelancerAggregate.Entities;
 using MediatR;
 using System.Runtime.Serialization;
 using System.Text.Json.Serialization;

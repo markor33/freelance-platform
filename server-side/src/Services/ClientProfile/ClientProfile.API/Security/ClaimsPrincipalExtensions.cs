@@ -1,6 +1,6 @@
 ﻿using System.Security.Claims;
 
-namespace FreelancerProfile.API.Security
+namespace ClientProfile.API.Security
 {
     public static class ClaimsPrincipalExtensions
     {

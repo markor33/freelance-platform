@@ -1,4 +1,4 @@
-﻿using FreelancerProfile.Domain.AggregatesModel.FreelancerAggregate.Entites;
+﻿using FreelancerProfile.Domain.AggregatesModel.FreelancerAggregate.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 namespace FreelancerProfile.Infrastructure.EntityConfiguration

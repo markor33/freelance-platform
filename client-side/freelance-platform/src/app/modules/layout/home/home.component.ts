@@ -7,6 +7,7 @@ import { ClientCompleteRegistrationComponent } from '../../client/client-complet
 import { ClientService } from '../../client/services/client.service';
 import { Observable } from 'rxjs';
 import { ComponentType } from '@angular/cdk/portal';
+import { CreateJobDialogComponent } from '../../job/create-job-dialog/create-job-dialog.component';
 
 @Component({
   selector: 'app-home',
@@ -35,15 +36,6 @@ export class HomeComponent {
       this.isRegistrationComplete(this.freelancerService.freelancerObserver, CompleteRegisterDialogComponent);
     else
       this.isRegistrationComplete(this.clientService.clientObserver, ClientCompleteRegistrationComponent);
-
-    /*this.freelancerService.freelancerObserver.subscribe((freelancer) => {
-      if (freelancer != null || !this.authService.isLogged())
-        return;
-      this.dialog.open(CompleteRegisterDialogComponent, {
-        width: '40%',
-        height: '65%'
-      });
-    })*/
   }
 
   isRegistrationComplete(profileObserver: Observable<any | null>, dialog: ComponentType<any>): void {

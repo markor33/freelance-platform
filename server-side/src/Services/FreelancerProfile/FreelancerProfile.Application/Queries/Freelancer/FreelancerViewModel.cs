@@ -1,4 +1,4 @@
-﻿using FreelancerProfile.Domain.AggregatesModel.FreelancerAggregate.Entites;
+﻿using FreelancerProfile.Domain.AggregatesModel.FreelancerAggregate.Entities;
 using FreelancerProfile.Domain.AggregatesModel.FreelancerAggregate.Enums;
 using FreelancerProfile.Domain.AggregatesModel.FreelancerAggregate.ValueObjects;
 
@@ -6,6 +6,7 @@ namespace FreelancerProfile.Application.Queries
 {
     public class FreelancerViewModel
     {
+        public Guid Id { get; private set; }
         public Guid UserId { get; private set; }
         public string FirstName { get; private set; }
         public string LastName { get; private set; }

@@ -1,0 +1,33 @@
+@use '@angular/material' as mat;
+
+$my-palette: mat.define-palette(mat.$indigo-palette);
+
+.container {
+    display: flex;
+    flex-direction: column;
+    width: 60%;
+    margin-left: 20%;
+}
+
+.job {
+    display: flex;
+    flex-direction: column;
+    padding: 2%;
+    margin-bottom: 2%;
+    border: solid 1px mat.get-color-from-palette($my-palette);
+    border-radius: 1%;
+}
+
+.job .description {
+    white-space: pre-line;
+}
+
+.job .apply-button {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 2%;
+}
+
+.job .apply-button button {
+    font-size: large;
+}

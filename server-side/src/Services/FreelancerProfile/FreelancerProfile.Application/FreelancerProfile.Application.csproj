@@ -14,6 +14,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\..\BuildingBlocks\EventBus\EventBus.csproj" />
     <ProjectReference Include="..\FreelancerProfile.Domain\FreelancerProfile.Domain.csproj" />
   </ItemGroup>
 

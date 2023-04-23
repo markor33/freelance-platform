@@ -13,7 +13,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Identity.API", "src\Service
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "FreelancerProfile", "FreelancerProfile", "{C8C31333-BE75-4DC7-8C3C-C2AB7FBB39DB}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Job", "Job", "{87866C97-5162-4CD3-B910-6AA03EAB527A}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "JobManagement", "JobManagement", "{87866C97-5162-4CD3-B910-6AA03EAB527A}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FreelancerProfile.Application", "src\Services\FreelancerProfile\FreelancerProfile.Application\FreelancerProfile.Application.csproj", "{42B154AB-8E18-4BB4-B8CA-C3555EE96A90}"
 EndProject
@@ -23,17 +23,17 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FreelancerProfile.Infrastru
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FreelancerProfile.API", "src\Services\FreelancerProfile\FreelancerProfile.API\FreelancerProfile.API.csproj", "{468DEC90-07E4-44F2-A1CA-2F5CD55BD9B2}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Job.Domain", "src\Services\Job\Job.Domain\Job.Domain.csproj", "{CB3F739B-3ADC-4E86-903D-59AA1100A09D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JobManagement.Domain", "src\Services\JobManagement\JobManagement.Domain\JobManagement.Domain.csproj", "{CB3F739B-3ADC-4E86-903D-59AA1100A09D}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Job.Application", "src\Services\Job\Job.Application\Job.Application.csproj", "{AE8C3B25-439B-4DF4-8D22-6BBAF8E8DBAB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JobManagement.Application", "src\Services\JobManagement\JobManagement.Application\JobManagement.Application.csproj", "{AE8C3B25-439B-4DF4-8D22-6BBAF8E8DBAB}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Job.Infrastructure", "src\Services\Job\Job.Infrastructure\Job.Infrastructure.csproj", "{2EB08009-2F7C-4A9C-B0BC-E1C7D5525F1F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JobManagement.Infrastructure", "src\Services\JobManagement\JobManagement.Infrastructure\JobManagement.Infrastructure.csproj", "{2EB08009-2F7C-4A9C-B0BC-E1C7D5525F1F}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Job.API", "src\Services\Job\Job.API\Job.API.csproj", "{70BF60FF-D784-47E4-8987-66DC3581B2B7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JobManagement.API", "src\Services\JobManagement\JobManagement.API\JobManagement.API.csproj", "{70BF60FF-D784-47E4-8987-66DC3581B2B7}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Job.UnitTests", "src\Services\Job\Job.UnitTests\Job.UnitTests.csproj", "{D3B3C533-07BF-4168-A8E4-DF628A5D29FC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JobManagement.UnitTests", "src\Services\JobManagement\JobManagement.UnitTests\JobManagement.UnitTests.csproj", "{D3B3C533-07BF-4168-A8E4-DF628A5D29FC}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Job.IntegrationTests", "src\Services\Job\Job.IntegrationTests\Job.IntegrationTests.csproj", "{CC0EC385-E84A-4975-92BB-06BCF93E3200}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JobManagement.IntegrationTests", "src\Services\JobManagement\JobManagement.IntegrationTests\JobManagement.IntegrationTests.csproj", "{CC0EC385-E84A-4975-92BB-06BCF93E3200}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FreelancerProfile.IntegrationTests", "src\Services\FreelancerProfile\FreelancerProfile.IntegrationTests\FreelancerProfile.IntegrationTests.csproj", "{E75724E6-30CF-41F2-BDBC-4351D714DC88}"
 EndProject
@@ -50,6 +50,14 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Web.Bff", "Web.Bff", "{6933216D-822D-4EDC-989D-10BECF9B711D}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Web.Bff", "src\ApiGateways\Web.Bff\Web.Bff\Web.Bff.csproj", "{736F6B04-C836-4294-BE7A-7DA66CC02D4D}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "BuildingBlocks", "BuildingBlocks", "{E84240AB-58ED-4C90-860F-08343FE271B6}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "EventBus", "src\BuildingBlocks\EventBus", "{B7DD8BE9-3970-41E1-B046-1181E3F42258}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventBus", "src\BuildingBlocks\EventBus\EventBus.csproj", "{21EB8B6F-FDD1-4658-B8CF-E934FA8AFA7E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventBusRabbitMQ", "src\BuildingBlocks\EventBusRabbitMQ\EventBusRabbitMQ.csproj", "{16029AF2-9A5D-4960-B566-393639190629}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -121,6 +129,14 @@ Global
 		{736F6B04-C836-4294-BE7A-7DA66CC02D4D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{736F6B04-C836-4294-BE7A-7DA66CC02D4D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{736F6B04-C836-4294-BE7A-7DA66CC02D4D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{21EB8B6F-FDD1-4658-B8CF-E934FA8AFA7E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{21EB8B6F-FDD1-4658-B8CF-E934FA8AFA7E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{21EB8B6F-FDD1-4658-B8CF-E934FA8AFA7E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{21EB8B6F-FDD1-4658-B8CF-E934FA8AFA7E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{16029AF2-9A5D-4960-B566-393639190629}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{16029AF2-9A5D-4960-B566-393639190629}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{16029AF2-9A5D-4960-B566-393639190629}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{16029AF2-9A5D-4960-B566-393639190629}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -148,6 +164,10 @@ Global
 		{3DE09F57-1932-42E2-ACF4-03A79364492A} = {53FFC462-4061-4C71-B187-D3F6E67659E4}
 		{6933216D-822D-4EDC-989D-10BECF9B711D} = {3DE09F57-1932-42E2-ACF4-03A79364492A}
 		{736F6B04-C836-4294-BE7A-7DA66CC02D4D} = {6933216D-822D-4EDC-989D-10BECF9B711D}
+		{E84240AB-58ED-4C90-860F-08343FE271B6} = {53FFC462-4061-4C71-B187-D3F6E67659E4}
+		{B7DD8BE9-3970-41E1-B046-1181E3F42258} = {E84240AB-58ED-4C90-860F-08343FE271B6}
+		{21EB8B6F-FDD1-4658-B8CF-E934FA8AFA7E} = {B7DD8BE9-3970-41E1-B046-1181E3F42258}
+		{16029AF2-9A5D-4960-B566-393639190629} = {B7DD8BE9-3970-41E1-B046-1181E3F42258}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {92BDE447-A322-40F5-8E79-71D05B3A578B}

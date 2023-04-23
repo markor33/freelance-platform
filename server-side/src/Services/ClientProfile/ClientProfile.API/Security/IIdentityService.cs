@@ -1,4 +1,4 @@
-﻿namespace FreelancerProfile.API.Security
+﻿namespace ClientProfile.API.Security
 {
     public interface IIdentityService
     {

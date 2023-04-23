@@ -1,6 +1,6 @@
 ﻿using ClientProfile.API.Infrastructure.Repositories;
 using ClientProfile.API.Model;
-using FreelancerProfile.API.Security;
+using ClientProfile.API.Security;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
