@@ -3,10 +3,11 @@ import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { FreelancerService } from '../services/freelancer.service';
 import { STEPPER_GLOBAL_OPTIONS } from '@angular/cdk/stepper';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { ExperienceLevel, HourlyRate, ProfileSummary } from '../models/freelancer.model';
+import { HourlyRate, ProfileSummary } from '../models/freelancer.model';
 import { Language, LanguageKnowledge } from '../../shared/models/language.model';
 import { Profession } from '../../shared/models/profession.mode';
 import { CreateFreelancerCommand } from '../models/create-freelancer-command.model';
+import { ExperienceLevel } from '../../shared/models/experience-level.model';
 
 @Component({
   selector: 'app-complete-register-dialog',

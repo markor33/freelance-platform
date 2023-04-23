@@ -12,6 +12,7 @@ import { SharedModule } from './modules/shared/shared.module';
 import { LayoutModule } from './modules/layout/layout.module';
 import { JsonDateInterceptor } from './modules/shared/utils/json-date-interceptor';
 import { ClientModule } from './modules/client/client.module';
+import { JobModule } from './modules/job/job.module';
 
 @NgModule({
     declarations: [
@@ -27,6 +28,7 @@ import { ClientModule } from './modules/client/client.module';
         AuthModule,
         FreelancerModule,
         ClientModule,
+        JobModule,
         LayoutModule,
         JwtModule.forRoot({
             config: {

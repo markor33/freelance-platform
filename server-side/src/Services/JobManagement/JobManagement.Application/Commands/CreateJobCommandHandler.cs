@@ -1,5 +1,4 @@
 ﻿using FluentResults;
-using JobManagement.Application.Services;
 using JobManagement.Domain.AggregatesModel.JobAggregate;
 using MediatR;
 
@@ -16,9 +15,12 @@ namespace JobManagement.Application.Commands
 
         public async Task<Result<Job>> Handle(CreateJobCommand request, CancellationToken cancellationToken)
         {
-            var job = new Job(request.UserId, request.Title, request.Description);
+            var job = new Job(request.ClientId, request.Title, request.Description, request.ExperienceLevel, request.Payment);
 
             job = await _jobRepository.CreateAsync(job);
+            foreach(var question in request.Questions)
+                job.AddQuestion(question);
+
             var result = await _jobRepository.UnitOfWork.SaveEntitiesAsync(cancellationToken);
 
             if (!result)

@@ -7,7 +7,7 @@ namespace JobManagement.Application.Validations
     {
         public CreateJobCommandValidator()
         {
-            RuleFor(x => x.UserId).NotEmpty();
+            RuleFor(x => x.ClientId).NotEmpty();
 
             RuleFor(X => X.Title).NotEmpty();
 

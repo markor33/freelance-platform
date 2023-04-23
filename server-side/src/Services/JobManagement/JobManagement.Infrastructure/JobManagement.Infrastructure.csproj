@@ -27,7 +27,6 @@
 
   <ItemGroup>
     <Folder Include="Migrations\" />
-    <Folder Include="Queries\" />
 	<Protobuf Include="..\..\ClientProfile\ClientProfile.API\Proto\clientProfile.proto" GrpcServices="Client" />
   </ItemGroup>
 

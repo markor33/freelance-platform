@@ -13,6 +13,7 @@ namespace FreelancerProfile.Domain.AggregatesModel.FreelancerAggregate
         public string LastName { get; private set;}
         public Contact Contact { get; private set; }
         public DateTime Joined { get; private set; }
+        public int Credits { get; private set; }
         public bool IsProfilePublic { get; private set; }
         public ProfileSummary ProfileSummary { get; private set; }
         public HourlyRate HourlyRate { get; private set; }
@@ -100,6 +101,13 @@ namespace FreelancerProfile.Domain.AggregatesModel.FreelancerAggregate
         public void AddPortfolioProject(PortfolioProject portfolioProject)
         {
             PortfolioProjects.Add(portfolioProject);
+        }
+
+        public bool SubtractCredits(int credits)
+        {
+            if (Credits < credits) return false;
+            Credits -= credits;
+            return true;
         }
 
     }

@@ -1,5 +1,6 @@
 ﻿using FreelancerProfile.Domain.SeedWork;
 using JobManagement.Domain.AggregatesModel.JobAggregate;
+using Microsoft.EntityFrameworkCore;
 
 namespace JobManagement.Infrastructure.Repositories
 {
@@ -14,9 +15,18 @@ namespace JobManagement.Infrastructure.Repositories
 
         public IUnitOfWork UnitOfWork => _context;
 
+        public async Task<Job> GetByIdAsync(Guid id)
+        {
+            return await _context.Jobs.Where(j => j.Id== id)
+                .Include(j => j.Proposals)
+                .Include(j => j.Questions)
+                .FirstOrDefaultAsync();
+        }
+
         public async Task<Job> CreateAsync(Job job)
         {
             return (await _context.Jobs.AddAsync(job)).Entity;
         }
+
     }
 }

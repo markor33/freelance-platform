@@ -19,6 +19,8 @@ namespace FreelancerProfile.Infrastructure.EntityConfiguration
 
             builder.Property(f => f.LastName).IsRequired().HasMaxLength(100);
 
+            builder.Property(f => f.Credits).IsRequired();
+
             builder.OwnsOne(f => f.Contact, c =>
             {
                 c.Ignore(c => c.TimeZone);

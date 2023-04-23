@@ -1,0 +1,9 @@
+<div class="container">
+    <div class="job" *ngFor="let job of jobs">
+        <h2>{{job.title}}</h2>
+        <div class="description">{{job.description}}</div>
+        <div class="apply-button">
+            <button mat-raised-button color="primary" (click)="apply(job)" >Apply</button>
+        </div>
+    </div>
+</div>

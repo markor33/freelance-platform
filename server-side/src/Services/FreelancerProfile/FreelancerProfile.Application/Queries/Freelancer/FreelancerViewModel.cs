@@ -6,6 +6,7 @@ namespace FreelancerProfile.Application.Queries
 {
     public class FreelancerViewModel
     {
+        public Guid Id { get; private set; }
         public Guid UserId { get; private set; }
         public string FirstName { get; private set; }
         public string LastName { get; private set; }

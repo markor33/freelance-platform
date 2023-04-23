@@ -93,8 +93,21 @@ services:
     ports:
      - 10000:80
 
+  rabbitmq:
+    image: rabbitmq:3.8-management-alpine
+    hostname: rabbitmq
+    ports:
+      - "60000:5672"
+      - "61000:15672"
+    volumes:
+      - rabbitmq_data:/var/lib/rabbitmq
+    environment:
+      RABBITMQ_DEFAULT_USER: guest
+      RABBITMQ_DEFAULT_PASS: guest
+
 volumes:
  identity-data:
  freelancer-profile-data:
  client-profile-data:
  job-management-data:
+ rabbitmq_data:

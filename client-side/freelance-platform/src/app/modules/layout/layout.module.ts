@@ -8,10 +8,12 @@ import { MatButtonModule } from '@angular/material/button';
 import { RouterModule, Routes } from '@angular/router';
 import { MatIconModule } from '@angular/material/icon';
 import {MatMenuModule} from '@angular/material/menu';
+import { JobModule, jobRoutes } from '../job/job.module';
 
 const routes: Routes = [
   { path: '', component: HomeComponent, children: [
-    ...freelancerRoutes
+    ...freelancerRoutes,
+    ...jobRoutes
   ]}
 ];
 
@@ -26,6 +28,7 @@ const routes: Routes = [
     MatToolbarModule,
     MatButtonModule,
     MatIconModule,
+    JobModule,
     MatMenuModule,
     RouterModule.forRoot(routes)
   ],

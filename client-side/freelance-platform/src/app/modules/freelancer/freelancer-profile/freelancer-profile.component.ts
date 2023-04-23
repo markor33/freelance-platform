@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Availability, ExperienceLevel, Freelancer } from '../models/freelancer.model';
+import { Availability, Freelancer } from '../models/freelancer.model';
 import { FreelancerService } from '../services/freelancer.service';
 import { LanguageProficiencyLevel } from '../../shared/models/language.model';
 import { MatDialog } from '@angular/material/dialog';
@@ -7,6 +7,7 @@ import { AddEducationDialogComponent } from './dialogs/add-education-dialog/add-
 import { AddCertificationDialogComponent } from './dialogs/add-certification-dialog/add-certification-dialog.component';
 import { AddEmploymentDialogComponent } from './dialogs/add-employment-dialog/add-employment-dialog.component';
 import { AddSkillDialogComponent } from './dialogs/add-skill-dialog/add-skill-dialog.component';
+import { ExperienceLevel } from '../../shared/models/experience-level.model';
 
 @Component({
   selector: 'app-freelancer-profile',
