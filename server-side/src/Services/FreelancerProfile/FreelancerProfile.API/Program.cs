@@ -10,6 +10,9 @@ using EventBusRabbitMQ;
 using RabbitMQ.Client;
 using FreelancerProfile.Application.IntegrationEvents.Handlers;
 using FreelancerProfile.Application.IntegrationEvents.Events;
+using FreelancerProfile.Infrastructure.ReadModel.Settings;
+using Npgsql;
+using System.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -17,7 +20,12 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-builder.Services.AddDbContext<FreelancerProfileContext>(options => options.UseNpgsql(builder.Configuration.GetConnectionString("FreelancerProfile")));
+var connectionString = builder.Configuration.GetConnectionString("FreelancerProfile");
+builder.Services.AddDbContext<FreelancerProfileContext>(options => options.UseNpgsql(connectionString));
+builder.Services.AddScoped<IDbConnection>(provider => new NpgsqlConnection(connectionString));
+
+var mongoDbSettings = builder.Configuration.GetSection("MongoDB");
+builder.Services.Configure<MongoDBSettings>(mongoDbSettings);
 
 builder.Services.AddAuthentication("Bearer")
     .AddJwtBearer("Bearer", options =>

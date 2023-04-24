@@ -1,9 +1,12 @@
-﻿using FreelancerProfile.Domain.AggregatesModel.FreelancerAggregate.Entities;
+﻿using FluentResults;
 
 namespace FreelancerProfile.Application.Queries
 {
     public interface IProfessionQueries
     {
-        Task<Profession> GetByIdAsync(Guid id);
+        Task<List<ProfessionViewModel>> GetAllAsync();
+        Task<Result<ProfessionViewModel>> GetByIdAsync(Guid id);
+        Task<Result<SkillViewModel>> GetSkillByIdAsync(Guid id);
+        Task<List<SkillViewModel>> GetSkillsByProfessionAsync(Guid id);
     }
 }

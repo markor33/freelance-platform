@@ -14,6 +14,10 @@ namespace FreelancerProfile.Application
             services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehavior<,>));
             services.AddValidatorsFromAssembly(typeof(DependencyInjection).Assembly);
 
+            services.AddTransient(typeof(IFreelancerQueries), typeof(FreelancerQueries));
+            services.AddTransient(typeof(ILanguageQueries), typeof(LanguageQueries));
+            services.AddTransient(typeof(IProfessionQueries), typeof(ProfessionQueries));
+
             services.AddAutoMapper(typeof(MappingProfile));
 
             return services;

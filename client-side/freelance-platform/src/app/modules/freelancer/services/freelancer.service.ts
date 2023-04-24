@@ -29,7 +29,7 @@ export class FreelancerService {
   }
 
   loginStateChanged(isLogged: boolean) {
-    if (!isLogged) {
+    if (!isLogged || this.authService.getUserRole() === 'CLIENT') {
       this.freelancerSource.next(new Freelancer());
       return;
     }

@@ -1,6 +1,8 @@
-﻿namespace FreelancerProfile.Domain.SeedWork
+﻿using MediatR;
+
+namespace FreelancerProfile.Domain.SeedWork
 {
-    public abstract class Entity<TId>
+    public abstract class Entity<TId> : EntityBase
     {
         private TId _id;
 

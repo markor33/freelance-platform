@@ -1,11 +1,14 @@
 ﻿using FreelancerProfile.Domain.AggregatesModel.FreelancerAggregate.Entities;
 using FreelancerProfile.Domain.AggregatesModel.FreelancerAggregate.Enums;
 using FreelancerProfile.Domain.AggregatesModel.FreelancerAggregate.ValueObjects;
+using MongoDB.Bson.Serialization.Attributes;
 
 namespace FreelancerProfile.Application.Queries
 {
+    [BsonCollection("Freelancers")]
     public class FreelancerViewModel
     {
+        [BsonId]
         public Guid Id { get; private set; }
         public Guid UserId { get; private set; }
         public string FirstName { get; private set; }
@@ -23,6 +26,33 @@ namespace FreelancerProfile.Application.Queries
         public List<EducationViewModel> Educations { get; private set; }
         public List<CertificationViewModel> Certifications { get; private set; }
         public List<EmploymentViewModel> Employments { get; private set; }
+
+        public void AddEducation(EducationViewModel education)
+        {
+            Educations.Add(education);
+        }
+
+        public void AddCertification(CertificationViewModel certification)
+        {
+            Certifications.Add(certification);
+        }
+
+        public void AddSkill(SkillViewModel skill)
+        {
+            Skills.Add(skill);
+        }
+
+        public void AddSkill(List<SkillViewModel> skills)
+        {
+            foreach (var skill in skills)
+                AddSkill(skill);
+        }
+
+        public void AddEmployment(EmploymentViewModel employment)
+        {
+            Employments.Add(employment);
+        }
+
     }
 
     public class EducationViewModel

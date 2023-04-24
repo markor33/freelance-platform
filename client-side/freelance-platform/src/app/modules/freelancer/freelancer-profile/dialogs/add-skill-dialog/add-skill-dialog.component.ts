@@ -3,7 +3,6 @@ import { ProfessionService } from 'src/app/modules/shared/services/profession.se
 import { FreelancerService } from '../../../services/freelancer.service';
 import { Skill } from 'src/app/modules/shared/models/profession.mode';
 import { FormControl } from '@angular/forms';
-import { AddSkillCommand } from '../../../models/add-skill-command.model';
 import { MatDialogRef } from '@angular/material/dialog';
 import { SnackBarsService } from 'src/app/modules/shared/services/snack-bars.service';
 

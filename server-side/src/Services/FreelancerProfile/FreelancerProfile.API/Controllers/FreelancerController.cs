@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using FluentResults;
 using FreelancerProfile.API.Extensions;
 using FreelancerProfile.API.Security;
 using FreelancerProfile.Application.Commands;
@@ -83,7 +82,7 @@ namespace FreelancerProfile.API.Controllers
         }
 
         [HttpPost("skill")]
-        public async Task<IActionResult> AddSkill(AddSkillCommand command)
+        public async Task<ActionResult> AddSkill(AddSkillCommand command)
         {
             command.UserId = _identityService.GetUserId();
             var commandResult = await _mediator.Send(command);

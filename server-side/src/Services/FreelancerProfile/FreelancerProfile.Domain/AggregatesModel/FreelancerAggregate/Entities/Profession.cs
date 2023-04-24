@@ -25,6 +25,5 @@ namespace FreelancerProfile.Domain.AggregatesModel.FreelancerAggregate.Entities
             Name = name;
             Description = description;
         }
-
     }
 }
