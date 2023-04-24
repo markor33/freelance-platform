@@ -9,7 +9,7 @@ using System.Text.Json.Serialization;
 namespace FreelancerProfile.Application.Commands
 {
     [DataContract]
-    public class CreateFreelancerCommand : IRequest<Result<string>>
+    public class CreateFreelancerCommand : IRequest<Result<Freelancer>>
     {
         [DataMember]
         public Guid UserId { get; set; }

@@ -1,5 +1,4 @@
 ﻿using FreelancerProfile.Application.Queries;
-using FreelancerProfile.Domain.AggregatesModel.FreelancerAggregate.Entities;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FreelancerProfile.API.Controllers
@@ -8,15 +7,26 @@ namespace FreelancerProfile.API.Controllers
     [ApiController]
     public class ProfessionController : ControllerBase
     {
-        private readonly ISkillQueries _skillQueries;
+        private readonly IProfessionQueries _professionQueries;
 
-        public ProfessionController(ISkillQueries skillQueries)
+        public ProfessionController(IProfessionQueries professionQueries)
         {
-            _skillQueries = skillQueries;
+            _professionQueries = professionQueries;
+        }
+
+        [HttpGet]
+        public async Task<ActionResult<List<ProfessionViewModel>>> Get()
+        {
+            var professions = await _professionQueries.GetAllAsync();
+            return Ok(professions);
         }
 
         [HttpGet("{id}/skills")]
-        public async Task<ActionResult<List<Skill>>> GetSkills(string id)
-            => await _skillQueries.GetByProfession(Guid.Parse(id));
+        public async Task<ActionResult<List<SkillViewModel>>> GetSkills(string id)
+        {
+            var skills = await _professionQueries.GetSkillsByProfessionAsync(Guid.Parse(id));
+            return Ok(skills);
+        }
+
     }
 }

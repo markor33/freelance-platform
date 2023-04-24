@@ -22,12 +22,16 @@ namespace FreelancerProfile.Infrastructure.Repositories
 
         public async Task<Freelancer> GetByIdAsync(Guid id)
         {
-            return await _context.Freelancers.Where(f => f.Id == id).FirstOrDefaultAsync(); 
+            return await _context.Freelancers
+                .Include(f => f.Skills)
+                .Where(f => f.Id == id).FirstOrDefaultAsync(); 
         }
 
         public async Task<Freelancer> GetByUserIdAsync(Guid userId)
         {
-            return await _context.Freelancers.Where(f => f.UserId== userId).FirstOrDefaultAsync();
+            return await _context.Freelancers
+                .Include(f => f.Skills)
+                .Where(f => f.UserId== userId).FirstOrDefaultAsync();
         }
     }
 }

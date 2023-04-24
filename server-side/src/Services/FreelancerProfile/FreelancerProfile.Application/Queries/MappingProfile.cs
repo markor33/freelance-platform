@@ -8,6 +8,8 @@ namespace FreelancerProfile.Application.Queries
     {
         public MappingProfile()
         {
+            CreateMap<Language, LanguageViewModel>();
+
             CreateMap<Skill, SkillViewModel>();
 
             CreateMap<Profession, ProfessionViewModel>();

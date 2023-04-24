@@ -25,9 +25,9 @@ namespace FreelancerProfile.Application.Commands
             var certification = new Certification(request.Name, request.Provider, attended, request.Description);
             freelancer.AddCertification(certification);
 
-            var result = await _freelancerRepository.UnitOfWork.SaveChangesAsync(cancellationToken);
+            var result = await _freelancerRepository.UnitOfWork.SaveEntitiesAsync(cancellationToken);
 
-            if (result == 0)
+            if (!result)
                 return Result.Fail("Certification creation failed");
             return Result.Ok(certification);
         }

@@ -25,9 +25,9 @@ namespace FreelancerProfile.Application.Commands
             var employment = new Employment(request.Company, request.Title, period, request.Description);
             freelancer.AddEmployment(employment);
 
-            var result = await _freelancerRepository.UnitOfWork.SaveChangesAsync(cancellationToken);
+            var result = await _freelancerRepository.UnitOfWork.SaveEntitiesAsync(cancellationToken);
 
-            if (result == 0)
+            if (!result)
                 return Result.Fail("Employment creation failed");
             return Result.Ok(employment);
         }

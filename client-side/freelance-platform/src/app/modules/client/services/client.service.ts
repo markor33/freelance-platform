@@ -23,7 +23,7 @@ export class ClientService {
   }
 
   loginStateChanged(isLogged: boolean) {
-    if (!isLogged) {
+    if (!isLogged || this.authService.getUserRole() === 'FREELANCER') {
       this.clientSource.next(new Client());
       return;
     }

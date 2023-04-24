@@ -8,6 +8,8 @@ import { Language, LanguageKnowledge } from '../../shared/models/language.model'
 import { Profession } from '../../shared/models/profession.mode';
 import { CreateFreelancerCommand } from '../models/create-freelancer-command.model';
 import { ExperienceLevel } from '../../shared/models/experience-level.model';
+import { LanguageService } from '../../shared/services/language.service';
+import { ProfessionService } from '../../shared/services/profession.service';
 
 @Component({
   selector: 'app-complete-register-dialog',
@@ -23,14 +25,9 @@ import { ExperienceLevel } from '../../shared/models/experience-level.model';
 export class CompleteRegisterDialogComponent {
 
   isRegistrationCompleted: boolean = false;
-
-  languages: Language[] = [
-    {id: 1, name: 'English', 'shortName': 'en'}, 
-    {id: 2, name: 'Serbian', 'shortName': 'sr'}, 
-    {id: 3, name: 'German', 'shortName': 'de'}];
-  professions: Profession[] = [
-    {id: '5d9c0a7f-cf11-4c29-930a-0842fe6be2ad', name: 'Graphic designer'},
-    {id: 'd6861f65-0950-4c7f-b5b1-de644f923fbb', name: 'Software engineer'}];
+  
+  languages: Language[] = [];
+  professions: Profession[] = [];
 
   generalFormGroup = this.formBuilder.group({
     firstName: new FormControl('', Validators.required),
@@ -78,11 +75,13 @@ export class CompleteRegisterDialogComponent {
     private dialogRef: MatDialogRef<CompleteRegisterDialogComponent>,
     private freelancerService: FreelancerService,
     private dialog: MatDialog,
-    private formBuilder: FormBuilder)
+    private formBuilder: FormBuilder,
+    private languageService: LanguageService,
+    private professionService: ProfessionService)
   {
-    this.freelancerService.freelancerObserver.subscribe((freelancer) => {
-      this.isRegistrationCompleted = (freelancer != null);
-    });
+    this.freelancerService.freelancerObserver.subscribe((freelancer) => this.isRegistrationCompleted = (freelancer != null));
+    this.languageService.get().subscribe((languages) => this.languages = languages);
+    this.professionService.get().subscribe((professions) => this.professions = professions);
     
     this.dialogRef.afterClosed().subscribe(() => {
       if (!this.isRegistrationCompleted)

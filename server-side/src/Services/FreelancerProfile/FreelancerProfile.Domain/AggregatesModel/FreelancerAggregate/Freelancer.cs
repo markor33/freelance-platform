@@ -1,7 +1,8 @@
-﻿using FreelancerProfile.Domain.AggregatesModel.FreelancerAggregate.Entities;
+﻿using FluentResults;
+using FreelancerProfile.Domain.AggregatesModel.FreelancerAggregate.Entities;
 using FreelancerProfile.Domain.AggregatesModel.FreelancerAggregate.Enums;
+using FreelancerProfile.Domain.AggregatesModel.FreelancerAggregate.Events;
 using FreelancerProfile.Domain.AggregatesModel.FreelancerAggregate.ValueObjects;
-using FreelancerProfile.Domain.Exceptions;
 using FreelancerProfile.Domain.SeedWork;
 
 namespace FreelancerProfile.Domain.AggregatesModel.FreelancerAggregate
@@ -30,6 +31,7 @@ namespace FreelancerProfile.Domain.AggregatesModel.FreelancerAggregate
 
         public Freelancer()
         {
+            Credits = 10;
             LanguageKnowledges = new List<LanguageKnowledge>();
             Skills = new List<Skill>();
             Educations = new List<Education>();
@@ -62,7 +64,10 @@ namespace FreelancerProfile.Domain.AggregatesModel.FreelancerAggregate
             Availability = availability;
             ExperienceLevel = experienceLevel;
             Profession = profession;
+            ProfessionId = profession.Id;
             LanguageKnowledges = new List<LanguageKnowledge>();
+            Skills = new List<Skill>();
+            AddDomainEvent(new FreelancerCreatedDomainEvent(this));
         }
 
         public void AddLanguageKnowledge(LanguageKnowledge languageKnowledge)
@@ -70,32 +75,46 @@ namespace FreelancerProfile.Domain.AggregatesModel.FreelancerAggregate
             LanguageKnowledges.Add(languageKnowledge);
         }
 
-        public void AddSkill(Skill skill)
+        public Result AddSkill(Skill skill)
         {
             if (skill.ProfessionId != ProfessionId)
-                throw new FreelancerProfileDomainException($"Freelancer profession({Profession.Name}) does not contain {skill.Name} skill");
+                return Result.Fail($"Freelancers profession does not contain {skill.Name} skill");
+
+            if (Skills.Contains(skill))
+                return Result.Fail($"Skill '{skill.Name}' already added");
+
             Skills.Add(skill);
+            AddDomainEvent(new SkillAddedDomainEvent(Id, skill));
+            return Result.Ok();
         }
 
-        public void AddSkill(List<Skill> skills)
+        public Result AddSkill(List<Skill> skills)
         {
-            foreach(var skill in skills)
-                AddSkill(skill);
+            foreach (var skill in skills)
+            {
+                var result = AddSkill(skill);
+                if (result.IsFailed)
+                    return result;
+            }
+            return Result.Ok();
         }
 
         public void AddEducation(Education education)
         {
             Educations.Add(education);
+            AddDomainEvent(new EducationAddedDomainEvent(Id, education));
         }
 
         public void AddCertification(Certification certification)
         {
             Certifications.Add(certification);
+            AddDomainEvent(new CertificationAddedDomainEvent(Id, certification));
         }
 
         public void AddEmployment(Employment employment)
         {
             Employments.Add(employment);
+            AddDomainEvent(new EmploymentAddedDomainEvent(Id, employment));
         }
 
         public void AddPortfolioProject(PortfolioProject portfolioProject)

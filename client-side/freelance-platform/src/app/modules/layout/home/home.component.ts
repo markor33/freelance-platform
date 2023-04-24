@@ -7,7 +7,6 @@ import { ClientCompleteRegistrationComponent } from '../../client/client-complet
 import { ClientService } from '../../client/services/client.service';
 import { Observable } from 'rxjs';
 import { ComponentType } from '@angular/cdk/portal';
-import { CreateJobDialogComponent } from '../../job/create-job-dialog/create-job-dialog.component';
 
 @Component({
   selector: 'app-home',

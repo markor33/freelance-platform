@@ -25,9 +25,9 @@ namespace FreelancerProfile.Application.Commands
             var education = new Education(request.SchoolName, request.Degree, attended);
             freelancer.AddEducation(education);
 
-            var result = await _freelancerRepository.UnitOfWork.SaveChangesAsync(cancellationToken);
+            var result = await _freelancerRepository.UnitOfWork.SaveEntitiesAsync(cancellationToken);
 
-            if (result == 0)
+            if (!result)
                 return Result.Fail("Education creation failed");
             return Result.Ok(education);
         }

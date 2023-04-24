@@ -1,9 +1,10 @@
-﻿using FreelancerProfile.Domain.AggregatesModel.FreelancerAggregate.Entities;
+﻿using FluentResults;
 
 namespace FreelancerProfile.Application.Queries
 {
     public interface ILanguageQueries
     {
-        Task<Language> GetByIdAsync(int id);
+        Task<List<LanguageViewModel>> GetAllAsync();
+        Task<Result<LanguageViewModel>> GetByIdAsync(int id);
     };
 }

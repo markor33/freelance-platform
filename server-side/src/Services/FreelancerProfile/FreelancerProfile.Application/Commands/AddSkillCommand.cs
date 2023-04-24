@@ -16,9 +16,8 @@ namespace FreelancerProfile.Application.Commands
         public AddSkillCommand() { }
 
         [JsonConstructor]
-        public AddSkillCommand(Guid userId, List<Guid> skills)
+        public AddSkillCommand(List<Guid> skills)
         {
-            UserId = userId;
             Skills = skills;
         }
 
