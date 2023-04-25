@@ -9,6 +9,26 @@
         <textarea matInput [rows]="10" required [(ngModel)]="createJobCommand.description" name="description"></textarea>
     </mat-form-field>
     <mat-form-field>
+        <mat-label>Profession</mat-label>
+        <mat-select required [(ngModel)]="createJobCommand.professionId" (selectionChange)="professionSelected($event)" name="profession">
+            <mat-option *ngFor="let profession of professions;" [value]="profession.id">{{profession.name}}</mat-option>
+        </mat-select>
+    </mat-form-field>
+    <mat-form-field class="example-chip-list" appearance="fill">
+        <mat-label>Select skills</mat-label>
+        <mat-select [formControl]="skillsControl" multiple>
+            <mat-select-trigger>
+              <mat-chip-listbox>
+                <mat-chip *ngFor="let skill of skillsControl.value" [removable]="true" (removed)="removeSkill(skill)">
+                  {{ skill.name }}
+                  <mat-icon matChipRemove>cancel</mat-icon>
+                </mat-chip>
+              </mat-chip-listbox>
+            </mat-select-trigger>
+            <mat-option *ngFor="let skill of allSkills" [value]="skill">{{skill.name}}</mat-option>
+        </mat-select>
+    </mat-form-field>
+    <mat-form-field>
         <mat-label>Experience level</mat-label>
         <mat-select required [(ngModel)]="createJobCommand.experienceLevel" name="experienceLevel">
             <mat-option [value]="0">Junior</mat-option>
@@ -20,9 +40,9 @@
         <mat-label>Questions</mat-label>
         <mat-chip-grid #chipGrid aria-label="Enter fruits">
           <mat-chip-row *ngFor="let question of createJobCommand.questions"
-                        (removed)="remove(question)"
+                        (removed)="removeQuestion(question)"
                         [editable]="true"
-                        (edited)="edit(question, $event)"
+                        (edited)="editQuestion(question, $event)"
                         [aria-description]="'press enter to edit ' + question.text">
             {{question.text}}
             <button matChipRemove [attr.aria-label]="'remove ' + question.text">
@@ -33,7 +53,7 @@
                  [matChipInputFor]="chipGrid"
                  [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
                  [matChipInputAddOnBlur]="addOnBlur"
-                 (matChipInputTokenEnd)="add($event)"/> 
+                 (matChipInputTokenEnd)="addQuestion($event)"/> 
         </mat-chip-grid>
     </mat-form-field>
     <mat-expansion-panel (opened)="paymentPanelOpenState = true" (closed)="paymentPanelOpenState = false">

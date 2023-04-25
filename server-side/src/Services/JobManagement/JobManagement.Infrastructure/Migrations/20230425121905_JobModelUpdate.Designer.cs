@@ -3,6 +3,7 @@ using System;
 using JobManagement.Infrastructure;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,10 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace JobManagement.Infrastructure.Migrations
 {
     [DbContext(typeof(JobManagementContext))]
-    partial class JobManagementContextModelSnapshot : ModelSnapshot
+    [Migration("20230425121905_JobModelUpdate")]
+    partial class JobModelUpdate
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -41,20 +43,6 @@ namespace JobManagement.Infrastructure.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Professions", (string)null);
-
-                    b.HasData(
-                        new
-                        {
-                            Id = new Guid("523c9ba1-4e91-4a75-85c3-cf386c078aa9"),
-                            Description = "Software engineer",
-                            Name = "Software engineer"
-                        },
-                        new
-                        {
-                            Id = new Guid("71a4d4c7-ed8b-4b6c-ad39-5db767f83c7d"),
-                            Description = "Graphic designer",
-                            Name = "Graphic designer"
-                        });
                 });
 
             modelBuilder.Entity("JobManagement.Domain.AggregatesModel.FreelancerAggregate.Entities.Skill", b =>
@@ -81,36 +69,6 @@ namespace JobManagement.Infrastructure.Migrations
                     b.HasIndex("ProfessionId");
 
                     b.ToTable("Skills", (string)null);
-
-                    b.HasData(
-                        new
-                        {
-                            Id = new Guid("93098c08-85ff-4c31-994b-5dec79c17d79"),
-                            Description = "Programming language",
-                            Name = "C#",
-                            ProfessionId = new Guid("523c9ba1-4e91-4a75-85c3-cf386c078aa9")
-                        },
-                        new
-                        {
-                            Id = new Guid("ea1627e1-2d59-427d-b5b4-13ab7e944c7f"),
-                            Description = "Web framework",
-                            Name = "ASP.NET CORE",
-                            ProfessionId = new Guid("523c9ba1-4e91-4a75-85c3-cf386c078aa9")
-                        },
-                        new
-                        {
-                            Id = new Guid("5d741f6a-f024-4dca-8b1f-afccec1f72ea"),
-                            Description = "Design software",
-                            Name = "Adobe Illustrator",
-                            ProfessionId = new Guid("71a4d4c7-ed8b-4b6c-ad39-5db767f83c7d")
-                        },
-                        new
-                        {
-                            Id = new Guid("e190ca8a-5252-4b00-8128-f21d9918efaf"),
-                            Description = "Design software",
-                            Name = "CorelDRAW Graphics Suite",
-                            ProfessionId = new Guid("71a4d4c7-ed8b-4b6c-ad39-5db767f83c7d")
-                        });
                 });
 
             modelBuilder.Entity("JobManagement.Domain.AggregatesModel.JobAggregate.Entities.Answer", b =>

@@ -33,7 +33,7 @@ $my-palette: mat.define-palette(mat.$indigo-palette);
     flex-direction: column;
     align-items: center;
     width: 96%;
-    height: 35%;
+    // height: 350px;
     border-bottom: solid 1px mat.get-color-from-palette($my-palette);
 }
 
