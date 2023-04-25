@@ -10,6 +10,10 @@ namespace JobManagement.Application.Queries
         {
             CreateMap<Job, JobViewModel>();
 
+            CreateMap<Profession, ProfessionViewModel>();
+
+            CreateMap<Skill, SkillViewModel>();
+
             CreateMap<Proposal, ProposalViewModel>();
 
             CreateMap<Question, QuestionViewModel>();

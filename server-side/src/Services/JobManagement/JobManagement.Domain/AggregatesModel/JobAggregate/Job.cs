@@ -17,14 +17,18 @@ namespace JobManagement.Domain.AggregatesModel.JobAggregate
         public JobStatus JobStatus { get; private set; }
         public List<Question> Questions { get; private set; }
         public List<Proposal> Proposals { get; private set; }
+        public Guid ProfessionId { get; private set; }
+        public Profession Profession { get; private set; }
+        public List<Skill> Skills { get; private set; }
 
         public Job()
         {
             Questions = new List<Question>();
             Proposals = new List<Proposal>();
+            Skills = new List<Skill>();
         }
 
-        public Job(Guid clientId, string title, string description, ExperienceLevel experienceLevel, Payment payment)
+        public Job(Guid clientId, string title, string description, ExperienceLevel experienceLevel, Payment payment, Profession profession)
         {
             Id = Guid.NewGuid();
             ClientId = clientId;
@@ -34,8 +38,11 @@ namespace JobManagement.Domain.AggregatesModel.JobAggregate
             Payment = payment;
             JobStatus = JobStatus.LISTED;
             Credits = EvaluateCredits();
+            Profession = profession;
+            ProfessionId = profession.Id;
             Questions = new List<Question>();
             Proposals = new List<Proposal>();
+            Skills = new List<Skill>();
         }
 
         private int EvaluateCredits()
@@ -44,6 +51,24 @@ namespace JobManagement.Domain.AggregatesModel.JobAggregate
         public void AddQuestion(Question question)
         {
             Questions.Add(question);
+        }
+
+        public void AddQuestions(List<Question> questions)
+        {
+            foreach (var question in questions)
+                AddQuestion(question);
+        }
+
+        public Result AddSkill(Skill skill)
+        {
+            if (skill.ProfessionId != ProfessionId)
+                return Result.Fail($"Freelancers profession does not contain {skill.Name} skill");
+
+            if (Skills.Contains(skill))
+                return Result.Fail($"Skill '{skill.Name}' already added");
+
+            Skills.Add(skill);
+            return Result.Ok();
         }
 
         public Result AddProposal(Proposal proposal)

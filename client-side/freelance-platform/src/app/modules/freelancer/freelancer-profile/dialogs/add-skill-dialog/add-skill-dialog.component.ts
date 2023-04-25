@@ -5,6 +5,7 @@ import { Skill } from 'src/app/modules/shared/models/profession.mode';
 import { FormControl } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
 import { SnackBarsService } from 'src/app/modules/shared/services/snack-bars.service';
+import { AddSkillCommand } from '../../../models/add-skill-command.model';
 
 @Component({
   selector: 'app-add-skill-dialog',
@@ -13,7 +14,8 @@ import { SnackBarsService } from 'src/app/modules/shared/services/snack-bars.ser
 })
 export class AddSkillDialogComponent {
 
-  selectedSkills: Skill[] = [];
+  addSkillCommand = new AddSkillCommand();
+
   allSkills: Skill[] = [];
   skillsControl = new FormControl<Skill[]>([]);
 
@@ -41,7 +43,8 @@ export class AddSkillDialogComponent {
   }
 
   addSkills() {
-    this.freelancerService.addSkills(this.skillsControl.value as Skill[]).subscribe({
+    this.addSkillCommand.skills = (this.skillsControl.value as Skill[]).map((skill) => skill.id);
+    this.freelancerService.addSkills(this.addSkillCommand).subscribe({
       complete: this.skillsSuccessfullyAdded.bind(this)
     });
   }

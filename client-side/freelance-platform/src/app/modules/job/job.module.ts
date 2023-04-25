@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { CreateJobDialogComponent } from './create-job-dialog/create-job-dialog.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
@@ -34,6 +34,7 @@ export const jobRoutes: Routes = [
     MatDividerModule,
     MatIconModule,
     HttpClientModule,
+    ReactiveFormsModule,
     MatButtonModule
   ],
   exports: [

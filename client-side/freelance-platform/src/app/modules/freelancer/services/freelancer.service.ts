@@ -78,15 +78,11 @@ export class FreelancerService {
       );
   }
 
-  addSkills(skills: Skill[]): Observable<void> {
-    let addSkillsCommand = new AddSkillCommand();
-    for (const skill of skills) {
-      addSkillsCommand.skills.push(skill.id);
-    }
+  addSkills(addSkillsCommand: AddSkillCommand): Observable<void> {
     return this.httpClient.post<any>('api/freelancer/freelancer/skill', addSkillsCommand, this.httpOptions)
       .pipe(
         map((res) => {
-          this.freelancerSource.value?.skills.concat(skills);
+          // this.freelancerSource.value?.skills.concat(skills);
         })
       );
   }

@@ -6,6 +6,8 @@ export class CreateJobCommand {
     clientId: string = '';
     title: string = '';
     description: string = '';
+    professionId: string = '';
+    skills: string[] = [];
     experienceLevel: ExperienceLevel = ExperienceLevel.JUNIOR;
     payment: Payment = new Payment();
     questions: Question[] = new Array<Question>();

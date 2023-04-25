@@ -3,6 +3,7 @@ using System;
 using JobManagement.Infrastructure;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,10 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace JobManagement.Infrastructure.Migrations
 {
     [DbContext(typeof(JobManagementContext))]
-    partial class JobManagementContextModelSnapshot : ModelSnapshot
+    [Migration("20230425122315_ProfessionSeed")]
+    partial class ProfessionSeed
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

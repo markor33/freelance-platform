@@ -1,7 +1,7 @@
-﻿using FreelancerProfile.Domain.AggregatesModel.FreelancerAggregate.Entities;
+﻿using JobManagement.Domain.AggregatesModel.JobAggregate.Entities;
 using Microsoft.EntityFrameworkCore;
 
-namespace FreelancerProfile.Infrastructure.EntitySeed
+namespace JobManagement.Infrastructure.EntitySeed
 {
     public static class ProfessionEntitySeed
     {
@@ -24,7 +24,7 @@ namespace FreelancerProfile.Infrastructure.EntitySeed
                 });
 
             builder.Entity<Skill>().HasData(
-                new
+                new 
                 {
                     Id = Guid.Parse("93098c08-85ff-4c31-994b-5dec79c17d79"),
                     Name = "C#",

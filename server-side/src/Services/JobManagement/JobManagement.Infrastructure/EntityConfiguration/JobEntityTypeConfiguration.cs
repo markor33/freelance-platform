@@ -29,6 +29,9 @@ namespace JobManagement.Infrastructure.EntityConfiguration
             builder.HasMany(x => x.Questions).WithOne().IsRequired();
 
             builder.HasMany(x => x.Proposals).WithOne().IsRequired();
+
+            builder.HasMany(x => x.Skills)
+                .WithMany(s => s.Jobs);
         }
     }
 }

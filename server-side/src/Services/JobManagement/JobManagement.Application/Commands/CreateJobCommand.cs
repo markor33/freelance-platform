@@ -24,13 +24,17 @@ namespace JobManagement.Application.Commands
         public Payment Payment { get; private set; }
         [DataMember]
         public List<Question> Questions { get; private set; }
+        [DataMember]
+        public Guid ProfessionId { get; private set; }
+        [DataMember]
+        public List<Guid> Skills { get; private set; }
 
 
         public CreateJobCommand() { }
 
         [JsonConstructor]
         public CreateJobCommand(Guid clientId, string title, string description, 
-            ExperienceLevel experienceLevel, Payment payment, List<Question> questions)
+            ExperienceLevel experienceLevel, Payment payment, List<Question> questions, Guid professionId, List<Guid> skills)
         {
             ClientId = clientId;
             Title = title;
@@ -38,6 +42,8 @@ namespace JobManagement.Application.Commands
             ExperienceLevel = experienceLevel;
             Payment = payment;
             Questions = questions;
+            ProfessionId = professionId;
+            Skills = skills;
         }
     }
 }
