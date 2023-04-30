@@ -1,0 +1,27 @@
+<div class="container">
+    <div class="title">
+        <h2><a [routerLink]="['/freelancer/profile', proposal.freelancer.id]">{{proposal.freelancer.firstName + ' ' + proposal.freelancer.lastName}}</a> proposal</h2>
+    </div>
+    <div class="message">
+        <h3>Message:</h3>
+        {{proposal.text}}
+    </div>
+    <div class="payment">
+        <h3>Payment:</h3>
+        <div>
+            <span class="icon-text-align">
+                <mat-icon>euro</mat-icon>&nbsp;
+                <span>{{proposal.payment.amount + ' ' + proposal.payment.currency + ', ' + enumConverter.paymentTypeToString(proposal.payment.type)}}</span>
+            </span>
+        </div>
+    </div>
+    <div class="answers">
+        <h3>Questions & answers:</h3>
+        <div *ngFor="let answer of proposal.answers; let i = index; let last = last">
+            <b>{{(i + 1) + ') ' + answer.question.text}}?</b><br>
+            <p>{{answer.text}}</p>
+            <mat-divider *ngIf="!last"></mat-divider>
+        </div>
+    </div>
+</div>
+

@@ -30,7 +30,7 @@ export class AuthService {
 
   login(credentials: Credentials): Observable<any> {
 
-    return this.httpClient.post<any>('api/user/login', credentials)
+    return this.httpClient.post<any>('api/aggregator/user/login', credentials)
       .pipe(
         map((res) => {
           localStorage.setItem('user', JSON.stringify(res));

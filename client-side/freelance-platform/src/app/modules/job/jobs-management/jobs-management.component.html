@@ -22,7 +22,7 @@
                 <button mat-mini-fab color="primary" title="Full info" *ngIf="hoveredRow === element" (click)="openJobInfoDialog(element)">
                     <mat-icon>more_horiz</mat-icon>
                 </button>
-                <button mat-mini-fab color="primary" title="Proposals" *ngIf="hoveredRow === element">
+                <button mat-mini-fab color="primary" title="Proposals" *ngIf="hoveredRow === element" (click)="openProposals(element)">
                     <mat-icon>handshake</mat-icon>
                 </button>
                 <button mat-mini-fab color="warn" title="Delete" *ngIf="hoveredRow === element" (click)="deleteJob(element)">

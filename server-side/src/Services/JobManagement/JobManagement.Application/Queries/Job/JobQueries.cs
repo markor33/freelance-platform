@@ -16,8 +16,8 @@ namespace JobManagement.Application.Queries
         public async Task<List<JobViewModel>> GetAllAsync()
         {
             var jobs = await _dbConnection.QueryAsync<JobViewModel, Payment, ProfessionViewModel, QuestionViewModel, SkillViewModel, JobViewModel>(
-                @"SELECT j.""Id"", j.""Title"", j.""Description"", j.""ExperienceLevel"", 
-                        j.""Payment_Amount"" as Amount, j.""Payment_Currency"" as Currency, j.""Payment_Type"" as Type, j.""Credits"",
+                @"SELECT j.""Id"", j.""Title"", j.""Description"", j.""ExperienceLevel"", j.""Credits"",
+                        j.""Payment_Amount"" as Amount, j.""Payment_Currency"" as Currency, j.""Payment_Type"" as Type,
                         p.""Id"", p.""Name"", p.""Description"",
                         q.""Id"", q.""Text"",
                         s.""Id"", s.""Name"", s.""Description""
@@ -26,7 +26,7 @@ namespace JobManagement.Application.Queries
                     LEFT JOIN ""Questions"" q ON j.""Id"" = q.""JobId""
                     LEFT JOIN ""JobSkill"" js ON j.""Id"" = js.""JobsId""
                     LEFT JOIN ""Skills"" s ON s.""Id"" = js.""SkillsId""
-                    WHERE j.""JobStatus"" != 3",
+                    WHERE j.""Status"" != 3",
                 (job, payment, profession, question, skill) =>
                 {
                     job.Profession = profession;
@@ -43,8 +43,8 @@ namespace JobManagement.Application.Queries
         public async Task<List<JobViewModel>> GetByClientAsync(Guid clientId)
         {
             var jobs = await _dbConnection.QueryAsync<JobViewModel, Payment, ProfessionViewModel, QuestionViewModel, SkillViewModel, JobViewModel>(
-                @"SELECT j.""Id"", j.""Title"", j.""Description"", j.""ExperienceLevel"", 
-                        j.""Payment_Amount"" as Amount, j.""Payment_Currency"" as Currency, j.""Payment_Type"" as Type, j.""Credits"",
+                @"SELECT j.""Id"", j.""Title"", j.""Description"", j.""ExperienceLevel"", j.""Credits"",
+                        j.""Payment_Amount"" as Amount, j.""Payment_Currency"" as Currency, j.""Payment_Type"" as Type,
                         p.""Id"", p.""Name"", p.""Description"",
                         q.""Id"", q.""Text"",
                         s.""Id"", s.""Name"", s.""Description""
@@ -53,7 +53,7 @@ namespace JobManagement.Application.Queries
                     LEFT JOIN ""Questions"" q ON j.""Id"" = q.""JobId""
                     LEFT JOIN ""JobSkill"" js ON j.""Id"" = js.""JobsId""
                     LEFT JOIN ""Skills"" s ON s.""Id"" = js.""SkillsId""
-                    WHERE j.""JobStatus"" != 3 AND ""ClientId""=@clientId",
+                    WHERE j.""Status"" != 3 AND ""ClientId""=@clientId",
                 (job, payment, profession, question, skill) =>
                 {
                     job.Profession = profession;

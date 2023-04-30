@@ -10,7 +10,7 @@ using GrpcClientProfile;
 
 namespace Web.Bff.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/aggregator/[controller]")]
     [ApiController]
     public class UserController : ControllerBase
     {

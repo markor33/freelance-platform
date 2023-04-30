@@ -16,6 +16,7 @@ export class HomeComponent {
 
   isUserLogged: boolean = false;
   userRole: string = '';
+  domainUserId: string = '';
 
   constructor(
     private dialog: MatDialog, 
@@ -25,6 +26,7 @@ export class HomeComponent {
         next: (user) => {
           this.isUserLogged = user !== null;
           this.userRole = user?.role as string;
+          this.domainUserId = user?.domainId as string;
         }
       });
   }

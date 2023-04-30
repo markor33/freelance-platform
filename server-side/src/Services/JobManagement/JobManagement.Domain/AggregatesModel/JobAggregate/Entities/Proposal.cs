@@ -25,7 +25,7 @@ namespace JobManagement.Domain.AggregatesModel.JobAggregate.Entities
             Payment = payment;
             Status = proposalStatus;
             Answers = new List<Answer>();
-            Created = DateTime.Now;
+            Created = DateTime.UtcNow;
         }
 
         public void AddAnswer(Answer answer)

@@ -39,15 +39,15 @@ namespace JobManagement.Application.Queries
     public record AnswerViewModel
     {
         public Guid Id { get; private init; }
-        public Guid QuestionId { get; private init; }
+        public QuestionViewModel Question { get; set; }
         public string Text { get; private init; }
 
         public AnswerViewModel() { }
 
-        public AnswerViewModel(Guid id, Guid questionId, string text)
+        public AnswerViewModel(Guid id, QuestionViewModel question, string text)
         {
             Id = id;
-            QuestionId = questionId;
+            Question = question;
             Text = text;
         }
     }

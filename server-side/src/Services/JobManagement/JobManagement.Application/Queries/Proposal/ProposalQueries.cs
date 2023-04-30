@@ -19,7 +19,7 @@ namespace JobManagement.Application.Queries
         public async Task<Result<ProposalViewModel>> GetByIdAsync(Guid id)
         {
             var result = await _dbConnection.QueryAsync<ProposalViewModel, Payment, ProposalViewModel>(
-                @"SELECT ""Id"", ""FreelancerId"", ""Text"", ""Payment_Amount"" as Amount, ""Payment_Currency"" as Currency, ""Payment_Type"" as Type, ""Status"" 
+                @"SELECT ""Id"", ""FreelancerId"", ""Text"", ""Created"", ""Payment_Amount"" as Amount, ""Payment_Currency"" as Currency, ""Payment_Type"" as Type, ""Status"" 
                     FROM ""Proposals""
                     WHERE ""Id""=@id",
                 (proposal, payment) =>
@@ -39,7 +39,7 @@ namespace JobManagement.Application.Queries
         public async Task<List<ProposalViewModel>> GetByJobId(Guid jobId)
         {
             var proposals = await _dbConnection.QueryAsync<ProposalViewModel, Payment, ProposalViewModel>(
-                @"SELECT ""Id"", ""FreelancerId"", ""Text"", ""Payment_Amount"" as Amount, ""Payment_Currency"" as Currency, ""Payment_Type"" as Type, ""Status"" 
+                @"SELECT ""Id"", ""FreelancerId"", ""Text"", ""Created"", ""Payment_Amount"" as Amount, ""Payment_Currency"" as Currency, ""Payment_Type"" as Type, ""Status"" 
                     FROM ""Proposals""
                     WHERE ""JobId""=@jobid",
                 (proposal, payment) =>

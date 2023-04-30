@@ -1,3 +1,4 @@
+import { Answer } from "./answer.model";
 import { Payment } from "./payment.model";
 
 export class Proposal {
@@ -5,6 +6,10 @@ export class Proposal {
     text: string = '';
     payment: Payment = new Payment();
     status: ProposalStatus | null = null;
+    created: Date = new Date();
+    freelancerId: string = '';
+    freelancer: any;
+    answers: Answer[] = [];
 }
 
 export enum ProposalStatus {

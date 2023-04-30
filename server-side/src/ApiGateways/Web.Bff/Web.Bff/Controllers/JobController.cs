@@ -5,7 +5,7 @@ using Web.Bff.Services;
 
 namespace Web.Bff.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/aggregator/[controller]")]
     [ApiController]
     public class JobController : ControllerBase
     {

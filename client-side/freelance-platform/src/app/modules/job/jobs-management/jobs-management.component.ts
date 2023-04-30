@@ -6,6 +6,7 @@ import { CreateJobDialogComponent } from '../create-job-dialog/create-job-dialog
 import { JobInfoDialogComponent } from './dialogs/job-info-dialog/job-info-dialog.component';
 import { SnackBarsService } from '../../shared/services/snack-bars.service';
 import { DeleteConfirmationDialogComponent } from '../../shared/dialogs/delete-confirmation-dialog/delete-confirmation-dialog.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-jobs-management',
@@ -22,7 +23,8 @@ export class JobsManagementComponent {
   constructor(
     private jobService: JobService,
     private dialog: MatDialog,
-    private snackBarService: SnackBarsService) { }
+    private snackBarService: SnackBarsService,
+    private router: Router) { }
 
   ngOnInit() {
     this.jobService.getByClient().subscribe({
@@ -48,6 +50,10 @@ export class JobsManagementComponent {
       height: '80%',
       data: { job: job }
     });
+  }
+
+  openProposals(job: Job) {
+    this.router.navigate(['proposal-management'], { state: { job: job }});
   }
 
   deleteJob(job: Job) {

@@ -10,6 +10,7 @@ namespace Web.Bff.Models
         public Payment Payment { get; private set; }
         public ProposalStatus Status { get; private set; }
         public FreelancerBasic Freelancer { get; private set; }
+        public DateTime Created { get; private set; }
 
         public Proposal(ProposalDTO proposalDTO, FreelancerBasicData freelancerBasicData)
         {
@@ -18,6 +19,7 @@ namespace Web.Bff.Models
             Payment = new Payment(proposalDTO.Payment);
             Status = (ProposalStatus)proposalDTO.Status;
             Freelancer = new FreelancerBasic(freelancerBasicData);
+            Created = proposalDTO.Created.ToDateTime();
         }
     }
 

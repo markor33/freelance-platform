@@ -1,4 +1,5 @@
-﻿using Grpc.Core;
+﻿using Google.Protobuf.WellKnownTypes;
+using Grpc.Core;
 using GrpcJobManagement;
 using JobManagement.Application.Queries;
 
@@ -30,7 +31,8 @@ namespace JobManagement.API.GrpcServices
                         Currency= proposal.Payment.Currency,
                         Type = (int)proposal.Payment.Type
                     },
-                    Status = (int)proposal.Status
+                    Status = (int)proposal.Status,
+                    Created = Timestamp.FromDateTime(proposal.Created),
                 });
 
             return response;

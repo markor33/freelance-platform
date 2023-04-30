@@ -24,7 +24,8 @@ namespace FreelancerProfile.Application.IntegrationEvents.Handlers
 
             if (!result)
                 _eventBus.Publish(new CreditsLimitExceededIntegrationEvent(@event.JobId, @event.ProposalId));
-            _eventBus.Publish(new CreditsReservedIntegrationEvent(@event.JobId, @event.ProposalId));
+            else
+                _eventBus.Publish(new CreditsReservedIntegrationEvent(@event.JobId, @event.ProposalId));
 
             await _freelancerRepository.UnitOfWork.SaveChangesAsync();
         }
