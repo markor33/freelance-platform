@@ -1,12 +1,11 @@
 import { Component } from '@angular/core';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { CompleteRegisterDialogComponent } from '../../freelancer/complete-register-dialog/complete-register-dialog.component';
-import { FreelancerService } from '../../freelancer/services/freelancer.service';
 import { AuthService } from '../../auth/services/auth.service';
 import { ClientCompleteRegistrationComponent } from '../../client/client-complete-registration/client-complete-registration.component';
-import { ClientService } from '../../client/services/client.service';
 import { Observable } from 'rxjs';
 import { ComponentType } from '@angular/cdk/portal';
+import { NotificationService } from '../../notification/services/notification.service';
 
 @Component({
   selector: 'app-home',
@@ -16,25 +15,27 @@ import { ComponentType } from '@angular/cdk/portal';
 export class HomeComponent {
 
   isUserLogged: boolean = false;
+  userRole: string = '';
 
   constructor(
     private dialog: MatDialog, 
     private authService: AuthService,
-    private freelancerService: FreelancerService,
-    private clientService: ClientService) { 
-      this.authService.loginObserver.subscribe({
-        next: (val) => this.isUserLogged = val
+    private notificationService: NotificationService) {
+      this.authService.userObserver.subscribe({
+        next: (user) => {
+          this.isUserLogged = user !== null;
+          this.userRole = user?.role as string;
+        }
       });
   }
 
   ngOnInit() {
-    if (!this.authService.isLogged())
+    if (!this.authService.isLogged() || this.authService.hasDomainData())
       return;
-    const role = this.authService.getUserRole(); 
-    if (role === 'FREELANCER')
-      this.isRegistrationComplete(this.freelancerService.freelancerObserver, CompleteRegisterDialogComponent);
+    if (this.userRole === 'FREELANCER')
+      this.dialog.open(CompleteRegisterDialogComponent, { width: '40%', height: '65%' });
     else
-      this.isRegistrationComplete(this.clientService.clientObserver, ClientCompleteRegistrationComponent);
+      this.dialog.open(ClientCompleteRegistrationComponent, { width: '40%', height: '65%' });
   }
 
   isRegistrationComplete(profileObserver: Observable<any | null>, dialog: ComponentType<any>): void {

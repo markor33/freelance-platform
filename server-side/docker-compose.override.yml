@@ -34,3 +34,10 @@ services:
     ports:
       - "80"
 
+
+  notifychat.signalr:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+    ports:
+      - "80"
+

@@ -8,6 +8,7 @@ import { AddCertificationDialogComponent } from './dialogs/add-certification-dia
 import { AddEmploymentDialogComponent } from './dialogs/add-employment-dialog/add-employment-dialog.component';
 import { AddSkillDialogComponent } from './dialogs/add-skill-dialog/add-skill-dialog.component';
 import { ExperienceLevel } from '../../shared/models/experience-level.model';
+import { AuthService } from '../../auth/services/auth.service';
 
 @Component({
   selector: 'app-freelancer-profile',
@@ -20,11 +21,14 @@ export class FreelancerProfileComponent {
 
   constructor(
     private freelancerService: FreelancerService,
-    private dialog: MatDialog) { }
+    private dialog: MatDialog,
+    private authService: AuthService) { }
 
   ngOnInit() {
-    this.freelancerService.freelancerObserver.subscribe({
-      next: (fr) => this.freelancer = fr as Freelancer
+    this.authService.userObserver.subscribe((user) => {
+      this.freelancerService.get(user?.domainId as string).subscribe({
+        next: (freelancer) => this.freelancer = freelancer
+      });
     });
   }
   

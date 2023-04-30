@@ -10,6 +10,7 @@ import { CreateFreelancerCommand } from '../models/create-freelancer-command.mod
 import { ExperienceLevel } from '../../shared/models/experience-level.model';
 import { LanguageService } from '../../shared/services/language.service';
 import { ProfessionService } from '../../shared/services/profession.service';
+import { AuthService } from '../../auth/services/auth.service';
 
 @Component({
   selector: 'app-complete-register-dialog',
@@ -24,8 +25,6 @@ import { ProfessionService } from '../../shared/services/profession.service';
 })
 export class CompleteRegisterDialogComponent {
 
-  isRegistrationCompleted: boolean = false;
-  
   languages: Language[] = [];
   professions: Profession[] = [];
 
@@ -73,18 +72,18 @@ export class CompleteRegisterDialogComponent {
 
   constructor(
     private dialogRef: MatDialogRef<CompleteRegisterDialogComponent>,
+    private authService: AuthService,
     private freelancerService: FreelancerService,
     private dialog: MatDialog,
     private formBuilder: FormBuilder,
     private languageService: LanguageService,
     private professionService: ProfessionService)
   {
-    this.freelancerService.freelancerObserver.subscribe((freelancer) => this.isRegistrationCompleted = (freelancer != null));
     this.languageService.get().subscribe((languages) => this.languages = languages);
     this.professionService.get().subscribe((professions) => this.professions = professions);
     
     this.dialogRef.afterClosed().subscribe(() => {
-      if (!this.isRegistrationCompleted)
+      if (!this.authService.hasDomainData())
         this.dialog.open(CompleteRegisterDialogComponent, {
           width: '40%',
           height: '65%'

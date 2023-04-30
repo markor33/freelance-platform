@@ -22,7 +22,7 @@ namespace JobManagement.Infrastructure.EntityConfiguration
 
             builder.Property(x => x.ExperienceLevel).IsRequired();
 
-            builder.Property(x => x.JobStatus).IsRequired();
+            builder.Property(x => x.Status).IsRequired();
 
             builder.OwnsOne(x => x.Payment);
 

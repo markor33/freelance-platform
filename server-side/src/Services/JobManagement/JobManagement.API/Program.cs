@@ -1,16 +1,19 @@
 using EventBus;
 using EventBus.Abstractions;
 using EventBusRabbitMQ;
+using JobManagement.API.GrpcServices;
 using JobManagement.API.Security;
 using JobManagement.Application;
 using JobManagement.Application.IntegrationEvents.Events;
 using JobManagement.Application.IntegrationEvents.Handlers;
 using JobManagement.Infrastructure;
+using Microsoft.AspNetCore.Server.Kestrel.Core;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Npgsql;
 using RabbitMQ.Client;
 using System.Data;
+using System.Net;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -66,6 +69,21 @@ builder.Services.AddSingleton<IEventBus, EventBusRabbitMQ.EventBusRabbitMQ>(sp =
 builder.Services.AddTransient<CreditsReservedIntegrationEventHandler>();
 builder.Services.AddTransient<CreditsLimitExceededIntegrationEventHandler>();
 
+builder.Services.AddGrpc(options =>
+{
+    options.EnableDetailedErrors = true;
+});
+
+builder.WebHost.UseKestrel(options => {
+    options.Listen(IPAddress.Any, 80, listenOptions => {
+        listenOptions.Protocols = HttpProtocols.Http1;
+    });
+
+    options.Listen(IPAddress.Any, 5000, listenOptions => {
+        listenOptions.Protocols = HttpProtocols.Http2;
+    });
+});
+
 var app = builder.Build();
 
 var eventBus = app.Services.GetRequiredService<IEventBus>();
@@ -82,6 +100,7 @@ app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
+app.MapGrpcService<ProposalGrpcService>();
 
 app.Run();
 

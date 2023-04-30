@@ -16,7 +16,7 @@ namespace JobManagement.Infrastructure.EntityConfiguration
 
             builder.Property(x => x.Text).IsRequired();
 
-            builder.Property(x => x.ProposalStatus).IsRequired(false);
+            builder.Property(x => x.Status).IsRequired(false);
 
             builder.OwnsOne(x => x.Payment);
 

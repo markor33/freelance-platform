@@ -20,6 +20,7 @@ services:
      - job-management.db
     ports:
      - 51000:80
+     - 51001:5000
 
   freelancer-profile.api:
     image: ${DOCKER_REGISTRY-}freelancerapi
@@ -30,6 +31,7 @@ services:
      - freelancer-profile.db
     ports:
      - 52000:80
+     - 52001:5000
 
   client-profile.api:
     image: ${DOCKER_REGISTRY-}clientprofileapi
@@ -40,6 +42,7 @@ services:
      - client-profile.db
     ports:
      - 53000:80
+     - 53001:5000
 
   identity.db:
     image: postgres
@@ -105,9 +108,18 @@ services:
       RABBITMQ_DEFAULT_USER: guest
       RABBITMQ_DEFAULT_PASS: guest
 
+  notifychat.signalr:
+    image: ${DOCKER_REGISTRY-}notifychatsignalr
+    build:
+      context: .
+      dockerfile: src/Services/NotifyChat/NotifyChat.SignalR/Dockerfile
+    ports:
+      - "62000:80"
+
 volumes:
  identity-data:
  freelancer-profile-data:
  client-profile-data:
  job-management-data:
  rabbitmq_data:
+

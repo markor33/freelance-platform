@@ -26,12 +26,10 @@ export class AddSkillDialogComponent {
     private snackBars: SnackBarsService) { }
 
   ngOnInit() {
-    this.freelancerService.freelancerObserver.subscribe((freelancer) => {
-      var professionId = freelancer?.profession.id;
-      this.professionService.getSkills(professionId as string).subscribe({
-        next: (skills) => this.allSkills = skills
-      });
-    })
+    const professionId = this.freelancerService.currentFreelancer.profession.id;
+    this.professionService.getSkills(professionId as string).subscribe({
+      next: (skills) => this.allSkills = skills
+    });
   }
 
   remove(skill: Skill) {

@@ -31,11 +31,11 @@ namespace FreelancerProfile.API.Controllers
             _mapper = mapper;
         }
 
-        [HttpGet]
-        public async Task<ActionResult<FreelancerViewModel>> Get()
+        [HttpGet("{id}")]
+        [AllowAnonymous]
+        public async Task<ActionResult<FreelancerViewModel>> Get(Guid id)
         {
-            var userId = _identityService.GetUserId();
-            var queryResult = await _queries.GetFreelancerFromUserAsync(userId);
+            var queryResult = await _queries.GetByIdAsync(id);
             if (queryResult.IsFailed)
                 return BadRequest(queryResult.Errors.ToStringList());
             return Ok(queryResult.Value);

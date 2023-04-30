@@ -1,9 +1,9 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { FreelancerService } from '../../freelancer/services/freelancer.service';
 import { BehaviorSubject, Observable, map } from 'rxjs';
 import { CreateProposalCommand } from '../models/create-proposal-cmmand.model';
 import { Proposal, ProposalStatus } from '../models/proposal.model';
+import { AuthService } from '../../auth/services/auth.service';
 
 @Injectable({
   providedIn: 'root'
@@ -21,12 +21,11 @@ export class ProposalService {
 
   constructor(
     private httpClient: HttpClient,
-    private freelancerService: FreelancerService,
-    
+    private authService: AuthService
   ) { 
-    this.freelancerService.freelancerObserver.subscribe((freelancer) => {
-      this.freelancerId = freelancer?.id as string;
-    });
+    this.authService.userObserver.subscribe((user) => {
+      this.freelancerId = user?.domainId as string;
+    })
   }
 
   get(id: string): Observable<Proposal> {

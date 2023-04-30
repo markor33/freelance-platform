@@ -48,6 +48,36 @@
       ],
       "UpstreamPathTemplate": "/api/identity/{everything}",
       "UpstreamHttpMethod": [ "POST", "PUT", "GET" ]
+    },
+    {
+      "DownstreamPathTemplate": "/hub/",
+      "DownstreamScheme": "ws",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "notifychat.signalr",
+          "Port": 80
+        }
+      ],
+      "UpstreamPathTemplate": "/hub/",
+      "QoSOptions": {
+        "TimeoutValue": 1000
+      },
+      "Priority": 50
+    },
+    {
+      "DownstreamPathTemplate": "/hub/{path}",
+      "DownstreamScheme": "ws",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "notifychat.signalr",
+          "Port": 80
+        }
+      ],
+      "UpstreamPathTemplate": "/hub/{path}",
+      "QoSOptions": {
+        "TimeoutValue": 1000
+      },
+      "Priority": 50
     }
   ]
 }

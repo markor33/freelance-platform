@@ -1,6 +1,10 @@
+import { Injectable } from "@angular/core";
 import { PaymentType } from "../../job/models/payment.model";
 import { ExperienceLevel } from "../models/experience-level.model";
 
+@Injectable({
+    providedIn: 'root'
+})
 export class EnumConverter {
 
     paymentTypeToString(paymentType: PaymentType): string {

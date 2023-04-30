@@ -10,6 +10,11 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Grpc.AspNetCore" Version="2.52.0" />
+    <PackageReference Include="Grpc.Tools" Version="2.54.0">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="6.0.16" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="6.0.16">
       <PrivateAssets>all</PrivateAssets>
@@ -26,6 +31,7 @@
     <ProjectReference Include="..\JobManagement.Application\JobManagement.Application.csproj" />
     <ProjectReference Include="..\JobManagement.Domain\JobManagement.Domain.csproj" />
     <ProjectReference Include="..\JobManagement.Infrastructure\JobManagement.Infrastructure.csproj" />
+	<Protobuf Include="Proto\jobManagement.proto" GrpcServices="Server" />
   </ItemGroup>
 
 </Project>
