@@ -38,6 +38,7 @@ export class ProposalService {
   }
 
   getByJobId(jobId: string): Observable<Proposal[]> {
+    console.log(jobId);
     return this.httpClient.get<Proposal[]>(`api/aggregator/job/${jobId}/proposal`, this.httpOptions);
   }
 

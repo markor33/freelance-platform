@@ -7,6 +7,7 @@ using NotifyChat.SignalR.Hubs;
 using NotifyChat.Notifications.IntegrationEvents;
 using NotifyChat.SignalR.Notifications.Handlers;
 using NotifyChat.SignalR.Persistence.Settings;
+using NotifyChat.SignalR.Persistence.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -29,6 +30,8 @@ builder.Services.AddAuthorization();
 
 builder.Services.Configure<MongoDBSettings>(builder.Configuration.GetSection("MongoDB"));
 builder.Services.AddScoped(typeof(IMongoDbFactory), typeof(MongoDbFactory));
+
+builder.Services.AddScoped(typeof(INotificationRepository), typeof(NotificationRepository));
 
 builder.Services.AddSingleton<IEventBusSubscriptionsManager, InMemoryEventBusSubscriptionsManager>();
 builder.Services.AddSingleton<IRabbitMQPersistentConnection>(sp =>

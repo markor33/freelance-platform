@@ -74,11 +74,13 @@ export class NotificationService {
       .catch((err) => console.log(err));
 
     connection.on('newNotification', (notification: Notification) => {
+      console.log(notification);
       this.notificationsSource.value.push(notification);
       this.newNotificationReceivedSource.next(true);
     });
 
     connection.on('getNotifications', (notifications: Notification[]) => {
+      console.log(notifications);
       this.notificationsSource.next(notifications);
     });
   }

@@ -1,19 +1,17 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.SignalR;
-using MongoDB.Driver;
-using NotifyChat.SignalR.Models;
-using NotifyChat.SignalR.Persistence.Settings;
+using NotifyChat.SignalR.Persistence.Repositories;
 
 namespace NotifyChat.SignalR.Hubs
 {
     // [Authorize]
     public class NotificationHub : Hub
     {
-        private readonly IMongoCollection<Notification<object>> _notificationsCollection;
+        private readonly INotificationRepository _notificationRepository;
 
-        public NotificationHub(IMongoDbFactory mongoDbFactory)
+        public NotificationHub(INotificationRepository notificationRepository)
         {
-            _notificationsCollection = mongoDbFactory.GetCollection<Notification<object>>("notifications");
+            _notificationRepository = notificationRepository;
         }
 
         public override async Task OnConnectedAsync()
@@ -22,7 +20,7 @@ namespace NotifyChat.SignalR.Hubs
 
             await Groups.AddToGroupAsync(Context.ConnectionId, domainUserId);
 
-            var pastNotifications = await GetNotifications(domainUserId);
+            var pastNotifications = await _notificationRepository.GetByUser(Guid.Parse(domainUserId));
             await Clients.Caller.SendAsync("getNotifications", pastNotifications);
 
             await base.OnConnectedAsync();
@@ -34,13 +32,6 @@ namespace NotifyChat.SignalR.Hubs
 
             await Groups.RemoveFromGroupAsync(Context.ConnectionId, domainUserId);
             await base.OnDisconnectedAsync(ex);
-        }
-
-        private async Task<List<Notification<object>>> GetNotifications(string userId)
-        {
-            var filter = Builders<Notification<object>>.Filter.Eq(n => n.UserId, Guid.Parse(userId));
-            var notifications = await (await _notificationsCollection.FindAsync<Notification<object>>(filter)).ToListAsync();
-            return notifications;
         }
 
     }

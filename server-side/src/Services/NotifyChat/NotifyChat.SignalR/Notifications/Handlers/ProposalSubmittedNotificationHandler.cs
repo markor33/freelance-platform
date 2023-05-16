@@ -1,31 +1,41 @@
 ﻿using EventBus.Abstractions;
 using Microsoft.AspNetCore.SignalR;
+using MongoDB.Bson;
 using MongoDB.Driver;
 using NotifyChat.Notifications.IntegrationEvents;
 using NotifyChat.SignalR.Hubs;
 using NotifyChat.SignalR.Models;
+using NotifyChat.SignalR.Persistence.Repositories;
 using NotifyChat.SignalR.Persistence.Settings;
 
 namespace NotifyChat.SignalR.Notifications.Handlers
 {
     public class ProposalSubmittedNotificationHandler : IIntegrationEventHandler<ProposalSubmittedNotification>
     {
-        private readonly IMongoCollection<Notification<ProposalSubmittedNotificationData>> _notificationsCollection;
+        private readonly INotificationRepository _notificationRepository;
         private readonly IHubContext<NotificationHub> _hubContext;
 
         public ProposalSubmittedNotificationHandler(
-            IMongoDbFactory mongoDb,
+            INotificationRepository notificationRepository,
             IHubContext<NotificationHub> hubContext)
         {
             _hubContext = hubContext;
-            _notificationsCollection = mongoDb.GetCollection<Notification<ProposalSubmittedNotificationData>>("notifications");
+            _notificationRepository = notificationRepository;
         }
 
         async Task IIntegrationEventHandler<ProposalSubmittedNotification>.HandleAsync(ProposalSubmittedNotification @event)
         {
             var notfData = new ProposalSubmittedNotificationData(@event.JobId, @event.JobName);
-            var notf = new Notification<ProposalSubmittedNotificationData>(@event.ClientId, nameof(ProposalSubmittedNotification), notfData);
-            await _notificationsCollection.InsertOneAsync(notf);
+            var test = notfData.ToBsonDocument();
+            var notf = new Notification(@event.ClientId, nameof(ProposalSubmittedNotification), test);
+            try
+            {
+                await _notificationRepository.Create(notf);
+            }
+            catch (Exception ex)
+            {
+                var a = ex;
+            }
             await _hubContext.Clients
                 .Group(@event.ClientId.ToString())
                 .SendAsync("newNotification", notf);
