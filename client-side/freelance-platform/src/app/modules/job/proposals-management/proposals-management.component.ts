@@ -4,8 +4,9 @@ import { Proposal } from '../models/proposal.model';
 import { Job } from '../models/job.model';
 import { MatDialog } from '@angular/material/dialog';
 import { JobInfoDialogComponent } from '../jobs-management/dialogs/job-info-dialog/job-info-dialog.component';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ProposalInfoDialogComponent } from './dialogs/proposal-info-dialog/proposal-info-dialog.component';
+import { JobService } from '../services/job.service';
 
 @Component({
   selector: 'app-proposals-management',
@@ -21,13 +22,12 @@ export class ProposalsManagementComponent {
 
   constructor(
     private proposalService: ProposalService,
+    private jobService: JobService,
     private dialog: MatDialog,
-    private router: Router) {
-      const navigation = this.router.getCurrentNavigation();
-      const state = navigation?.extras.state;
-
-      if(state)
-        this.job = state['job'] as Job;
+    private router: Router,
+    private route: ActivatedRoute) {
+      const jobId = this.route.snapshot.paramMap.get('id') as string;
+      this.jobService.get(jobId).subscribe((job) => this.job = job);
     }
 
   ngOnInit() {
@@ -40,7 +40,7 @@ export class ProposalsManagementComponent {
     this.dialog.open(JobInfoDialogComponent, {
       width: '50%',
       height: '80%',
-      data: { job: this.job }
+      data: { jobId: this.job.id }
     });
   }
 

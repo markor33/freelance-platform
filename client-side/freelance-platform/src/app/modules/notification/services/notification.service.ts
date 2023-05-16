@@ -1,25 +1,85 @@
-import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { Inject, Injectable } from '@angular/core';
 import * as signalR from '@microsoft/signalr';
-import { ClientService } from '../../client/services/client.service';
+import { NOTIFICATION_HANDLER_TOKEN, NotificationHandler } from '../handlers/notification-handler';
+import { Notification } from '../models/notification.model';
+import { AuthService } from '../../auth/services/auth.service';
+import { BehaviorSubject, Observable, map } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
 })
 export class NotificationService {
 
+  private notificationsSource =  new BehaviorSubject<Notification[]>([]);
+  public notificationObserver = this.notificationsSource.asObservable();
+
+  private newNotificationReceivedSource = new BehaviorSubject<boolean>(false);
+  public newNotificationReceivedObserver = this.newNotificationReceivedSource.asObservable();
+
+  private handlersMap: Map<string, NotificationHandler> = new Map<string, NotificationHandler>();
+
   constructor(
-    private httpClient: HttpClient) {
+    private httpClient: HttpClient,
+    private authService: AuthService,
+    @Inject(NOTIFICATION_HANDLER_TOKEN) private notificationHandlers: NotificationHandler[]) {
+
+      this.authService.userObserver.subscribe((user) => {
+        if (user === null) {
+          this.notificationsSource.next([]);
+          return;
+        }
+        this.configureConnection(user.domainId);
+      });
+
+      for (let notificationHandler of this.notificationHandlers)
+        this.handlersMap.set(notificationHandler.getType(), notificationHandler);
+  }
+
+  getContent(notification: Notification) {
+    return this.handlersMap.get(notification.type)?.getContent(notification.data);
+  }
+
+  notificationClicked(notification: Notification) {
+    this.handlersMap.get(notification.type)?.handle(notification.data);
+    this.notificationChecked(notification).subscribe();
+  }
+
+  notificationChecked(notification: Notification): Observable<any> {
+    return this.httpClient.put<any>(`api/notification-service/notification/${notification.id}`, {})
+      .pipe(
+        map(() => {
+          notification.isChecked = true;
+        })
+      );
+  }
+
+  delete(): Observable<any> {
+    let ids: string[] = this.notificationsSource.value.map((notification) => notification.id);
+    return this.httpClient.put<any>(`api/notification-service/notification`, ids)
+      .pipe(
+        map(() => {
+          this.notificationsSource.next([]);
+        })
+      );
+  }
+
+  private configureConnection(userId: string) {
     const connection = new signalR.HubConnectionBuilder()
-      .withUrl(`hub/notifications?domainUserId=98a13b27-cb05-4dbb-89e9-f356d4f4e689`)
+      .withUrl(`hub/notifications?domainUserId=${userId}`)
       .build();
 
     connection.start()
       .then(() => console.log('Ok'))
       .catch((err) => console.log(err));
 
-    connection.on('ProposalSubmittedNotification', (msg) => {
-      console.log(msg);
+    connection.on('newNotification', (notification: Notification) => {
+      this.notificationsSource.value.push(notification);
+      this.newNotificationReceivedSource.next(true);
+    });
+
+    connection.on('getNotifications', (notifications: Notification[]) => {
+      this.notificationsSource.next(notifications);
     });
   }
 

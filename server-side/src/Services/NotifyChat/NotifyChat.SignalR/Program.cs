@@ -4,8 +4,9 @@ using EventBusRabbitMQ;
 using Microsoft.IdentityModel.Tokens;
 using RabbitMQ.Client;
 using NotifyChat.SignalR.Hubs;
-using NotifyChat.Notifications.Models;
+using NotifyChat.Notifications.IntegrationEvents;
 using NotifyChat.SignalR.Notifications.Handlers;
+using NotifyChat.SignalR.Persistence.Settings;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -25,6 +26,9 @@ builder.Services.AddAuthentication("Bearer")
         };
     });
 builder.Services.AddAuthorization();
+
+builder.Services.Configure<MongoDBSettings>(builder.Configuration.GetSection("MongoDB"));
+builder.Services.AddScoped(typeof(IMongoDbFactory), typeof(MongoDbFactory));
 
 builder.Services.AddSingleton<IEventBusSubscriptionsManager, InMemoryEventBusSubscriptionsManager>();
 builder.Services.AddSingleton<IRabbitMQPersistentConnection>(sp =>
@@ -50,7 +54,7 @@ builder.Services.AddSingleton<IEventBus, EventBusRabbitMQ.EventBusRabbitMQ>(sp =
 
 builder.Services.AddSignalR();
 
-builder.Services.AddTransient<ProposalSubmittedNotificationHandler>();
+builder.Services.AddScoped<ProposalSubmittedNotificationHandler>();
 
 var app = builder.Build();
 

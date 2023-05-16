@@ -24,7 +24,7 @@ import { ProposalInfoDialogComponent } from './proposals-management/dialogs/prop
 export const jobRoutes: Routes = [
   { path: 'job', component: JobSearchComponent },
   { path: 'job-management', component: JobsManagementComponent },
-  { path: 'proposal-management', component: ProposalsManagementComponent }
+  { path: 'job/:id/proposal-management', component: ProposalsManagementComponent }
 ]
 
 @NgModule({

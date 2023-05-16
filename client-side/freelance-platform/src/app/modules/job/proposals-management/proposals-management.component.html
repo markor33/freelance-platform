@@ -1,5 +1,5 @@
 <div class="container">
-    <h1><a (click)="openJobInfoDialog()">Need to scrape airtable</a> proposals</h1>
+    <h1><a (click)="openJobInfoDialog()">{{job.title}}</a> proposals</h1>
     <table mat-table [dataSource]="proposals">
         <ng-container matColumnDef="freelancer">
             <th mat-header-cell *matHeaderCellDef> <h3>Freelancer</h3> </th>

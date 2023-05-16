@@ -4,6 +4,9 @@
         <button mat-button routerLink="/job-management" *ngIf="userRole === 'CLIENT'">Jobs</button>
     </div>
     <span class="spacer"></span>
+    <button mat-icon-button *ngIf="isUserLogged" (click)="openNotificationsDisplay()">
+        <mat-icon matBadge="1" matBadgeColor="warn" matBadgeSize="small" [matBadgeHidden]="!showNewNotificationDot">notifications</mat-icon>
+    </button>
     <button mat-icon-button [matMenuTriggerFor]="menu" *ngIf="isUserLogged">
         <mat-icon>person</mat-icon>
     </button>
@@ -15,6 +18,9 @@
         <mat-icon>login</mat-icon>
     </button>
 </mat-toolbar>
+<div class="notifications-container" *ngIf="showNotifications">
+    <app-notifications-display></app-notifications-display>
+</div>
 <div class="main-container">
     <router-outlet></router-outlet>
 </div>

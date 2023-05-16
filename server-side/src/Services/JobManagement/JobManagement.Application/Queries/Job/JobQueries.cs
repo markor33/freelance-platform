@@ -40,6 +40,34 @@ namespace JobManagement.Application.Queries
             return GroupJobs(jobs);
         }
 
+        public async Task<JobViewModel> GetByIdAsync(Guid id)
+        {
+            var jobs = await _dbConnection.QueryAsync<JobViewModel, Payment, ProfessionViewModel, QuestionViewModel, SkillViewModel, JobViewModel>(
+                @"SELECT j.""Id"", j.""Title"", j.""Description"", j.""ExperienceLevel"", j.""Credits"",
+                        j.""Payment_Amount"" as Amount, j.""Payment_Currency"" as Currency, j.""Payment_Type"" as Type,
+                        p.""Id"", p.""Name"", p.""Description"",
+                        q.""Id"", q.""Text"",
+                        s.""Id"", s.""Name"", s.""Description""
+                    FROM ""Jobs"" j 
+                    INNER JOIN ""Professions"" p ON j.""ProfessionId"" = p.""Id""
+                    LEFT JOIN ""Questions"" q ON j.""Id"" = q.""JobId""
+                    LEFT JOIN ""JobSkill"" js ON j.""Id"" = js.""JobsId""
+                    LEFT JOIN ""Skills"" s ON s.""Id"" = js.""SkillsId""
+                    WHERE j.""Status"" != 3 AND j.""Id""=@id",
+                (job, payment, profession, question, skill) =>
+                {
+                    job.Profession = profession;
+                    job.Payment = payment;
+                    job.Questions.Add(question);
+                    job.Skills.Add(skill);
+                    return job;
+                },
+                new { id },
+                splitOn: "Amount, Id, Id, Id");
+
+            return jobs.ToList().First();
+        }
+
         public async Task<List<JobViewModel>> GetByClientAsync(Guid clientId)
         {
             var jobs = await _dbConnection.QueryAsync<JobViewModel, Payment, ProfessionViewModel, QuestionViewModel, SkillViewModel, JobViewModel>(

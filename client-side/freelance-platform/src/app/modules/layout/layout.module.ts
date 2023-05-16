@@ -9,6 +9,8 @@ import { RouterModule, Routes } from '@angular/router';
 import { MatIconModule } from '@angular/material/icon';
 import {MatMenuModule} from '@angular/material/menu';
 import { JobModule, jobRoutes } from '../job/job.module';
+import { MatBadgeModule } from '@angular/material/badge';
+import { NotificationModule } from '../notification/notification.module';
 
 const routes: Routes = [
   { path: '', component: HomeComponent, children: [
@@ -30,6 +32,8 @@ const routes: Routes = [
     MatIconModule,
     JobModule,
     MatMenuModule,
+    MatBadgeModule,
+    NotificationModule,
     RouterModule.forRoot(routes)
   ],
   exports: [HomeComponent]

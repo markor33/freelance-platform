@@ -23,8 +23,9 @@ namespace JobManagement.IntegrationTests.Controllers.JobScenarios
             var mediator = scope.ServiceProvider.GetRequiredService<IMediator>();
             var jobQueries = scope.ServiceProvider.GetRequiredService<IJobQueries>();
             var proposalQueries = scope.ServiceProvider.GetRequiredService<IProposalQueries>();
+            var answerQueries = scope.ServiceProvider.GetRequiredService<IAnswerQueries>();
             var mapper = scope.ServiceProvider.GetRequiredService<IMapper>();
-            return new JobController(mediator, mapper, jobQueries, proposalQueries);
+            return new JobController(mediator, mapper, jobQueries, proposalQueries, answerQueries);
         }
 
         private static async Task<Job> CreateTestJob(IServiceScope scope)

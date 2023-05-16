@@ -14,6 +14,8 @@ import { NotificationService } from '../../notification/services/notification.se
 })
 export class HomeComponent {
 
+  showNotifications: boolean = false;
+  showNewNotificationDot: boolean = false;
   isUserLogged: boolean = false;
   userRole: string = '';
   domainUserId: string = '';
@@ -29,6 +31,7 @@ export class HomeComponent {
           this.domainUserId = user?.domainId as string;
         }
       });
+      this.notificationService.newNotificationReceivedObserver.subscribe((res) => this.showNewNotificationDot = res);
   }
 
   ngOnInit() {
@@ -49,6 +52,11 @@ export class HomeComponent {
           height: '65%'
         });
     });
+  }
+
+  openNotificationsDisplay() {
+    this.showNotifications = !this.showNotifications;
+    this.showNewNotificationDot = false;
   }
 
   logout() {

@@ -1,6 +1,6 @@
 ﻿using EventBus.Events;
 
-namespace NotifyChat.Notifications.Models
+namespace NotifyChat.Notifications.IntegrationEvents
 {
     record class ProposalSubmittedNotification : IntegrationEvent
     {

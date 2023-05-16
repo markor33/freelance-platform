@@ -33,6 +33,10 @@ export class JobService {
     return this.httpClient.get<Job[]>('api/job/job');
   }
 
+  get(id: string): Observable<Job> {
+    return this.httpClient.get<Job>(`api/job/job/${id}`);
+  }
+
   getByClient(): Observable<Job[]> {
     return this.httpClient.get<Job[]>(`api/job/job/client/${this.clientId}`, this.httpOptions);
   }

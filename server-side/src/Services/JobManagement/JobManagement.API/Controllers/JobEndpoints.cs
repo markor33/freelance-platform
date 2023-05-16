@@ -15,6 +15,13 @@ namespace JobManagement.API.Controllers
             return await _jobQueries.GetAllAsync();
         }
 
+        [HttpGet("{id}")]
+        [AllowAnonymous]
+        public async Task<ActionResult<JobViewModel>> Get(Guid id)
+        {
+            return await _jobQueries.GetByIdAsync(id);
+        }
+
         [HttpGet("client/{clientId}")]
         [Authorize(Roles = "CLIENT")]
         public async Task<ActionResult<List<JobViewModel>>> GetByClient(Guid clientId)

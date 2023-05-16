@@ -5,7 +5,6 @@ import { Credentials } from '../models/credentials.model';
 import { BehaviorSubject, Observable, map } from 'rxjs';
 import { Registration } from '../models/registration.model';
 import { User } from '../models/user.model';
-import { StreamInvocationMessage } from '@microsoft/signalr';
 
 @Injectable({
   providedIn: 'root'

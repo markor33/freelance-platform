@@ -2,6 +2,7 @@ import { Component, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Job } from '../../../models/job.model';
 import { EnumConverter } from 'src/app/modules/shared/utils/enum-string-converter.util';
+import { JobService } from '../../../services/job.service';
 
 @Component({
   selector: 'app-job-info-dialog',
@@ -10,12 +11,13 @@ import { EnumConverter } from 'src/app/modules/shared/utils/enum-string-converte
 })
 export class JobInfoDialogComponent {
 
-  job: Job;
+  job: Job = new Job();
 
   constructor(
     public enumConverter: EnumConverter,
-    @Inject(MAT_DIALOG_DATA) public data: {job: Job}) {
-    this.job = data.job;
+    @Inject(MAT_DIALOG_DATA) public data: { jobId: string },
+    private jobService: JobService) {
+      this.jobService.get(data.jobId).subscribe((job) => this.job = job)
   }
 
 }

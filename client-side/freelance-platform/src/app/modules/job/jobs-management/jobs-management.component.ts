@@ -48,12 +48,12 @@ export class JobsManagementComponent {
     this.dialog.open(JobInfoDialogComponent, {
       width: '50%',
       height: '80%',
-      data: { job: job }
+      data: { jobId: job.id }
     });
   }
 
   openProposals(job: Job) {
-    this.router.navigate(['proposal-management'], { state: { job: job }});
+    this.router.navigate(['/job', job.id, 'proposal-management']);
   }
 
   deleteJob(job: Job) {
