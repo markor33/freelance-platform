@@ -57,8 +57,11 @@ namespace JobManagement.IntegrationTests.Setup
         private static void InitializeDatabase(
             JobManagementContext context)
         {
+            context.Database.EnsureDeleted();
             context.Database.EnsureCreated();
 
+            // FillProfessions(context);
+            // FillSkills(context);
             FillJobs(context);
 
             context.SaveChanges();

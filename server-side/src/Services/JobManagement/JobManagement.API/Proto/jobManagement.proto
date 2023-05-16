@@ -1,0 +1,32 @@
+﻿syntax = "proto3";
+
+option csharp_namespace = "GrpcJobManagement";
+import "google/protobuf/timestamp.proto";
+
+service Proposal {
+	rpc GetProposalsByJobId(GetProposalsByJobIdRequest) returns (GetProposalsByJobIdResponse);
+}
+
+message GetProposalsByJobIdRequest {
+	string jobId = 1;
+}
+
+message GetProposalsByJobIdResponse {
+	string jobId = 1;
+	repeated ProposalDTO proposals = 2;
+}
+
+message ProposalDTO {
+	string id = 1;
+	string freelancerId = 2;
+	string text = 3;
+	Payment payment = 4;
+	int32 status = 5;
+	google.protobuf.Timestamp created = 6;
+}
+
+message Payment {
+	float amount = 1;
+	string currency = 2;
+	int32 type = 3;
+}

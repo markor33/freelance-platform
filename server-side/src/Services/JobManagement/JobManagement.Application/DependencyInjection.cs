@@ -16,6 +16,7 @@ namespace JobManagement.Application
 
             services.AddTransient(typeof(IProposalQueries), typeof(ProposalQueries));
             services.AddTransient(typeof(IJobQueries), typeof(JobQueries));
+            services.AddTransient(typeof(IAnswerQueries), typeof(AnswerQueries));
 
             services.AddAutoMapper(typeof(MappingProfile));
 

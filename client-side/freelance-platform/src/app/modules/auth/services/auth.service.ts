@@ -4,40 +4,38 @@ import { JwtHelperService } from '@auth0/angular-jwt';
 import { Credentials } from '../models/credentials.model';
 import { BehaviorSubject, Observable, map } from 'rxjs';
 import { Registration } from '../models/registration.model';
+import { User } from '../models/user.model';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
 
-  private userClaims: any = null;
-  private loginSource = new BehaviorSubject<boolean>(false);
-  public loginObserver = this.loginSource.asObservable();
+  private userSource = new BehaviorSubject<User | null>(null);
+  public userObserver = this.userSource.asObservable();
 
   httpOptions = {
     headers: { 'Content-Type': 'application/json' }
   };
 
   constructor(private httpClient: HttpClient, private jwtHelper: JwtHelperService) {
-    this.userClaims = this.jwtHelper.decodeToken();
-    if(this.userClaims)
-      this.loginSource.next(true);
+    const userData = JSON.parse(localStorage.getItem('user') as string);
+    if (userData === null)
+      return;
+    const userClaims = this.jwtHelper.decodeToken(userData.jwt);
+    if(userData)
+      this.userSource.next(new User(userClaims.sub, userData.domainUserId, userData.firstName, userData.lastName, userClaims.role));
   }
 
   login(credentials: Credentials): Observable<any> {
-    const body = new HttpParams()
-      .set('username', credentials.username)
-      .set('password', credentials.password)
-      .set('grant_type', 'password')
-      .set('client_id', 'angular-app')
-      .set('client_secret', 'secret');
 
-    return this.httpClient.post<any>('api/identity/connect/token', body)
+    return this.httpClient.post<any>('api/aggregator/user/login', credentials)
       .pipe(
         map((res) => {
-          localStorage.setItem('token', res.access_token);
-          this.userClaims = this.jwtHelper.decodeToken();
-          this.loginSource.next(true);
+          localStorage.setItem('user', JSON.stringify(res));
+          const userClaims = this.jwtHelper.decodeToken(res.jwt);
+          const user = new User(userClaims.sub, res.domainUserId, res.firstName, res.lastName, userClaims.role);
+          this.userSource.next(user);
         })
       );
   }
@@ -48,15 +46,23 @@ export class AuthService {
 
   logout(): void {
     localStorage.clear();
-    this.loginSource.next(false);
+    this.userSource.next(null);
   }
 
   getUserRole(): string {
-    return this.userClaims.role;
+    return this.userSource.value?.role as string;
   }
 
   isLogged(): boolean {
-    return this.loginSource.value;
+    return this.userSource.value !== null;
+  }
+
+  hasDomainData(): boolean {
+    return !(this.userSource.value?.domainId === '00000000-0000-0000-0000-000000000000');
+  }
+
+  addDomainData(domainUserId: string, firstName: string, lastName: string): void {
+    this.userSource.value?.addDomainData(domainUserId, firstName, lastName);
   }
 
 }

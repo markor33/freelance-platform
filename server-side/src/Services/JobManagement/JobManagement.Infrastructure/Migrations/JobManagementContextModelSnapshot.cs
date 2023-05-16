@@ -22,97 +22,6 @@ namespace JobManagement.Infrastructure.Migrations
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
-            modelBuilder.Entity("JobManagement.Domain.AggregatesModel.FreelancerAggregate.Entities.Profession", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid");
-
-                    b.Property<string>("Description")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("character varying(100)");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("character varying(50)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Professions", (string)null);
-
-                    b.HasData(
-                        new
-                        {
-                            Id = new Guid("523c9ba1-4e91-4a75-85c3-cf386c078aa9"),
-                            Description = "Software engineer",
-                            Name = "Software engineer"
-                        },
-                        new
-                        {
-                            Id = new Guid("71a4d4c7-ed8b-4b6c-ad39-5db767f83c7d"),
-                            Description = "Graphic designer",
-                            Name = "Graphic designer"
-                        });
-                });
-
-            modelBuilder.Entity("JobManagement.Domain.AggregatesModel.FreelancerAggregate.Entities.Skill", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid");
-
-                    b.Property<string>("Description")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("character varying(100)");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("character varying(50)");
-
-                    b.Property<Guid>("ProfessionId")
-                        .HasColumnType("uuid");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ProfessionId");
-
-                    b.ToTable("Skills", (string)null);
-
-                    b.HasData(
-                        new
-                        {
-                            Id = new Guid("93098c08-85ff-4c31-994b-5dec79c17d79"),
-                            Description = "Programming language",
-                            Name = "C#",
-                            ProfessionId = new Guid("523c9ba1-4e91-4a75-85c3-cf386c078aa9")
-                        },
-                        new
-                        {
-                            Id = new Guid("ea1627e1-2d59-427d-b5b4-13ab7e944c7f"),
-                            Description = "Web framework",
-                            Name = "ASP.NET CORE",
-                            ProfessionId = new Guid("523c9ba1-4e91-4a75-85c3-cf386c078aa9")
-                        },
-                        new
-                        {
-                            Id = new Guid("5d741f6a-f024-4dca-8b1f-afccec1f72ea"),
-                            Description = "Design software",
-                            Name = "Adobe Illustrator",
-                            ProfessionId = new Guid("71a4d4c7-ed8b-4b6c-ad39-5db767f83c7d")
-                        },
-                        new
-                        {
-                            Id = new Guid("e190ca8a-5252-4b00-8128-f21d9918efaf"),
-                            Description = "Design software",
-                            Name = "CorelDRAW Graphics Suite",
-                            ProfessionId = new Guid("71a4d4c7-ed8b-4b6c-ad39-5db767f83c7d")
-                        });
-                });
-
             modelBuilder.Entity("JobManagement.Domain.AggregatesModel.JobAggregate.Entities.Answer", b =>
                 {
                     b.Property<Guid>("Id")
@@ -136,11 +45,49 @@ namespace JobManagement.Infrastructure.Migrations
                     b.ToTable("Answers", (string)null);
                 });
 
+            modelBuilder.Entity("JobManagement.Domain.AggregatesModel.JobAggregate.Entities.Profession", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("character varying(50)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Professions", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("d6861f65-0950-4c7f-b5b1-de644f923fbb"),
+                            Description = "Software engineer",
+                            Name = "Software engineer"
+                        },
+                        new
+                        {
+                            Id = new Guid("0c485898-d9f4-45c5-99bc-c2c8dd3e69f0"),
+                            Description = "Graphic designer",
+                            Name = "Graphic designer"
+                        });
+                });
+
             modelBuilder.Entity("JobManagement.Domain.AggregatesModel.JobAggregate.Entities.Proposal", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
+
+                    b.Property<DateTime>("Created")
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<Guid>("FreelancerId")
                         .HasColumnType("uuid");
@@ -148,7 +95,7 @@ namespace JobManagement.Infrastructure.Migrations
                     b.Property<Guid>("JobId")
                         .HasColumnType("uuid");
 
-                    b.Property<int?>("ProposalStatus")
+                    b.Property<int?>("Status")
                         .HasColumnType("integer");
 
                     b.Property<string>("Text")
@@ -182,6 +129,62 @@ namespace JobManagement.Infrastructure.Migrations
                     b.ToTable("Questions", (string)null);
                 });
 
+            modelBuilder.Entity("JobManagement.Domain.AggregatesModel.JobAggregate.Entities.Skill", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("character varying(50)");
+
+                    b.Property<Guid>("ProfessionId")
+                        .HasColumnType("uuid");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ProfessionId");
+
+                    b.ToTable("Skills", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("93098c08-85ff-4c31-994b-5dec79c17d79"),
+                            Description = "Programming language",
+                            Name = "C#",
+                            ProfessionId = new Guid("d6861f65-0950-4c7f-b5b1-de644f923fbb")
+                        },
+                        new
+                        {
+                            Id = new Guid("ea1627e1-2d59-427d-b5b4-13ab7e944c7f"),
+                            Description = "Web framework",
+                            Name = "ASP.NET CORE",
+                            ProfessionId = new Guid("d6861f65-0950-4c7f-b5b1-de644f923fbb")
+                        },
+                        new
+                        {
+                            Id = new Guid("5d741f6a-f024-4dca-8b1f-afccec1f72ea"),
+                            Description = "Design software",
+                            Name = "Adobe Illustrator",
+                            ProfessionId = new Guid("0c485898-d9f4-45c5-99bc-c2c8dd3e69f0")
+                        },
+                        new
+                        {
+                            Id = new Guid("e190ca8a-5252-4b00-8128-f21d9918efaf"),
+                            Description = "Design software",
+                            Name = "CorelDRAW Graphics Suite",
+                            ProfessionId = new Guid("0c485898-d9f4-45c5-99bc-c2c8dd3e69f0")
+                        });
+                });
+
             modelBuilder.Entity("JobManagement.Domain.AggregatesModel.JobAggregate.Job", b =>
                 {
                     b.Property<Guid>("Id")
@@ -201,11 +204,11 @@ namespace JobManagement.Infrastructure.Migrations
                     b.Property<int>("ExperienceLevel")
                         .HasColumnType("integer");
 
-                    b.Property<int>("JobStatus")
-                        .HasColumnType("integer");
-
                     b.Property<Guid>("ProfessionId")
                         .HasColumnType("uuid");
+
+                    b.Property<int>("Status")
+                        .HasColumnType("integer");
 
                     b.Property<string>("Title")
                         .IsRequired()
@@ -231,17 +234,6 @@ namespace JobManagement.Infrastructure.Migrations
                     b.HasIndex("SkillsId");
 
                     b.ToTable("JobSkill");
-                });
-
-            modelBuilder.Entity("JobManagement.Domain.AggregatesModel.FreelancerAggregate.Entities.Skill", b =>
-                {
-                    b.HasOne("JobManagement.Domain.AggregatesModel.FreelancerAggregate.Entities.Profession", "Profession")
-                        .WithMany("Skills")
-                        .HasForeignKey("ProfessionId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Profession");
                 });
 
             modelBuilder.Entity("JobManagement.Domain.AggregatesModel.JobAggregate.Entities.Answer", b =>
@@ -297,9 +289,20 @@ namespace JobManagement.Infrastructure.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("JobManagement.Domain.AggregatesModel.JobAggregate.Entities.Skill", b =>
+                {
+                    b.HasOne("JobManagement.Domain.AggregatesModel.JobAggregate.Entities.Profession", "Profession")
+                        .WithMany("Skills")
+                        .HasForeignKey("ProfessionId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Profession");
+                });
+
             modelBuilder.Entity("JobManagement.Domain.AggregatesModel.JobAggregate.Job", b =>
                 {
-                    b.HasOne("JobManagement.Domain.AggregatesModel.FreelancerAggregate.Entities.Profession", "Profession")
+                    b.HasOne("JobManagement.Domain.AggregatesModel.JobAggregate.Entities.Profession", "Profession")
                         .WithMany()
                         .HasForeignKey("ProfessionId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -342,14 +345,14 @@ namespace JobManagement.Infrastructure.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("JobManagement.Domain.AggregatesModel.FreelancerAggregate.Entities.Skill", null)
+                    b.HasOne("JobManagement.Domain.AggregatesModel.JobAggregate.Entities.Skill", null)
                         .WithMany()
                         .HasForeignKey("SkillsId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("JobManagement.Domain.AggregatesModel.FreelancerAggregate.Entities.Profession", b =>
+            modelBuilder.Entity("JobManagement.Domain.AggregatesModel.JobAggregate.Entities.Profession", b =>
                 {
                     b.Navigation("Skills");
                 });

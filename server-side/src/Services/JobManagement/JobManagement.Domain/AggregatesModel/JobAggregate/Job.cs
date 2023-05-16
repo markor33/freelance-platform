@@ -14,7 +14,7 @@ namespace JobManagement.Domain.AggregatesModel.JobAggregate
         public int Credits { get; private set; }
         public ExperienceLevel ExperienceLevel { get; private set; }
         public Payment Payment { get; private set; }
-        public JobStatus JobStatus { get; private set; }
+        public JobStatus Status { get; private set; }
         public List<Question> Questions { get; private set; }
         public List<Proposal> Proposals { get; private set; }
         public Guid ProfessionId { get; private set; }
@@ -36,7 +36,7 @@ namespace JobManagement.Domain.AggregatesModel.JobAggregate
             Description = description;
             ExperienceLevel = experienceLevel;
             Payment = payment;
-            JobStatus = JobStatus.LISTED;
+            Status = JobStatus.LISTED;
             Credits = EvaluateCredits();
             Profession = profession;
             ProfessionId = profession.Id;
@@ -89,6 +89,14 @@ namespace JobManagement.Domain.AggregatesModel.JobAggregate
         {
             var proposal = Proposals.First(p => p.Id == proposalId);
             Proposals.Remove(proposal);
+        }
+
+        public Result Delete()
+        {
+            if (Status != JobStatus.LISTED)
+                return Result.Fail("Job can't be deleted");
+            Status = JobStatus.REMOVED;
+            return Result.Ok();
         }
 
     }

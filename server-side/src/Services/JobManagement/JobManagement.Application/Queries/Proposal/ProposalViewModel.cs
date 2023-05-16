@@ -6,18 +6,22 @@ namespace JobManagement.Application.Queries
     public record ProposalViewModel
     {
         public Guid Id { get; private init; }
+        public Guid FreelancerId { get; private init; }
         public string Text { get; private init; }
-        public Payment Payment { get; private init; }
+        public Payment Payment { get; set; }
         public ProposalStatus Status { get; private init; }
+        public DateTime Created { get; private init; }
 
         public ProposalViewModel() { }
 
-        public ProposalViewModel(Guid id, string text, Payment payment, ProposalStatus status)
+        public ProposalViewModel(Guid id, Guid freelancerId, string text, Payment payment, ProposalStatus status, DateTime created)
         {
             Id = id;
+            FreelancerId = freelancerId;
             Text = text;
             Payment = payment;
             Status = status;
+            Created = created;
         }
     }
 }

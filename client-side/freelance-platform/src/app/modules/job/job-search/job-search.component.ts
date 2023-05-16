@@ -6,11 +6,11 @@ import { ApplyDialogComponent } from '../apply-dialog/apply-dialog.component';
 import { CreateJobDialogComponent } from '../create-job-dialog/create-job-dialog.component';
 
 @Component({
-  selector: 'app-job-listing',
-  templateUrl: './job-listing.component.html',
-  styleUrls: ['./job-listing.component.scss']
+  selector: 'app-job-search',
+  templateUrl: './job-search.component.html',
+  styleUrls: ['./job-search.component.scss']
 })
-export class JobListingComponent {
+export class JobSearchComponent {
 
   jobs: Job[] = [];
 
@@ -23,6 +23,7 @@ export class JobListingComponent {
   }
 
   apply(job: Job) {
+    console.log(job);
     this.dialog.open(ApplyDialogComponent, {
       width: '50%',
       height: '80%',

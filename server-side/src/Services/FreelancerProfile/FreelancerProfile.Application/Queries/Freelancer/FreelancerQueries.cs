@@ -11,9 +11,20 @@ namespace FreelancerProfile.Application.Queries
             _repository = repository;
         }
 
-        public async Task<Result<FreelancerViewModel>> GetFreelancerFromUserAsync(Guid userId)
+        public async Task<Result<FreelancerViewModel>> GetByIdAsync(Guid id)
         {
-            return await _repository.GetByUserIdAsync(userId);
+            var freelancer = await _repository.GetByIdAsync(id);
+            if (freelancer is null)
+                return Result.Fail("Freelancer does not exist");
+            return Result.Ok(freelancer);
+        }
+
+        public async Task<Result<FreelancerViewModel>> GetByUserIdAsync(Guid userId)
+        {
+            var freelancer = await _repository.GetByUserIdAsync(userId);
+            if (freelancer is null)
+                return Result.Fail("Freelancer does not exist");
+            return Result.Ok(freelancer);
         }
     }
 }

@@ -28,7 +28,7 @@ import { AddEmploymentDialogComponent } from './freelancer-profile/dialogs/add-e
 import { AddSkillDialogComponent } from './freelancer-profile/dialogs/add-skill-dialog/add-skill-dialog.component';
 
 export const freelancerRoutes: Routes = [
-  { path: 'freelancer/profile', component: FreelancerProfileComponent}
+  { path: 'freelancer/profile/:id', component: FreelancerProfileComponent}
 ];
 
 @NgModule({

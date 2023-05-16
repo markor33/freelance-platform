@@ -9,7 +9,7 @@ namespace JobManagement.Application.Queries
         public string Title { get; private init; }
         public string Description { get; private init; }
         public ExperienceLevel ExperienceLevel { get; private init; }
-        public Payment Payment { get; private init; }
+        public Payment Payment { get; set; }
         public int Credits { get; private init; }
         public List<QuestionViewModel> Questions { get; private init; }
         public ProfessionViewModel Profession { get; set; }
@@ -39,20 +39,20 @@ namespace JobManagement.Application.Queries
     public record AnswerViewModel
     {
         public Guid Id { get; private init; }
-        public Guid QuestionId { get; private init; }
+        public QuestionViewModel Question { get; set; }
         public string Text { get; private init; }
 
         public AnswerViewModel() { }
 
-        public AnswerViewModel(Guid id, Guid questionId, string text)
+        public AnswerViewModel(Guid id, QuestionViewModel question, string text)
         {
             Id = id;
-            QuestionId = questionId;
+            Question = question;
             Text = text;
         }
     }
 
-    public record QuestionViewModel
+    public class QuestionViewModel : IEquatable<QuestionViewModel>
     {
         public Guid Id { get; private init; }
         public string Text { get; private init; }
@@ -64,6 +64,25 @@ namespace JobManagement.Application.Queries
             Id = id;
             Text = text;
         }
+
+        public override bool Equals(object obj)
+        {
+            if (obj == null) return false;
+            if (obj.GetType() != GetType()) return false;
+            return Equals((QuestionViewModel)obj);
+        }
+
+        public bool Equals(QuestionViewModel? other)
+        {
+            if (other == null) return false;
+            return Id == other.Id;
+        }
+
+        public override int GetHashCode()
+        {
+            return Id.GetHashCode();
+        }
+
     }
 
 }

@@ -10,6 +10,7 @@ import { Profession, Skill } from '../../shared/models/profession.mode';
 import { ProfessionService } from '../../shared/services/profession.service';
 import { MatSelectChange } from '@angular/material/select';
 import { FormControl } from '@angular/forms';
+import { Job } from '../models/job.model';
 
 @Component({
   selector: 'app-create-job-dialog',
@@ -40,7 +41,7 @@ export class CreateJobDialogComponent {
   create() {
     this.createJobCommand.skills = (this.skillsControl.value as Skill[]).map((skill) => skill.id);
     this.jobService.create(this.createJobCommand).subscribe({
-      complete: this.jobSuccessfullyAdded.bind(this)
+      next: this.jobSuccessfullyAdded.bind(this)
     });
   }
 
@@ -51,9 +52,9 @@ export class CreateJobDialogComponent {
     });
   }
 
-  jobSuccessfullyAdded() {
+  jobSuccessfullyAdded(job: Job) {
     this.snackBars.primary('Job successfully added');
-    this.dialogRef.close()
+    this.dialogRef.close(job);
   }
 
   removeSkill(skill: Skill) {

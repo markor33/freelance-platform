@@ -1,8 +1,11 @@
+using ClientProfile.API.Grpc;
 using ClientProfile.API.Infrastructure;
 using ClientProfile.API.Infrastructure.Repositories;
 using ClientProfile.API.Security;
+using Microsoft.AspNetCore.Server.Kestrel.Core;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
+using System.Net;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -30,6 +33,21 @@ builder.Services.AddTransient(typeof(IIdentityService), typeof(IdentityService))
 
 builder.Services.AddTransient(typeof(IClientRepository), typeof(ClientRepository));
 
+builder.Services.AddGrpc(options =>
+{
+    options.EnableDetailedErrors = true;
+});
+
+builder.WebHost.UseKestrel(options => {
+    options.Listen(IPAddress.Any, 80, listenOptions => {
+        listenOptions.Protocols = HttpProtocols.Http1;
+    });
+
+    options.Listen(IPAddress.Any, 5000, listenOptions => {
+        listenOptions.Protocols = HttpProtocols.Http2;
+    });
+});
+
 var app = builder.Build();
 
 if (app.Environment.IsDevelopment())
@@ -42,5 +60,6 @@ app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
+app.MapGrpcService<ClientProfileGrpcService>();
 
 app.Run();

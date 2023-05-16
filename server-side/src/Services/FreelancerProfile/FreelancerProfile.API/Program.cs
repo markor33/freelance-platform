@@ -13,6 +13,9 @@ using FreelancerProfile.Application.IntegrationEvents.Events;
 using FreelancerProfile.Infrastructure.ReadModel.Settings;
 using Npgsql;
 using System.Data;
+using FreelancerProfile.API.GrpcServices;
+using Microsoft.AspNetCore.Server.Kestrel.Core;
+using System.Net;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -71,6 +74,21 @@ builder.Services.AddSingleton<IEventBus, EventBusRabbitMQ.EventBusRabbitMQ>(sp =
 
 builder.Services.AddTransient<ProposalCreatedIntegrationEventHandler>();
 
+builder.Services.AddGrpc(options =>
+{
+    options.EnableDetailedErrors = true;
+});
+
+builder.WebHost.UseKestrel(options => {
+    options.Listen(IPAddress.Any, 80, listenOptions => {
+        listenOptions.Protocols = HttpProtocols.Http1;
+    });
+
+    options.Listen(IPAddress.Any, 5000, listenOptions => {
+        listenOptions.Protocols = HttpProtocols.Http2;
+    });
+});
+
 var app = builder.Build();
 
 var eventBus = app.Services.GetRequiredService<IEventBus>();
@@ -86,6 +104,7 @@ app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
+app.MapGrpcService<FreelancerProfileGrpcService>();
 
 app.Run();
 

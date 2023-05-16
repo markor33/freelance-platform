@@ -1,0 +1,33 @@
+<div class="container">
+    <h1><a (click)="openJobInfoDialog()">{{job.title}}</a> proposals</h1>
+    <table mat-table [dataSource]="proposals">
+        <ng-container matColumnDef="freelancer">
+            <th mat-header-cell *matHeaderCellDef> <h3>Freelancer</h3> </th>
+            <td mat-cell *matCellDef="let element">
+                <a [routerLink]="['/freelancer/profile', element.freelancer.id]"> 
+                    {{element.freelancer.firstName + ' ' + element.freelancer.lastName}} 
+                </a>
+            </td>
+        </ng-container>
+        <ng-container matColumnDef="location">
+            <th mat-header-cell *matHeaderCellDef> <h3>Location</h3> </th>
+            <td mat-cell *matCellDef="let element"> {{element.freelancer.country + ' ,' + element.freelancer.city}} </td>
+        </ng-container>
+        <ng-container matColumnDef="date">
+            <th mat-header-cell *matHeaderCellDef> <h3>Date</h3> </th>
+            <td mat-cell *matCellDef="let element"> {{element.created.toLocaleDateString('en-US', {
+                month: 'short',
+                day: 'numeric',
+                year: 'numeric',
+                hour: 'numeric',
+                minute: 'numeric',
+                second: 'numeric',
+                hour12: false,
+                timeZone: 'UTC',
+              })}} </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="openProposalInfoDialog(row)"></tr>
+    </table>
+</div>

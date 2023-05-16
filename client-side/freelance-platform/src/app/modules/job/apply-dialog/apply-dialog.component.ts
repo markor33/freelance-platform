@@ -5,6 +5,7 @@ import { EnumConverter } from '../../shared/utils/enum-string-converter.util';
 import { CreateProposalCommand } from '../models/create-proposal-cmmand.model';
 import { ProposalService } from '../services/proposal.service';
 import { SnackBarsService } from '../../shared/services/snack-bars.service';
+import { Question } from '../models/question.model';
 
 @Component({
   selector: 'app-apply-dialog',
@@ -40,7 +41,7 @@ export class ApplyDialogComponent {
 
   apply() {
     for (const answer of this.questionsAndAnswers)
-      this.createProposalCommand.answers.push({ id: '', questionId: answer.question.id, text: answer.answer});
+      this.createProposalCommand.answers.push({ id: '', questionId: answer.question.id, text: answer.answer, question: new Question('')});
     this.proposalService.create(this.createProposalCommand).subscribe({
       next: (isConfirmedObserver) => isConfirmedObserver.subscribe({ next: this.proposalStatusChanged.bind(this)}),
       error: (err) => this.snackBars.error('Error')
