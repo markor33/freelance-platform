@@ -9,7 +9,6 @@ namespace NotifyChat.SignalR.Models
         public Guid ClientId { get; private set; }
         public Guid FreelancerId { get; private set; }
         public Guid JobId { get; private set; }
-        public List<Message> Messages { get; private set; }
 
         public Chat(Guid clientId, Guid freelancerId, Guid jobId)
         {
@@ -17,7 +16,6 @@ namespace NotifyChat.SignalR.Models
             ClientId = clientId;
             FreelancerId = freelancerId;
             JobId = jobId;
-            Messages = new List<Message>();
         }
     }
 }

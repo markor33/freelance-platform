@@ -32,6 +32,8 @@ builder.Services.Configure<MongoDBSettings>(builder.Configuration.GetSection("Mo
 builder.Services.AddScoped(typeof(IMongoDbFactory), typeof(MongoDbFactory));
 
 builder.Services.AddScoped(typeof(INotificationRepository), typeof(NotificationRepository));
+builder.Services.AddScoped(typeof(IChatRepository), typeof(ChatRepository));
+builder.Services.AddScoped(typeof(IMessageRepository), typeof(MessageRepository));
 
 builder.Services.AddSingleton<IEventBusSubscriptionsManager, InMemoryEventBusSubscriptionsManager>();
 builder.Services.AddSingleton<IRabbitMQPersistentConnection>(sp =>
@@ -74,6 +76,7 @@ app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapHub<NotificationHub>("/hub/notifications");
+app.MapHub<ChatHub>("hub/chat");
 
 app.MapControllers();
 
