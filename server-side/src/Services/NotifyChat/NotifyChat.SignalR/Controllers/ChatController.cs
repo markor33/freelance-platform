@@ -6,6 +6,8 @@ using NotifyChat.SignalR.Hubs;
 using NotifyChat.SignalR.IntegrationEvents;
 using NotifyChat.SignalR.Models;
 using NotifyChat.SignalR.Persistence.Repositories;
+using NotifyChat.SignalR.Security;
+using NotifyChat.SignalR.Security.AuthorizationFilters;
 
 namespace NotifyChat.SignalR.Controllers
 {
@@ -18,20 +20,35 @@ namespace NotifyChat.SignalR.Controllers
         private readonly IMessageRepository _messageRepository;
         private readonly IHubContext<ChatHub> _chatHub;
         private readonly IEventBus _eventBus;
+        private readonly IIdentityService _identityService;
 
         public ChatController(
             IChatRepository chatRepository,
             IMessageRepository messageRepository,
             IHubContext<ChatHub> chatHub,
-            IEventBus eventBus)
+            IEventBus eventBus,
+            IIdentityService identityService)
         {
             _chatRepository = chatRepository;
             _messageRepository = messageRepository;
             _chatHub = chatHub;
             _eventBus = eventBus;
+            _identityService = identityService;
+        }
+
+        [HttpGet]
+        public async Task<ActionResult<Chat>> Get()
+        {
+            var userDomainId = _identityService.GetDomainUserId();
+            var role = _identityService.GetRole();
+            if (role == "CLIENT")
+                return await _chatRepository.GetByClient(userDomainId);
+            else
+                return await _chatRepository.GetByFreelancer(userDomainId);
         }
 
         [HttpGet("{id}/messages")]
+        [ChatParticipantAuthorization]
         public async Task<ActionResult<List<Message>>> GetMessages(Guid id)
         {
             var messages = await _messageRepository.GetByChat(id);
@@ -39,7 +56,7 @@ namespace NotifyChat.SignalR.Controllers
         }
 
         [HttpPost]
-        // [Authorize(Roles = "CLIENT")]
+        [Authorize(Roles = "CLIENT")]
         public async Task<ActionResult<Chat>> Create(CreateChatRequest request)
         {
             var chat = new Chat(request.ClientId, request.FreelancerId, request.JobId);

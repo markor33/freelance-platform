@@ -8,6 +8,7 @@ using NotifyChat.Notifications.IntegrationEvents;
 using NotifyChat.SignalR.Notifications.Handlers;
 using NotifyChat.SignalR.Persistence.Settings;
 using NotifyChat.SignalR.Persistence.Repositories;
+using NotifyChat.SignalR.Security;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -34,6 +35,9 @@ builder.Services.AddScoped(typeof(IMongoDbFactory), typeof(MongoDbFactory));
 builder.Services.AddScoped(typeof(INotificationRepository), typeof(NotificationRepository));
 builder.Services.AddScoped(typeof(IChatRepository), typeof(ChatRepository));
 builder.Services.AddScoped(typeof(IMessageRepository), typeof(MessageRepository));
+
+builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+builder.Services.AddScoped(typeof(IIdentityService), typeof(IdentityService));
 
 builder.Services.AddSingleton<IEventBusSubscriptionsManager, InMemoryEventBusSubscriptionsManager>();
 builder.Services.AddSingleton<IRabbitMQPersistentConnection>(sp =>
