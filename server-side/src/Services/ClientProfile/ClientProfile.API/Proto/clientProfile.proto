@@ -3,7 +3,12 @@
 option csharp_namespace = "GrpcClientProfile";
 
 service ClientProfile {
+	rpc GetClientBasicDataById(GetClientBasicDataByIdRequest) returns (ClientBasicData);
 	rpc GetClientBasicDataByUserId(GetClientBasicDataByUserIdRequest) returns (ClientBasicData);
+}
+
+message GetClientBasicDataByIdRequest {
+	string id = 1;
 }
 
 message GetClientBasicDataByUserIdRequest {

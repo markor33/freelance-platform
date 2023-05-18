@@ -1,0 +1,26 @@
+﻿syntax = "proto3";
+
+option csharp_namespace = "GrpcNotifyChat";
+import "google/protobuf/timestamp.proto";
+
+service ChatService {
+	rpc GetChats(GetChatsRequest) returns (GetChatsResponse);
+}
+
+message GetChatsRequest {
+	string userId = 1;
+}
+
+message GetChatsResponse {
+	repeated ChatDTO chats = 1;
+}
+
+message ChatDTO {
+	string id = 1;
+	string jobId = 2;
+	string proposalId = 3;
+	string clientId = 4;
+	bool isClientActive = 5;
+	string freelancerId = 6;
+	bool isFreelancerActive = 7;
+}

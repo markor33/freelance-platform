@@ -5,7 +5,7 @@ using JobManagement.Application.Queries;
 
 namespace JobManagement.API.GrpcServices
 {
-    public class ProposalGrpcService : GrpcJobManagement.Proposal.ProposalBase
+    public class ProposalGrpcService : Proposal.ProposalBase
     {
         private readonly IProposalQueries _queries;
 

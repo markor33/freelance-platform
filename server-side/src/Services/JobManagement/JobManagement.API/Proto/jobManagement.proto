@@ -3,6 +3,19 @@
 option csharp_namespace = "GrpcJobManagement";
 import "google/protobuf/timestamp.proto";
 
+service Job {
+	rpc GetJobBasicData(GetJobBasicDataRequest) returns (JobDTO);
+}
+
+message GetJobBasicDataRequest {
+	string id = 1;
+}
+
+message JobDTO {
+	string id = 1;
+	string title = 2;
+}
+
 service Proposal {
 	rpc GetProposalsByJobId(GetProposalsByJobIdRequest) returns (GetProposalsByJobIdResponse);
 }

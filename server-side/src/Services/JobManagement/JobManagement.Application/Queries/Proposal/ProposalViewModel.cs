@@ -11,10 +11,14 @@ namespace JobManagement.Application.Queries
         public Payment Payment { get; set; }
         public ProposalStatus Status { get; private init; }
         public DateTime Created { get; private init; }
+        public List<AnswerViewModel> Answers { get; set; }
 
-        public ProposalViewModel() { }
+        public ProposalViewModel()
+        {
+            Answers= new List<AnswerViewModel>();
+        }
 
-        public ProposalViewModel(Guid id, Guid freelancerId, string text, Payment payment, ProposalStatus status, DateTime created)
+        public ProposalViewModel(Guid id, Guid freelancerId, string text, Payment payment, ProposalStatus status, DateTime created, List<AnswerViewModel> answers)
         {
             Id = id;
             FreelancerId = freelancerId;
@@ -22,6 +26,7 @@ namespace JobManagement.Application.Queries
             Payment = payment;
             Status = status;
             Created = created;
+            Answers = answers;
         }
     }
 }

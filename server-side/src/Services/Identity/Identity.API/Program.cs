@@ -1,11 +1,11 @@
+using GrpcClientProfile;
+using GrpcFreelancerProfile;
 using Identity.API.Configuration;
 using Identity.API.Data;
 using Identity.API.Models;
 using Identity.API.Services;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using System.IdentityModel.Tokens.Jwt;
-using System.Security.Claims;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Logging.AddConsole();
@@ -36,7 +36,8 @@ builder.Services.AddIdentityServer()
     .AddInMemoryApiResources(Config.GetApis())
     .AddInMemoryApiScopes(Config.GetApiScopes())
     .AddInMemoryClients(Config.GetClients())
-    .AddAspNetIdentity<ApplicationUser>();
+    .AddAspNetIdentity<ApplicationUser>()
+    .AddProfileService<ProfileService>();
 
 builder.Services.AddCors(options => options.AddPolicy("CorsPolicy", builder =>
 {
@@ -48,6 +49,15 @@ builder.Services.AddCors(options => options.AddPolicy("CorsPolicy", builder =>
     .WithOrigins("http://localhost:4200/");
 
 }));
+
+builder.Services.AddGrpcClient<FreelancerProfile.FreelancerProfileClient>((services, options) =>
+{
+    options.Address = new Uri("http://host.docker.internal:52001");
+});
+builder.Services.AddGrpcClient<ClientProfile.ClientProfileClient>((services, options) =>
+{
+    options.Address = new Uri("http://host.docker.internal:53001");
+});
 
 var app = builder.Build();
 

@@ -6,6 +6,7 @@ import { ClientCompleteRegistrationComponent } from '../../client/client-complet
 import { Observable } from 'rxjs';
 import { ComponentType } from '@angular/cdk/portal';
 import { NotificationService } from '../../notification/services/notification.service';
+import { ChatService } from '../../chat/services/chat.service';
 
 @Component({
   selector: 'app-home',
@@ -16,6 +17,7 @@ export class HomeComponent {
 
   showNotifications: boolean = false;
   showNewNotificationDot: boolean = false;
+  showNewChatMessageDot: boolean = false;
   isUserLogged: boolean = false;
   userRole: string = '';
   domainUserId: string = '';
@@ -23,7 +25,8 @@ export class HomeComponent {
   constructor(
     private dialog: MatDialog, 
     private authService: AuthService,
-    private notificationService: NotificationService) {
+    private notificationService: NotificationService,
+    private chatService: ChatService) {
       this.authService.userObserver.subscribe({
         next: (user) => {
           this.isUserLogged = user !== null;
@@ -32,6 +35,10 @@ export class HomeComponent {
         }
       });
       this.notificationService.newNotificationReceivedObserver.subscribe((res) => this.showNewNotificationDot = res);
+      this.chatService.newMessageObserver.subscribe((res) => {
+        if (res === null) this.showNewChatMessageDot = false;
+        else this.showNewChatMessageDot = true;
+      });
   }
 
   ngOnInit() {

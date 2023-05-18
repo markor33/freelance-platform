@@ -28,14 +28,9 @@ export class ProposalsManagementComponent {
     private route: ActivatedRoute) {
       const jobId = this.route.snapshot.paramMap.get('id') as string;
       this.jobService.get(jobId).subscribe((job) => this.job = job);
+      this.proposalService.getByJobId(jobId).subscribe((proposals) => this.proposals = proposals);
     }
-
-  ngOnInit() {
-    this.proposalService.getByJobId(this.job.id).subscribe({
-      next: (proposals) => this.proposals = proposals
-    });
-  }
-
+    
   openJobInfoDialog() {
     this.dialog.open(JobInfoDialogComponent, {
       width: '50%',
@@ -44,11 +39,11 @@ export class ProposalsManagementComponent {
     });
   }
 
-  openProposalInfoDialog(proosal: Proposal) {
+  openProposalInfoDialog(proposal: Proposal) {
     this.dialog.open(ProposalInfoDialogComponent, {
       width: '50%',
       height: '80%',
-      data: { proposal: proosal }
+      data: { jobId: this.job.id, proposalId: proposal.id }
     })
   }
 

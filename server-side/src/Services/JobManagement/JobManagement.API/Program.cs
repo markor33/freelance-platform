@@ -68,6 +68,7 @@ builder.Services.AddSingleton<IEventBus, EventBusRabbitMQ.EventBusRabbitMQ>(sp =
 
 builder.Services.AddTransient<CreditsReservedIntegrationEventHandler>();
 builder.Services.AddTransient<CreditsLimitExceededIntegrationEventHandler>();
+builder.Services.AddTransient<InitialMessageSentIntegrationEventHandler>();
 
 builder.Services.AddGrpc(options =>
 {
@@ -89,6 +90,7 @@ var app = builder.Build();
 var eventBus = app.Services.GetRequiredService<IEventBus>();
 eventBus.Subscribe<CreditsReservedIntegrationEvent, CreditsReservedIntegrationEventHandler>();
 eventBus.Subscribe<CreditsLimitExceededIntegrationEvent, CreditsLimitExceededIntegrationEventHandler>();
+eventBus.Subscribe<InitialMessageSentIntegrationEvent, InitialMessageSentIntegrationEventHandler>();
 
 if (app.Environment.IsDevelopment())
 {
@@ -101,6 +103,7 @@ app.UseAuthorization();
 
 app.MapControllers();
 app.MapGrpcService<ProposalGrpcService>();
+app.MapGrpcService<JobGrpcService>();
 
 app.Run();
 

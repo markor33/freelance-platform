@@ -5,6 +5,7 @@ import { Notification } from '../models/notification.model';
 import { AuthService } from '../../auth/services/auth.service';
 import { BehaviorSubject, Observable, map } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
+import { JwtHelperService } from '@auth0/angular-jwt';
 
 @Injectable({
   providedIn: 'root'
@@ -19,14 +20,18 @@ export class NotificationService {
 
   private handlersMap: Map<string, NotificationHandler> = new Map<string, NotificationHandler>();
 
+  private connection: signalR.HubConnection | null = null;
+
   constructor(
     private httpClient: HttpClient,
     private authService: AuthService,
+    private jwtHelper: JwtHelperService,
     @Inject(NOTIFICATION_HANDLER_TOKEN) private notificationHandlers: NotificationHandler[]) {
 
       this.authService.userObserver.subscribe((user) => {
         if (user === null) {
           this.notificationsSource.next([]);
+          this.connection?.stop();
           return;
         }
         this.configureConnection(user.domainId);
@@ -46,7 +51,7 @@ export class NotificationService {
   }
 
   notificationChecked(notification: Notification): Observable<any> {
-    return this.httpClient.put<any>(`api/notification-service/notification/${notification.id}`, {})
+    return this.httpClient.put<any>(`api/notifychat-service/notification/${notification.id}`, {})
       .pipe(
         map(() => {
           notification.isChecked = true;
@@ -56,7 +61,7 @@ export class NotificationService {
 
   delete(): Observable<any> {
     let ids: string[] = this.notificationsSource.value.map((notification) => notification.id);
-    return this.httpClient.put<any>(`api/notification-service/notification`, ids)
+    return this.httpClient.put<any>(`api/notifychat-service/notification`, ids)
       .pipe(
         map(() => {
           this.notificationsSource.next([]);
@@ -65,22 +70,25 @@ export class NotificationService {
   }
 
   private configureConnection(userId: string) {
-    const connection = new signalR.HubConnectionBuilder()
-      .withUrl(`hub/notifications?domainUserId=${userId}`)
+    this.connection = new signalR.HubConnectionBuilder()
+      .withUrl(`hub/notifications`, { accessTokenFactory: () => this.jwtHelper.tokenGetter()})
       .build();
 
-    connection.start()
-      .then(() => console.log('Ok'))
-      .catch((err) => console.log(err));
-
-    connection.on('newNotification', (notification: Notification) => {
-      this.notificationsSource.value.push(notification);
-      this.newNotificationReceivedSource.next(true);
+    this.connection.start()
+    .then(() => console.log('Notf OK'))
+    .catch((err) => console.log(err));
+    
+    this.connection.on('newNotification', (notification: Notification) => {
+    console.log(notification);
+    this.notificationsSource.value.push(notification);
+    this.newNotificationReceivedSource.next(true);
     });
 
-    connection.on('getNotifications', (notifications: Notification[]) => {
+    this.connection.on('getNotifications', (notifications: Notification[]) => {
+      console.log(notifications);
       this.notificationsSource.next(notifications);
     });
+
   }
 
 }

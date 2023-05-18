@@ -9,7 +9,8 @@ namespace JobManagement.API.Controllers
     public partial class JobController
     {
         [HttpPost("proposal")]
-        [Authorize(Roles = "FREELANCER")]
+        [AllowAnonymous]
+        // [Authorize(Roles = "FREELANCER")]
         public async Task<ActionResult<ProposalViewModel>> CreateProposal(CreateProposalCommand command)
         {
             var commandResult = await _mediator.Send(command);
@@ -19,12 +20,13 @@ namespace JobManagement.API.Controllers
         }
 
         [HttpGet("proposal/{proposalId}")]
+        [AllowAnonymous]
         public async Task<ActionResult<ProposalViewModel>> GetProposalById(Guid proposalId)
         {
             var result = await _proposalQueries.GetByIdAsync(proposalId);
-            if (result.IsFailed)
+            if (result is null)
                 return BadRequest();
-            return Ok(result.Value);
+            return Ok(result);
         }
 
         [HttpGet("proposal/{proposalId}/answers")]

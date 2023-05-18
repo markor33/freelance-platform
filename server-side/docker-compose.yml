@@ -115,6 +115,7 @@ services:
       dockerfile: src/Services/NotifyChat/NotifyChat.SignalR/Dockerfile
     ports:
       - "62000:80"
+      - "62001:5000"
 
 volumes:
  identity-data:

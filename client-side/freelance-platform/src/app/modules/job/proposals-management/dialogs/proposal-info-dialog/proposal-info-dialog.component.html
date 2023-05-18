@@ -1,6 +1,6 @@
 <div class="container">
     <div class="title">
-        <h2><a [routerLink]="['/freelancer/profile', proposal.freelancer.id]">{{proposal.freelancer.firstName + ' ' + proposal.freelancer.lastName}}</a> proposal</h2>
+        <h2><a [routerLink]="['/freelancer/profile', proposal.freelancerId]">Freelancers</a> proposal</h2>
     </div>
     <div class="message">
         <h3>Message:</h3>
@@ -22,6 +22,18 @@
             <p>{{answer.text}}</p>
             <mat-divider *ngIf="!last"></mat-divider>
         </div>
+    </div>
+    <div class="start-contact">
+        <form (ngSubmit)="sendMessage()">
+            <h3>Contact:</h3>
+            <mat-form-field>
+                <mat-label>Message</mat-label>
+                <textarea matInput [rows]="10" required [(ngModel)]="message" name="message"></textarea>
+            </mat-form-field>
+            <div class="submit-buton">
+                <button mat-raised-button color="primary" type="submit">Send</button>
+            </div>
+        </form>
     </div>
 </div>
 

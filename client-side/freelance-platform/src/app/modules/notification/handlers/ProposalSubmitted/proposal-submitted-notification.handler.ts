@@ -11,7 +11,6 @@ export class ProposalSubmittedNotificationHandler implements NotificationHandler
 
     constructor(
         private router: Router) {
-
     }
 
     getType(): string {
@@ -19,7 +18,6 @@ export class ProposalSubmittedNotificationHandler implements NotificationHandler
     }
 
     getContent(data: ProposalSubmittedNotification): NotificationContent {
-        console.log(data);
         return {
             title: 'New proposal submitted',
             description: `Your job '${data.JobName}' has new proposal`
@@ -27,7 +25,6 @@ export class ProposalSubmittedNotificationHandler implements NotificationHandler
     }
 
     handle(data: ProposalSubmittedNotification): void {
-        console.log(data);
         this.router.navigate(['/job', data.JobId, 'proposal-management']);
     }
 

@@ -85,6 +85,16 @@ namespace JobManagement.Domain.AggregatesModel.JobAggregate
             return Result.Ok();
         }
 
+        public Result ChangeProposalStatus(Guid proposalId, ProposalStatus status)
+        {
+            var proposal = Proposals.FirstOrDefault(p => p.Id == proposalId);
+            if (proposal is null)
+                return Result.Fail("Proposal does not exist");
+
+            proposal.ChangeStatus(status);
+            return Result.Ok();
+        }
+
         public void RemoveProposal(Guid proposalId)
         {
             var proposal = Proposals.First(p => p.Id == proposalId);

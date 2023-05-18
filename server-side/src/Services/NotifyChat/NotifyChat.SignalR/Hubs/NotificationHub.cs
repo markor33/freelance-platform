@@ -1,28 +1,32 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.SignalR;
-using MongoDB.Driver;
-using NotifyChat.SignalR.Models;
-using NotifyChat.SignalR.Persistence.Settings;
+using NotifyChat.SignalR.Persistence.Repositories;
+using NotifyChat.SignalR.Services;
 
 namespace NotifyChat.SignalR.Hubs
 {
-    // [Authorize]
+    [Authorize]
     public class NotificationHub : Hub
     {
-        private readonly IMongoCollection<Notification<object>> _notificationsCollection;
+        private readonly INotificationRepository _notificationRepository;
+        private readonly IActiveUsersService _activeUsersService;
 
-        public NotificationHub(IMongoDbFactory mongoDbFactory)
+        public NotificationHub(
+            INotificationRepository notificationRepository,
+            IActiveUsersService activeUsersService)
         {
-            _notificationsCollection = mongoDbFactory.GetCollection<Notification<object>>("notifications");
+            _notificationRepository = notificationRepository;
+            _activeUsersService = activeUsersService;
         }
 
         public override async Task OnConnectedAsync()
         {
-            var domainUserId = Context.GetHttpContext().Request.Query["domainUserId"];
+            var userDomainId = Context.User.FindFirst("DomainUserId").Value.ToString();
 
-            await Groups.AddToGroupAsync(Context.ConnectionId, domainUserId);
+            await Groups.AddToGroupAsync(Context.ConnectionId, userDomainId.ToString());
+            _activeUsersService.UserConnected(Guid.Parse(userDomainId));
 
-            var pastNotifications = await GetNotifications(domainUserId);
+            var pastNotifications = await _notificationRepository.GetByUser(Guid.Parse(userDomainId.ToString()));
             await Clients.Caller.SendAsync("getNotifications", pastNotifications);
 
             await base.OnConnectedAsync();
@@ -30,17 +34,12 @@ namespace NotifyChat.SignalR.Hubs
 
         public override async Task OnDisconnectedAsync(Exception ex)
         {
-            var domainUserId = Context.GetHttpContext().Request.Query["domainUserId"];
+            var userDomainId = Context.User.FindFirst("DomainUserId").Value.ToString();
 
-            await Groups.RemoveFromGroupAsync(Context.ConnectionId, domainUserId);
+            await Groups.RemoveFromGroupAsync(Context.ConnectionId, userDomainId.ToString());
+            _activeUsersService.UserDisconnected(Guid.Parse(userDomainId));
+
             await base.OnDisconnectedAsync(ex);
-        }
-
-        private async Task<List<Notification<object>>> GetNotifications(string userId)
-        {
-            var filter = Builders<Notification<object>>.Filter.Eq(n => n.UserId, Guid.Parse(userId));
-            var notifications = await (await _notificationsCollection.FindAsync<Notification<object>>(filter)).ToListAsync();
-            return notifications;
         }
 
     }
