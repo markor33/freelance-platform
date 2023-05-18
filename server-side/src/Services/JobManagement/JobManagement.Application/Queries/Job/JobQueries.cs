@@ -65,7 +65,7 @@ namespace JobManagement.Application.Queries
                 new { id },
                 splitOn: "Amount, Id, Id, Id");
 
-            return jobs.ToList().First();
+            return GroupJobs(jobs).First();
         }
 
         public async Task<List<JobViewModel>> GetByClientAsync(Guid clientId)

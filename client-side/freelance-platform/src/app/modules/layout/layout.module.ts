@@ -11,11 +11,13 @@ import {MatMenuModule} from '@angular/material/menu';
 import { JobModule, jobRoutes } from '../job/job.module';
 import { MatBadgeModule } from '@angular/material/badge';
 import { NotificationModule } from '../notification/notification.module';
+import { chatRoutes } from '../chat/chat.module';
 
 const routes: Routes = [
   { path: '', component: HomeComponent, children: [
     ...freelancerRoutes,
-    ...jobRoutes
+    ...jobRoutes,
+    ...chatRoutes
   ]}
 ];
 

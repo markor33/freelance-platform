@@ -1,6 +1,7 @@
 using GrpcClientProfile;
 using GrpcFreelancerProfile;
 using GrpcJobManagement;
+using GrpcNotifyChat;
 using Microsoft.IdentityModel.Tokens;
 using Ocelot.DependencyInjection;
 using Ocelot.Middleware;
@@ -39,13 +40,22 @@ builder.Services.AddGrpcClient<ClientProfile.ClientProfileClient>((services, opt
 {
     options.Address = new Uri("http://host.docker.internal:53001");
 });
+builder.Services.AddGrpcClient<Job.JobClient>((services, options) =>
+{
+    options.Address = new Uri("http://host.docker.internal:51001");
+});
 builder.Services.AddGrpcClient<Proposal.ProposalClient>((services, options) =>
 {
     options.Address = new Uri("http://host.docker.internal:51001");
 });
+builder.Services.AddGrpcClient<ChatService.ChatServiceClient>((services, options) =>
+{
+    options.Address = new Uri("http://host.docker.internal:62001");
+});
 
 builder.Services.AddTransient(typeof(IClientProfileService), typeof(ClientProfileService));
 builder.Services.AddTransient(typeof(IFreelancerProfileService), typeof(FreelancerProfileService));
+builder.Services.AddTransient(typeof(IJobManagementService), typeof(JobManagementService));
 builder.Services.AddTransient(typeof(IProposalService), typeof(ProposalService));
 builder.Services.AddTransient(typeof(IIdentityService), typeof(IdentityService));
 

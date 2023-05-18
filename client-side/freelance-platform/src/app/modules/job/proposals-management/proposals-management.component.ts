@@ -39,11 +39,11 @@ export class ProposalsManagementComponent {
     });
   }
 
-  openProposalInfoDialog(proosal: Proposal) {
+  openProposalInfoDialog(proposal: Proposal) {
     this.dialog.open(ProposalInfoDialogComponent, {
       width: '50%',
       height: '80%',
-      data: { proposal: proosal }
+      data: { jobId: this.job.id, proposalId: proposal.id }
     })
   }
 

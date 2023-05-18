@@ -19,6 +19,13 @@ namespace NotifyChat.SignalR.Persistence.Repositories
             return await (await _chatCollection.FindAsync<Chat>(filter)).FirstOrDefaultAsync();
         }
 
+        public async Task<List<Chat>> GetByParticipant(Guid participantId)
+        {
+            var filter = Builders<Chat>.Filter.Eq(c => c.ClientId, participantId);
+            filter |= Builders<Chat>.Filter.Eq(c => c.FreelancerId, participantId);
+            return await (await _chatCollection.FindAsync<Chat>(filter)).ToListAsync();
+        }
+
         public async Task<Chat> GetByClient(Guid clientId)
         {
             var filter = Builders<Chat>.Filter.Eq(c => c.ClientId, clientId);

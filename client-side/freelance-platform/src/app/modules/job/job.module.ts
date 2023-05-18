@@ -20,6 +20,7 @@ import {MatPaginatorModule} from '@angular/material/paginator';
 import { JobInfoDialogComponent } from './jobs-management/dialogs/job-info-dialog/job-info-dialog.component';
 import { ProposalsManagementComponent } from './proposals-management/proposals-management.component';
 import { ProposalInfoDialogComponent } from './proposals-management/dialogs/proposal-info-dialog/proposal-info-dialog.component';
+import { SharedModule } from '../shared/shared.module';
 
 export const jobRoutes: Routes = [
   { path: 'job', component: JobSearchComponent },
@@ -52,6 +53,7 @@ export const jobRoutes: Routes = [
     MatPaginatorModule,
     ReactiveFormsModule,
     RouterModule,
+    SharedModule,
     MatButtonModule
   ],
   exports: [

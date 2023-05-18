@@ -2,6 +2,15 @@
 
 $my-palette: mat.define-palette(mat.$indigo-palette);
 
+.container {
+    background-color: #3949ab;
+    height: 100%;
+}
+
+h2{
+    color: white;
+}
+
 .actions {
     padding: 1%;
     display: flex;
@@ -21,7 +30,6 @@ $my-palette: mat.define-palette(mat.$indigo-palette);
 
 .notification:hover {
     border-radius: 2%;
-    background-color: lightgray;
 }
 
 .notification-checked {

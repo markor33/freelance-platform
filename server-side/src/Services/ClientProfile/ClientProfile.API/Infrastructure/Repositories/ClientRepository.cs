@@ -21,6 +21,9 @@ namespace ClientProfile.API.Infrastructure.Repositories
             return client;
         }
 
+        public async Task<Client> GetById(Guid id)
+            => await _context.Clients.Where(c => c.Id == id).FirstOrDefaultAsync();
+
         public async Task<Client> GetByUserIdAsync(Guid userId)
             => await _context.Clients.Where(c => c.UserId == userId).FirstOrDefaultAsync();
 

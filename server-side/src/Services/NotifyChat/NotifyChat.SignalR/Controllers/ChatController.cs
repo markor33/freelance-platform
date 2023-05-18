@@ -59,14 +59,16 @@ namespace NotifyChat.SignalR.Controllers
         [Authorize(Roles = "CLIENT")]
         public async Task<ActionResult<Chat>> Create(CreateChatRequest request)
         {
-            var chat = new Chat(request.ClientId, request.FreelancerId, request.JobId);
+            var userDomainId = _identityService.GetDomainUserId();
+
+            var chat = new Chat(userDomainId, request.FreelancerId, request.JobId, request.ProposalId);
             await _chatRepository.Create(chat);
 
-            var message = new Message(chat.Id, request.InitialMessage);
+            var message = new Message(chat.Id, userDomainId, request.InitialMessage);
             await _messageRepository.Create(message);
             await _chatHub.Clients.Groups(request.FreelancerId.ToString()).SendAsync(message.Text);
 
-            _eventBus.Publish(new InitialMessageSentIntegrationEvent(request.JobId, request.ProposalId));
+            _eventBus.Publish(new InitialMessageSentIntegrationEvent(request.JobId, request.ProposalId, request.FreelancerId));
 
             return Ok(chat);
         }
@@ -77,7 +79,6 @@ namespace NotifyChat.SignalR.Controllers
     {
         public Guid JobId { get; set; }
         public Guid ProposalId { get; set; }
-        public Guid ClientId { get; set; }
         public Guid FreelancerId { get; set; }
         public string InitialMessage { get; set; } = string.Empty;
     }

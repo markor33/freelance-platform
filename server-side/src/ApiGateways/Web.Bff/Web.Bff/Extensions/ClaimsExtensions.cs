@@ -20,5 +20,13 @@ namespace Web.Bff.Extensions
                 return string.Empty;
             return roleClaim.Value;
         }
+
+        public static string GetUserDomainId(this IEnumerable<Claim> claims)
+        {
+            var userDomainIdClaim = claims.FirstOrDefault(c => c.Type == "DomainUserId");
+            if (userDomainIdClaim is null)
+                return string.Empty;
+            return userDomainIdClaim.Value;
+        }
     }
 }

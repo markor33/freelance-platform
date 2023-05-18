@@ -11,7 +11,6 @@ export class ProposalSubmittedNotificationHandler implements NotificationHandler
 
     constructor(
         private router: Router) {
-
     }
 
     getType(): string {

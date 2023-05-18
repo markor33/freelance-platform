@@ -13,6 +13,12 @@ namespace NotifyChat.SignalR.Persistence.Repositories
             _messageCollection = mongoDb.GetCollection<Message>("messages");
         }
 
+        public async Task<Message> GetById(Guid id)
+        {
+            var filter = Builders<Message>.Filter.Eq(m => m.Id, id);
+            return await (await _messageCollection.FindAsync(filter)).FirstOrDefaultAsync();
+        }
+
         public async Task<List<Message>> GetByChat(Guid chatId)
         {
             var filter = Builders<Message>.Filter.Eq(m => m.ChatId, chatId);
@@ -24,5 +30,10 @@ namespace NotifyChat.SignalR.Persistence.Repositories
             await _messageCollection.InsertOneAsync(message);
         }
 
+        public async Task Update(Message message)
+        {
+            var filter = Builders<Message>.Filter.Eq(m => m.Id, message.Id);
+            await _messageCollection.ReplaceOneAsync(filter, message);
+        }
     }
 }
