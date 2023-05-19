@@ -6,6 +6,7 @@ import { Proposal, ProposalStatus } from '../models/proposal.model';
 import { AuthService } from '../../auth/services/auth.service';
 import { Answer } from '../models/answer.model';
 import { EditProposalPaymentCommand } from '../models/commands/edit-proposal-payment-command-model';
+import { ClientAcceptProposalCommand } from '../models/commands/client-accept-proposal-command.model';
 
 @Injectable({
   providedIn: 'root'
@@ -55,6 +56,11 @@ export class ProposalService {
 
   editPayment(editProposalPaymentCommand: EditProposalPaymentCommand): Observable<any> {
     return this.httpClient.put<any>(`api/job/job/${editProposalPaymentCommand.jobId}/proposal/${editProposalPaymentCommand.proposalId}/payment`, editProposalPaymentCommand);
+  }
+
+  clientAccept(clientAcceptProposalCommand: ClientAcceptProposalCommand): Observable<any> {
+    const endpoint = `api/job/job/${clientAcceptProposalCommand.jobId}/proposal/${clientAcceptProposalCommand.proposalId}/status/client-accept`;
+    return this.httpClient.put<any>(endpoint, clientAcceptProposalCommand);
   }
 
   isConfirmed(id: string): void {

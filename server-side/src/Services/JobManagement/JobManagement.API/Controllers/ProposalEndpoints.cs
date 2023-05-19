@@ -44,5 +44,15 @@ namespace JobManagement.API.Controllers
             return Ok();
         }
 
+        [HttpPut("{id}/proposal/{proposalId}/status/client-accept")]
+        [Authorize(Roles = "CLIENT"), JobOwnerAuthorization]
+        public async Task<ActionResult> ClientAcceptProposal([FromBody] ClientAcceptProposalCommand command)
+        {
+            var commandResult = await _mediator.Send(command);
+            if (commandResult.IsFailed)
+                return BadRequest(commandResult.Errors.ToStringList());
+            return Ok();
+        }
+
     }
 }

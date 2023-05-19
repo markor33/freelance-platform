@@ -25,5 +25,8 @@
     </div>
     <app-start-contact *ngIf="role === 'CLIENT' && proposal.status === 0" [proposal]="proposal" [jobId]="jobId" ></app-start-contact>
     <app-client-accept *ngIf="role === 'CLIENT' && proposal.status === 1" [proposal]="proposal" [jobId]="jobId"></app-client-accept>
+    <div *ngIf="role === 'CLIENT' && proposal.status === 2">
+        <h3>Wainting for freelancers accept</h3>
+    </div>
 </div>
 
