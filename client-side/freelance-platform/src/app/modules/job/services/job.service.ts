@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { CreateJobCommand } from '../models/create-job-command.model';
+import { CreateJobCommand } from '../models/commands/create-job-command.model';
 import { Job } from '../models/job.model';
 import { AuthService } from '../../auth/services/auth.service';
 

@@ -31,8 +31,9 @@ namespace JobManagement.IntegrationTests.Controllers.JobScenarios
         {
             using var scope = Factory.Services.CreateScope();
             var controller = SetupController(scope);
-            var jobId = await CreateTestProposal(scope);
-            var createProposalCommand = GetTestCreateProposalCommand(jobId);
+            var job = await CreateTestJob(scope);
+            var proposal = await CreateTestProposal(scope, job.Id);
+            var createProposalCommand = GetTestCreateProposalCommand(job.Id);
 
             var result = await controller.CreateProposal(createProposalCommand);
 

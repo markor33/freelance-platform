@@ -1,0 +1,43 @@
+import { Component, Input } from '@angular/core';
+import { MatDialogRef } from '@angular/material/dialog';
+import { EditProposalPaymentCommand } from 'src/app/modules/job/models/commands/edit-proposal-payment-command-model';
+import { Payment } from 'src/app/modules/job/models/payment.model';
+import { Proposal } from 'src/app/modules/job/models/proposal.model';
+import { ProposalService } from 'src/app/modules/job/services/proposal.service';
+import { ProposalInfoDialogComponent } from '../../proposal-info-dialog.component';
+import { SnackBarsService } from 'src/app/modules/shared/services/snack-bars.service';
+
+@Component({
+  selector: 'app-client-accept',
+  templateUrl: './client-accept.component.html',
+  styleUrls: ['./client-accept.component.scss']
+})
+export class ClientAcceptComponent {
+
+  paymentPanelOpenState: boolean = false;
+  @Input() jobId: string = '';
+  @Input() proposal: Proposal = new Proposal();
+
+  payment: Payment = new Payment();
+  editProposalPaymentCommand = new EditProposalPaymentCommand();
+
+  constructor(
+    private proposalService: ProposalService,
+    private snackBarService: SnackBarsService,
+    private dialogRef: MatDialogRef<ProposalInfoDialogComponent>) { }
+
+  ngOnInit() {
+    this.payment = {...this.proposal.payment};
+    this.editProposalPaymentCommand.jobId = this.jobId;
+    this.editProposalPaymentCommand.proposalId = this.proposal.id;
+    this.editProposalPaymentCommand.payment = this.payment;
+  }
+
+  editPayment() {
+    this.proposalService.editPayment(this.editProposalPaymentCommand).subscribe(() => {
+      this.snackBarService.primary('Proposals payment successfully changed');
+      this.proposal.payment = this.payment;
+    });
+  }
+  
+}

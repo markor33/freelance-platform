@@ -1,6 +1,6 @@
-import { ExperienceLevel } from "../../shared/models/experience-level.model";
-import { Payment } from "./payment.model";
-import { Question } from "./question.model";
+import { ExperienceLevel } from "../../../shared/models/experience-level.model";
+import { Payment } from "../payment.model";
+import { Question } from "../question.model";
 
 export class CreateJobCommand {
     clientId: string = '';

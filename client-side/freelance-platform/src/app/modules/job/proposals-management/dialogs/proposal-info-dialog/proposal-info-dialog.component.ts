@@ -6,6 +6,7 @@ import { ProposalService } from '../../../services/proposal.service';
 import { ChatService } from 'src/app/modules/chat/services/chat.service';
 import { SnackBarsService } from 'src/app/modules/shared/services/snack-bars.service';
 import { Router } from '@angular/router';
+import { AuthService } from 'src/app/modules/auth/services/auth.service';
 
 @Component({
   selector: 'app-proposal-info-dialog',
@@ -18,30 +19,22 @@ export class ProposalInfoDialogComponent {
   proposalId: string = '';
   proposal: Proposal = new Proposal();
   message: string = '';
+  role: string = '';
+
+  paymentPanelOpenState = false;
 
   constructor(
     public enumConverter: EnumConverter,
-    private chatService: ChatService,
-    private snackBarService: SnackBarsService,
-    private router: Router,
-    private dialogRef: MatDialogRef<ProposalInfoDialogComponent>,
+    private authService: AuthService,
     @Inject(MAT_DIALOG_DATA) public data: {jobId: string, proposalId: string},
     private proposalService: ProposalService) {
       this.jobId = data.jobId;
       this.proposalId = data.proposalId;
+      this.role = this.authService.getUserRole();
   }
 
   ngOnInit() {
     this.proposalService.get(this.proposalId).subscribe((proposal) => this.proposal = proposal);
-    // this.proposalService.getAnswers(this.proposal.id).subscribe(answers => this.proposal.answers = answers);
-  }
-
-  sendMessage() {
-    this.chatService.create(this.jobId, this.proposal, this.message).subscribe(() => {
-      this.snackBarService.primary('Message sent to freelancer successfully');
-      this.dialogRef.close();
-      this.router.navigate(['/chat']);
-    });
   }
 
 

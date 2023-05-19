@@ -1,5 +1,6 @@
-import { Answer } from "./answer.model";
-import { Payment } from "./payment.model";
+import { Answer } from "../answer.model";
+import { Payment } from "../payment.model";
+
 
 export class CreateProposalCommand {
     freelancerId: string = '';

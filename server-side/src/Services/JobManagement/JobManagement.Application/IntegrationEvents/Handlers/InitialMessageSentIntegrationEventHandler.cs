@@ -20,7 +20,11 @@ namespace JobManagement.Application.IntegrationEvents.Handlers
         public async Task HandleAsync(InitialMessageSentIntegrationEvent @event)
         {
             var job = await _jobRepository.GetByIdAsync(@event.JobId);
-            job.ChangeProposalStatus(@event.ProposalId, ProposalStatus.INTERVIEW);
+
+            var proposal = job.GetProposal(@event.ProposalId);
+            if (proposal is null)
+                return; 
+            proposal.ChangeStatus(ProposalStatus.INTERVIEW);
 
             await _jobRepository.UnitOfWork.SaveEntitiesAsync();
 

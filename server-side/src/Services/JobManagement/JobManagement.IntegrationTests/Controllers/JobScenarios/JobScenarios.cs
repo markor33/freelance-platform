@@ -33,7 +33,7 @@ namespace JobManagement.IntegrationTests.Controllers.JobScenarios
             var jobRepository = scope.ServiceProvider.GetRequiredService<IJobRepository>();
             var professionService = scope.ServiceProvider.GetRequiredService<IProfessionService>();
 
-            var profession = await professionService.GetByIdAsync(Guid.Parse("523c9ba1-4e91-4a75-85c3-cf386c078aa9"));
+            var profession = await professionService.GetByIdAsync(Guid.Parse("d6861f65-0950-4c7f-b5b1-de644f923fbb"));
             var job = new Job(
                 Guid.Parse("e1372d50-c4af-4f53-9050-457635d49b7c"),
                 "Title",
@@ -47,10 +47,10 @@ namespace JobManagement.IntegrationTests.Controllers.JobScenarios
             return job;
         }
 
-        private static async Task<Guid> CreateTestProposal(IServiceScope scope)
+        private static async Task<Proposal> CreateTestProposal(IServiceScope scope, Guid jobId)
         {
             var jobRepository = scope.ServiceProvider.GetRequiredService<IJobRepository>();
-            var job = await CreateTestJob(scope);
+            var job = await jobRepository.GetByIdAsync(jobId);
 
             var proposal = new Proposal(
                 Guid.Parse("eacfeae5-f0fb-4f91-a6e6-514de27bab57"),
@@ -60,7 +60,7 @@ namespace JobManagement.IntegrationTests.Controllers.JobScenarios
             job.AddProposal(proposal);
 
             await jobRepository.UnitOfWork.SaveEntitiesAsync();
-            return job.Id;
+            return proposal;
         }
 
     }

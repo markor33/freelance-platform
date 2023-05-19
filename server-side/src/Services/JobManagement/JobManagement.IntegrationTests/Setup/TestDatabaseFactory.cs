@@ -70,7 +70,7 @@ namespace JobManagement.IntegrationTests.Setup
         private static void FillJobs(JobManagementContext context)
         {
             context.Database.ExecuteSqlRaw(@"DELETE FROM ""Jobs"" CASCADE;");
-            var profession = context.Professions.Find(Guid.Parse("523c9ba1-4e91-4a75-85c3-cf386c078aa9"));
+            var profession = context.Professions.Find(Guid.Parse("d6861f65-0950-4c7f-b5b1-de644f923fbb"));
             var job = new Job(
                 Guid.Parse("e1372d50-c4af-4f53-9050-457635d49b7c"),
                 "Title",
@@ -90,8 +90,8 @@ namespace JobManagement.IntegrationTests.Setup
         {
             context.Professions.AddRange(new Profession[]
             {
-                new Profession(Guid.Parse("523c9ba1-4e91-4a75-85c3-cf386c078aa9"), "Software engineer", "Software engineer"),
-                new Profession(Guid.Parse("71a4d4c7-ed8b-4b6c-ad39-5db767f83c7d"), "Graphical designer", "Graphical designer")
+                new Profession(Guid.Parse("d6861f65-0950-4c7f-b5b1-de644f923fbb"), "Software engineer", "Software engineer"),
+                new Profession(Guid.Parse("0c485898-d9f4-45c5-99bc-c2c8dd3e69f0"), "Graphical designer", "Graphical designer")
             });
         }
 
@@ -99,11 +99,11 @@ namespace JobManagement.IntegrationTests.Setup
         {
             context.Skills.AddRange(new Skill[]
             {
-                new Skill(Guid.Parse("02e5ea2e-157d-4801-8733-4e53f268f3d5"), Guid.Parse("523c9ba1-4e91-4a75-85c3-cf386c078aa9"), "ASP.NET", "Desc"),
-                new Skill(Guid.Parse("45f7c95a-5ef9-4791-84cb-51ecb9dcd770"), Guid.Parse("523c9ba1-4e91-4a75-85c3-cf386c078aa9"), "SignalR", "Desc"),
-                new Skill(Guid.Parse("f15e6311-d454-4625-a0ad-397ff111c172"), Guid.Parse("523c9ba1-4e91-4a75-85c3-cf386c078aa9"), "Java", "Desc"),
-                new Skill(Guid.Parse("89cc0246-4653-4bc5-aac0-f865a6a03ecc"), Guid.Parse("71a4d4c7-ed8b-4b6c-ad39-5db767f83c7d"), "Adobe Photoshop", "Desc"),
-                new Skill(Guid.Parse("e704ba7f-9710-469c-96dc-60e1ee4c65f1"), Guid.Parse("71a4d4c7-ed8b-4b6c-ad39-5db767f83c7d"), "CorelDRAW Graphics Suite", "Desc")
+                new Skill(Guid.Parse("02e5ea2e-157d-4801-8733-4e53f268f3d5"), Guid.Parse("d6861f65-0950-4c7f-b5b1-de644f923fbb"), "ASP.NET", "Desc"),
+                new Skill(Guid.Parse("45f7c95a-5ef9-4791-84cb-51ecb9dcd770"), Guid.Parse("d6861f65-0950-4c7f-b5b1-de644f923fbb"), "SignalR", "Desc"),
+                new Skill(Guid.Parse("f15e6311-d454-4625-a0ad-397ff111c172"), Guid.Parse("d6861f65-0950-4c7f-b5b1-de644f923fbb"), "Java", "Desc"),
+                new Skill(Guid.Parse("89cc0246-4653-4bc5-aac0-f865a6a03ecc"), Guid.Parse("0c485898-d9f4-45c5-99bc-c2c8dd3e69f0"), "Adobe Photoshop", "Desc"),
+                new Skill(Guid.Parse("e704ba7f-9710-469c-96dc-60e1ee4c65f1"), Guid.Parse("0c485898-d9f4-45c5-99bc-c2c8dd3e69f0"), "CorelDRAW Graphics Suite", "Desc")
             });
         }
 

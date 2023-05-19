@@ -6,6 +6,7 @@ using JobManagement.API.Security;
 using JobManagement.Application;
 using JobManagement.Application.IntegrationEvents.Events;
 using JobManagement.Application.IntegrationEvents.Handlers;
+using JobManagement.Application.Notifications;
 using JobManagement.Infrastructure;
 using Microsoft.AspNetCore.Server.Kestrel.Core;
 using Microsoft.EntityFrameworkCore;

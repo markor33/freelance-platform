@@ -1,4 +1,5 @@
 ﻿using JobManagement.API.Extensions;
+using JobManagement.API.Security.AuthorizationFilters;
 using JobManagement.Application.Commands;
 using JobManagement.Application.Queries;
 using Microsoft.AspNetCore.Authorization;
@@ -9,8 +10,7 @@ namespace JobManagement.API.Controllers
     public partial class JobController
     {
         [HttpPost("proposal")]
-        [AllowAnonymous]
-        // [Authorize(Roles = "FREELANCER")]
+        [Authorize(Roles = "FREELANCER")]
         public async Task<ActionResult<ProposalViewModel>> CreateProposal(CreateProposalCommand command)
         {
             var commandResult = await _mediator.Send(command);
@@ -20,7 +20,6 @@ namespace JobManagement.API.Controllers
         }
 
         [HttpGet("proposal/{proposalId}")]
-        [AllowAnonymous]
         public async Task<ActionResult<ProposalViewModel>> GetProposalById(Guid proposalId)
         {
             var result = await _proposalQueries.GetByIdAsync(proposalId);
@@ -30,10 +29,20 @@ namespace JobManagement.API.Controllers
         }
 
         [HttpGet("proposal/{proposalId}/answers")]
-        [AllowAnonymous]
         public async Task<ActionResult<List<AnswerViewModel>>> GetProposalsAnswers(Guid proposalId)
         {
             return await _answerQueries.GetByProposalAsync(proposalId);
         }
+
+        [HttpPut("{id}/proposal/{proposalId}/payment")]
+        [Authorize(Roles = "CLIENT"), JobOwnerAuthorization]
+        public async Task<ActionResult> EditProposalPayment([FromBody] EditProposalPaymentCommand command)
+        {
+            var commandResult = await _mediator.Send(command);
+            if (commandResult.IsFailed)
+                return BadRequest(commandResult.Errors.ToStringList());
+            return Ok();
+        }
+
     }
 }

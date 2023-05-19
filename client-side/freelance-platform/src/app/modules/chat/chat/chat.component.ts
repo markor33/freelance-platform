@@ -52,7 +52,7 @@ export class ChatComponent {
       width: '50%',
       height: '80%',
       data: { jobId: this.activeChat?.jobId, proposalId: this.activeChat?.proposalId }
-    })
+    });
   }
 
   sendMessage() {

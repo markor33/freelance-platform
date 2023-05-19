@@ -33,7 +33,7 @@ namespace JobManagement.IntegrationTests.Controllers.JobScenarios
                 ExperienceLevel.JUNIOR,
                 new Payment(50, "EUR", PaymentType.FIXED_RATE),
                 new List<Question>(),
-                Guid.Parse("523c9ba1-4e91-4a75-85c3-cf386c078aa9"),
+                Guid.Parse("d6861f65-0950-4c7f-b5b1-de644f923fbb"),
                 new List<Guid>());
     }
 }

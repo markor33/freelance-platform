@@ -13,4 +13,14 @@ export class Job {
     questions: Question[] = [];
     profession: Profession = new Profession();
     skills: Skill[] = [];
+    numOfProposals: number = 0;
+    currentlyInterviewing: number = 0;
+    status: JobStatus = JobStatus.LISTED;
+}
+
+export enum JobStatus {
+    LISTED,
+    IN_PROGRESS,
+    DONE,
+    REMOVED
 }

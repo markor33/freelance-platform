@@ -21,6 +21,11 @@ import { JobInfoDialogComponent } from './jobs-management/dialogs/job-info-dialo
 import { ProposalsManagementComponent } from './proposals-management/proposals-management.component';
 import { ProposalInfoDialogComponent } from './proposals-management/dialogs/proposal-info-dialog/proposal-info-dialog.component';
 import { SharedModule } from '../shared/shared.module';
+import {MatTabsModule} from '@angular/material/tabs';
+import { MatSortModule } from '@angular/material/sort';
+import { StartContactComponent } from './proposals-management/dialogs/proposal-info-dialog/actions/start-contact/start-contact.component';
+import { ClientAcceptComponent } from './proposals-management/dialogs/proposal-info-dialog/actions/client-accept/client-accept.component';
+import { FreelancerAcceptComponent } from './proposals-management/dialogs/proposal-info-dialog/actions/freelancer-accept/freelancer-accept.component';
 
 export const jobRoutes: Routes = [
   { path: 'job', component: JobSearchComponent },
@@ -36,7 +41,10 @@ export const jobRoutes: Routes = [
     JobsManagementComponent,
     JobInfoDialogComponent,
     ProposalsManagementComponent,
-    ProposalInfoDialogComponent
+    ProposalInfoDialogComponent,
+    StartContactComponent,
+    ClientAcceptComponent,
+    FreelancerAcceptComponent
   ],
   imports: [
     CommonModule,
@@ -54,6 +62,8 @@ export const jobRoutes: Routes = [
     ReactiveFormsModule,
     RouterModule,
     SharedModule,
+    MatTabsModule,
+    MatSortModule,
     MatButtonModule
   ],
   exports: [
