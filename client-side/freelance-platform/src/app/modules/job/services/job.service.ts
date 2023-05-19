@@ -41,6 +41,10 @@ export class JobService {
     return this.httpClient.get<Job[]>(`api/job/job/client/${this.clientId}`, this.httpOptions);
   }
 
+  done(id: string): Observable<void> {
+    return this.httpClient.put<any>(`api/job/job/${id}/status/done`, this.httpOptions);
+  }
+
   delete(id: string): Observable<void> {
     return this.httpClient.delete<any>(`api/job/job/${id}`, this.httpOptions);
   }

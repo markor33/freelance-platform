@@ -1,6 +1,6 @@
 import { Component, ViewChild } from '@angular/core';
 import { JobService } from '../services/job.service';
-import { Job } from '../models/job.model';
+import { Job, JobStatus } from '../models/job.model';
 import { MatDialog } from '@angular/material/dialog';
 import { CreateJobDialogComponent } from '../create-job-dialog/create-job-dialog.component';
 import { JobInfoDialogComponent } from './dialogs/job-info-dialog/job-info-dialog.component';
@@ -67,13 +67,19 @@ export class JobsManagementComponent {
     this.router.navigate(['/job', job.id, 'proposal-management']);
   }
 
+  jobDone(job: Job) {
+    this.jobService.done(job.id).subscribe(() => {
+      this.snackBarService.primary('Job is done');
+      job.status = JobStatus.DONE;
+    });
+  }
+
   deleteJob(job: Job) {
     const confirmDialog = this.dialog.open(DeleteConfirmationDialogComponent, {
       width: "20%",
       height: "15%"
     });
     confirmDialog.afterClosed().subscribe((res) => {
-      console.log(res);
       if (!res)
         return;
       this.jobService.delete(job.id).subscribe({

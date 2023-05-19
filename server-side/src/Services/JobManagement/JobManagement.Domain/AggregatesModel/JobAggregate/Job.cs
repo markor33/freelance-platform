@@ -106,6 +106,11 @@ namespace JobManagement.Domain.AggregatesModel.JobAggregate
             Proposals.Remove(proposal);
         }
 
+        public void Done()
+        {
+            Status = JobStatus.DONE;
+        }
+
         public Result Delete()
         {
             if (Status != JobStatus.LISTED)
