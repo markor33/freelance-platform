@@ -1,10 +1,11 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, map } from 'rxjs';
-import { CreateProposalCommand } from '../models/create-proposal-cmmand.model';
+import { CreateProposalCommand } from '../models/commands/create-proposal-cmmand.model';
 import { Proposal, ProposalStatus } from '../models/proposal.model';
 import { AuthService } from '../../auth/services/auth.service';
 import { Answer } from '../models/answer.model';
+import { EditProposalPaymentCommand } from '../models/commands/edit-proposal-payment-command-model';
 
 @Injectable({
   providedIn: 'root'
@@ -50,6 +51,10 @@ export class ProposalService {
         return this.isConfirmedObserver;
       })
     );
+  }
+
+  editPayment(editProposalPaymentCommand: EditProposalPaymentCommand): Observable<any> {
+    return this.httpClient.put<any>(`api/job/job/${editProposalPaymentCommand.jobId}/proposal/${editProposalPaymentCommand.proposalId}/payment`, editProposalPaymentCommand);
   }
 
   isConfirmed(id: string): void {

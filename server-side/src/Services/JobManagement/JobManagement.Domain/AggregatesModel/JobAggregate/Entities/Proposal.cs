@@ -38,5 +38,7 @@ namespace JobManagement.Domain.AggregatesModel.JobAggregate.Entities
             Status = proposalStatus;
         }
 
+        public void ChangePayment(Payment payment) => Payment = payment;
+
     }
 }

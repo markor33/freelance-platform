@@ -63,7 +63,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "NotifyChat", "NotifyChat", 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NotifyChat.SignalR", "src\Services\NotifyChat\NotifyChat.SignalR\NotifyChat.SignalR.csproj", "{90BBF194-AC25-404B-941F-299133828500}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NotiftChat.IntegrationTests", "src\Services\NotifyChat\NotiftChat.IntegrationTests\NotiftChat.IntegrationTests.csproj", "{E56BC5FF-077E-47AA-B163-FC70B8654187}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NotifyChat.IntegrationTests", "src\Services\NotifyChat\NotifyChat.IntegrationTests\NotifyChat.IntegrationTests.csproj", "{E56BC5FF-077E-47AA-B163-FC70B8654187}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

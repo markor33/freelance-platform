@@ -20,8 +20,8 @@ namespace JobManagement.Application.Queries
         public async Task<ProposalViewModel> GetByIdAsync(Guid id)
         {
             var proposals = await _dbConnection.QueryAsync<ProposalViewModel, Payment, AnswerViewModel, QuestionViewModel, ProposalViewModel>(
-                @"SELECT p.""Id"", p.""FreelancerId"", p.""Text"", p.""Created"", 
-                            p.""Payment_Amount"" as Amount, p.""Payment_Currency"" as Currency, p.""Payment_Type"" as Type, p.""Status"",
+                @"SELECT p.""Id"", p.""FreelancerId"", p.""Text"", p.""Created"", p.""Status"", 
+                            p.""Payment_Amount"" as Amount, p.""Payment_Currency"" as Currency, p.""Payment_Type"" as Type,
                             a.""Id"", a.""Text"",
                             q.""Id"", q.""Text"" 
                     FROM ""Proposals"" p
@@ -44,7 +44,7 @@ namespace JobManagement.Application.Queries
         public async Task<List<ProposalViewModel>> GetByJobId(Guid jobId)
         {
             var proposals = await _dbConnection.QueryAsync<ProposalViewModel, Payment, ProposalViewModel>(
-                @"SELECT ""Id"", ""FreelancerId"", ""Text"", ""Created"", ""Payment_Amount"" as Amount, ""Payment_Currency"" as Currency, ""Payment_Type"" as Type, ""Status"" 
+                @"SELECT ""Id"", ""FreelancerId"", ""Text"", ""Created"", ""Status"", ""Payment_Amount"" as Amount, ""Payment_Currency"" as Currency, ""Payment_Type"" as Type
                     FROM ""Proposals""
                     WHERE ""JobId""=@jobid",
                 (proposal, payment) =>

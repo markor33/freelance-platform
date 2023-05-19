@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { JobService } from '../services/job.service';
 import { Job } from '../models/job.model';
 import { MatDialog } from '@angular/material/dialog';
@@ -7,6 +7,9 @@ import { JobInfoDialogComponent } from './dialogs/job-info-dialog/job-info-dialo
 import { SnackBarsService } from '../../shared/services/snack-bars.service';
 import { DeleteConfirmationDialogComponent } from '../../shared/dialogs/delete-confirmation-dialog/delete-confirmation-dialog.component';
 import { Router } from '@angular/router';
+import { EnumConverter } from '../../shared/utils/enum-string-converter.util';
+import { MatTableDataSource } from '@angular/material/table';
+import { MatSort } from '@angular/material/sort';
 
 @Component({
   selector: 'app-jobs-management',
@@ -17,18 +20,26 @@ export class JobsManagementComponent {
 
   public hoveredRow: any = null;
 
-  public jobs: Job[] = [];
-  public displayedColumns: string[] = ['title', 'numOfProposals', 'interviewing', 'actions'];
+  public jobs: MatTableDataSource<any> = new MatTableDataSource();
+  public displayedColumns: string[] = ['title', 'numOfProposals', 'interviewing', 'status', 'actions'];
+
+  @ViewChild(MatSort) sort!: MatSort;
 
   constructor(
     private jobService: JobService,
     private dialog: MatDialog,
     private snackBarService: SnackBarsService,
-    private router: Router) { }
+    private router: Router,
+    public enumConverter: EnumConverter) { }
+
+  ngAfterViewInit() {
+    console.log(this.sort);
+    this.jobs.sort = this.sort;
+  }
 
   ngOnInit() {
     this.jobService.getByClient().subscribe({
-      next: (jobs) => this.jobs = jobs
+      next: (jobs) => this.jobs.data = jobs
     });
   }
 
@@ -40,7 +51,7 @@ export class JobsManagementComponent {
     dialog.afterClosed().subscribe(result => {
       if (!result)
         return;
-      this.jobs = [...this.jobs, result];
+      this.jobs.data = [...this.jobs.data, result];
     });
   }
 
@@ -72,9 +83,9 @@ export class JobsManagementComponent {
   }
 
   jobDeletedSuccessfully(job: Job) {
-    const index = this.jobs.indexOf(job);
-    this.jobs.splice(index, 1);
-    this.jobs = [...this.jobs];
+    const index = this.jobs.data.indexOf(job);
+    this.jobs.data.splice(index, 1);
+    this.jobs.data = [...this.jobs.data];
     this.snackBarService.primary('Job deleted successfully');
   }
 

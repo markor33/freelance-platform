@@ -95,6 +95,8 @@ namespace JobManagement.Domain.AggregatesModel.JobAggregate
             return Result.Ok();
         }
 
+        public Proposal GetProposal(Guid proposalId) => Proposals.FirstOrDefault(p => p.Id == proposalId);
+
         public void RemoveProposal(Guid proposalId)
         {
             var proposal = Proposals.First(p => p.Id == proposalId);

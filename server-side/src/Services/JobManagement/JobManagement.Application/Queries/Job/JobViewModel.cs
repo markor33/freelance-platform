@@ -6,11 +6,15 @@ namespace JobManagement.Application.Queries
     public record JobViewModel
     {
         public Guid Id { get; private init; }
+        public Guid ClientId { get; private init; }
         public string Title { get; private init; }
         public string Description { get; private init; }
         public ExperienceLevel ExperienceLevel { get; private init; }
         public Payment Payment { get; set; }
         public int Credits { get; private init; }
+        public int NumOfProposals { get; set; }
+        public int CurrentlyInterviewing { get; set; }
+        public JobStatus Status { get; private set; }
         public List<QuestionViewModel> Questions { get; private init; }
         public ProfessionViewModel Profession { get; set; }
         public List<SkillViewModel> Skills { get; private init; }
@@ -21,10 +25,11 @@ namespace JobManagement.Application.Queries
             Skills = new List<SkillViewModel>();
         }
 
-        public JobViewModel(Guid id, string title, string description, ExperienceLevel experienceLevel, 
+        public JobViewModel(Guid id, Guid clientId, string title, string description, ExperienceLevel experienceLevel, JobStatus status,
             Payment payment, int credits, List<QuestionViewModel> questions, ProfessionViewModel profession, List<SkillViewModel> skills)
         {
             Id = id;
+            ClientId = clientId;
             Title = title;
             Description = description;
             ExperienceLevel = experienceLevel;
@@ -33,6 +38,7 @@ namespace JobManagement.Application.Queries
             Questions = questions;
             Profession = profession;
             Skills = skills;
+            Status = status;
         }
     }
 

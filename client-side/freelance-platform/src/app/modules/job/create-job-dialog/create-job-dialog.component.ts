@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { CreateJobCommand } from '../models/create-job-command.model';
+import { CreateJobCommand } from '../models/commands/create-job-command.model';
 import { Question } from '../models/question.model';
 import {COMMA, ENTER} from '@angular/cdk/keycodes';
 import { MatChipEditedEvent, MatChipInputEvent } from '@angular/material/chips';

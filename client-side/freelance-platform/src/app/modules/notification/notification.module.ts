@@ -8,6 +8,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialogModule } from '@angular/material/dialog';
 import { InterviewStageStartedNotificationHandler } from './handlers/InterviewStageStarted/interview-stage-started-notification.handler';
+import { ProposalPaymentChangedNotificationHandler } from './handlers/ProposalPaymentChanged/proposal-payment-changed-notification.handler';
 
 @NgModule({
   declarations: [
@@ -25,7 +26,8 @@ import { InterviewStageStartedNotificationHandler } from './handlers/InterviewSt
   ],
   providers: [
     { provide: NOTIFICATION_HANDLER_TOKEN, useClass: ProposalSubmittedNotificationHandler, multi: true },
-    { provide: NOTIFICATION_HANDLER_TOKEN, useClass: InterviewStageStartedNotificationHandler, multi: true }
+    { provide: NOTIFICATION_HANDLER_TOKEN, useClass: InterviewStageStartedNotificationHandler, multi: true },
+    { provide: NOTIFICATION_HANDLER_TOKEN, useClass: ProposalPaymentChangedNotificationHandler, multi: true }
   ]
 })
 export class NotificationModule { }

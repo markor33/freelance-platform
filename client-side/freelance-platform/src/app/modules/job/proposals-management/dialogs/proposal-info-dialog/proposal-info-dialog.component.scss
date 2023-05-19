@@ -59,22 +59,20 @@ a:hover {
     margin-left: 2%;
 }
 
-.start-contact form {
+.client-accept {
     display: flex;
     flex-direction: column;
     padding: 1%;
     border-top: solid 1px mat.get-color-from-palette($my-palette);
 }
 
-.start-contact form button {
-    width: 10%;
-}
-
-.submit-buton {
+.payment {
     display: flex;
-    justify-content: flex-end;
+    align-items: center;
+    gap: 1%;
+    flex-grow: 1;
 }
 
-.submit-buton button {
+.payment button {
     font-size: large;
 }

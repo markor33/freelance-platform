@@ -2,7 +2,7 @@ import { Component, Inject } from '@angular/core';
 import { Job } from '../models/job.model';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { EnumConverter } from '../../shared/utils/enum-string-converter.util';
-import { CreateProposalCommand } from '../models/create-proposal-cmmand.model';
+import { CreateProposalCommand } from '../models/commands/create-proposal-cmmand.model';
 import { ProposalService } from '../services/proposal.service';
 import { SnackBarsService } from '../../shared/services/snack-bars.service';
 import { Question } from '../models/question.model';
