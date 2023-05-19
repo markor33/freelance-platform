@@ -1,10 +1,8 @@
 import { Component, Input } from '@angular/core';
-import { MatDialogRef } from '@angular/material/dialog';
 import { EditProposalPaymentCommand } from 'src/app/modules/job/models/commands/edit-proposal-payment-command-model';
 import { Payment } from 'src/app/modules/job/models/payment.model';
 import { Proposal, ProposalStatus } from 'src/app/modules/job/models/proposal.model';
 import { ProposalService } from 'src/app/modules/job/services/proposal.service';
-import { ProposalInfoDialogComponent } from '../../proposal-info-dialog.component';
 import { SnackBarsService } from 'src/app/modules/shared/services/snack-bars.service';
 import { ClientAcceptProposalCommand } from 'src/app/modules/job/models/commands/client-accept-proposal-command.model';
 

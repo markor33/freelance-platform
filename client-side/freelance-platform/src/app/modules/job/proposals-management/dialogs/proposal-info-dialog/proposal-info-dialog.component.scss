@@ -59,20 +59,10 @@ a:hover {
     margin-left: 2%;
 }
 
-.client-accept {
-    display: flex;
-    flex-direction: column;
-    padding: 1%;
+.actions {
     border-top: solid 1px mat.get-color-from-palette($my-palette);
 }
 
-.payment {
-    display: flex;
-    align-items: center;
-    gap: 1%;
-    flex-grow: 1;
-}
-
-.payment button {
-    font-size: large;
+.actions h3 {
+    margin-left: 2%;
 }

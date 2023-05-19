@@ -29,6 +29,9 @@
                     <button mat-mini-fab color="primary" title="Proposals" *ngIf="hoveredRow === element" [routerLink]="['/job', element.id, 'proposal-management']">
                         <mat-icon>handshake</mat-icon>
                     </button>
+                    <button class="done-button" *ngIf="element.status === 1 && hoveredRow === element" mat-mini-fab title="Job done">
+                        <mat-icon>done</mat-icon>
+                    </button>
                     <button mat-mini-fab color="warn" title="Delete" *ngIf="hoveredRow === element" (click)="deleteJob(element)">
                         <mat-icon>delete</mat-icon>
                     </button>
@@ -40,9 +43,4 @@
                 (mouseenter)="hoveredRow = row" (mouseleave)="hoveredRow = null">
             </tr>
         </table>
-        <mat-paginator [length]="100"
-            [pageSize]="10"
-            [pageSizeOptions]="[5, 10]"
-            aria-label="Select page">
-        </mat-paginator>
 </div>

@@ -10,6 +10,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { InterviewStageStartedNotificationHandler } from './handlers/InterviewStageStarted/interview-stage-started-notification.handler';
 import { ProposalPaymentChangedNotificationHandler } from './handlers/ProposalPaymentChanged/proposal-payment-changed-notification.handler';
 import { ClientAcceptedProposalNotificationHandler } from './handlers/ClientAcceptedProposal/client-accepted-proposal-notification.handler';
+import { FreelancerAcceptedProposalNotificationHandler } from './handlers/FreelancerAcceptedProposal/freelancer-accepted-proposal-notification.handler';
 
 @NgModule({
   declarations: [
@@ -29,7 +30,8 @@ import { ClientAcceptedProposalNotificationHandler } from './handlers/ClientAcce
     { provide: NOTIFICATION_HANDLER_TOKEN, useClass: ProposalSubmittedNotificationHandler, multi: true },
     { provide: NOTIFICATION_HANDLER_TOKEN, useClass: InterviewStageStartedNotificationHandler, multi: true },
     { provide: NOTIFICATION_HANDLER_TOKEN, useClass: ProposalPaymentChangedNotificationHandler, multi: true },
-    { provide: NOTIFICATION_HANDLER_TOKEN, useClass: ClientAcceptedProposalNotificationHandler, multi: true }
+    { provide: NOTIFICATION_HANDLER_TOKEN, useClass: ClientAcceptedProposalNotificationHandler, multi: true },
+    { provide: NOTIFICATION_HANDLER_TOKEN, useClass: FreelancerAcceptedProposalNotificationHandler, multi: true }
   ]
 })
 export class NotificationModule { }

@@ -5,6 +5,7 @@ import { Credentials } from '../models/credentials.model';
 import { BehaviorSubject, Observable, map } from 'rxjs';
 import { Registration } from '../models/registration.model';
 import { User } from '../models/user.model';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -18,7 +19,10 @@ export class AuthService {
     headers: { 'Content-Type': 'application/json' }
   };
 
-  constructor(private httpClient: HttpClient, private jwtHelper: JwtHelperService) {
+  constructor(
+    private httpClient: HttpClient, 
+    private jwtHelper: JwtHelperService,
+    private router: Router) {
     const userData = JSON.parse(localStorage.getItem('user') as string);
     if (userData === null)
       return;
@@ -47,6 +51,7 @@ export class AuthService {
   logout(): void {
     localStorage.clear();
     this.userSource.next(null);
+    this.router.navigate(['/auth/login']);
   }
 
   getUserRole(): string {

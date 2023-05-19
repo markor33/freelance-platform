@@ -90,6 +90,7 @@ builder.Services.AddScoped<ProposalSubmittedNotificationHandler>();
 builder.Services.AddScoped<InterviewStageStartedNotificationHandler>();
 builder.Services.AddScoped<ProposalPaymentChangedNotificationHandler>();
 builder.Services.AddScoped<ClientAcceptedProposalNotificationHandler>();
+builder.Services.AddScoped<FreelancerAcceptedProposalNotificationHandler>();
 
 builder.Services.AddGrpc(options =>
 {
@@ -113,6 +114,7 @@ eventBus.Subscribe<ProposalSubmittedNotification, ProposalSubmittedNotificationH
 eventBus.Subscribe<InterviewStageStartedNotification, InterviewStageStartedNotificationHandler>();
 eventBus.Subscribe<ProposalPaymentChangedNotification, ProposalPaymentChangedNotificationHandler>();
 eventBus.Subscribe<ClientAcceptedProposalNotification, ClientAcceptedProposalNotificationHandler>();
+eventBus.Subscribe<FreelancerAcceptedProposalNotification, FreelancerAcceptedProposalNotificationHandler>();
 
 if (app.Environment.IsDevelopment())
 {

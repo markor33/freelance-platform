@@ -54,5 +54,15 @@ namespace JobManagement.API.Controllers
             return Ok();
         }
 
+        [HttpPut("{id}/proposal/{proposalId}/status/freelancer-accept")]
+        [Authorize(Roles = "FREELANCER"), ProposalOwnerAuthorization]
+        public async Task<ActionResult> FreelancerAcceptProposal([FromBody] FreelancerAcceptProposalCommand command)
+        {
+            var commandResult = await _mediator.Send(command);
+            if (commandResult.IsFailed)
+                return BadRequest(commandResult.Errors.ToStringList());
+            return Ok();
+        }
+
     }
 }
