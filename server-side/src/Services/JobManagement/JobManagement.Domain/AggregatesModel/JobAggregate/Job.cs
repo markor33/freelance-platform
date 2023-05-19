@@ -20,6 +20,7 @@ namespace JobManagement.Domain.AggregatesModel.JobAggregate
         public Guid ProfessionId { get; private set; }
         public Profession Profession { get; private set; }
         public List<Skill> Skills { get; private set; }
+        public Contract Contract { get; private set; }
 
         public Job()
         {
@@ -85,6 +86,22 @@ namespace JobManagement.Domain.AggregatesModel.JobAggregate
             return Result.Ok();
         }
 
+        public Result MakeContract(Guid proposalId)
+        {
+            if (Contract is not null)
+                return Result.Fail("Contract already exists");
+
+            var proposal = GetProposal(proposalId);
+            if (proposal is null || proposal.Status != ProposalStatus.CLIENT_APPROVED)
+                return Result.Fail("Proposal does not exist or it's not approved");
+
+            Contract = new Contract(Id, ClientId, proposal.FreelancerId, proposal.Payment);
+            proposal.ChangeStatus(ProposalStatus.FREELANCER_APPROVED);
+            Status = JobStatus.IN_PROGRESS;
+
+            return Result.Ok();
+        }
+
         public Result ChangeProposalStatus(Guid id, ProposalStatus status)
         {
             var proposal = GetProposal(id);
@@ -92,8 +109,6 @@ namespace JobManagement.Domain.AggregatesModel.JobAggregate
                 return Result.Fail("Proposal does not exist");
 
             proposal.ChangeStatus(status);
-            if (status == ProposalStatus.ACCEPTED)
-                Status = JobStatus.IN_PROGRESS;
 
             return Result.Ok();
         }
@@ -108,13 +123,15 @@ namespace JobManagement.Domain.AggregatesModel.JobAggregate
 
         public void Done()
         {
+            Proposals.Clear();
             Status = JobStatus.DONE;
         }
 
         public Result Delete()
         {
-            if (Status != JobStatus.LISTED)
+            if (Contract is not null)
                 return Result.Fail("Job can't be deleted");
+            Proposals.Clear();
             Status = JobStatus.REMOVED;
             return Result.Ok();
         }

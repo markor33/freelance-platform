@@ -6,8 +6,6 @@ import { Proposal, ProposalStatus } from '../models/proposal.model';
 import { AuthService } from '../../auth/services/auth.service';
 import { Answer } from '../models/answer.model';
 import { EditProposalPaymentCommand } from '../models/commands/edit-proposal-payment-command-model';
-import { ClientAcceptProposalCommand } from '../models/commands/client-accept-proposal-command.model';
-import { FreelancerAcceptProposalCommand } from '../models/commands/freelancer-accept-proposal-command.model';
 
 @Injectable({
   providedIn: 'root'
@@ -59,15 +57,8 @@ export class ProposalService {
     return this.httpClient.put<any>(`api/job/job/${editProposalPaymentCommand.jobId}/proposal/${editProposalPaymentCommand.proposalId}/payment`, editProposalPaymentCommand);
   }
 
-  clientAccept(clientAcceptProposalCommand: ClientAcceptProposalCommand): Observable<any> {
-    const endpoint = `api/job/job/${clientAcceptProposalCommand.jobId}/proposal/${clientAcceptProposalCommand.proposalId}/status/client-accept`;
-    return this.httpClient.put<any>(endpoint, clientAcceptProposalCommand);
-  }
-
-  freelancerAccept(freelancerAcceptProposalCommand: FreelancerAcceptProposalCommand): Observable<any> {
-    console.log(freelancerAcceptProposalCommand);
-    const endpoint = `api/job/job/${freelancerAcceptProposalCommand.jobId}/proposal/${freelancerAcceptProposalCommand.proposalId}/status/freelancer-accept`;
-    return this.httpClient.put<any>(endpoint, freelancerAcceptProposalCommand);
+  clientApprove(jobId: string, proposalId: string): Observable<any> {
+    return this.httpClient.put<any>(`api/job/job/${jobId}/proposal/${proposalId}/status/approved`, {});
   }
 
   isConfirmed(id: string): void {

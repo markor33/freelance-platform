@@ -14,6 +14,7 @@ import { JsonDateInterceptor } from './modules/shared/utils/json-date-intercepto
 import { ClientModule } from './modules/client/client.module';
 import { JobModule } from './modules/job/job.module';
 import { NotificationModule } from './modules/notification/notification.module';
+import { ContractModule } from './modules/contract/contract.module';
 
 @NgModule({
     declarations: [
@@ -30,6 +31,7 @@ import { NotificationModule } from './modules/notification/notification.module';
         FreelancerModule,
         ClientModule,
         JobModule,
+        ContractModule,
         NotificationModule,
         LayoutModule,
         JwtModule.forRoot({

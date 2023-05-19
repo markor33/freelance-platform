@@ -6,17 +6,17 @@ using System.Text.Json.Serialization;
 namespace JobManagement.Application.Commands
 {
     [DataContract]
-    public class FreelancerAcceptProposalCommand : IRequest<Result>
+    public class MakeContractCommand : IRequest<Result>
     {
         [DataMember]
         public Guid JobId { get; private set; }
         [DataMember]
         public Guid ProposalId { get; private set; }
 
-        public FreelancerAcceptProposalCommand() { }
+        public MakeContractCommand() { }
 
         [JsonConstructor]
-        public FreelancerAcceptProposalCommand(Guid jobId, Guid proposalId)
+        public MakeContractCommand(Guid jobId, Guid proposalId)
         {
             JobId = jobId;
             ProposalId = proposalId;

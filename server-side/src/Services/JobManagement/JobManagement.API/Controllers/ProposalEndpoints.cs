@@ -44,20 +44,11 @@ namespace JobManagement.API.Controllers
             return Ok();
         }
 
-        [HttpPut("{id}/proposal/{proposalId}/status/client-accept")]
+        [HttpPut("{id}/proposal/{proposalId}/status/approved")]
         [Authorize(Roles = "CLIENT"), JobOwnerAuthorization]
-        public async Task<ActionResult> ClientAcceptProposal([FromBody] ClientAcceptProposalCommand command)
+        public async Task<ActionResult> ApproveProposal(Guid id, Guid proposalId)
         {
-            var commandResult = await _mediator.Send(command);
-            if (commandResult.IsFailed)
-                return BadRequest(commandResult.Errors.ToStringList());
-            return Ok();
-        }
-
-        [HttpPut("{id}/proposal/{proposalId}/status/freelancer-accept")]
-        [Authorize(Roles = "FREELANCER"), ProposalOwnerAuthorization]
-        public async Task<ActionResult> FreelancerAcceptProposal([FromBody] FreelancerAcceptProposalCommand command)
-        {
+            var command = new ApproveProposalCommand(id, proposalId);
             var commandResult = await _mediator.Send(command);
             if (commandResult.IsFailed)
                 return BadRequest(commandResult.Errors.ToStringList());

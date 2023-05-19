@@ -127,7 +127,7 @@ namespace JobManagement.Application.Queries
             var proposals = await _proposalQueries.GetByJobId(job.Id);
             job.NumOfProposals = proposals.Count;
             job.CurrentlyInterviewing = proposals
-                .Where(p => p.Status == ProposalStatus.INTERVIEW || p.Status == ProposalStatus.CLIENT_ACCEPTED).Count();
+                .Where(p => p.Status == ProposalStatus.INTERVIEW || p.Status == ProposalStatus.CLIENT_APPROVED).Count();
             return job;
         }
     }

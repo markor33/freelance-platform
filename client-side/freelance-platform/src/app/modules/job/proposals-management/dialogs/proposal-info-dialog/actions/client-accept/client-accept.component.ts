@@ -1,10 +1,11 @@
 import { Component, Input } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { EditProposalPaymentCommand } from 'src/app/modules/job/models/commands/edit-proposal-payment-command-model';
 import { Payment } from 'src/app/modules/job/models/payment.model';
 import { Proposal, ProposalStatus } from 'src/app/modules/job/models/proposal.model';
 import { ProposalService } from 'src/app/modules/job/services/proposal.service';
+import { ConfirmationDialogComponent } from 'src/app/modules/shared/dialogs/confirmation-dialog/confirmation-dialog.component';
 import { SnackBarsService } from 'src/app/modules/shared/services/snack-bars.service';
-import { ClientAcceptProposalCommand } from 'src/app/modules/job/models/commands/client-accept-proposal-command.model';
 
 @Component({
   selector: 'app-client-accept',
@@ -19,10 +20,10 @@ export class ClientAcceptComponent {
 
   payment: Payment = new Payment();
   editProposalPaymentCommand = new EditProposalPaymentCommand();
-  clientAcceptProposalCommand = new ClientAcceptProposalCommand();
 
   constructor(
     private proposalService: ProposalService,
+    private dialog: MatDialog,
     private snackBarService: SnackBarsService) { }
 
   ngOnInit() {
@@ -30,8 +31,6 @@ export class ClientAcceptComponent {
     this.editProposalPaymentCommand.jobId = this.jobId;
     this.editProposalPaymentCommand.proposalId = this.proposal.id;
     this.editProposalPaymentCommand.payment = this.payment;
-    this.clientAcceptProposalCommand.jobId = this.jobId;
-    this.clientAcceptProposalCommand.proposalId = this.proposal.id;
   }
 
   editPayment() {
@@ -42,10 +41,15 @@ export class ClientAcceptComponent {
   }
 
   accept() {
-    this.proposalService.clientAccept(this.clientAcceptProposalCommand).subscribe(() => {
-      this.snackBarService.primary('You accepted proposal successfully');
-      this.proposal.status = ProposalStatus.CLIENT_ACCEPTED;
-    });
+    const confirmDialog = ConfirmationDialogComponent.open(this.dialog, 'You are about to approve the proposal.');
+    confirmDialog.afterClosed().subscribe((res) => {
+      if (!res)
+        return;
+      this.proposalService.clientApprove(this.jobId, this.proposal.id).subscribe(() => {
+        this.snackBarService.primary('Proposal approved successfully');
+        this.proposal.status = ProposalStatus.CLIENT_APPROVED;
+      });
+  })
   }
   
 }

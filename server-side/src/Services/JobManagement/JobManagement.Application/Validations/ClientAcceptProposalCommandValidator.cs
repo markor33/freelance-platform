@@ -3,7 +3,7 @@ using JobManagement.Application.Commands;
 
 namespace JobManagement.Application.Validations
 {
-    public class ClientAcceptProposalCommandValidator : AbstractValidator<ClientAcceptProposalCommand>
+    public class ClientAcceptProposalCommandValidator : AbstractValidator<ApproveProposalCommand>
     {
         public ClientAcceptProposalCommandValidator()
         {

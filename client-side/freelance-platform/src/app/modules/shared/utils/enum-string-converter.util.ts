@@ -48,10 +48,10 @@ export class EnumConverter {
                 return 'Sent';
             case ProposalStatus.INTERVIEW:
                 return 'Interview';
-            case ProposalStatus.CLIENT_ACCEPTED:
-                return 'Client accepted';
-            case ProposalStatus.ACCEPTED:
-                return 'Accepted';
+            case ProposalStatus.CLIENT_APPROVED:
+                return 'Approved';
+            case ProposalStatus.FREELANCER_APPROVED:
+                return 'Contract';
         }
     }
 }

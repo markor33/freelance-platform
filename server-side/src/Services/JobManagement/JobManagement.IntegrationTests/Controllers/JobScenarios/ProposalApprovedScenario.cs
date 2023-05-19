@@ -9,20 +9,20 @@ namespace JobManagement.IntegrationTests.Controllers.JobScenarios
     public partial class JobScenarios
     {
         [Fact]
-        public async Task Freelancer_Accept_Proposal_ReturnsOk()
+        public async Task Approve_Proposal_ReturnsOk()
         {
             using var scope = Factory.Services.CreateScope();
             var controller = SetupController(scope);
             var job = await CreateTestJob(scope);
             var proposal = await CreateTestProposal(scope, job.Id);
-            var freelancerAcceptProposalCommand = GetTestFreelancerAcceptProposalCommand(job.Id, proposal.Id);
+            var approveProposalCommand = GetTestApproveProposalCommand(job.Id, proposal.Id);
 
-            var result = await controller.FreelancerAcceptProposal(freelancerAcceptProposalCommand);
+            var result = await controller.ApproveProposal(approveProposalCommand);
 
             result.ShouldBeOfType(typeof(OkResult));
         }
 
-        private static FreelancerAcceptProposalCommand GetTestFreelancerAcceptProposalCommand(Guid jobId, Guid proposalId)
+        private static ApproveProposalCommand GetTestApproveProposalCommand(Guid jobId, Guid proposalId)
             => new(jobId, proposalId);
     }
 }

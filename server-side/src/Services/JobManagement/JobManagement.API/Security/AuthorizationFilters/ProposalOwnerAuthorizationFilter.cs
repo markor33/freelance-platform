@@ -1,6 +1,7 @@
 ﻿using JobManagement.Domain.AggregatesModel.JobAggregate;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
+using System.Text.Json;
 
 namespace JobManagement.API.Security.AuthorizationFilters
 {
@@ -20,8 +21,9 @@ namespace JobManagement.API.Security.AuthorizationFilters
         public async Task OnAuthorizationAsync(AuthorizationFilterContext context)
         {
             var userDomainId = _identityService.GetDomainUserId();
+
             var jobId = context.RouteData.Values["id"].ToString();
-            var proposalId = context.RouteData.Values["proposalId"].ToString();
+            var proposalId = context.RouteData.Values["proposalId"]?.ToString();
 
             var job = await _jobRepository.GetByIdAsync(Guid.Parse(jobId));
             var proposal = job.GetProposal(Guid.Parse(proposalId));
