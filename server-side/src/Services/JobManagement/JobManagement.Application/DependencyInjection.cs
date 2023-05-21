@@ -14,8 +14,9 @@ namespace JobManagement.Application
             services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehavior<,>));
             services.AddValidatorsFromAssembly(typeof(DependencyInjection).Assembly);
 
-            services.AddTransient(typeof(IProposalQueries), typeof(ProposalQueries));
             services.AddTransient(typeof(IJobQueries), typeof(JobQueries));
+            services.AddTransient(typeof(IProposalQueries), typeof(ProposalQueries));
+            services.AddTransient(typeof(IContractQueries), typeof(ContractQueries));
             services.AddTransient(typeof(IAnswerQueries), typeof(AnswerQueries));
 
             services.AddAutoMapper(typeof(MappingProfile));

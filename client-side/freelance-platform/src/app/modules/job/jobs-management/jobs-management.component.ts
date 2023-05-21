@@ -21,7 +21,7 @@ export class JobsManagementComponent {
   public hoveredRow: any = null;
 
   public jobs: MatTableDataSource<any> = new MatTableDataSource();
-  public displayedColumns: string[] = ['title', 'numOfProposals', 'interviewing', 'status', 'actions'];
+  public displayedColumns: string[] = ['title', 'numOfProposals', 'interviewing', 'status', 'activeContracts', 'actions'];
 
   @ViewChild(MatSort) sort!: MatSort;
 
@@ -33,7 +33,7 @@ export class JobsManagementComponent {
     public enumConverter: EnumConverter) { }
 
   ngAfterViewInit() {
-    console.log(this.sort);
+    console.log(this.jobs.data);
     this.jobs.sort = this.sort;
   }
 
@@ -72,9 +72,12 @@ export class JobsManagementComponent {
     confirmDialog.afterClosed().subscribe((res) => {
       if (!res)
         return;
-      this.jobService.done(job.id).subscribe(() => {
-        this.snackBarService.primary('Job is done');
-        job.status = JobStatus.DONE;
+      this.jobService.done(job.id).subscribe({
+        complete: () => {
+          this.snackBarService.primary('Job is done');
+          job.status = JobStatus.DONE;
+        },
+        error: (err) => this.snackBarService.error(err.error[0])
       });
     });
   }
@@ -85,7 +88,8 @@ export class JobsManagementComponent {
       if (!res)
         return;
       this.jobService.delete(job.id).subscribe({
-        complete: () => this.jobDeletedSuccessfully(job)
+        complete: () => this.jobDeletedSuccessfully(job),
+        error: (err) => this.snackBarService.error(err.error[0])
       });
     });
   }

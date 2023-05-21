@@ -15,6 +15,7 @@ export class Job {
     skills: Skill[] = [];
     numOfProposals: number = 0;
     currentlyInterviewing: number = 0;
+    numOfActiveContracts: number = 0;
     status: JobStatus = JobStatus.LISTED;
 }
 

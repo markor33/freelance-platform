@@ -8,14 +8,10 @@ namespace JobManagement.Application.Commands
     public class JobDoneCommandHandler : IRequestHandler<JobDoneCommand, Result>
     {
         private readonly IJobRepository _jobRepository;
-        private readonly IEventBus _eventBus;
 
-        public JobDoneCommandHandler(
-            IJobRepository jobRepository,
-            IEventBus eventBus)
+        public JobDoneCommandHandler(IJobRepository jobRepository)
         {
             _jobRepository = jobRepository;
-            _eventBus = eventBus;
         }
 
         public async Task<Result> Handle(JobDoneCommand request, CancellationToken cancellationToken)
@@ -24,7 +20,9 @@ namespace JobManagement.Application.Commands
             if (job is null)
                 return Result.Fail("Job does not exist");
 
-            job.Done();
+            var result = job.Done();
+            if (result.IsFailed)
+                return Result.Fail(result.Errors);
             await _jobRepository.UnitOfWork.SaveEntitiesAsync();
 
             return Result.Ok();

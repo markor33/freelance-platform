@@ -10,6 +10,7 @@ namespace NotifyChat.SignalR.Models
         public Guid FreelancerId { get; private set; }
         public Guid JobId { get; private set; }
         public Guid ProposalId { get; private set; }
+        public Guid? ContractId { get; private set; }
 
         public Chat(Guid clientId, Guid freelancerId, Guid jobId, Guid proposalId)
         {
@@ -19,5 +20,8 @@ namespace NotifyChat.SignalR.Models
             JobId = jobId;
             ProposalId = proposalId;
         }
+
+        public void SetContractId(Guid contractId) => ContractId = contractId;
+
     }
 }

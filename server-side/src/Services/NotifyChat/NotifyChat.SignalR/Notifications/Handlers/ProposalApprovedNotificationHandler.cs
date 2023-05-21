@@ -8,20 +8,20 @@ using NotifyChat.SignalR.Persistence.Repositories;
 
 namespace NotifyChat.SignalR.Notifications.Handlers
 {
-    public class ClientAcceptedProposalNotificationHandler : IIntegrationEventHandler<ClientAcceptedProposalNotification>
+    public class ProposalApprovedNotificationHandler : IIntegrationEventHandler<ProposalApprovedNotification>
     {
         private readonly INotificationRepository _notificationRepository;
         private readonly IHubContext<NotificationHub> _hubContext;
 
-        public ClientAcceptedProposalNotificationHandler(INotificationRepository notificationRepository, IHubContext<NotificationHub> hubContext)
+        public ProposalApprovedNotificationHandler(INotificationRepository notificationRepository, IHubContext<NotificationHub> hubContext)
         {
             _notificationRepository = notificationRepository;
             _hubContext = hubContext;
         }
 
-        public async Task HandleAsync(ClientAcceptedProposalNotification @event)
+        public async Task HandleAsync(ProposalApprovedNotification @event)
         {
-            var notf = new Notification(@event.FreelancerId, nameof(ClientAcceptedProposalNotification), @event.ToBsonDocument());
+            var notf = new Notification(@event.FreelancerId, nameof(ProposalApprovedNotification), @event.ToBsonDocument());
             await _notificationRepository.Create(notf);
             await _hubContext.Clients
                 .Group(@event.FreelancerId.ToString())

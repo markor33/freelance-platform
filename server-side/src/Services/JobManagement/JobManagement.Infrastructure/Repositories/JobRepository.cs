@@ -20,6 +20,7 @@ namespace JobManagement.Infrastructure.Repositories
             return await _context.Jobs.Where(j => j.Id== id)
                 .Include(j => j.Proposals)
                 .Include(j => j.Questions)
+                .Include(j => j.Contracts)
                 .FirstOrDefaultAsync();
         }
 

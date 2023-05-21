@@ -16,7 +16,7 @@ namespace JobManagement.Infrastructure.EntityConfiguration
 
             builder.Property(x => x.FreelancerId).IsRequired();
 
-            builder.Property(x => x.Date).IsRequired();
+            builder.Property(x => x.Started).IsRequired();
 
             builder.OwnsOne(x => x.Payment);
         }

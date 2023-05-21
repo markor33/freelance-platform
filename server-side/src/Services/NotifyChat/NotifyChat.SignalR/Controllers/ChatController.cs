@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SignalR;
 using NotifyChat.SignalR.Hubs;
-using NotifyChat.SignalR.IntegrationEvents;
+using NotifyChat.SignalR.IntegrationEvents.Events;
 using NotifyChat.SignalR.Models;
 using NotifyChat.SignalR.Persistence.Repositories;
 using NotifyChat.SignalR.Security;

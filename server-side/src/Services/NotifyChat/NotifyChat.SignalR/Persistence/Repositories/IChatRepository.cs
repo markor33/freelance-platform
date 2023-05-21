@@ -8,6 +8,8 @@ namespace NotifyChat.SignalR.Persistence.Repositories
         Task<List<Chat>> GetByParticipant(Guid participantId);
         Task<Chat> GetByClient(Guid clientId);
         Task<Chat> GetByFreelancer(Guid freelancerId);
+        Task<Chat> GetByProposal(Guid proposalId);
         Task Create(Chat chat);
+        Task Update(Chat chat);
     }
 }

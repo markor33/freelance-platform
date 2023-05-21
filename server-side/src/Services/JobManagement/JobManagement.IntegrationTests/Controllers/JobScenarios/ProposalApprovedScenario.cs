@@ -17,7 +17,7 @@ namespace JobManagement.IntegrationTests.Controllers.JobScenarios
             var proposal = await CreateTestProposal(scope, job.Id);
             var approveProposalCommand = GetTestApproveProposalCommand(job.Id, proposal.Id);
 
-            var result = await controller.ApproveProposal(approveProposalCommand);
+            var result = await controller.ApproveProposal(job.Id, proposal.Id);
 
             result.ShouldBeOfType(typeof(OkResult));
         }

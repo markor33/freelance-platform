@@ -37,24 +37,27 @@ namespace Bff.Controllers
 
             var chatsResponse = await _chatClient.GetChatsAsync(new GetChatsRequest() { UserId= userDomainId });
             var chats = new List<Chat>();
-            foreach (var chat in chatsResponse.Chats)
+            foreach (var chatDTO in chatsResponse.Chats)
             {
-                var freelancer = await _freelancerProfileService.GetBasicDataByIdAsync(chat.FreelancerId);
-                var client = await _clientProfileService.GetBasicDataByIdAsync(chat.ClientId);
-                var job = await _jobManagementService.GetById(chat.JobId);
-                chats.Add(new Chat()
+                var freelancer = await _freelancerProfileService.GetBasicDataByIdAsync(chatDTO.FreelancerId);
+                var client = await _clientProfileService.GetBasicDataByIdAsync(chatDTO.ClientId);
+                var job = await _jobManagementService.GetById(chatDTO.JobId);
+                var chat = new Chat()
                 {
-                    Id = Guid.Parse(chat.Id),
+                    Id = Guid.Parse(chatDTO.Id),
                     JobId = Guid.Parse(job.Id),
                     JobTitle = job.Title,
-                    ProposalId = Guid.Parse(chat.ProposalId),
+                    ProposalId = Guid.Parse(chatDTO.ProposalId),
                     ClientId = Guid.Parse(client.Id),
-                    IsClientActive = chat.IsClientActive,
+                    IsClientActive = chatDTO.IsClientActive,
                     ClientName = client.FirstName + " " + client.LastName,
                     FreelancerId = Guid.Parse(freelancer.Id),
-                    IsFreelancerActive = chat.IsFreelancerActive,
+                    IsFreelancerActive = chatDTO.IsFreelancerActive,
                     FreelancerName = freelancer.FirstName + " " + freelancer.LastName,
-                });
+                };
+                if (!string.IsNullOrEmpty(chatDTO.ContractId))
+                    chat.ContractId = Guid.Parse(chatDTO.ContractId);
+                chats.Add(chat);
             }
             return Ok(chats);
         }

@@ -2,19 +2,19 @@
 
 namespace JobManagement.Application.Notifications
 {
-    public record FreelancerAcceptedProposalNotification : IntegrationEvent
+    public record ProposalApprovedNotification : IntegrationEvent
     {
         public Guid JobId { get; private init; }
         public string JobTitle { get; private init; }
         public Guid ProposalId { get; private init; }
-        public Guid ClientId { get; private init; }
+        public Guid FreelancerId { get; private init; }
 
-        public FreelancerAcceptedProposalNotification(Guid jobId, string jobTitle, Guid proposalId, Guid clientId)
+        public ProposalApprovedNotification(Guid jobId, string jobTitle, Guid proposalId, Guid freelancerId)
         {
             JobId = jobId;
             JobTitle = jobTitle;
             ProposalId = proposalId;
-            ClientId = clientId;
+            FreelancerId = freelancerId;
         }
 
     }

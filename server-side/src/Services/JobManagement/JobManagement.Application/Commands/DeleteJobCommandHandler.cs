@@ -26,6 +26,7 @@ namespace JobManagement.Application.Commands
             var result = await _repository.UnitOfWork.SaveEntitiesAsync(cancellationToken);
             if (!result)
                 return Result.Fail("");
+
             return Result.Ok();
         }
     }

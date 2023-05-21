@@ -34,10 +34,7 @@ namespace JobManagement.Infrastructure.EntityConfiguration
             builder.HasMany(x => x.Skills)
                 .WithMany(s => s.Jobs);
 
-            builder.HasOne(x => x.Contract)
-                .WithOne()
-                .HasForeignKey<Contract>(c => c.JobId)
-                .IsRequired(false);
+            builder.HasMany(x => x.Contracts).WithOne().IsRequired();
         }
     }
 }

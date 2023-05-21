@@ -20,13 +20,14 @@ namespace JobManagement.Domain.AggregatesModel.JobAggregate
         public Guid ProfessionId { get; private set; }
         public Profession Profession { get; private set; }
         public List<Skill> Skills { get; private set; }
-        public Contract Contract { get; private set; }
+        public List<Contract> Contracts { get; private set; }
 
         public Job()
         {
             Questions = new List<Question>();
             Proposals = new List<Proposal>();
             Skills = new List<Skill>();
+            Contracts = new List<Contract>();
         }
 
         public Job(Guid clientId, string title, string description, ExperienceLevel experienceLevel, Payment payment, Profession profession)
@@ -44,33 +45,36 @@ namespace JobManagement.Domain.AggregatesModel.JobAggregate
             Questions = new List<Question>();
             Proposals = new List<Proposal>();
             Skills = new List<Skill>();
+            Contracts = new List<Contract>();
         }
 
-        private int EvaluateCredits()
-            => ((int)ExperienceLevel) + 1;
+        private int EvaluateCredits() => ((int)ExperienceLevel) + 1;
 
-        public void AddQuestion(Question question)
+        public Result<Contract> MakeContract(Guid proposalId)
         {
-            Questions.Add(question);
+            var proposal = GetProposal(proposalId);
+            if (proposal is null || proposal.Status != ProposalStatus.CLIENT_APPROVED)
+                return Result.Fail("Proposal does not exist or it's not approved");
+
+            var newContract = new Contract(ClientId, proposal.FreelancerId, proposal.Payment);
+            Contracts.Add(newContract);
+            proposal.ChangeStatus(ProposalStatus.FREELANCER_APPROVED);
+            Status = JobStatus.IN_PROGRESS;
+
+            return Result.Ok(newContract);
         }
 
-        public void AddQuestions(List<Question> questions)
+        public Result<Contract> ChangeContractStatus(Guid id, ContractStatus status)
         {
-            foreach (var question in questions)
-                AddQuestion(question);
+            var contract = Contracts.FirstOrDefault(c => c.Id == id);
+            if (contract is null)
+                return Result.Fail("Contract does not exist");
+
+            contract.ChangeStatus(status);
+            return Result.Ok(contract);
         }
 
-        public Result AddSkill(Skill skill)
-        {
-            if (skill.ProfessionId != ProfessionId)
-                return Result.Fail($"Freelancers profession does not contain {skill.Name} skill");
-
-            if (Skills.Contains(skill))
-                return Result.Fail($"Skill '{skill.Name}' already added");
-
-            Skills.Add(skill);
-            return Result.Ok();
-        }
+        public Contract GetContract(Guid contractId) => Contracts.FirstOrDefault(c => c.Id == contractId);
 
         public Result AddProposal(Proposal proposal)
         {
@@ -83,22 +87,6 @@ namespace JobManagement.Domain.AggregatesModel.JobAggregate
                 return Result.Fail("Some questions are not answered");
 
             Proposals.Add(proposal);
-            return Result.Ok();
-        }
-
-        public Result MakeContract(Guid proposalId)
-        {
-            if (Contract is not null)
-                return Result.Fail("Contract already exists");
-
-            var proposal = GetProposal(proposalId);
-            if (proposal is null || proposal.Status != ProposalStatus.CLIENT_APPROVED)
-                return Result.Fail("Proposal does not exist or it's not approved");
-
-            Contract = new Contract(Id, ClientId, proposal.FreelancerId, proposal.Payment);
-            proposal.ChangeStatus(ProposalStatus.FREELANCER_APPROVED);
-            Status = JobStatus.IN_PROGRESS;
-
             return Result.Ok();
         }
 
@@ -121,18 +109,43 @@ namespace JobManagement.Domain.AggregatesModel.JobAggregate
             Proposals.Remove(proposal);
         }
 
-        public void Done()
+        public Result Done()
         {
+            if (!Contracts.All(c => c.Status != ContractStatus.ACTIVE))
+                return Result.Fail("Job can't be done. Active contracts exist.");
+
             Proposals.Clear();
             Status = JobStatus.DONE;
+            return Result.Ok();
         }
 
         public Result Delete()
         {
-            if (Contract is not null)
-                return Result.Fail("Job can't be deleted");
+            if (Contracts.Any())
+                return Result.Fail("Job can't be deleted. Active contracts exist.");
+
             Proposals.Clear();
             Status = JobStatus.REMOVED;
+            return Result.Ok();
+        }
+
+        public void AddQuestion(Question question) => Questions.Add(question);
+
+        public void AddQuestions(List<Question> questions)
+        {
+            foreach (var question in questions)
+                AddQuestion(question);
+        }
+
+        public Result AddSkill(Skill skill)
+        {
+            if (skill.ProfessionId != ProfessionId)
+                return Result.Fail($"Freelancers profession does not contain {skill.Name} skill");
+
+            if (Skills.Contains(skill))
+                return Result.Fail($"Skill '{skill.Name}' already added");
+
+            Skills.Add(skill);
             return Result.Ok();
         }
 

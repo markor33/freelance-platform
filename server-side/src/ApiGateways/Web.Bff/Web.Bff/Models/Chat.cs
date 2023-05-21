@@ -6,6 +6,7 @@
         public Guid JobId { get; set; }
         public string JobTitle { get; set; } = string.Empty;
         public Guid ProposalId { get; set; }
+        public Guid? ContractId { get; set; } = null;
         public Guid ClientId { get; set; }
         public bool IsClientActive { get; set; }
         public string ClientName { get; set; } = string.Empty;

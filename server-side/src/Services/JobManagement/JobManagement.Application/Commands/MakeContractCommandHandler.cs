@@ -25,12 +25,11 @@ namespace JobManagement.Application.Commands
             if (job is null)
                 return Result.Fail("Job does not exist");
 
-            job.MakeContract(request.ProposalId);
+            var contract = job.MakeContract(request.ProposalId).Value;
 
             await _jobRepository.UnitOfWork.SaveEntitiesAsync();
 
-            var proposal = job.GetProposal(request.ProposalId);
-            var notification = new FreelancerAcceptedProposalNotification(job.Id, job.Title, proposal.Id, job.ClientId);
+            var notification = new ContractMadeNotification(contract.Id, job.Id, job.Title, request.ProposalId, job.ClientId);
             _eventBus.Publish(notification);
 
             return Result.Ok();

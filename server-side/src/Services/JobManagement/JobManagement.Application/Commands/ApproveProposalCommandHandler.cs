@@ -31,7 +31,7 @@ namespace JobManagement.Application.Commands
             await _jobRepository.UnitOfWork.SaveEntitiesAsync();
 
             var proposal = job.GetProposal(request.ProposalId);
-            var notification = new ClientAcceptedProposalNotification(job.Id, job.Title, proposal.Id, proposal.FreelancerId);
+            var notification = new ProposalApprovedNotification(job.Id, job.Title, proposal.Id, proposal.FreelancerId);
             _eventBus.Publish(notification);
 
             return Result.Ok();

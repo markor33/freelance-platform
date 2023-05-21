@@ -3,6 +3,7 @@ export class Chat {
     jobId: string = '';
     jobTitle: string = '';
     proposalId: string = '';
+    contractId: string | null = null;
     clientId: string = '';
     isClientActive: boolean = false;
     clientName: string = '';

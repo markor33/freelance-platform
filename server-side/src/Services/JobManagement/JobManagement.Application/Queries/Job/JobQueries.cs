@@ -9,11 +9,16 @@ namespace JobManagement.Application.Queries
     {
         private readonly IDbConnection _dbConnection;
         private readonly IProposalQueries _proposalQueries;
+        private readonly IContractQueries _contractQueries;
 
-        public JobQueries(IDbConnection dbConnection, IProposalQueries proposalQueries)
+        public JobQueries(
+            IDbConnection dbConnection, 
+            IProposalQueries proposalQueries,
+            IContractQueries contractQueries)
         {
             _dbConnection = dbConnection;
             _proposalQueries = proposalQueries;
+            _contractQueries = contractQueries;
         }
 
         public async Task<List<JobViewModel>> GetAllAsync()
@@ -116,8 +121,10 @@ namespace JobManagement.Application.Queries
                     group.Select(job => job.Profession).FirstOrDefault(),
                     group.SelectMany(job => job.Skills).Distinct().ToList())).ToList();
 
-            for(int i = 0; i < groupedJobs.Count; i++)
+            for (int i = 0; i < groupedJobs.Count; i++)
                 await CountProposals(groupedJobs[i]);
+            for (int i = 0; i < groupedJobs.Count; i++)
+                groupedJobs[i].NumOfActiveContracts = await _contractQueries.GetNumOfActiveContracts(groupedJobs[i].Id);
 
             return groupedJobs;
         }
