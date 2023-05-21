@@ -1,6 +1,6 @@
 ﻿using EventBus.Events;
 
-namespace NotifyChat.SignalR.IntegrationEvents
+namespace NotifyChat.SignalR.IntegrationEvents.Events
 {
     public record InitialMessageSentIntegrationEvent : IntegrationEvent
     {

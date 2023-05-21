@@ -28,6 +28,7 @@ namespace NotifyChat.SignalR.GrpcServices
                     Id = chat.Id.ToString(),
                     JobId= chat.JobId.ToString(),
                     ProposalId = chat.ProposalId.ToString(),
+                    ContractId = chat.ContractId.ToString(),
                     ClientId = chat.ClientId.ToString(),
                     IsClientActive = _activeUsersService.IsActive(chat.ClientId),
                     FreelancerId = chat.FreelancerId.ToString(),

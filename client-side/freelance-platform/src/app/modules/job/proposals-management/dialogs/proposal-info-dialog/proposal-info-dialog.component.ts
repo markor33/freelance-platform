@@ -1,6 +1,6 @@
 import { Component, Inject } from '@angular/core';
 import { Proposal } from '../../../models/proposal.model';
-import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { EnumConverter } from 'src/app/modules/shared/utils/enum-string-converter.util';
 import { ProposalService } from '../../../services/proposal.service';
 import { ChatService } from 'src/app/modules/chat/services/chat.service';
@@ -37,5 +37,12 @@ export class ProposalInfoDialogComponent {
     this.proposalService.get(this.proposalId).subscribe((proposal) => this.proposal = proposal);
   }
 
+  static open(dialog: MatDialog, jobId: string, proposalId: string): MatDialogRef<ProposalInfoDialogComponent> {
+    return dialog.open(ProposalInfoDialogComponent, {
+      width: '50%',
+      height: '80%',
+      data: { jobId: jobId, proposalId: proposalId }
+    })
+  }
 
 }

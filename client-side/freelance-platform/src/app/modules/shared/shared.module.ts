@@ -1,14 +1,14 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
-import { DeleteConfirmationDialogComponent } from './dialogs/delete-confirmation-dialog/delete-confirmation-dialog.component';
 import { MatButtonModule } from '@angular/material/button';
+import { ConfirmationDialogComponent } from './dialogs/confirmation-dialog/confirmation-dialog.component';
 
 
 
 @NgModule({
   declarations: [
-    DeleteConfirmationDialogComponent
+    ConfirmationDialogComponent
   ],
   imports: [
     CommonModule,

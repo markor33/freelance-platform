@@ -6,7 +6,6 @@ $my-palette: mat.define-palette(mat.$indigo-palette);
     display: flex;
     flex-direction: column;
     padding: 1%;
-    border-top: solid 1px mat.get-color-from-palette($my-palette);
 }
 
 .payment {

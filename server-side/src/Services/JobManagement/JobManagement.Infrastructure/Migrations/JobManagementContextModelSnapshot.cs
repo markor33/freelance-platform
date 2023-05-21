@@ -45,6 +45,37 @@ namespace JobManagement.Infrastructure.Migrations
                     b.ToTable("Answers", (string)null);
                 });
 
+            modelBuilder.Entity("JobManagement.Domain.AggregatesModel.JobAggregate.Entities.Contract", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<Guid>("ClientId")
+                        .HasColumnType("uuid");
+
+                    b.Property<DateTime?>("Finished")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<Guid>("FreelancerId")
+                        .HasColumnType("uuid");
+
+                    b.Property<Guid>("JobId")
+                        .HasColumnType("uuid");
+
+                    b.Property<DateTime>("Started")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<int>("Status")
+                        .HasColumnType("integer");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("JobId");
+
+                    b.ToTable("Contracts", (string)null);
+                });
+
             modelBuilder.Entity("JobManagement.Domain.AggregatesModel.JobAggregate.Entities.Profession", b =>
                 {
                     b.Property<Guid>("Id")
@@ -245,6 +276,41 @@ namespace JobManagement.Infrastructure.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("JobManagement.Domain.AggregatesModel.JobAggregate.Entities.Contract", b =>
+                {
+                    b.HasOne("JobManagement.Domain.AggregatesModel.JobAggregate.Job", null)
+                        .WithMany("Contracts")
+                        .HasForeignKey("JobId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.OwnsOne("JobManagement.Domain.AggregatesModel.JobAggregate.ValueObjects.Payment", "Payment", b1 =>
+                        {
+                            b1.Property<Guid>("ContractId")
+                                .HasColumnType("uuid");
+
+                            b1.Property<float>("Amount")
+                                .HasColumnType("real");
+
+                            b1.Property<string>("Currency")
+                                .IsRequired()
+                                .HasColumnType("text");
+
+                            b1.Property<int>("Type")
+                                .HasColumnType("integer");
+
+                            b1.HasKey("ContractId");
+
+                            b1.ToTable("Contracts");
+
+                            b1.WithOwner()
+                                .HasForeignKey("ContractId");
+                        });
+
+                    b.Navigation("Payment")
+                        .IsRequired();
+                });
+
             modelBuilder.Entity("JobManagement.Domain.AggregatesModel.JobAggregate.Entities.Proposal", b =>
                 {
                     b.HasOne("JobManagement.Domain.AggregatesModel.JobAggregate.Job", null)
@@ -364,6 +430,8 @@ namespace JobManagement.Infrastructure.Migrations
 
             modelBuilder.Entity("JobManagement.Domain.AggregatesModel.JobAggregate.Job", b =>
                 {
+                    b.Navigation("Contracts");
+
                     b.Navigation("Proposals");
 
                     b.Navigation("Questions");

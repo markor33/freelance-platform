@@ -15,6 +15,6 @@ export class Proposal {
 export enum ProposalStatus {
     SENT,
     INTERVIEW,
-    CLIENT_ACCEPTED,
-    ACCEPTED
+    CLIENT_APPROVED,
+    FREELANCER_APPROVED
 }

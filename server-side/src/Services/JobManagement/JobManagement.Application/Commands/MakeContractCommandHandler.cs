@@ -1,0 +1,38 @@
+﻿using EventBus.Abstractions;
+using FluentResults;
+using JobManagement.Application.Notifications;
+using JobManagement.Domain.AggregatesModel.JobAggregate;
+using MediatR;
+
+namespace JobManagement.Application.Commands
+{
+    public class MakeContractCommandHandler : IRequestHandler<MakeContractCommand, Result>
+    {
+        private readonly IJobRepository _jobRepository;
+        private readonly IEventBus _eventBus;
+
+        public MakeContractCommandHandler(
+            IJobRepository jobRepository,
+            IEventBus eventBus)
+        {
+            _jobRepository = jobRepository;
+            _eventBus = eventBus;
+        }
+
+        public async Task<Result> Handle(MakeContractCommand request, CancellationToken cancellationToken)
+        {
+            var job = await _jobRepository.GetByIdAsync(request.JobId);
+            if (job is null)
+                return Result.Fail("Job does not exist");
+
+            var contract = job.MakeContract(request.ProposalId).Value;
+
+            await _jobRepository.UnitOfWork.SaveEntitiesAsync();
+
+            var notification = new ContractMadeNotification(contract.Id, job.Id, job.Title, request.ProposalId, job.ClientId);
+            _eventBus.Publish(notification);
+
+            return Result.Ok();
+        }
+    }
+}

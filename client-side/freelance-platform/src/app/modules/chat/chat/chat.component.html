@@ -16,7 +16,7 @@
         <div class="job-info">
             <span (click)="openJobDialog()">{{activeChat?.jobTitle}}</span>
             <span class="spacer"></span>
-            <span *ngIf="activeChat !== null" (click)="openProposalDialog()">Show proposal</span>
+            <span *ngIf="activeChat !== null && activeChat.contractId === null" (click)="openProposalDialog()">Show proposal</span>
         </div>
         <div class="chat-messages">
             <div class="message" *ngFor="let message of messages">

@@ -57,6 +57,10 @@ export class ProposalService {
     return this.httpClient.put<any>(`api/job/job/${editProposalPaymentCommand.jobId}/proposal/${editProposalPaymentCommand.proposalId}/payment`, editProposalPaymentCommand);
   }
 
+  clientApprove(jobId: string, proposalId: string): Observable<any> {
+    return this.httpClient.put<any>(`api/job/job/${jobId}/proposal/${proposalId}/status/approved`, {});
+  }
+
   isConfirmed(id: string): void {
     const intervalId = setInterval(() => {
       this.get(id).subscribe({

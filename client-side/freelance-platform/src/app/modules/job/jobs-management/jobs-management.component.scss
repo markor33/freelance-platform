@@ -38,10 +38,9 @@ tr.mat-mdc-row:hover {
     border-right: 1px solid black; 
 }
 
-.proposals, .interviewing {
+.proposals, .interviewing, .activeContracts {
     text-align: center;
     border-right: 1px solid black; 
-    width: 5%;
 }
 
 .job-actions {
@@ -54,4 +53,8 @@ tr.mat-mdc-row:hover {
 
 mat-paginator {
     margin-top: 2%;
+}
+
+.done-button {
+    background-color: green;
 }

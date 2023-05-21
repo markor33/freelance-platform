@@ -1,4 +1,5 @@
 ﻿using JobManagement.Domain.AggregatesModel.JobAggregate;
+using JobManagement.Domain.AggregatesModel.JobAggregate.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
@@ -32,6 +33,8 @@ namespace JobManagement.Infrastructure.EntityConfiguration
 
             builder.HasMany(x => x.Skills)
                 .WithMany(s => s.Jobs);
+
+            builder.HasMany(x => x.Contracts).WithOne().IsRequired();
         }
     }
 }

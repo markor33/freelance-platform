@@ -1,15 +1,15 @@
 import { Component, ViewChild } from '@angular/core';
 import { JobService } from '../services/job.service';
-import { Job } from '../models/job.model';
+import { Job, JobStatus } from '../models/job.model';
 import { MatDialog } from '@angular/material/dialog';
 import { CreateJobDialogComponent } from '../create-job-dialog/create-job-dialog.component';
 import { JobInfoDialogComponent } from './dialogs/job-info-dialog/job-info-dialog.component';
 import { SnackBarsService } from '../../shared/services/snack-bars.service';
-import { DeleteConfirmationDialogComponent } from '../../shared/dialogs/delete-confirmation-dialog/delete-confirmation-dialog.component';
 import { Router } from '@angular/router';
 import { EnumConverter } from '../../shared/utils/enum-string-converter.util';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatSort } from '@angular/material/sort';
+import { ConfirmationDialogComponent } from '../../shared/dialogs/confirmation-dialog/confirmation-dialog.component';
 
 @Component({
   selector: 'app-jobs-management',
@@ -21,7 +21,7 @@ export class JobsManagementComponent {
   public hoveredRow: any = null;
 
   public jobs: MatTableDataSource<any> = new MatTableDataSource();
-  public displayedColumns: string[] = ['title', 'numOfProposals', 'interviewing', 'status', 'actions'];
+  public displayedColumns: string[] = ['title', 'numOfProposals', 'interviewing', 'status', 'activeContracts', 'actions'];
 
   @ViewChild(MatSort) sort!: MatSort;
 
@@ -33,7 +33,7 @@ export class JobsManagementComponent {
     public enumConverter: EnumConverter) { }
 
   ngAfterViewInit() {
-    console.log(this.sort);
+    console.log(this.jobs.data);
     this.jobs.sort = this.sort;
   }
 
@@ -67,17 +67,29 @@ export class JobsManagementComponent {
     this.router.navigate(['/job', job.id, 'proposal-management']);
   }
 
-  deleteJob(job: Job) {
-    const confirmDialog = this.dialog.open(DeleteConfirmationDialogComponent, {
-      width: "20%",
-      height: "15%"
-    });
+  jobDone(job: Job) {
+    const confirmDialog = ConfirmationDialogComponent.open(this.dialog, 'You are about to mark your job as done.');
     confirmDialog.afterClosed().subscribe((res) => {
-      console.log(res);
+      if (!res)
+        return;
+      this.jobService.done(job.id).subscribe({
+        complete: () => {
+          this.snackBarService.primary('Job is done');
+          job.status = JobStatus.DONE;
+        },
+        error: (err) => this.snackBarService.error(err.error[0])
+      });
+    });
+  }
+
+  deleteJob(job: Job) {
+    const confirmDialog = ConfirmationDialogComponent.open(this.dialog, 'You are about to delete your job.');
+    confirmDialog.afterClosed().subscribe((res) => {
       if (!res)
         return;
       this.jobService.delete(job.id).subscribe({
-        complete: () => this.jobDeletedSuccessfully(job)
+        complete: () => this.jobDeletedSuccessfully(job),
+        error: (err) => this.snackBarService.error(err.error[0])
       });
     });
   }

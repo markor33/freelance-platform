@@ -20,7 +20,7 @@ export class ProposalSubmittedNotificationHandler implements NotificationHandler
     getContent(data: ProposalSubmittedNotification): NotificationContent {
         return {
             title: 'New proposal submitted',
-            description: `Your job '${data.JobName}' has new proposal`
+            description: `Your job '${data.JobName}' has a new proposal`
         }
     }
 

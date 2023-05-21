@@ -105,6 +105,7 @@ app.UseAuthorization();
 app.MapControllers();
 app.MapGrpcService<ProposalGrpcService>();
 app.MapGrpcService<JobGrpcService>();
+app.MapGrpcService<ContractGrpcService>();
 
 app.Run();
 

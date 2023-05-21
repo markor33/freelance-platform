@@ -13,6 +13,7 @@ namespace JobManagement.Infrastructure
         public DbSet<Proposal> Proposals { get; set; }
         public DbSet<Profession> Professions { get; set; }
         public DbSet<Skill> Skills { get; set; }
+        public DbSet<Contract> Contracts { get; set; }
 
         public JobManagementContext(DbContextOptions<JobManagementContext> options) : base(options) { }
 

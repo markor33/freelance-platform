@@ -89,6 +89,9 @@ builder.Services.AddSingleton(typeof(IActiveUsersService), typeof(ActiveUsersSer
 builder.Services.AddScoped<ProposalSubmittedNotificationHandler>();
 builder.Services.AddScoped<InterviewStageStartedNotificationHandler>();
 builder.Services.AddScoped<ProposalPaymentChangedNotificationHandler>();
+builder.Services.AddScoped<ProposalApprovedNotificationHandler>();
+builder.Services.AddScoped<ContractMadeNotificationHandler>();
+builder.Services.AddScoped<ContractFinishedNotificationHandler>();
 
 builder.Services.AddGrpc(options =>
 {
@@ -111,6 +114,9 @@ var eventBus = app.Services.GetRequiredService<IEventBus>();
 eventBus.Subscribe<ProposalSubmittedNotification, ProposalSubmittedNotificationHandler>();
 eventBus.Subscribe<InterviewStageStartedNotification, InterviewStageStartedNotificationHandler>();
 eventBus.Subscribe<ProposalPaymentChangedNotification, ProposalPaymentChangedNotificationHandler>();
+eventBus.Subscribe<ProposalApprovedNotification, ProposalApprovedNotificationHandler>();
+eventBus.Subscribe<ContractMadeNotification, ContractMadeNotificationHandler>();
+eventBus.Subscribe<ContractFinishedNotification, ContractFinishedNotificationHandler>();
 
 if (app.Environment.IsDevelopment())
 {

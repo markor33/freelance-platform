@@ -1,5 +1,5 @@
 import { Component, Inject } from '@angular/core';
-import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { Job } from '../../../models/job.model';
 import { EnumConverter } from 'src/app/modules/shared/utils/enum-string-converter.util';
 import { JobService } from '../../../services/job.service';
@@ -18,6 +18,14 @@ export class JobInfoDialogComponent {
     @Inject(MAT_DIALOG_DATA) public data: { jobId: string },
     private jobService: JobService) {
       this.jobService.get(data.jobId).subscribe((job) => this.job = job)
+  }
+
+  static open(dialog: MatDialog, jobId: string): MatDialogRef<JobInfoDialogComponent> {
+    return dialog.open(JobInfoDialogComponent, {
+      width: '50%',
+      height: '80%',
+      data: { jobId: jobId }
+    });
   }
 
 }

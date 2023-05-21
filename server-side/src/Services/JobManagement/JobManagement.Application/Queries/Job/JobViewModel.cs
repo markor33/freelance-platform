@@ -14,6 +14,7 @@ namespace JobManagement.Application.Queries
         public int Credits { get; private init; }
         public int NumOfProposals { get; set; }
         public int CurrentlyInterviewing { get; set; }
+        public int NumOfActiveContracts { get; set; }
         public JobStatus Status { get; private set; }
         public List<QuestionViewModel> Questions { get; private init; }
         public ProfessionViewModel Profession { get; set; }

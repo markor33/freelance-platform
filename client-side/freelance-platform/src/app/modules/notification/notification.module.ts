@@ -9,6 +9,9 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatDialogModule } from '@angular/material/dialog';
 import { InterviewStageStartedNotificationHandler } from './handlers/InterviewStageStarted/interview-stage-started-notification.handler';
 import { ProposalPaymentChangedNotificationHandler } from './handlers/ProposalPaymentChanged/proposal-payment-changed-notification.handler';
+import { ProposalApprovedNotificationHandler } from './handlers/ProposalApproved/proposal-approved-notification.handler';
+import { ContractMadeNotificationHandler } from './handlers/ContractMade/contract-made-notification.handler';
+import { ContractFinishedNotificationHandler } from './handlers/ContractFinished/contract-finished-notification.handler';
 
 @NgModule({
   declarations: [
@@ -27,7 +30,10 @@ import { ProposalPaymentChangedNotificationHandler } from './handlers/ProposalPa
   providers: [
     { provide: NOTIFICATION_HANDLER_TOKEN, useClass: ProposalSubmittedNotificationHandler, multi: true },
     { provide: NOTIFICATION_HANDLER_TOKEN, useClass: InterviewStageStartedNotificationHandler, multi: true },
-    { provide: NOTIFICATION_HANDLER_TOKEN, useClass: ProposalPaymentChangedNotificationHandler, multi: true }
+    { provide: NOTIFICATION_HANDLER_TOKEN, useClass: ProposalPaymentChangedNotificationHandler, multi: true },
+    { provide: NOTIFICATION_HANDLER_TOKEN, useClass: ProposalApprovedNotificationHandler, multi: true },
+    { provide: NOTIFICATION_HANDLER_TOKEN, useClass: ContractMadeNotificationHandler, multi: true },
+    { provide: NOTIFICATION_HANDLER_TOKEN, useClass: ContractFinishedNotificationHandler, multi: true }
   ]
 })
 export class NotificationModule { }

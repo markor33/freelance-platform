@@ -1,4 +1,5 @@
 ﻿using JobManagement.API.Extensions;
+using JobManagement.API.Security.AuthorizationFilters;
 using JobManagement.Application.Commands;
 using JobManagement.Application.Queries;
 using Microsoft.AspNetCore.Authorization;
@@ -39,8 +40,19 @@ namespace JobManagement.API.Controllers
             return Ok(_mapper.Map<JobViewModel>(commandResult.Value));
         }
 
+        [HttpPut("{id}/status/done")]
+        [Authorize(Roles = "CLIENT"), JobOwnerAuthorization]
+        public async Task<ActionResult> Done(Guid id)
+        {
+            var command = new JobDoneCommand(id);
+            var commandResult = await _mediator.Send(command);
+            if (commandResult.IsFailed)
+                return BadRequest(commandResult.Errors.ToStringList());
+            return Ok();
+        }
+
         [HttpDelete("{id}")]
-        [Authorize(Roles = "CLIENT")]
+        [Authorize(Roles = "CLIENT"), JobOwnerAuthorization]
         public async Task<ActionResult> Delete(Guid id)
         {
             var commandResult = await _mediator.Send(new DeleteJobCommand(id));

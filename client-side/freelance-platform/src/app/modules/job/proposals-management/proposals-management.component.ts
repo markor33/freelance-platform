@@ -37,7 +37,6 @@ export class ProposalsManagementComponent {
   }
 
   ngAfterViewInit() {
-    console.log(this.sort);
     this.proposals.sort = this.sort;
   }
 
@@ -47,19 +46,11 @@ export class ProposalsManagementComponent {
   }
     
   openJobInfoDialog() {
-    this.dialog.open(JobInfoDialogComponent, {
-      width: '50%',
-      height: '80%',
-      data: { jobId: this.job.id }
-    });
+    JobInfoDialogComponent.open(this.dialog, this.job.id);
   }
 
   openProposalInfoDialog(proposal: Proposal) {
-    this.dialog.open(ProposalInfoDialogComponent, {
-      width: '50%',
-      height: '80%',
-      data: { jobId: this.job.id, proposalId: proposal.id }
-    })
+    ProposalInfoDialogComponent.open(this.dialog, this.job.id, proposal.id);
   }
 
   openFreelancerProfile(freelancerId: string) {

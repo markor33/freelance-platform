@@ -48,6 +48,10 @@ builder.Services.AddGrpcClient<Proposal.ProposalClient>((services, options) =>
 {
     options.Address = new Uri("http://host.docker.internal:51001");
 });
+builder.Services.AddGrpcClient<Contract.ContractClient>((services, options) =>
+{
+    options.Address = new Uri("http://host.docker.internal:51001");
+});
 builder.Services.AddGrpcClient<ChatService.ChatServiceClient>((services, options) =>
 {
     options.Address = new Uri("http://host.docker.internal:62001");
@@ -57,6 +61,7 @@ builder.Services.AddTransient(typeof(IClientProfileService), typeof(ClientProfil
 builder.Services.AddTransient(typeof(IFreelancerProfileService), typeof(FreelancerProfileService));
 builder.Services.AddTransient(typeof(IJobManagementService), typeof(JobManagementService));
 builder.Services.AddTransient(typeof(IProposalService), typeof(ProposalService));
+builder.Services.AddTransient(typeof(IContractService), typeof(ContractService));
 builder.Services.AddTransient(typeof(IIdentityService), typeof(IdentityService));
 
 var app = builder.Build();

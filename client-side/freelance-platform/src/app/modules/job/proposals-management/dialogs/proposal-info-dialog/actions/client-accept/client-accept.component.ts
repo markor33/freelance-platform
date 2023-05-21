@@ -1,10 +1,10 @@
 import { Component, Input } from '@angular/core';
-import { MatDialogRef } from '@angular/material/dialog';
+import { MatDialog } from '@angular/material/dialog';
 import { EditProposalPaymentCommand } from 'src/app/modules/job/models/commands/edit-proposal-payment-command-model';
 import { Payment } from 'src/app/modules/job/models/payment.model';
-import { Proposal } from 'src/app/modules/job/models/proposal.model';
+import { Proposal, ProposalStatus } from 'src/app/modules/job/models/proposal.model';
 import { ProposalService } from 'src/app/modules/job/services/proposal.service';
-import { ProposalInfoDialogComponent } from '../../proposal-info-dialog.component';
+import { ConfirmationDialogComponent } from 'src/app/modules/shared/dialogs/confirmation-dialog/confirmation-dialog.component';
 import { SnackBarsService } from 'src/app/modules/shared/services/snack-bars.service';
 
 @Component({
@@ -23,8 +23,8 @@ export class ClientAcceptComponent {
 
   constructor(
     private proposalService: ProposalService,
-    private snackBarService: SnackBarsService,
-    private dialogRef: MatDialogRef<ProposalInfoDialogComponent>) { }
+    private dialog: MatDialog,
+    private snackBarService: SnackBarsService) { }
 
   ngOnInit() {
     this.payment = {...this.proposal.payment};
@@ -38,6 +38,18 @@ export class ClientAcceptComponent {
       this.snackBarService.primary('Proposals payment successfully changed');
       this.proposal.payment = this.payment;
     });
+  }
+
+  accept() {
+    const confirmDialog = ConfirmationDialogComponent.open(this.dialog, 'You are about to approve the proposal.');
+    confirmDialog.afterClosed().subscribe((res) => {
+      if (!res)
+        return;
+      this.proposalService.clientApprove(this.jobId, this.proposal.id).subscribe(() => {
+        this.snackBarService.primary('Proposal approved successfully');
+        this.proposal.status = ProposalStatus.CLIENT_APPROVED;
+      });
+  })
   }
   
 }

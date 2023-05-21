@@ -4,7 +4,7 @@
     {
         SENT,
         INTERVIEW,
-        CLIENT_ACCEPTED,
-        ACCEPTED
+        CLIENT_APPROVED,
+        FREELANCER_APPROVED
     }
 }

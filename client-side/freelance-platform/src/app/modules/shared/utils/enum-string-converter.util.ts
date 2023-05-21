@@ -3,6 +3,7 @@ import { PaymentType } from "../../job/models/payment.model";
 import { ExperienceLevel } from "../models/experience-level.model";
 import { JobStatus } from "../../job/models/job.model";
 import { ProposalStatus } from "../../job/models/proposal.model";
+import { ContractStatus } from "../../contract/models/contract.model";
 
 @Injectable({
     providedIn: 'root'
@@ -48,10 +49,21 @@ export class EnumConverter {
                 return 'Sent';
             case ProposalStatus.INTERVIEW:
                 return 'Interview';
-            case ProposalStatus.CLIENT_ACCEPTED:
-                return 'Client accepted';
-            case ProposalStatus.ACCEPTED:
-                return 'Accepted';
+            case ProposalStatus.CLIENT_APPROVED:
+                return 'Approved';
+            case ProposalStatus.FREELANCER_APPROVED:
+                return 'Contract';
+        }
+    }
+
+    contractStatusToString(contractStatus: ContractStatus): string {
+        switch(contractStatus) {
+            case ContractStatus.ACTIVE:
+                return 'Active';
+            case ContractStatus.FINISHED:
+                return 'Finished';
+            case ContractStatus.TERMINATED:
+                return 'Terminated';
         }
     }
 }

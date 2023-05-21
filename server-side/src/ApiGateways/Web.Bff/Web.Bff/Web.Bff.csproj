@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
@@ -27,7 +27,7 @@
 	<Protobuf Include="..\..\..\Services\FreelancerProfile\FreelancerProfile.API\Proto\freelancerProfile.proto" GrpcServices="Client" />
 	<Protobuf Include="..\..\..\Services\ClientProfile\ClientProfile.API\Proto\clientProfile.proto" GrpcServices="Client" />
 	<Protobuf Include="..\..\..\Services\JobManagement\JobManagement.API\Proto\jobManagement.proto" GrpcServices="Client" />
-	  <Protobuf Include="..\..\..\Services\NotifyChat\NotifyChat.SignalR\Proto\chat.proto" GrpcServices="Client" />
+	<Protobuf Include="..\..\..\Services\NotifyChat\NotifyChat.SignalR\Proto\chat.proto" GrpcServices="Client" />
   </ItemGroup>
 
 </Project>

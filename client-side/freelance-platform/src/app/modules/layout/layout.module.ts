@@ -12,12 +12,14 @@ import { JobModule, jobRoutes } from '../job/job.module';
 import { MatBadgeModule } from '@angular/material/badge';
 import { NotificationModule } from '../notification/notification.module';
 import { chatRoutes } from '../chat/chat.module';
+import { contractRoutes } from '../contract/contract.module';
 
 const routes: Routes = [
   { path: '', component: HomeComponent, children: [
     ...freelancerRoutes,
     ...jobRoutes,
-    ...chatRoutes
+    ...chatRoutes,
+    ...contractRoutes
   ]}
 ];
 
