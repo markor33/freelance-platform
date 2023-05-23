@@ -7,6 +7,7 @@ import { Observable } from 'rxjs';
 import { ComponentType } from '@angular/cdk/portal';
 import { NotificationService } from '../../notification/services/notification.service';
 import { ChatService } from '../../chat/services/chat.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-home',
@@ -23,7 +24,8 @@ export class HomeComponent {
   domainUserId: string = '';
 
   constructor(
-    private dialog: MatDialog, 
+    private dialog: MatDialog,
+    private router: Router,
     private authService: AuthService,
     private notificationService: NotificationService,
     private chatService: ChatService) {
@@ -42,12 +44,23 @@ export class HomeComponent {
   }
 
   ngOnInit() {
-    if (!this.authService.isLogged() || this.authService.hasDomainData())
+    if (this.authService.hasDomainData()) {
+      this.route();
       return;
+    }
     if (this.userRole === 'FREELANCER')
       this.dialog.open(CompleteRegisterDialogComponent, { width: '40%', height: '65%' });
     else
       this.dialog.open(ClientCompleteRegistrationComponent, { width: '40%', height: '65%' });
+    console.log('init');
+  }
+
+  route() {
+    console.log('asdasdasd');
+    if (this.userRole === 'FREELANCER')
+      this.router.navigate(['job']);
+    else
+      this.router.navigate(['job-management']);
   }
 
   isRegistrationComplete(profileObserver: Observable<any | null>, dialog: ComponentType<any>): void {

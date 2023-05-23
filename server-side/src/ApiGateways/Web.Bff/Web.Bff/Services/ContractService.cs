@@ -1,4 +1,5 @@
-﻿using GrpcFreelancerProfile;
+﻿using GrpcFeedbackManagement;
+using GrpcFreelancerProfile;
 using GrpcJobManagement;
 
 namespace Web.Bff.Services

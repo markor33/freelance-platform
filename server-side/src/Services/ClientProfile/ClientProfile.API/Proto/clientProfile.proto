@@ -19,4 +19,7 @@ message ClientBasicData {
 	string id = 1;
 	string firstName = 2;
 	string lastName = 3;
+	string timeZoneID = 4;
+	string country = 5;
+	string city = 6;
 }

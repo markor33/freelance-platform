@@ -26,7 +26,8 @@ export class ApplyDialogComponent {
     @Inject(MAT_DIALOG_DATA) public data: { job: Job },
     private dialogRef: MatDialogRef<ApplyDialogComponent>,
     private proposalService: ProposalService,
-    private snackBars: SnackBarsService) {
+    private snackBars: SnackBarsService,
+    public enumConverter: EnumConverter) {
     this.job = data.job;
     this.createProposalCommand.payment = { ...this.job.payment };
     this.createProposalCommand.jobId = this.job.id;

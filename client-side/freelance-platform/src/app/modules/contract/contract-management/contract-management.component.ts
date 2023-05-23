@@ -9,6 +9,7 @@ import { EnumConverter } from '../../shared/utils/enum-string-converter.util';
 import { Contract, ContractStatus } from '../models/contract.model';
 import { SnackBarsService } from '../../shared/services/snack-bars.service';
 import { ConfirmationDialogComponent } from '../../shared/dialogs/confirmation-dialog/confirmation-dialog.component';
+import { FeedbackDialogComponent } from '../../feedback/dialogs/feedback-dialog/feedback-dialog.component';
 
 @Component({
   selector: 'app-contract-management',
@@ -24,7 +25,7 @@ export class ContractManagementComponent {
   @ViewChild(MatSort) sort!: MatSort;
 
   public hoveredRow: any = null;
-  public displayedColumns: string[] = ['actions', 'freelancer', 'status', 'started', 'finished', 'payment'];
+  public displayedColumns: string[] = ['actions', 'freelancer', 'status', 'started', 'finished', 'payment', 'feedback'];
 
   constructor(
     private contractService: ContractService,
@@ -60,6 +61,10 @@ export class ContractManagementComponent {
 
   openJobInfoDialog() {
     JobInfoDialogComponent.open(this.dialog, this.jobId);
+  }
+
+  openFeedbackDialog(jobId: string, jobTitle: string, contractId: string) {
+    FeedbackDialogComponent.open(this.dialog, jobId, jobTitle, contractId);
   }
 
 }

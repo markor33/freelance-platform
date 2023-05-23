@@ -26,11 +26,13 @@ import { MatSortModule } from '@angular/material/sort';
 import { StartContactComponent } from './proposals-management/dialogs/proposal-info-dialog/actions/start-contact/start-contact.component';
 import { ClientAcceptComponent } from './proposals-management/dialogs/proposal-info-dialog/actions/client-accept/client-accept.component';
 import { FreelancerAcceptComponent } from './proposals-management/dialogs/proposal-info-dialog/actions/freelancer-accept/freelancer-accept.component';
+import { AuthGuard } from '../auth/helpers/auth.guard';
+import { RoleGuard } from '../auth/helpers/role.guard';
 
 export const jobRoutes: Routes = [
-  { path: 'job', component: JobSearchComponent },
-  { path: 'job-management', component: JobsManagementComponent },
-  { path: 'job/:id/proposal-management', component: ProposalsManagementComponent }
+  { path: 'job', component: JobSearchComponent, canActivate: [AuthGuard, RoleGuard], data: { roles: ['FREELANCER']} },
+  { path: 'job-management', component: JobsManagementComponent, canActivate: [AuthGuard, RoleGuard], data: { roles: ['CLIENT']} },
+  { path: 'job/:id/proposal-management', component: ProposalsManagementComponent, canActivate: [AuthGuard, RoleGuard], data: { roles: ['CLIENT']} }
 ]
 
 @NgModule({

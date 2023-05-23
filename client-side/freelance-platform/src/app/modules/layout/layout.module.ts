@@ -13,6 +13,7 @@ import { MatBadgeModule } from '@angular/material/badge';
 import { NotificationModule } from '../notification/notification.module';
 import { chatRoutes } from '../chat/chat.module';
 import { contractRoutes } from '../contract/contract.module';
+import { AuthGuard } from '../auth/helpers/auth.guard';
 
 const routes: Routes = [
   { path: '', component: HomeComponent, children: [
@@ -20,7 +21,8 @@ const routes: Routes = [
     ...jobRoutes,
     ...chatRoutes,
     ...contractRoutes
-  ]}
+  ],
+    canActivate: [AuthGuard]}
 ];
 
 @NgModule({

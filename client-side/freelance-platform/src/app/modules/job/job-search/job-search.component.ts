@@ -4,6 +4,7 @@ import { Job } from '../models/job.model';
 import { MatDialog } from '@angular/material/dialog';
 import { ApplyDialogComponent } from '../apply-dialog/apply-dialog.component';
 import { CreateJobDialogComponent } from '../create-job-dialog/create-job-dialog.component';
+import { EnumConverter } from '../../shared/utils/enum-string-converter.util';
 
 @Component({
   selector: 'app-job-search',
@@ -14,7 +15,10 @@ export class JobSearchComponent {
 
   jobs: Job[] = [];
 
-  constructor(private jobService: JobService, private dialog: MatDialog) { }
+  constructor(
+    private jobService: JobService, 
+    private dialog: MatDialog,
+    public enumConverter: EnumConverter) { }
 
   ngOnInit() {
     this.jobService.getAll().subscribe({

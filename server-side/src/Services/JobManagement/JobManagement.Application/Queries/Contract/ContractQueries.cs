@@ -76,14 +76,5 @@ namespace JobManagement.Application.Queries
             return contracts.ToList();
         }
 
-        public async Task<int> GetNumOfActiveContracts(Guid jobId)
-        {
-            var numOfActiveContracts = await _dbConnection.QueryFirstOrDefaultAsync<int>(
-                @"SELECT COUNT(*)
-                    FROM ""Contracts"" c
-                    WHERE c.""Status"" = 0 AND c.""JobId"" = @jobId",
-                new { jobId });
-            return numOfActiveContracts;
-        }
     }
 }

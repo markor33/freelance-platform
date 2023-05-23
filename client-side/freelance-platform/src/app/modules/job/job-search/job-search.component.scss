@@ -2,6 +2,12 @@
 
 $my-palette: mat.define-palette(mat.$indigo-palette);
 
+.icon-text-align {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
 .container {
     display: flex;
     flex-direction: column;
@@ -10,13 +16,31 @@ $my-palette: mat.define-palette(mat.$indigo-palette);
 .job {
     display: flex;
     flex-direction: column;
-    padding: 2%;
+    padding-left: 1%;
+    padding-right: 1%;
+    padding-bottom: 1%;
     margin-bottom: 2%;
     border: solid 1px mat.get-color-from-palette($my-palette);
     border-radius: 1%;
 }
 
+.title {
+    padding-left: 1%;
+    display: flex;
+    align-items: center;
+    align-content: center;
+}
+
+.title .spacer {
+    flex-grow: 1;
+}
+
+.title .date {
+    color: grey;
+}
+
 .job .description {
+    padding-left: 1%;
     white-space: pre-line;
 }
 
@@ -28,4 +52,53 @@ $my-palette: mat.define-palette(mat.$indigo-palette);
 
 .job .apply-button button {
     font-size: large;
+}
+
+.payment-experience-level {
+    padding-left: 1%;
+    display: flex;
+    flex-direction: row;
+    gap: 5%;
+}
+
+mat-divider {
+    margin-top: 1%;
+    margin-bottom: 1%;
+}
+
+.proposals {
+    padding-left: 1%;
+    display: flex;
+    gap: 2%;
+}
+
+.client {
+    padding-left: 1%;
+    width: 100%;
+    display: flex;
+    gap: 1%;
+    align-content: center;
+    align-items: center;
+}
+
+.client mat-divider {
+    margin-left: 1%;
+}
+
+.rating {
+    width: 15%;
+    display: flex;
+    align-content: center;
+    align-items: center;
+}
+
+.rating span {
+    white-space: nowrap;
+}
+
+.rating div {
+    display: flex;
+    flex-direction: row;
+    margin-left: 5%;
+    gap: 1%;
 }

@@ -57,10 +57,21 @@
             <h2>{{freelancer.profileSummary.title}}</h2>
             <div class="description">{{freelancer.profileSummary.description}}</div>
         </div>
+        <div class="feedbacks">
+            <h2>Feedbacks:</h2>&nbsp;
+            <div class="feedback" *ngFor="let feedback of feedbacks; let last = last">
+                <h3><a (click)="openJobInfoDialog(feedback.jobId)">{{feedback.jobTitle}}</a></h3>
+                <div class="rating">
+                    <mat-icon *ngFor="let index of getRange(feedback.rating)" color="primary">grade</mat-icon>
+                </div>
+                <span>{{feedback.text}}</span>
+                <mat-divider *ngIf="!last"></mat-divider>
+            </div>
+        </div>
         <div class="education">
             <span class="title icon-text-align">
                 <h2>Education:</h2>&nbsp;
-                <button mat-icon-button color="primary" (click)="openAddEducationDialog()">
+                <button mat-icon-button color="primary" *ngIf="role === 'FREELANCER'" (click)="openAddEducationDialog()">
                     <mat-icon>add_circle</mat-icon>
                 </button>
             </span>
@@ -78,7 +89,7 @@
         <div class="certification">
             <span class="title icon-text-align">
                 <h2>Certification:</h2>&nbsp;
-                <button mat-icon-button color="primary" (click)="openAddCertificationDialog()">
+                <button mat-icon-button color="primary" *ngIf="role === 'FREELANCER'" (click)="openAddCertificationDialog()">
                     <mat-icon>add_circle</mat-icon>
                 </button>
             </span>
@@ -96,7 +107,7 @@
         <div class="skill">
             <span class="title icon-text-align">
                 <h2>Skills:</h2>&nbsp;
-                <button mat-icon-button color="primary" (click)="openAddSkillDialog()">
+                <button mat-icon-button color="primary" *ngIf="role === 'FREELANCER'" (click)="openAddSkillDialog()">
                     <mat-icon>add_circle</mat-icon>
                 </button>
             </span>
@@ -109,7 +120,7 @@
         <div class="employment">
             <span class="title icon-text-align">
                 <h2>Employment:</h2>&nbsp;
-                <button mat-icon-button color="primary" (click)="openAddEmploymentDialog()">
+                <button mat-icon-button color="primary" *ngIf="role === 'FREELANCER'" (click)="openAddEmploymentDialog()">
                     <mat-icon>add_circle</mat-icon>
                 </button>
             </span>

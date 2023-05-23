@@ -4,6 +4,21 @@
         <h3>{{job.title}}</h3>
         <div class="description">{{job.description}}</div>
         <mat-divider></mat-divider>
+        <div class="skills">
+            <h3>Skills and Expertise:</h3>
+            <div>
+                <span class="icon-text-align">
+                    <mat-icon>bolt</mat-icon>&nbsp;
+                    <b>Experience level:</b>&nbsp;<span>{{enumConverter.experienceLevelToString(job.experienceLevel)}}</span>
+                </span>
+            </div>
+            <div class="skill-content">
+                <mat-chip-listbox>
+                    <mat-chip *ngFor="let skill of job.skills">{{skill.name}}</mat-chip>
+                </mat-chip-listbox>
+            </div>
+        </div>
+        <mat-divider></mat-divider>
         <div class="payment-experience-level">
             <div class="payment">
                 <span class="icon-text-align">

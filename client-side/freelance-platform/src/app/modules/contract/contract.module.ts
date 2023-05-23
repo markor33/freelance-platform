@@ -7,10 +7,12 @@ import { MatTableModule } from '@angular/material/table';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MyContractsComponent } from './my-contracts/my-contracts.component';
+import { AuthGuard } from '../auth/helpers/auth.guard';
+import { RoleGuard } from '../auth/helpers/role.guard';
 
 export const contractRoutes: Routes = [
-  { path: 'job/:id/contract-management', component: ContractManagementComponent },
-  { path: 'my-contracts', component: MyContractsComponent }
+  { path: 'job/:id/contract-management', component: ContractManagementComponent, canActivate: [AuthGuard, RoleGuard], data: { roles: ['CLIENT']} },
+  { path: 'my-contracts', component: MyContractsComponent, canActivate: [AuthGuard] }
 ];
 
 @NgModule({

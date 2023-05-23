@@ -9,6 +9,7 @@ export class Proposal {
     created: Date = new Date();
     freelancerId: string = '';
     freelancer: any;
+    freelancerAverageRating: number = 0;
     answers: Answer[] = [];
 }
 

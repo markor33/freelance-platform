@@ -9,9 +9,8 @@ $my-palette: mat.define-palette(mat.$indigo-palette);
 }
 
 .container {
-    width: 70%;
+    width: 100%;
     height: 100%;
-    margin-left: 15%;
     border: solid 1px;
     border-radius: 1%;
     border-color: mat.get-color-from-palette($my-palette);
@@ -33,7 +32,6 @@ $my-palette: mat.define-palette(mat.$indigo-palette);
     flex-direction: column;
     align-items: center;
     width: 96%;
-    // height: 350px;
     border-bottom: solid 1px mat.get-color-from-palette($my-palette);
 }
 
@@ -63,6 +61,7 @@ $my-palette: mat.define-palette(mat.$indigo-palette);
 .main-content {
     width: 75%;
     height: 100%;
+    overflow-y: scroll;
     display: flex;
     flex-direction: column;
 }
@@ -71,7 +70,8 @@ $my-palette: mat.define-palette(mat.$indigo-palette);
     position: relative;
     padding-left: 5%;
     padding-right: 5%;
-    height: 300px;
+    min-height: 300px;
+    max-height: 350px;
     overflow-y: scroll;
     border-bottom: solid 1px mat.get-color-from-palette($my-palette);
 }
@@ -80,6 +80,30 @@ $my-palette: mat.define-palette(mat.$indigo-palette);
     position: absolute;
     white-space: pre-line;
     padding-bottom: 2%;
+}
+
+.feedbacks {
+    display: flex;
+    flex-direction: column;
+    padding-left: 5%;
+    padding-right: 5%;
+    padding-bottom: 5%;
+    border-bottom: solid 1px mat.get-color-from-palette($my-palette);
+}
+
+.feedbacks a {
+    color: mat.get-color-from-palette($my-palette);
+}
+
+.feedbacks a:hover {
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.feedback {
+    display: flex;
+    flex-direction: column;
+    gap: 1%;
 }
 
 .about-me {
@@ -123,8 +147,8 @@ $my-palette: mat.define-palette(mat.$indigo-palette);
     margin-left: 0%;
 }
 
-.education-content mat-divider {
-    margin-top: 1%;
+mat-divider {
+    margin-top: 2%;
 }
 
 .certification {
@@ -132,16 +156,8 @@ $my-palette: mat.define-palette(mat.$indigo-palette);
     border-bottom: solid 1px mat.get-color-from-palette($my-palette);
 }
 
-.certification-content mat-divider {
-    margin-top: 1%;
-}
-
 .employment {
     padding: 0% 5% 5% 5%;
-}
-
-.employment-content mat-divider {
-    margin-top: 1%;
 }
 
 .skill {

@@ -21,7 +21,7 @@ export class JobsManagementComponent {
   public hoveredRow: any = null;
 
   public jobs: MatTableDataSource<any> = new MatTableDataSource();
-  public displayedColumns: string[] = ['title', 'numOfProposals', 'interviewing', 'status', 'activeContracts', 'actions'];
+  public displayedColumns: string[] = ['title', 'numOfProposals', 'interviewing', 'status', 'activeContracts', 'finishedContracts', 'actions'];
 
   @ViewChild(MatSort) sort!: MatSort;
 

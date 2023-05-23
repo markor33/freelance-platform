@@ -1,7 +1,55 @@
 <div class="container">
     <div class="job" *ngFor="let job of jobs">
-        <h2>{{job.title}}</h2>
+        <div class="title">
+            <h2>{{job.title}}</h2>
+            <span class="spacer"></span>
+            <span class="date">May 21, 2023, 22:43</span>
+        </div>
         <div class="description">{{job.description}}</div>
+        <mat-divider></mat-divider>
+        <div class="payment-experience-level">
+            <div class="payment">
+                <span class="icon-text-align">
+                    <mat-icon>payments</mat-icon>&nbsp;
+                    {{job.payment.amount + ' ' + job.payment.currency + ', ' + enumConverter.paymentTypeToString(job.payment.type)}}
+                </span>
+            </div>
+            <div class="experience-level">
+                <span class="icon-text-align">
+                    <mat-icon>bolt</mat-icon>&nbsp;
+                    {{enumConverter.experienceLevelToString(job.experienceLevel)}}
+                </span>
+            </div>
+            <div class="credits">
+                <span class="icon-text-align">
+                    <mat-icon>wallet</mat-icon>&nbsp;
+                    Credits:&nbsp;{{job.credits}}
+                </span>
+            </div>
+        </div>
+        <mat-divider></mat-divider>
+        <div class="proposals">
+            <span><b>Proposals:</b> {{job.numOfProposals}}</span>
+            <span><b>Interviewing:</b> {{job.currentlyInterviewing}}</span>
+        </div>
+        <mat-divider></mat-divider>
+        <div class="client">
+            <div class="rating">
+                <span><b>Stanislav P.</b></span>
+                <div>
+                    <mat-icon color="primary">grade</mat-icon>
+                    <mat-icon color="primary">grade</mat-icon>
+                    <mat-icon color="primary">grade</mat-icon>
+                    <mat-icon color="primary">grade</mat-icon>
+                    <mat-icon color="primary">grade</mat-icon>
+                </div>
+            </div>
+            <mat-divider vertical style="height:20px"></mat-divider>
+            <span class="icon-text-align">
+                <mat-icon>location_on</mat-icon>&nbsp;
+                Novi Sad, Serbia
+            </span>
+        </div>
         <div class="apply-button">
             <button mat-raised-button color="primary" (click)="apply(job)" >Apply</button>
         </div>

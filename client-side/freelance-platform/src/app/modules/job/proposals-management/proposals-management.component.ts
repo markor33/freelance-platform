@@ -24,7 +24,7 @@ export class ProposalsManagementComponent {
 
   @ViewChild(MatSort) sort!: MatSort;
 
-  public displayedColumns: string[] = ['freelancer', 'location', 'date', 'status'];
+  public displayedColumns: string[] = ['freelancer', 'location', 'date', 'status', 'averageRating'];
 
   constructor(
     private proposalService: ProposalService,
@@ -55,6 +55,10 @@ export class ProposalsManagementComponent {
 
   openFreelancerProfile(freelancerId: string) {
     this.router.navigate([`freelancer/profile/${freelancerId}`]);
+  }
+
+  getRange(value: number): number[] {
+    return Array(Math.floor(value)).fill(0).map((x, i) => i);
   }
 
 }

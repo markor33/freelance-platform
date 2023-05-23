@@ -41,3 +41,10 @@ services:
     ports:
       - "80"
 
+
+  feedback-management.api:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+    ports:
+      - "80"
+

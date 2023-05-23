@@ -3,9 +3,6 @@ import { Proposal } from '../../../models/proposal.model';
 import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { EnumConverter } from 'src/app/modules/shared/utils/enum-string-converter.util';
 import { ProposalService } from '../../../services/proposal.service';
-import { ChatService } from 'src/app/modules/chat/services/chat.service';
-import { SnackBarsService } from 'src/app/modules/shared/services/snack-bars.service';
-import { Router } from '@angular/router';
 import { AuthService } from 'src/app/modules/auth/services/auth.service';
 
 @Component({

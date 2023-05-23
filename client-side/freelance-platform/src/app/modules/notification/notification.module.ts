@@ -12,6 +12,7 @@ import { ProposalPaymentChangedNotificationHandler } from './handlers/ProposalPa
 import { ProposalApprovedNotificationHandler } from './handlers/ProposalApproved/proposal-approved-notification.handler';
 import { ContractMadeNotificationHandler } from './handlers/ContractMade/contract-made-notification.handler';
 import { ContractFinishedNotificationHandler } from './handlers/ContractFinished/contract-finished-notification.handler';
+import { FeedbackSubmittedNotificationHandler } from './handlers/FeedbackSubmitted/feedback-submitted-notification.handler';
 
 @NgModule({
   declarations: [
@@ -33,7 +34,8 @@ import { ContractFinishedNotificationHandler } from './handlers/ContractFinished
     { provide: NOTIFICATION_HANDLER_TOKEN, useClass: ProposalPaymentChangedNotificationHandler, multi: true },
     { provide: NOTIFICATION_HANDLER_TOKEN, useClass: ProposalApprovedNotificationHandler, multi: true },
     { provide: NOTIFICATION_HANDLER_TOKEN, useClass: ContractMadeNotificationHandler, multi: true },
-    { provide: NOTIFICATION_HANDLER_TOKEN, useClass: ContractFinishedNotificationHandler, multi: true }
+    { provide: NOTIFICATION_HANDLER_TOKEN, useClass: ContractFinishedNotificationHandler, multi: true },
+    { provide: NOTIFICATION_HANDLER_TOKEN, useClass: FeedbackSubmittedNotificationHandler, multi: true }
   ]
 })
 export class NotificationModule { }
