@@ -9,6 +9,8 @@ import { MatButtonModule } from '@angular/material/button';
 import { MyContractsComponent } from './my-contracts/my-contracts.component';
 import { AuthGuard } from '../auth/helpers/auth.guard';
 import { RoleGuard } from '../auth/helpers/role.guard';
+import { MatSortModule } from '@angular/material/sort';
+import { MatMenuModule } from '@angular/material/menu';
 
 export const contractRoutes: Routes = [
   { path: 'job/:id/contract-management', component: ContractManagementComponent, canActivate: [AuthGuard, RoleGuard], data: { roles: ['CLIENT']} },
@@ -26,6 +28,8 @@ export const contractRoutes: Routes = [
     MatTableModule,
     RouterModule,
     MatIconModule,
+    MatSortModule,
+    MatMenuModule,
     MatButtonModule
   ]
 })

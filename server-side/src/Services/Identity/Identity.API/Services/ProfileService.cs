@@ -29,18 +29,27 @@ namespace Identity.API.Services
         {
             var user = await _userManager.GetUserAsync(context.Subject);
             var role = (await _userManager.GetRolesAsync(user)).First();
-            string? domainUserId;
+            string? domainUserId = "";
             if (role == "CLIENT")
             {
                 var request = new GetClientBasicDataByUserIdRequest() { UserId = user.Id.ToString() };
-                var clientData = await _clientProfileClient.GetClientBasicDataByUserIdAsync(request);
-                domainUserId = clientData.Id;
+                try
+                {
+                    var clientData = await _clientProfileClient.GetClientBasicDataByUserIdAsync(request);
+                    domainUserId = clientData.Id;
+                }
+                catch(Exception ex) { }
             }
             else
             {
                 var request = new GetFreelancerBasicDataByUserIdRequest() { UserId = user.Id.ToString() };
-                var freelancerData = await _freelancerProfileClient.GetFreelancerBasicDataByUserIdAsync(request);
-                domainUserId = freelancerData.Id;
+                try
+                {
+
+                    var freelancerData = await _freelancerProfileClient.GetFreelancerBasicDataByUserIdAsync(request);
+                    domainUserId = freelancerData.Id;
+                }
+                catch(Exception ex) { }
             }
             var claims = new List<Claim>
             {

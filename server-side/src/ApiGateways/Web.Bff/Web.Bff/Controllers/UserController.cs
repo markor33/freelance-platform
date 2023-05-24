@@ -68,7 +68,8 @@ namespace Web.Bff.Controllers
             {
                 DomainUserId = Guid.Parse(freelancerBasicData.Id),
                 FirstName = freelancerBasicData.FirstName,
-                LastName = freelancerBasicData.LastName
+                LastName = freelancerBasicData.LastName,
+                ProfessionId = Guid.Parse(freelancerBasicData.ProfessionId)
             };
             return Result.Ok(response);
         }

@@ -3,6 +3,7 @@ using Grpc.Core;
 using GrpcJobManagement;
 using JobManagement.Application.Queries;
 using JobManagement.Domain.AggregatesModel.JobAggregate.Enums;
+using System.Reflection.Metadata.Ecma335;
 
 namespace JobManagement.API.GrpcServices
 {
@@ -29,9 +30,13 @@ namespace JobManagement.API.GrpcServices
         public override async Task<SearchJobsResponse> SearchJobs(SearchJobsRequest request, ServerCallContext context)
         {
             var filters = new JobSearchFilters();
-            if (!string.IsNullOrEmpty(request.Filters.ProfessionId)) filters.ProfessionId = Guid.Parse(request.Filters.ProfessionId);
+            filters.Professions = request.Filters.Professions.Select(prof => Guid.Parse(prof)).ToList();
+            filters.ExperienceLevels = request.Filters.Experiences.Select(exp => (ExperienceLevel)exp).ToList();
+            filters.PaymentTypes = request.Filters.Payments.Select(pay => (PaymentType)pay).ToList();
+
+            /*if (!string.IsNullOrEmpty(request.Filters.ProfessionId)) filters.ProfessionId = Guid.Parse(request.Filters.ProfessionId);
             if (request.Filters.HasExperience) filters.ExperienceLevel = (ExperienceLevel)request.Filters.Experience;
-            if (request.Filters.HasPayment) filters.PaymentType = (PaymentType)request.Filters.Payment;
+            if (request.Filters.HasPayment) filters.PaymentType = (PaymentType)request.Filters.Payment;*/
 
             var jobs = await _jobQueries.Search(request.QueryText, filters);
             var response = new SearchJobsResponse();
@@ -42,6 +47,7 @@ namespace JobManagement.API.GrpcServices
                     ClientId = job.ClientId.ToString(),
                     Title = job.Title,
                     Description = job.Description,
+                    Credits = job.Credits,
                     Created = Timestamp.FromDateTime(job.Created),
                     Payment = new Payment()
                     {

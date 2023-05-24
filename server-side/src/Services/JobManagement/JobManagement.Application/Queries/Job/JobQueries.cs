@@ -27,7 +27,7 @@ namespace JobManagement.Application.Queries
             
             if (filters is not null)
                 searchQuery = filters.ApplyFilters(searchQuery);
-            searchQuery += @" GROUP BY j.""Id""";
+            searchQuery += @" GROUP BY j.""Id"" ORDER BY j.""Created"" DESC";
 
             var jobs = await _dbConnection.QueryAsync<JobViewModel, Payment, JobViewModel>(
                 searchQuery,
@@ -36,7 +36,11 @@ namespace JobManagement.Application.Queries
                     job.Payment = payment;
                     return job;
                 },
-                new { queryText = $"%{queryText.ToLower()}%", filters.ProfessionId, filters.ExperienceLevel, filters.PaymentType },
+                new { 
+                    queryText = $"%{queryText.ToLower()}%", 
+                    filters.Professions, 
+                    ExperienceLevels = filters.ExperienceLevels.Select(x => (int)x).ToList(),
+                    PaymentTypes = filters.PaymentTypes.Select(x => (int)x).ToList() },
                 splitOn: "Amount");
 
             return await GroupJobs(jobs);

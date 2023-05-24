@@ -25,7 +25,7 @@ export class ContractManagementComponent {
   @ViewChild(MatSort) sort!: MatSort;
 
   public hoveredRow: any = null;
-  public displayedColumns: string[] = ['actions', 'freelancer', 'status', 'started', 'finished', 'payment', 'feedback'];
+  public displayedColumns: string[] = ['freelancer', 'status', 'started', 'finished', 'payment', 'feedback', 'actions'];
 
   constructor(
     private contractService: ContractService,

@@ -33,7 +33,7 @@ tr.mat-mdc-row:hover {
     border-right: 1px solid black; 
 }
 
-.proposals, .interviewing, .activeContracts, .finishedContracts {
+.proposals, .currentlyInterviewing, .numOfActiveContracts, .numOfFinishedContracts, .status {
     text-align: center;
     border-right: 1px solid black; 
 }

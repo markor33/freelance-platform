@@ -1,11 +1,9 @@
-﻿
-
-namespace Web.Bff.Models
+﻿namespace Web.Bff.Models
 {
     public class JobSearchFilters
     {
-        public Guid? ProfessionId { get; set; } = null;
-        public ExperienceLevel? ExperienceLevel { get; set; } = null;
-        public PaymentType? PaymentType { get; set; } = null;
+        public List<Guid> Professions { get; set; } = new List<Guid>();
+        public List<ExperienceLevel> ExperienceLevels { get; set; } = new List<ExperienceLevel>();
+        public List<PaymentType> PaymentTypes { get; set; } = new List<PaymentType>();
     }
 }

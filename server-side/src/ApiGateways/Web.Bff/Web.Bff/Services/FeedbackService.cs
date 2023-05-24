@@ -36,6 +36,7 @@ namespace Web.Bff.Services
         public async Task<float> GetFreelancerAverageRating(string freelancerId)
         {
             var request = new GetAverageFreelancerRatingRequest() { FreelancerId = freelancerId };
+            var response = await _feedbackClient.GetAverageFreelancerRatingAsync(request);
             return (await _feedbackClient.GetAverageFreelancerRatingAsync(request)).AverageRating; 
         }
     }

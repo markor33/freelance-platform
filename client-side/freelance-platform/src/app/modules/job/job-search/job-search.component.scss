@@ -9,8 +9,67 @@ $my-palette: mat.define-palette(mat.$indigo-palette);
 }
 
 .container {
+    width: 100%;
+    min-height: 100%;
+    display: flex;
+    gap: 2%;
+}
+
+.filters {
     display: flex;
     flex-direction: column;
+    gap: 1%;
+    width: 20%;
+}
+
+.expansion-panel-content {
+    display: flex;
+    flex-direction: column;
+}
+
+.search-container {
+    width: 80%;
+    border: solid 1px mat.get-color-from-palette($my-palette);
+    border-radius: 1%;
+}
+
+.search {
+    width: 80%;
+    height: 40px;
+    margin-top: 1%;
+    margin-left: 3%;
+    margin-bottom: 5%;
+    display: flex;
+    border: solid 1px lightgray;
+}
+
+.search input {
+    flex-grow: 1;
+    border: 0;
+    font-size: 17px;
+}
+
+.search input:focus {
+    border: 0;
+    outline: none;
+}
+
+.search-button {
+    width: 5%;
+    background-color: mat.get-color-from-palette($my-palette);;
+    display: flex;
+    justify-content: center;
+    justify-items: center;
+    align-items: center;
+    align-content: center;
+}
+
+.search-button mat-icon {
+    color: white;
+}
+
+.search-button mat-icon:hover {
+    cursor: pointer;
 }
 
 .job {
@@ -18,10 +77,13 @@ $my-palette: mat.define-palette(mat.$indigo-palette);
     flex-direction: column;
     padding-left: 1%;
     padding-right: 1%;
-    padding-bottom: 1%;
-    margin-bottom: 2%;
-    border: solid 1px mat.get-color-from-palette($my-palette);
-    border-radius: 1%;
+    padding-bottom: 3%;
+    border-bottom: solid 1px mat.get-color-from-palette($my-palette);
+}
+
+.job:hover {
+    background-color: lightgray;
+    cursor: pointer;
 }
 
 .title {
@@ -99,6 +161,5 @@ mat-divider {
 .rating div {
     display: flex;
     flex-direction: row;
-    margin-left: 5%;
     gap: 1%;
 }

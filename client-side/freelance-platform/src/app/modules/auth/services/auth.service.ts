@@ -28,7 +28,7 @@ export class AuthService {
       return;
     const userClaims = this.jwtHelper.decodeToken(userData.jwt);
     if(userData)
-      this.userSource.next(new User(userClaims.sub, userData.domainUserId, userData.firstName, userData.lastName, userClaims.role));
+      this.userSource.next(new User(userClaims.sub, userData.domainUserId, userData.firstName, userData.lastName, userClaims.role, userData.professionId));
   }
 
   login(credentials: Credentials): Observable<any> {
@@ -38,7 +38,7 @@ export class AuthService {
         map((res) => {
           localStorage.setItem('user', JSON.stringify(res));
           const userClaims = this.jwtHelper.decodeToken(res.jwt);
-          const user = new User(userClaims.sub, res.domainUserId, res.firstName, res.lastName, userClaims.role);
+          const user = new User(userClaims.sub, res.domainUserId, res.firstName, res.lastName, userClaims.role, res.professionId);
           this.userSource.next(user);
         })
       );

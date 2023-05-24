@@ -37,18 +37,6 @@
                  {{element.payment.amount + ' ' + element.payment.currency + ', ' + enumConverter.paymentTypeToString(element.payment.type)}} 
                 </td>
         </ng-container>
-        <ng-container matColumnDef="actions">
-            <th mat-header-cell *matHeaderCellDef style="width: 10%;"></th>
-            <td mat-cell *matCellDef="let element" class="contract-actions" style="width: 10%;">
-                <button class="finish-button" mat-mini-fab color="primary" title="Finish" (click)="finish(element)"
-                    *ngIf="hoveredRow === element && element.status === 0">
-                    <mat-icon>check</mat-icon>
-                </button>
-                <button mat-mini-fab color="warn" title="Terminate" *ngIf="hoveredRow === element && element.status === 0">
-                    <mat-icon>close</mat-icon>
-                </button>
-            </td>
-        </ng-container>
         <ng-container matColumnDef="feedback">
             <th mat-header-cell *matHeaderCellDef mat-sort-header> <h3>Feedback</h3> </th>
             <td mat-cell *matCellDef="let element">
@@ -56,6 +44,22 @@
                  (click)="openFeedbackDialog(element.jobId, element.jobTitle, element.id)" color="primary" mat-mini-fab title="Feedback">
                     <mat-icon>thumbs_up_down</mat-icon>
                 </button>
+            </td>
+        </ng-container>
+        <ng-container matColumnDef="actions">
+            <th mat-header-cell *matHeaderCellDef style="width: 10%;"></th>
+            <td mat-cell *matCellDef="let element" class="contract-actions" style="width: 10%;">
+                <button mat-mini-fab color="primary" [matMenuTriggerFor]="menu" *ngIf="element.status === 0" >
+                    <mat-icon>more_vert</mat-icon>
+                </button>
+                <mat-menu #menu="matMenu">
+                    <button mat-menu-item (click)="finish(element)">
+                        Finish
+                    </button>
+                    <button mat-menu-item>
+                        Terminate
+                    </button>
+                </mat-menu>
             </td>
         </ng-container>
 

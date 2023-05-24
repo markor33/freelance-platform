@@ -26,6 +26,7 @@ namespace FreelancerProfile.API.GrpcServices
                 FirstName = freelancer.FirstName,
                 LastName = freelancer.LastName,
                 ExperienceLevel = (int)freelancer.ExperienceLevel,
+                ProfessionId = freelancer.Profession.Id.ToString(),
                 TimeZoneID = freelancer.Contact.TimeZoneId,
                 Country = freelancer.Contact.Address.Country,
                 City = freelancer.Contact.Address.City
@@ -45,6 +46,7 @@ namespace FreelancerProfile.API.GrpcServices
                 FirstName = freelancer.FirstName,
                 LastName = freelancer.LastName,
                 ExperienceLevel = (int)freelancer.ExperienceLevel,
+                ProfessionId = freelancer.Profession.Id.ToString(),
                 TimeZoneID = freelancer.Contact.TimeZoneId,
                 Country = freelancer.Contact.Address.Country,
                 City = freelancer.Contact.Address.City

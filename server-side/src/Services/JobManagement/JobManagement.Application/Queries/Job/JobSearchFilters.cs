@@ -4,18 +4,24 @@ namespace JobManagement.Application.Queries
 {
     public class JobSearchFilters
     {
-        public Guid? ProfessionId { get; set; } = null;
-        public ExperienceLevel? ExperienceLevel { get; set; } = null;
-        public PaymentType? PaymentType { get; set; } = null;
+        public List<Guid> Professions { get; set; } = new List<Guid>();
+        public List<ExperienceLevel> ExperienceLevels { get; set; } = new List<ExperienceLevel>();
+        public List<PaymentType> PaymentTypes { get; set; } = new List<PaymentType>();
 
         public string ApplyFilters(string query)
         {
-            if (ProfessionId is not null)
-                query += @" AND j.""ProfessionId"" = @ProfessionId";
-            if (ExperienceLevel is not null)
-                query += @" AND j.""ExperienceLevel"" = @ExperienceLevel";
-            if (PaymentType is not null)
-                query += @" AND j.""Payment_Type"" = @PaymentType";
+            if (Professions.Count > 0)
+            {
+                query += @" AND j.""ProfessionId"" = ANY(@Professions)";
+            }
+            if (ExperienceLevels.Count > 0)
+            {
+                query += @" AND j.""ExperienceLevel"" = ANY(@ExperienceLevels)";
+            }
+            if (PaymentTypes.Count > 0)
+            {
+                query += @" AND j.""Payment_Type"" = ANY(@PaymentTypes)";
+            }
 
             return query;
         }

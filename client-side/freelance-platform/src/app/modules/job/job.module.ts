@@ -16,6 +16,7 @@ import { JobSearchComponent } from './job-search/job-search.component';
 import { JobsManagementComponent } from './jobs-management/jobs-management.component';
 import {MatTableModule} from '@angular/material/table';
 import { MatDialogModule } from '@angular/material/dialog';
+import {MatCheckboxModule} from '@angular/material/checkbox';
 import {MatPaginatorModule} from '@angular/material/paginator';
 import { JobInfoDialogComponent } from './jobs-management/dialogs/job-info-dialog/job-info-dialog.component';
 import { ProposalsManagementComponent } from './proposals-management/proposals-management.component';
@@ -28,6 +29,7 @@ import { ClientAcceptComponent } from './proposals-management/dialogs/proposal-i
 import { FreelancerAcceptComponent } from './proposals-management/dialogs/proposal-info-dialog/actions/freelancer-accept/freelancer-accept.component';
 import { AuthGuard } from '../auth/helpers/auth.guard';
 import { RoleGuard } from '../auth/helpers/role.guard';
+import { MatMenuModule } from '@angular/material/menu';
 
 export const jobRoutes: Routes = [
   { path: 'job', component: JobSearchComponent, canActivate: [AuthGuard, RoleGuard], data: { roles: ['FREELANCER']} },
@@ -59,6 +61,8 @@ export const jobRoutes: Routes = [
     MatIconModule,
     HttpClientModule,
     MatDialogModule,
+    MatCheckboxModule,
+    MatMenuModule,
     MatTableModule,
     MatPaginatorModule,
     ReactiveFormsModule,

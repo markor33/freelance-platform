@@ -32,9 +32,9 @@ namespace Web.Bff.Services
             var request = new SearchJobsRequest();
             request.QueryText = queryText ?? string.Empty;
             request.Filters = new SearchJobFilters();
-            if (filters.ProfessionId is not null) request.Filters.ProfessionId = filters.ProfessionId.ToString();
-            if (filters.ExperienceLevel is not null) request.Filters.Experience = (int)filters.ExperienceLevel;
-            if (filters.PaymentType is not null) request.Filters.Payment = (int)filters.PaymentType;
+            request.Filters.Professions.AddRange(filters.Professions.Select(x => x.ToString()).ToList());
+            request.Filters.Experiences.AddRange(filters.ExperienceLevels.Select(x => (int)x).ToList());
+            request.Filters.Payments.AddRange(filters.PaymentTypes.Select(x => (int)x).ToList());
 
             var response = await _jobClient.SearchJobsAsync(request);
             var jobs = new List<SearchJob>();

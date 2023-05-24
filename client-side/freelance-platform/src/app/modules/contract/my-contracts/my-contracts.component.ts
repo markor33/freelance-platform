@@ -22,7 +22,7 @@ export class MyContractsComponent {
   
   @ViewChild(MatSort) sort!: MatSort;
 
-  public displayedColumns: string[] = ['job', 'freelancer', 'status', 'started', 'finished', 'payment', 'feedback'];
+  public displayedColumns: string[] = ['jobTitle', 'freelancer', 'status', 'started', 'finished', 'payment', 'feedback'];
 
   constructor(
     private contractService: ContractService,
@@ -34,6 +34,10 @@ export class MyContractsComponent {
       this.userId = user?.domainId as string;
       this.role = user?.role as string;
     });
+  }
+
+  ngAfterViewInit() {
+    this.contracts.sort = this.sort;
   }
 
   ngOnInit() {

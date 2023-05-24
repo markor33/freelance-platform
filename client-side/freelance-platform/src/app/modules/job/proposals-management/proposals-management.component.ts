@@ -24,7 +24,7 @@ export class ProposalsManagementComponent {
 
   @ViewChild(MatSort) sort!: MatSort;
 
-  public displayedColumns: string[] = ['freelancer', 'location', 'date', 'status', 'averageRating'];
+  public displayedColumns: string[] = ['freelancer', 'location', 'created', 'status', 'freelancerAverageRating'];
 
   constructor(
     private proposalService: ProposalService,

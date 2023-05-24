@@ -18,9 +18,9 @@ message SearchJobsRequest {
 }
 
 message SearchJobFilters {
-	string professionId  = 1;
-	optional int32 experience = 2;
-	optional int32 payment = 3;
+	repeated string professions  = 1;
+	repeated int32 experiences = 2;
+	repeated int32 payments = 3;
 }
 
 message GetJobBasicDataRequest {
@@ -32,11 +32,12 @@ message JobDTO {
 	string clientId = 2;
 	string title = 3;
 	string description = 4;
-	Payment payment = 5;
-	int32 experienceLevel = 6;
-	int32 numOfProposals = 7;
-	int32 currentlyInterviewing = 8;
-	google.protobuf.Timestamp created = 9;
+	int32 credits = 5;
+	Payment payment = 6;
+	int32 experienceLevel = 7;
+	int32 numOfProposals = 8;
+	int32 currentlyInterviewing = 9;
+	google.protobuf.Timestamp created = 10;
 }
 
 service Proposal {

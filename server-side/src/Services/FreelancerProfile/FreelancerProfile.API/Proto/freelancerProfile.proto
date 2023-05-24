@@ -19,8 +19,9 @@ message FreelancerBasicData {
 	string id = 1;
 	string firstName = 2;
 	string lastName = 3;
-	int32 experienceLevel = 4;
-	string timeZoneID = 5;
-	string country = 6;
-	string city = 7;
+	string professionId = 4;
+	int32 experienceLevel = 5;
+	string timeZoneID = 6;
+	string country = 7;
+	string city = 8;
 }

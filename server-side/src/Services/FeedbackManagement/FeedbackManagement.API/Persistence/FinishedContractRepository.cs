@@ -32,21 +32,35 @@ namespace FeedbackManagement.API.Persistence
 
         public async Task<float> GetFreelancerAverageRating(Guid freelancerId)
         {
-            var average = await _context.FinishedContracts
+            try
+            {
+                var average = await _context.FinishedContracts
                 .Where(fc => fc.FreelancerId == freelancerId)
                 .AverageAsync(fc => fc.ClientFeedback.Rating);
 
-            return (float)average;
+                return (float)average;
+            }
+            catch (InvalidOperationException ex)
+            {
+                return 0;
+            }
         }
 
         public async Task<float> GetClientAverageRating(Guid clientId)
         {
-            var average = await _context.FinishedContracts
-                .Where(fc => fc.ClientId == clientId)
-                .AverageAsync(fc => fc.ClientFeedback.Rating);
+            try 
+            {
+                var average = await _context.FinishedContracts
+                    .Where(fc => fc.ClientId == clientId)
+                    .AverageAsync(fc => fc.ClientFeedback.Rating);
 
-            return (float)average;
-        }
+                return (float)average;
+            }
+            catch (InvalidOperationException ex)
+            {
+                return 0;
+            }
+}
 
         public async Task Save()
         {

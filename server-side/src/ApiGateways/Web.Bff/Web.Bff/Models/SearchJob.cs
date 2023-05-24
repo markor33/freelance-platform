@@ -11,6 +11,7 @@ namespace Web.Bff.Models
         public DateTime Created { get; set; }
         public Payment Payment { get; set; }
         public ExperienceLevel ExperienceLevel { get; set; }
+        public int Credits { get; set; }
         public int NumOfProposals { get; set; }
         public int CurrentlyInterviewing { get; set; }
         public string ClientName { get; set; }
@@ -25,6 +26,7 @@ namespace Web.Bff.Models
             Title = jobDTO.Title;
             Description = jobDTO.Description;
             Created = jobDTO.Created.ToDateTime();
+            Credits = jobDTO.Credits;
             Payment = new Models.Payment(jobDTO.Payment);
             ExperienceLevel = (ExperienceLevel)jobDTO.ExperienceLevel;
             NumOfProposals = jobDTO.NumOfProposals;

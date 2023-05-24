@@ -21,7 +21,6 @@ export class HomeComponent {
   showNewChatMessageDot: boolean = false;
   isUserLogged: boolean = false;
   userRole: string = '';
-  domainUserId: string = '';
 
   constructor(
     private dialog: MatDialog,
@@ -33,7 +32,6 @@ export class HomeComponent {
         next: (user) => {
           this.isUserLogged = user !== null;
           this.userRole = user?.role as string;
-          this.domainUserId = user?.domainId as string;
         }
       });
       this.notificationService.newNotificationReceivedObserver.subscribe((res) => this.showNewNotificationDot = res);
@@ -71,6 +69,12 @@ export class HomeComponent {
           width: '40%',
           height: '65%'
         });
+    });
+  }
+
+  navigateToProfile() {
+    this.authService.userObserver.subscribe((user) => {
+      this.router.navigate([`/freelancer/profile/${user?.domainId}`]);
     });
   }
 
