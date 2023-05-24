@@ -31,7 +31,7 @@ namespace JobManagement.API.Controllers
 
         [HttpPut("{id}/contract/{contractId}/status/finished")]
         [Authorize(Roles = "CLIENT"), JobOwnerAuthorization]
-        public async Task<ActionResult> ChangeContractStatus(Guid id, Guid contractId)
+        public async Task<ActionResult> FinishContract(Guid id, Guid contractId)
         {
             var command = new FinishContractCommand(id, contractId);
             var commandResult = await _mediator.Send(command);
@@ -39,5 +39,17 @@ namespace JobManagement.API.Controllers
                 return BadRequest(commandResult.Errors.ToStringList());
             return Ok();
         }
+
+        [HttpPut("{id}/contract/{contractId}/status/terminated")]
+        [Authorize(Roles = "CLIENT"), JobOwnerAuthorization]
+        public async Task<ActionResult> TerminateContract(Guid id, Guid contractId)
+        {
+            var command = new TerminateContractCommand(id, contractId);
+            var commandResult = await _mediator.Send(command);
+            if (commandResult.IsFailed)
+                return BadRequest(commandResult.Errors.ToStringList());
+            return Ok();
+        }
+
     }
 }

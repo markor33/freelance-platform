@@ -26,6 +26,10 @@ export class ContractService {
     return this.httpClient.put<any>(`api/job/job/${jobId}/contract/${contractId}/status/finished`, {});
   }
 
+  terminate(jobId: string, contractId: string): Observable<any> {
+    return this.httpClient.put<any>(`api/job/job/${jobId}/contract/${contractId}/status/terminated`, {});
+  }
+
   create(jobId: string, proposalId: string): Observable<any> {
     return this.httpClient.post<any>(`api/job/job/${jobId}/contract/proposal/${proposalId}`, {});
   }
