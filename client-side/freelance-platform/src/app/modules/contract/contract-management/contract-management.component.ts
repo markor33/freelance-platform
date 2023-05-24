@@ -10,6 +10,7 @@ import { Contract, ContractStatus } from '../models/contract.model';
 import { SnackBarsService } from '../../shared/services/snack-bars.service';
 import { ConfirmationDialogComponent } from '../../shared/dialogs/confirmation-dialog/confirmation-dialog.component';
 import { FeedbackDialogComponent } from '../../feedback/dialogs/feedback-dialog/feedback-dialog.component';
+import { Contact } from '../../shared/models/contact.model';
 
 @Component({
   selector: 'app-contract-management',
@@ -48,7 +49,7 @@ export class ContractManagementComponent {
   }
 
   finish(contract: Contract) {
-    const confirmDialog = ConfirmationDialogComponent.open(this.dialog, 'You are about to finish the contract.')
+    const confirmDialog = ConfirmationDialogComponent.open(this.dialog, 'You are about to finish the contract.');
     confirmDialog.afterClosed().subscribe((res) => {
       if (!res)
         return;
@@ -56,7 +57,19 @@ export class ContractManagementComponent {
         this.ngOnInit();
         this.snackBarService.primary('Contract finished successfully');
       });
-  });
+    });
+  }
+
+  terminate(contract: Contract) {
+    const confirmDialog = ConfirmationDialogComponent.open(this.dialog, 'You are about to terminate the contract.');
+    confirmDialog.afterClosed().subscribe((res) => {
+      if (!res)
+        return;
+      this.contractService.terminate(this.jobId, contract.id).subscribe(() => {
+        this.ngOnInit();
+        this.snackBarService.primary('Contract terminated successfully');
+      });
+    });
   }
 
   openJobInfoDialog() {
