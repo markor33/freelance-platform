@@ -10,9 +10,10 @@ namespace Web.Bff.Models
         public Payment Payment { get; private set; }
         public ProposalStatus Status { get; private set; }
         public FreelancerBasic Freelancer { get; private set; }
+        public float FreelancerAverageRating { get; private set; }
         public DateTime Created { get; private set; }
 
-        public Proposal(ProposalDTO proposalDTO, FreelancerBasicData freelancerBasicData)
+        public Proposal(ProposalDTO proposalDTO, FreelancerBasicData freelancerBasicData, float freelancerAverageRating)
         {
             Id = Guid.Parse(proposalDTO.Id);
             Text = proposalDTO.Text;
@@ -20,6 +21,7 @@ namespace Web.Bff.Models
             Status = (ProposalStatus)proposalDTO.Status;
             Freelancer = new FreelancerBasic(freelancerBasicData);
             Created = proposalDTO.Created.ToDateTime();
+            FreelancerAverageRating = freelancerAverageRating;
         }
     }
 

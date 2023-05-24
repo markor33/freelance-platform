@@ -14,6 +14,8 @@ using Microsoft.AspNetCore.Server.Kestrel.Core;
 using System.Net;
 using NotifyChat.SignalR.GrpcServices;
 using NotifyChat.SignalR.Services;
+using System.Reflection;
+using EventBus.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -86,12 +88,7 @@ builder.Services.AddSingleton<IEventBus, EventBusRabbitMQ.EventBusRabbitMQ>(sp =
 builder.Services.AddSignalR();
 builder.Services.AddSingleton(typeof(IActiveUsersService), typeof(ActiveUsersService));
 
-builder.Services.AddScoped<ProposalSubmittedNotificationHandler>();
-builder.Services.AddScoped<InterviewStageStartedNotificationHandler>();
-builder.Services.AddScoped<ProposalPaymentChangedNotificationHandler>();
-builder.Services.AddScoped<ProposalApprovedNotificationHandler>();
-builder.Services.AddScoped<ContractMadeNotificationHandler>();
-builder.Services.AddScoped<ContractFinishedNotificationHandler>();
+builder.Services.AddIntegrationEventsHandlers(typeof(ContractFinishedNotificationHandler).Assembly);
 
 builder.Services.AddGrpc(options =>
 {
@@ -111,12 +108,7 @@ builder.WebHost.UseKestrel(options => {
 var app = builder.Build();
 
 var eventBus = app.Services.GetRequiredService<IEventBus>();
-eventBus.Subscribe<ProposalSubmittedNotification, ProposalSubmittedNotificationHandler>();
-eventBus.Subscribe<InterviewStageStartedNotification, InterviewStageStartedNotificationHandler>();
-eventBus.Subscribe<ProposalPaymentChangedNotification, ProposalPaymentChangedNotificationHandler>();
-eventBus.Subscribe<ProposalApprovedNotification, ProposalApprovedNotificationHandler>();
-eventBus.Subscribe<ContractMadeNotification, ContractMadeNotificationHandler>();
-eventBus.Subscribe<ContractFinishedNotification, ContractFinishedNotificationHandler>();
+eventBus.AddHandlers(typeof(ContractFinishedNotificationHandler).Assembly);
 
 if (app.Environment.IsDevelopment())
 {

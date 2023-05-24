@@ -44,6 +44,17 @@ services:
      - 53000:80
      - 53001:5000
 
+  feedback-management.api:
+    image: ${DOCKER_REGISTRY-}feedbackmanagementapi
+    build:
+      context: .
+      dockerfile: src/Services/FeedbackManagement/FeedbackManagement.API/Dockerfile
+    depends_on:
+     - feedback-management.db
+    ports:
+    - 54000:80
+    - 54001:5000
+
   identity.db:
     image: postgres
     restart: always
@@ -88,6 +99,17 @@ services:
     ports:
      - 43000:5432
 
+  feedback-management.db:
+    image: postgres
+    restart: always
+    environment:
+     POSTGRES_USERNAME: postgres
+     POSTGRES_PASSWORD: 123456
+    volumes:
+     - feedback-management-data:/var/lib/postgresql/data
+    ports:
+     - 44000:5432
+
   web.bff:
     image: ${DOCKER_REGISTRY-}webbff
     build:
@@ -117,10 +139,22 @@ services:
       - "62000:80"
       - "62001:5000"
 
+  mongo:
+    image: mongo:latest
+    volumes:
+      - mongo_data:/data/db
+    ports:
+      - 27017:27017
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: example
+    restart: always
+
 volumes:
  identity-data:
  freelancer-profile-data:
+ mongo_data:
  client-profile-data:
  job-management-data:
+ feedback-management-data:
  rabbitmq_data:
-

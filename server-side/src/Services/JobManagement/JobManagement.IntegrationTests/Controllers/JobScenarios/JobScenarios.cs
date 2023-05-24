@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using JobManagement.API.Controllers;
+using JobManagement.API.Security;
 using JobManagement.Application.Queries;
 using JobManagement.Application.Services;
 using JobManagement.Domain.AggregatesModel.JobAggregate;
@@ -25,8 +26,9 @@ namespace JobManagement.IntegrationTests.Controllers.JobScenarios
             var proposalQueries = scope.ServiceProvider.GetRequiredService<IProposalQueries>();
             var contractQueries = scope.ServiceProvider.GetRequiredService<IContractQueries>();
             var answerQueries = scope.ServiceProvider.GetRequiredService<IAnswerQueries>();
+            var identityService = scope.ServiceProvider.GetRequiredService<IIdentityService>();
             var mapper = scope.ServiceProvider.GetRequiredService<IMapper>();
-            return new JobController(mediator, mapper, jobQueries, proposalQueries, contractQueries, answerQueries);
+            return new JobController(mediator, mapper, jobQueries, proposalQueries, contractQueries, answerQueries, identityService);
         }
 
         private static async Task<Job> CreateTestJob(IServiceScope scope)

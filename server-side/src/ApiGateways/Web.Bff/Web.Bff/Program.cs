@@ -1,4 +1,5 @@
 using GrpcClientProfile;
+using GrpcFeedbackManagement;
 using GrpcFreelancerProfile;
 using GrpcJobManagement;
 using GrpcNotifyChat;
@@ -52,6 +53,10 @@ builder.Services.AddGrpcClient<Contract.ContractClient>((services, options) =>
 {
     options.Address = new Uri("http://host.docker.internal:51001");
 });
+builder.Services.AddGrpcClient<Feedback.FeedbackClient>((services, options) =>
+{
+    options.Address = new Uri("http://host.docker.internal:54001");
+});
 builder.Services.AddGrpcClient<ChatService.ChatServiceClient>((services, options) =>
 {
     options.Address = new Uri("http://host.docker.internal:62001");
@@ -62,6 +67,7 @@ builder.Services.AddTransient(typeof(IFreelancerProfileService), typeof(Freelanc
 builder.Services.AddTransient(typeof(IJobManagementService), typeof(JobManagementService));
 builder.Services.AddTransient(typeof(IProposalService), typeof(ProposalService));
 builder.Services.AddTransient(typeof(IContractService), typeof(ContractService));
+builder.Services.AddTransient(typeof(IFeedbackService), typeof(FeedbackService));
 builder.Services.AddTransient(typeof(IIdentityService), typeof(IdentityService));
 
 var app = builder.Build();

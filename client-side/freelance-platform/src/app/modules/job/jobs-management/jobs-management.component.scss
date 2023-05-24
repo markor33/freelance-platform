@@ -19,10 +19,6 @@ table {
     overflow-y: auto;
 }
 
-table td {
-    width: 25%;
-}
-
 tr.mat-mdc-row:hover {
     background-color: #E0E0E0;
     cursor: pointer;
@@ -33,12 +29,11 @@ tr.mat-mdc-row:hover {
 }
 
 .title {
-    width: 50%;
     font-size: large; 
     border-right: 1px solid black; 
 }
 
-.proposals, .interviewing, .activeContracts {
+.proposals, .currentlyInterviewing, .numOfActiveContracts, .numOfFinishedContracts, .status {
     text-align: center;
     border-right: 1px solid black; 
 }

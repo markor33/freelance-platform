@@ -9,13 +9,13 @@ using EventBus;
 using EventBusRabbitMQ;
 using RabbitMQ.Client;
 using FreelancerProfile.Application.IntegrationEvents.Handlers;
-using FreelancerProfile.Application.IntegrationEvents.Events;
 using FreelancerProfile.Infrastructure.ReadModel.Settings;
 using Npgsql;
 using System.Data;
 using FreelancerProfile.API.GrpcServices;
 using Microsoft.AspNetCore.Server.Kestrel.Core;
 using System.Net;
+using EventBus.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -72,7 +72,7 @@ builder.Services.AddSingleton<IEventBus, EventBusRabbitMQ.EventBusRabbitMQ>(sp =
     return new EventBusRabbitMQ.EventBusRabbitMQ(rabbitMQPersistentConnection, eventBusSubcriptionsManager, sp, 5, subscriptionClientName);
 });
 
-builder.Services.AddTransient<ProposalCreatedIntegrationEventHandler>();
+builder.Services.AddIntegrationEventsHandlers(typeof(ProposalCreatedIntegrationEventHandler).Assembly);
 
 builder.Services.AddGrpc(options =>
 {
@@ -92,7 +92,7 @@ builder.WebHost.UseKestrel(options => {
 var app = builder.Build();
 
 var eventBus = app.Services.GetRequiredService<IEventBus>();
-eventBus.Subscribe<ProposalCreatedIntegrationEvent, ProposalCreatedIntegrationEventHandler>();
+eventBus.AddHandlers(typeof(ProposalCreatedIntegrationEventHandler).Assembly);
 
 if (app.Environment.IsDevelopment())
 {

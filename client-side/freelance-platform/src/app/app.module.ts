@@ -15,6 +15,7 @@ import { ClientModule } from './modules/client/client.module';
 import { JobModule } from './modules/job/job.module';
 import { NotificationModule } from './modules/notification/notification.module';
 import { ContractModule } from './modules/contract/contract.module';
+import { FeedbackModule } from './modules/feedback/feedback.module';
 
 @NgModule({
     declarations: [
@@ -33,6 +34,7 @@ import { ContractModule } from './modules/contract/contract.module';
         JobModule,
         ContractModule,
         NotificationModule,
+        FeedbackModule,
         LayoutModule,
         JwtModule.forRoot({
             config: {

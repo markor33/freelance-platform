@@ -27,6 +27,7 @@
 	<Protobuf Include="..\..\..\Services\FreelancerProfile\FreelancerProfile.API\Proto\freelancerProfile.proto" GrpcServices="Client" />
 	<Protobuf Include="..\..\..\Services\ClientProfile\ClientProfile.API\Proto\clientProfile.proto" GrpcServices="Client" />
 	<Protobuf Include="..\..\..\Services\JobManagement\JobManagement.API\Proto\jobManagement.proto" GrpcServices="Client" />
+	<Protobuf Include="..\..\..\Services\FeedbackManagement\FeedbackManagement.API\Proto\feedbackManagement.proto" GrpcServices="Client" />
 	<Protobuf Include="..\..\..\Services\NotifyChat\NotifyChat.SignalR\Proto\chat.proto" GrpcServices="Client" />
   </ItemGroup>
 

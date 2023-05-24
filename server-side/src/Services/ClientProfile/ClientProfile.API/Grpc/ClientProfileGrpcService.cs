@@ -24,6 +24,9 @@ namespace ClientProfile.API.Grpc
                 Id = client.Id.ToString(),
                 FirstName = client.FirstName,
                 LastName = client.LastName,
+                TimeZoneID = client.Contact.TimeZoneId,
+                Country = client.Contact.Address.Country,
+                City = client.Contact.Address.City
             };
         }
 
@@ -38,6 +41,9 @@ namespace ClientProfile.API.Grpc
                 Id = client.Id.ToString(),
                 FirstName = client.FirstName,
                 LastName = client.LastName,
+                TimeZoneID = client.Contact.TimeZoneId,
+                Country = client.Contact.Address.Country,
+                City = client.Contact.Address.City
             };
         }
 

@@ -6,6 +6,7 @@ import { AuthService } from '../../auth/services/auth.service';
 import { EnumConverter } from '../../shared/utils/enum-string-converter.util';
 import { JobInfoDialogComponent } from '../../job/jobs-management/dialogs/job-info-dialog/job-info-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
+import { FeedbackDialogComponent } from '../../feedback/dialogs/feedback-dialog/feedback-dialog.component';
 
 @Component({
   selector: 'app-my-contracts',
@@ -21,7 +22,7 @@ export class MyContractsComponent {
   
   @ViewChild(MatSort) sort!: MatSort;
 
-  public displayedColumns: string[] = ['job', 'freelancer', 'status', 'started', 'finished', 'payment'];
+  public displayedColumns: string[] = ['jobTitle', 'freelancer', 'status', 'started', 'finished', 'payment', 'feedback'];
 
   constructor(
     private contractService: ContractService,
@@ -35,9 +36,16 @@ export class MyContractsComponent {
     });
   }
 
+  ngAfterViewInit() {
+    this.contracts.sort = this.sort;
+  }
+
   ngOnInit() {
     if (this.role === 'CLIENT')
-      this.contractService.getByClient(this.userId).subscribe((contracts) => this.contracts.data = contracts);
+      this.contractService.getByClient(this.userId).subscribe((contracts) => {
+        this.contracts.data = contracts;
+        console.log(contracts);
+      });
     else if (this.role === 'FREELANCER') {
       this.displayedColumns.splice(1, 1);
       this.contractService.getByFreelancer().subscribe((contracts) => this.contracts.data = contracts);
@@ -46,6 +54,10 @@ export class MyContractsComponent {
 
   openJobInfoDialog(jobId: string) {
     JobInfoDialogComponent.open(this.dialog, jobId);
+  }
+
+  openFeedbackDialog(jobId: string, jobTitle: string, contractId: string) {
+    FeedbackDialogComponent.open(this.dialog, jobId, jobTitle, contractId);
   }
 
 }

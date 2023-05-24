@@ -16,6 +16,7 @@ import { JobSearchComponent } from './job-search/job-search.component';
 import { JobsManagementComponent } from './jobs-management/jobs-management.component';
 import {MatTableModule} from '@angular/material/table';
 import { MatDialogModule } from '@angular/material/dialog';
+import {MatCheckboxModule} from '@angular/material/checkbox';
 import {MatPaginatorModule} from '@angular/material/paginator';
 import { JobInfoDialogComponent } from './jobs-management/dialogs/job-info-dialog/job-info-dialog.component';
 import { ProposalsManagementComponent } from './proposals-management/proposals-management.component';
@@ -26,11 +27,14 @@ import { MatSortModule } from '@angular/material/sort';
 import { StartContactComponent } from './proposals-management/dialogs/proposal-info-dialog/actions/start-contact/start-contact.component';
 import { ClientAcceptComponent } from './proposals-management/dialogs/proposal-info-dialog/actions/client-accept/client-accept.component';
 import { FreelancerAcceptComponent } from './proposals-management/dialogs/proposal-info-dialog/actions/freelancer-accept/freelancer-accept.component';
+import { AuthGuard } from '../auth/helpers/auth.guard';
+import { RoleGuard } from '../auth/helpers/role.guard';
+import { MatMenuModule } from '@angular/material/menu';
 
 export const jobRoutes: Routes = [
-  { path: 'job', component: JobSearchComponent },
-  { path: 'job-management', component: JobsManagementComponent },
-  { path: 'job/:id/proposal-management', component: ProposalsManagementComponent }
+  { path: 'job', component: JobSearchComponent, canActivate: [AuthGuard, RoleGuard], data: { roles: ['FREELANCER']} },
+  { path: 'job-management', component: JobsManagementComponent, canActivate: [AuthGuard, RoleGuard], data: { roles: ['CLIENT']} },
+  { path: 'job/:id/proposal-management', component: ProposalsManagementComponent, canActivate: [AuthGuard, RoleGuard], data: { roles: ['CLIENT']} }
 ]
 
 @NgModule({
@@ -57,6 +61,8 @@ export const jobRoutes: Routes = [
     MatIconModule,
     HttpClientModule,
     MatDialogModule,
+    MatCheckboxModule,
+    MatMenuModule,
     MatTableModule,
     MatPaginatorModule,
     ReactiveFormsModule,

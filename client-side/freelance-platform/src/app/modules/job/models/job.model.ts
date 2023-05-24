@@ -16,6 +16,7 @@ export class Job {
     numOfProposals: number = 0;
     currentlyInterviewing: number = 0;
     numOfActiveContracts: number = 0;
+    NumOfFinishedContracts: number = 0;
     status: JobStatus = JobStatus.LISTED;
 }
 

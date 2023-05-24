@@ -4,6 +4,8 @@ import { Observable } from 'rxjs';
 import { CreateJobCommand } from '../models/commands/create-job-command.model';
 import { Job } from '../models/job.model';
 import { AuthService } from '../../auth/services/auth.service';
+import { SearchJob } from '../models/search-job.model';
+import { SearchJobFilters } from '../models/search-job-filters.model';
 
 @Injectable({
   providedIn: 'root'
@@ -24,7 +26,20 @@ export class JobService {
     });
   }
 
-  create(createJobCommand: CreateJobCommand) : Observable<Job> {
+  search(queryText: string, filters: SearchJobFilters): Observable<SearchJob[]>  {
+    let url = `api/aggregator/job?`;
+    if (queryText !== '') url += `queryText=${queryText}&`;
+    const professions = filters.professions.map((p) => `Professions=${p}&`);
+    if (professions.length !== 0) url += professions.join('');
+    const experienceLevels = filters.experienceLevels.map((exp) => `ExperienceLevels=${exp}&`);
+    if (experienceLevels.length !== 0) url += experienceLevels.join('');
+    const paymentTypes = filters.paymentTypes.map((p) => `PaymentTypes=${p}&`);
+    if (paymentTypes.length !== 0) url += paymentTypes.join('')
+
+    return this.httpClient.get<SearchJob[]>(url);
+  }
+
+  create(createJobCommand: CreateJobCommand): Observable<Job> {
     createJobCommand.clientId = this.clientId;
     return this.httpClient.post<Job>('api/job/job', createJobCommand, this.httpOptions);
   }

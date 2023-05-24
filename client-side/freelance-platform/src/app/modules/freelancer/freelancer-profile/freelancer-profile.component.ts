@@ -10,6 +10,9 @@ import { AddSkillDialogComponent } from './dialogs/add-skill-dialog/add-skill-di
 import { ExperienceLevel } from '../../shared/models/experience-level.model';
 import { AuthService } from '../../auth/services/auth.service';
 import { ActivatedRoute } from '@angular/router';
+import { Feedback } from '../../feedback/models/feedback.model';
+import { FeedbackService } from '../../feedback/services/feedback.service';
+import { JobInfoDialogComponent } from '../../job/jobs-management/dialogs/job-info-dialog/job-info-dialog.component';
 
 @Component({
   selector: 'app-freelancer-profile',
@@ -18,29 +21,28 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class FreelancerProfileComponent {
 
+  role: string = '';
   freelancer: Freelancer = new Freelancer();
+  feedbacks: Feedback[] = [];
   freelancerId: string = '';
 
   constructor(
     private freelancerService: FreelancerService,
     private dialog: MatDialog,
     private authService: AuthService,
+    private feedbackService: FeedbackService,
     private route: ActivatedRoute) {
       const id = this.route.snapshot.paramMap.get('id');
       if(id)
         this.freelancerId = id;
+      this.role = this.authService.getUserRole();
     }
 
   ngOnInit() {
     this.freelancerService.get(this.freelancerId).subscribe({
       next: (freelancer) => this.freelancer = freelancer
     });
-    /*
-    this.authService.userObserver.subscribe((user) => {
-      this.freelancerService.get(user?.domainId as string).subscribe({
-        next: (freelancer) => this.freelancer = freelancer
-      });
-    });*/
+    this.feedbackService.getByFreelancer(this.freelancerId).subscribe((feedbacks) => this.feedbacks = feedbacks);
   }
   
   availabilityToString(availability: Availability): string {
@@ -93,6 +95,14 @@ export class FreelancerProfileComponent {
       width: '40%',
       height: '72%'
     });
+  }
+
+  openJobInfoDialog(jobId: string) {
+    JobInfoDialogComponent.open(this.dialog, jobId);
+  }
+
+  getRange(value: number): number[] {
+    return Array(Math.floor(value)).fill(0).map((x, i) => i);
   }
 
 }

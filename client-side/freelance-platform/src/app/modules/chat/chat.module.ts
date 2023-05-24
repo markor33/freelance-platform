@@ -9,9 +9,10 @@ import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { FormsModule } from '@angular/forms';
 import { MatDialogModule } from '@angular/material/dialog';
+import { AuthGuard } from '../auth/helpers/auth.guard';
 
 export const chatRoutes: Routes = [
-  { path: 'chat', component: ChatComponent }  
+  { path: 'chat', component: ChatComponent, canActivate: [AuthGuard] }  
 ];
 
 @NgModule({

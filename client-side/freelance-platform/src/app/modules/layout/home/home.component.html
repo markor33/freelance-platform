@@ -1,5 +1,5 @@
 <mat-toolbar color="primary">
-    <h2 routerLink="/">F-Platform |</h2>
+    <h2 (click)="route()">F-Platform |</h2>
     <div class="navigations">
         <button mat-button routerLink="/job-management" *ngIf="userRole === 'CLIENT'">Jobs</button>
         <button mat-button routerLink="/my-contracts" *ngIf="isUserLogged">My contracts</button>
@@ -15,7 +15,7 @@
         <mat-icon>person</mat-icon>
     </button>
     <mat-menu #menu="matMenu">
-        <button mat-menu-item [routerLink]="['/freelancer/profile', domainUserId]">My profile</button>
+        <button mat-menu-item (click)="navigateToProfile()" *ngIf="userRole === 'FREELANCER'">My profile</button>
         <button mat-menu-item (click)="logout()">Logout</button>
       </mat-menu>
     <button mat-icon-button routerLink="/auth/login" *ngIf="!isUserLogged">

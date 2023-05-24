@@ -225,6 +225,9 @@ namespace JobManagement.Infrastructure.Migrations
                     b.Property<Guid>("ClientId")
                         .HasColumnType("uuid");
 
+                    b.Property<DateTime>("Created")
+                        .HasColumnType("timestamp with time zone");
+
                     b.Property<int>("Credits")
                         .HasColumnType("integer");
 

@@ -9,12 +9,14 @@ namespace JobManagement.Application.Queries
         public Guid ClientId { get; private init; }
         public string Title { get; private init; }
         public string Description { get; private init; }
+        public DateTime Created { get; private init; }
         public ExperienceLevel ExperienceLevel { get; private init; }
         public Payment Payment { get; set; }
         public int Credits { get; private init; }
         public int NumOfProposals { get; set; }
         public int CurrentlyInterviewing { get; set; }
         public int NumOfActiveContracts { get; set; }
+        public int NumOfFinishedContracts { get; set; }
         public JobStatus Status { get; private set; }
         public List<QuestionViewModel> Questions { get; private init; }
         public ProfessionViewModel Profession { get; set; }
@@ -26,13 +28,15 @@ namespace JobManagement.Application.Queries
             Skills = new List<SkillViewModel>();
         }
 
-        public JobViewModel(Guid id, Guid clientId, string title, string description, ExperienceLevel experienceLevel, JobStatus status,
-            Payment payment, int credits, List<QuestionViewModel> questions, ProfessionViewModel profession, List<SkillViewModel> skills)
+        public JobViewModel(Guid id, Guid clientId, string title, string description, DateTime created, ExperienceLevel experienceLevel, JobStatus status,
+            Payment payment, int credits, List<QuestionViewModel> questions, ProfessionViewModel profession, List<SkillViewModel> skills,
+            int numOfProposals, int currentlyInterviewing, int numOfActiveContracts, int numOfFinishedContracts)
         {
             Id = id;
             ClientId = clientId;
             Title = title;
             Description = description;
+            Created = created;
             ExperienceLevel = experienceLevel;
             Payment = payment;
             Credits = credits;
@@ -40,6 +44,10 @@ namespace JobManagement.Application.Queries
             Profession = profession;
             Skills = skills;
             Status = status;
+            NumOfProposals = numOfProposals;
+            CurrentlyInterviewing = currentlyInterviewing;
+            NumOfActiveContracts = numOfActiveContracts;
+            NumOfFinishedContracts = numOfFinishedContracts;
         }
     }
 

@@ -16,6 +16,13 @@ namespace JobManagement.API.Controllers
             return await _jobQueries.GetAllAsync();
         }
 
+        [HttpGet("search")]
+        [AllowAnonymous]
+        public async Task<ActionResult<List<JobViewModel>>> Get([FromQuery] string? queryText = null, [FromQuery]JobSearchFilters? filters = null)
+        {
+            return await _jobQueries.Search(queryText, filters);
+        }
+
         [HttpGet("{id}")]
         [AllowAnonymous]
         public async Task<ActionResult<JobViewModel>> Get(Guid id)

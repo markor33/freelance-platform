@@ -11,6 +11,7 @@ namespace JobManagement.Domain.AggregatesModel.JobAggregate
         public Guid ClientId { get; private set; }
         public string Title { get; private set; }
         public string Description { get; private set; }
+        public DateTime Created { get; private set; }
         public int Credits { get; private set; }
         public ExperienceLevel ExperienceLevel { get; private set; }
         public Payment Payment { get; private set; }
@@ -35,6 +36,7 @@ namespace JobManagement.Domain.AggregatesModel.JobAggregate
             Id = Guid.NewGuid();
             ClientId = clientId;
             Title = title;
+            Created = DateTime.UtcNow;
             Description = description;
             ExperienceLevel = experienceLevel;
             Payment = payment;

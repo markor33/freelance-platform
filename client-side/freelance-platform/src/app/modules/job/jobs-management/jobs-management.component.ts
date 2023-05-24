@@ -21,7 +21,7 @@ export class JobsManagementComponent {
   public hoveredRow: any = null;
 
   public jobs: MatTableDataSource<any> = new MatTableDataSource();
-  public displayedColumns: string[] = ['title', 'numOfProposals', 'interviewing', 'status', 'activeContracts', 'actions'];
+  public displayedColumns: string[] = ['title', 'numOfProposals', 'currentlyInterviewing', 'status', 'numOfActiveContracts', 'numOfFinishedContracts', 'actions'];
 
   @ViewChild(MatSort) sort!: MatSort;
 
@@ -33,7 +33,6 @@ export class JobsManagementComponent {
     public enumConverter: EnumConverter) { }
 
   ngAfterViewInit() {
-    console.log(this.jobs.data);
     this.jobs.sort = this.sort;
   }
 

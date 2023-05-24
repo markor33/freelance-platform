@@ -1,5 +1,6 @@
 ﻿using EventBus.Abstractions;
 using FluentResults;
+using JobManagement.Application.IntegrationEvents.Events;
 using JobManagement.Application.Notifications;
 using JobManagement.Domain.AggregatesModel.JobAggregate;
 using JobManagement.Domain.AggregatesModel.JobAggregate.Enums;
@@ -30,8 +31,10 @@ namespace JobManagement.Application.Commands
 
             await _jobRepository.UnitOfWork.SaveEntitiesAsync();
 
-            var notificaiton = new ContractFinishedNotification(request.ContractId, result.Value.FreelancerId, request.JobId, job.Title);
-            _eventBus.Publish(notificaiton);
+            var notification = new ContractFinishedNotification(request.ContractId, result.Value.FreelancerId, request.JobId, job.Title);
+            _eventBus.Publish(notification);
+            var integrationEvent = new ContractFinishedIntegrationEvent(request.ContractId, job.Id, job.ClientId, result.Value.FreelancerId);
+            _eventBus.Publish(integrationEvent);
 
             return Result.Ok();
         }

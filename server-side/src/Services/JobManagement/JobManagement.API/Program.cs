@@ -1,5 +1,6 @@
 using EventBus;
 using EventBus.Abstractions;
+using EventBus.Extensions;
 using EventBusRabbitMQ;
 using JobManagement.API.GrpcServices;
 using JobManagement.API.Security;
@@ -15,6 +16,7 @@ using Npgsql;
 using RabbitMQ.Client;
 using System.Data;
 using System.Net;
+using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -67,9 +69,7 @@ builder.Services.AddSingleton<IEventBus, EventBusRabbitMQ.EventBusRabbitMQ>(sp =
     return new EventBusRabbitMQ.EventBusRabbitMQ(rabbitMQPersistentConnection, eventBusSubcriptionsManager, sp, 5, subscriptionClientName);
 });
 
-builder.Services.AddTransient<CreditsReservedIntegrationEventHandler>();
-builder.Services.AddTransient<CreditsLimitExceededIntegrationEventHandler>();
-builder.Services.AddTransient<InitialMessageSentIntegrationEventHandler>();
+builder.Services.AddIntegrationEventsHandlers(typeof(CreditsReservedIntegrationEventHandler).Assembly);
 
 builder.Services.AddGrpc(options =>
 {
@@ -89,9 +89,7 @@ builder.WebHost.UseKestrel(options => {
 var app = builder.Build();
 
 var eventBus = app.Services.GetRequiredService<IEventBus>();
-eventBus.Subscribe<CreditsReservedIntegrationEvent, CreditsReservedIntegrationEventHandler>();
-eventBus.Subscribe<CreditsLimitExceededIntegrationEvent, CreditsLimitExceededIntegrationEventHandler>();
-eventBus.Subscribe<InitialMessageSentIntegrationEvent, InitialMessageSentIntegrationEventHandler>();
+eventBus.AddHandlers(typeof(CreditsReservedIntegrationEventHandler).Assembly);
 
 if (app.Environment.IsDevelopment())
 {
