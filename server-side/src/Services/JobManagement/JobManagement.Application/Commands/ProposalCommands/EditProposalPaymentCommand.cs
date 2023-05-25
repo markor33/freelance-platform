@@ -4,7 +4,7 @@ using MediatR;
 using System.Runtime.Serialization;
 using System.Text.Json.Serialization;
 
-namespace JobManagement.Application.Commands
+namespace JobManagement.Application.Commands.ProposalCommands
 {
     [DataContract]
     public class EditProposalPaymentCommand : IRequest<Result>

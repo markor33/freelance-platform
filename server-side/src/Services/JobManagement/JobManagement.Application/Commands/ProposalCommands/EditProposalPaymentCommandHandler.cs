@@ -4,7 +4,7 @@ using JobManagement.Application.Notifications;
 using JobManagement.Domain.AggregatesModel.JobAggregate;
 using MediatR;
 
-namespace JobManagement.Application.Commands
+namespace JobManagement.Application.Commands.ProposalCommands
 {
     public class EditProposalPaymentCommandHandler : IRequestHandler<EditProposalPaymentCommand, Result>
     {

@@ -4,7 +4,6 @@ using JobManagement.Application.Queries;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using System.Runtime.CompilerServices;
 
 namespace JobManagement.API.Controllers
 {

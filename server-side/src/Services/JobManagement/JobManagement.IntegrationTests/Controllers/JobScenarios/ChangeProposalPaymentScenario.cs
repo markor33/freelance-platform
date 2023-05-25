@@ -1,4 +1,4 @@
-﻿using JobManagement.Application.Commands;
+﻿using JobManagement.Application.Commands.ProposalCommands;
 using JobManagement.Domain.AggregatesModel.JobAggregate.Enums;
 using JobManagement.Domain.AggregatesModel.JobAggregate.ValueObjects;
 using Microsoft.AspNetCore.Mvc;

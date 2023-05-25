@@ -1,6 +1,6 @@
 ﻿using JobManagement.API.Extensions;
 using JobManagement.API.Security.AuthorizationFilters;
-using JobManagement.Application.Commands;
+using JobManagement.Application.Commands.JobCommands;
 using JobManagement.Application.Queries;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -40,6 +40,16 @@ namespace JobManagement.API.Controllers
         [HttpPost]
         [Authorize(Roles = "CLIENT")]
         public async Task<ActionResult<JobViewModel>> Create(CreateJobCommand command)
+        {
+            var commandResult = await _mediator.Send(command);
+            if (commandResult.IsFailed)
+                return BadRequest(commandResult.Errors.ToStringList());
+            return Ok(_mapper.Map<JobViewModel>(commandResult.Value));
+        }
+
+        [HttpPut("{id}")]
+        [Authorize(Roles = "CLIENT"), JobOwnerAuthorization]
+        public async Task<ActionResult<JobViewModel>> Update(EditJobCommand command)
         {
             var commandResult = await _mediator.Send(command);
             if (commandResult.IsFailed)

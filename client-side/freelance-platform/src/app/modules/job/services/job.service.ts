@@ -6,6 +6,7 @@ import { Job } from '../models/job.model';
 import { AuthService } from '../../auth/services/auth.service';
 import { SearchJob } from '../models/search-job.model';
 import { SearchJobFilters } from '../models/search-job-filters.model';
+import { EditJobCommand } from '../models/commands/edit-job-command.model';
 
 @Injectable({
   providedIn: 'root'
@@ -42,6 +43,10 @@ export class JobService {
   create(createJobCommand: CreateJobCommand): Observable<Job> {
     createJobCommand.clientId = this.clientId;
     return this.httpClient.post<Job>('api/job/job', createJobCommand, this.httpOptions);
+  }
+
+  edit(editJobCommand: EditJobCommand): Observable<Job> {
+    return this.httpClient.put<Job>(`api/job/job/${editJobCommand.jobId}`, editJobCommand, this.httpOptions);
   }
 
   getAll(): Observable<Job[]> {

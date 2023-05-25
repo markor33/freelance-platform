@@ -1,4 +1,4 @@
-﻿using JobManagement.Application.Commands;
+﻿using JobManagement.Application.Commands.ProposalCommands;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
 using Shouldly;

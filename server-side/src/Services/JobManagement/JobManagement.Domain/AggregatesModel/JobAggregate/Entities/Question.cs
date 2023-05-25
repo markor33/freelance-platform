@@ -10,10 +10,13 @@ namespace JobManagement.Domain.AggregatesModel.JobAggregate.Entities
         public Question() { }
 
         [JsonConstructor]
-        public Question(string text)
+        public Question(Guid id, string text)
         {
-            Id = Guid.NewGuid();
+            Id = id;
             Text = text;
         }
+
+        public void SetText(string text) => Text = text;
+
     }
 }

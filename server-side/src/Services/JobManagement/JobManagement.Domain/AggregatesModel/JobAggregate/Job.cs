@@ -31,7 +31,8 @@ namespace JobManagement.Domain.AggregatesModel.JobAggregate
             Contracts = new List<Contract>();
         }
 
-        public Job(Guid clientId, string title, string description, ExperienceLevel experienceLevel, Payment payment, Profession profession)
+        public Job(Guid clientId, string title, string description, ExperienceLevel experienceLevel, 
+            Payment payment, Profession profession, List<Question> questions, List<Skill> skills)
         {
             Id = Guid.NewGuid();
             ClientId = clientId;
@@ -44,10 +45,52 @@ namespace JobManagement.Domain.AggregatesModel.JobAggregate
             Credits = EvaluateCredits();
             Profession = profession;
             ProfessionId = profession.Id;
-            Questions = new List<Question>();
+            Questions = questions;
+            Skills = skills;
             Proposals = new List<Proposal>();
-            Skills = new List<Skill>();
             Contracts = new List<Contract>();
+        }
+
+        public void Update(string title, string description, ExperienceLevel experienceLevel,
+            Payment payment, Profession profession, List<Question> questions, List<Skill> skills)
+        {
+            Title = title;
+            Description = description;
+            ExperienceLevel = experienceLevel;
+            Payment = payment;
+            Credits = EvaluateCredits();
+            Profession = profession;
+            ProfessionId = profession.Id;
+            UpdateSkills(skills);
+            UpdateQuestions(questions);
+        }
+
+        private void UpdateSkills(List<Skill> skills)
+        {
+            var skillsToRemove = Skills.Where(s => !skills.Any(ns => ns.Id == s.Id)).ToList();
+            foreach (var skillToRemove in skillsToRemove)
+                Skills.Remove(skillToRemove);
+
+            var skillsToAdd = skills.Where(ns => !Skills.Any(s => s.Id == ns.Id)).ToList();
+            Skills.AddRange(skillsToAdd);
+        }
+
+        private void UpdateQuestions(List<Question> questions)
+        {
+            var questionsToRemove = Questions.Where(q => !questions.Any(nq => nq.Id == q.Id)).ToList();
+            foreach (var questionToRemove in questionsToRemove)
+                Questions.Remove(questionToRemove);
+
+            var existingQuestions = Questions.Where(q => questions.Any(nq => nq.Id == q.Id && nq.Text != q.Text)).ToList();
+            foreach (var existingQuestion in existingQuestions)
+            {
+                var newQuestion = questions.First(nq => nq.Id == existingQuestion.Id);
+                existingQuestion.SetText(newQuestion.Text);
+            }
+
+            var questionsToAdd = questions.Where(nq => !Questions.Any(q => q.Id == nq.Id)).ToList();
+            Questions.AddRange(questionsToAdd);
+
         }
 
         private int EvaluateCredits() => ((int)ExperienceLevel) + 1;
@@ -128,26 +171,6 @@ namespace JobManagement.Domain.AggregatesModel.JobAggregate
 
             Proposals.Clear();
             Status = JobStatus.REMOVED;
-            return Result.Ok();
-        }
-
-        public void AddQuestion(Question question) => Questions.Add(question);
-
-        public void AddQuestions(List<Question> questions)
-        {
-            foreach (var question in questions)
-                AddQuestion(question);
-        }
-
-        public Result AddSkill(Skill skill)
-        {
-            if (skill.ProfessionId != ProfessionId)
-                return Result.Fail($"Freelancers profession does not contain {skill.Name} skill");
-
-            if (Skills.Contains(skill))
-                return Result.Fail($"Skill '{skill.Name}' already added");
-
-            Skills.Add(skill);
             return Result.Ok();
         }
 

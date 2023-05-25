@@ -30,6 +30,7 @@ import { FreelancerAcceptComponent } from './proposals-management/dialogs/propos
 import { AuthGuard } from '../auth/helpers/auth.guard';
 import { RoleGuard } from '../auth/helpers/role.guard';
 import { MatMenuModule } from '@angular/material/menu';
+import { EditJobDialogComponent } from './jobs-management/dialogs/edit-job-dialog/edit-job-dialog.component';
 
 export const jobRoutes: Routes = [
   { path: 'job', component: JobSearchComponent, canActivate: [AuthGuard, RoleGuard], data: { roles: ['FREELANCER']} },
@@ -48,7 +49,8 @@ export const jobRoutes: Routes = [
     ProposalInfoDialogComponent,
     StartContactComponent,
     ClientAcceptComponent,
-    FreelancerAcceptComponent
+    FreelancerAcceptComponent,
+    EditJobDialogComponent
   ],
   imports: [
     CommonModule,

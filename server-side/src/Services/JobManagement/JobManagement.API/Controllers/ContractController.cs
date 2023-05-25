@@ -1,6 +1,6 @@
 ﻿using JobManagement.API.Extensions;
 using JobManagement.API.Security.AuthorizationFilters;
-using JobManagement.Application.Commands;
+using JobManagement.Application.Commands.ContractCommands;
 using JobManagement.Application.Queries;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;

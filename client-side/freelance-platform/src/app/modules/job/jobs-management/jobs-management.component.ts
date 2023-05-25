@@ -10,6 +10,7 @@ import { EnumConverter } from '../../shared/utils/enum-string-converter.util';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatSort } from '@angular/material/sort';
 import { ConfirmationDialogComponent } from '../../shared/dialogs/confirmation-dialog/confirmation-dialog.component';
+import { EditJobDialogComponent } from './dialogs/edit-job-dialog/edit-job-dialog.component';
 
 @Component({
   selector: 'app-jobs-management',
@@ -43,10 +44,7 @@ export class JobsManagementComponent {
   }
 
   openCreateJobDialog() {
-    const dialog = this.dialog.open(CreateJobDialogComponent, {
-      width: '50%',
-      height: '80%'
-    });
+    const dialog = CreateJobDialogComponent.open(this.dialog);
     dialog.afterClosed().subscribe(result => {
       if (!result)
         return;
@@ -55,11 +53,11 @@ export class JobsManagementComponent {
   }
 
   openJobInfoDialog(job: Job) {
-    this.dialog.open(JobInfoDialogComponent, {
-      width: '50%',
-      height: '80%',
-      data: { jobId: job.id }
-    });
+    JobInfoDialogComponent.open(this.dialog, job.id);
+  }
+
+  editJobInfoDialog(job: Job) {
+    EditJobDialogComponent.open(this.dialog, job);
   }
 
   openProposals(job: Job) {

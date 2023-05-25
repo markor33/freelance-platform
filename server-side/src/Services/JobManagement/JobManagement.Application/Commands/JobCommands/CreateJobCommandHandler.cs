@@ -1,9 +1,10 @@
 ﻿using FluentResults;
 using JobManagement.Application.Services;
 using JobManagement.Domain.AggregatesModel.JobAggregate;
+using JobManagement.Domain.AggregatesModel.JobAggregate.Entities;
 using MediatR;
 
-namespace JobManagement.Application.Commands
+namespace JobManagement.Application.Commands.JobCommands
 {
     public class CreateJobCommandHandler : IRequestHandler<CreateJobCommand, Result<Job>>
     {
@@ -12,7 +13,7 @@ namespace JobManagement.Application.Commands
         private readonly ISkillService _skillService;
 
         public CreateJobCommandHandler(
-            IJobRepository jobRepository, 
+            IJobRepository jobRepository,
             IProfessionService professionService,
             ISkillService skillService)
         {
@@ -27,32 +28,32 @@ namespace JobManagement.Application.Commands
             if (profession is null)
                 return Result.Fail($"Profession with '{request.ProfessionId}' id, does not exist");
 
-            var job = new Job(request.ClientId, request.Title, request.Description, request.ExperienceLevel, request.Payment, profession);
+            var skills = await GetSkills(request.Skills);
 
-            job.AddQuestions(request.Questions);
-            await AddSkills(job, request.Skills);
+            var job = new Job(request.ClientId, request.Title, request.Description, request.ExperienceLevel, 
+                request.Payment, profession, request.Questions, skills);
 
             job = await _jobRepository.CreateAsync(job);
             var result = await _jobRepository.UnitOfWork.SaveEntitiesAsync(cancellationToken);
 
             if (!result)
                 return Result.Fail("Job creation failed");
+
             return Result.Ok(job);
         }
 
-        private async Task<Result> AddSkills(Job job, List<Guid> skills)
+        private async Task<List<Skill>> GetSkills(List<Guid> skillIds)
         {
-            foreach (var skillId in skills)
+            var skills = new List<Skill>();
+            foreach (var skillId in skillIds)
             {
                 var skill = await _skillService.GetByIdAsync(skillId);
                 if (skill is null)
-                    return Result.Fail($"Skill does not exist");
+                    continue;
 
-                var addSkillResult = job.AddSkill(skill);
-                if (addSkillResult.IsFailed)
-                    return addSkillResult;
+                skills.Add(skill);
             }
-            return Result.Ok();
+            return skills;
         }
 
     }
