@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
-import { AddCertificationCommand } from '../../../models/add-certification-command.model';
+import { AddCertificationCommand } from '../../../../models/commands/add-certification-command.model';
 import { MatDialogRef } from '@angular/material/dialog';
-import { FreelancerService } from '../../../services/freelancer.service';
+import { FreelancerService } from '../../../../services/freelancer.service';
 import { SnackBarsService } from 'src/app/modules/shared/services/snack-bars.service';
 import { convertToUTCDate } from 'src/app/modules/shared/utils/date-helper.util';
 

@@ -111,6 +111,30 @@ namespace FreelancerProfile.Domain.AggregatesModel.FreelancerAggregate
             AddDomainEvent(new CertificationAddedDomainEvent(Id, certification));
         }
 
+        public Result<Certification> UpdateCertification(Guid certificationId, string name, string provider, DateRange attended, string? description)
+        {
+            var certification = Certifications.FirstOrDefault(c => c.Id == certificationId);
+            if (certification is null)
+                return Result.Fail("Cerfitication does not exist");
+
+            certification.Update(name, provider, attended, description);
+            AddDomainEvent(new CertificationEdittedDomainEvent(Id, certification));
+
+            return Result.Ok(certification);
+        }
+
+        public Result DeleteCertification(Guid certificationId)
+        {
+            var certification = Certifications.FirstOrDefault(c => c.Id == certificationId);
+            if (certification is null)
+                return Result.Fail("Cerfitication does not exist");
+
+            Certifications.Remove(certification);
+            AddDomainEvent(new CertificationDeletedDomainEvent(Id, certificationId));
+
+            return Result.Ok();
+        }
+
         public void AddEmployment(Employment employment)
         {
             Employments.Add(employment);

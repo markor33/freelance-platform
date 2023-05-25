@@ -3,12 +3,13 @@ import { Injectable } from '@angular/core';
 import { Certification, Education, Employment, Freelancer } from '../models/freelancer.model';
 import { BehaviorSubject, Observable, map } from 'rxjs';
 import { AuthService } from '../../auth/services/auth.service';
-import { CreateFreelancerCommand } from '../models/create-freelancer-command.model';
-import { AddEducationCommand } from '../models/add-education-command.model';
-import { AddCertificationCommand } from '../models/add-certification-command.model';
-import { AddEmploymentCommand } from '../models/add-employment-command.model';
-import { AddSkillCommand } from '../models/add-skill-command.model';
+import { AddCertificationCommand } from '../models/commands/add-certification-command.model';
 import { Skill } from '../../shared/models/profession.mode';
+import { AddEducationCommand } from '../models/commands/add-education-command.model';
+import { AddEmploymentCommand } from '../models/commands/add-employment-command.model';
+import { AddSkillCommand } from '../models/commands/add-skill-command.model';
+import { CreateFreelancerCommand } from '../models/commands/create-freelancer-command.model';
+import { EditCertificationCommand } from '../models/commands/edit-certification-command.model';
 
 @Injectable({
   providedIn: 'root'
@@ -55,8 +56,30 @@ export class FreelancerService {
     return this.httpClient.post<Certification>('api/freelancer/freelancer/certification', addCertificationCommand, this.httpOptions)
       .pipe(
         map((certification) => {
-          console.log(certification);
           this.currentFreelancer.certifications.push(certification);
+        })
+      );
+  }
+
+  editCertification(editCertificationCommand: EditCertificationCommand): Observable<void> {
+    const url = `api/freelancer/freelancer/${this.currentFreelancer.id}/certification/${editCertificationCommand.certificationId}`;
+    return this.httpClient.put<Certification>(url, editCertificationCommand)
+      .pipe(
+        map((certification) => {
+          const index = this.currentFreelancer.certifications.findIndex(c => c.id === certification.id);
+          if (index != -1)
+            this.currentFreelancer.certifications[index] = certification;
+        })
+      );
+  }
+
+  deleteCertification(certificationId: string): Observable<any> {
+    return this.httpClient.delete<any>(`api/freelancer/freelancer/${this.currentFreelancer.id}/certification/${certificationId}`)
+      .pipe(
+        map(() => {
+          const index = this.currentFreelancer.certifications.findIndex(c => c.id === certificationId);
+          if (index != -1)
+            this.currentFreelancer.certifications.splice(index, 1);
         })
       );
   }

@@ -5,7 +5,7 @@ import { Skill } from 'src/app/modules/shared/models/profession.mode';
 import { FormControl } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
 import { SnackBarsService } from 'src/app/modules/shared/services/snack-bars.service';
-import { AddSkillCommand } from '../../../models/add-skill-command.model';
+import { AddSkillCommand } from '../../../models/commands/add-skill-command.model';
 
 @Component({
   selector: 'app-add-skill-dialog',

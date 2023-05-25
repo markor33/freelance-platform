@@ -94,9 +94,21 @@
                 </button>
             </span>
             <div class="certification-content">
-                <div *ngFor="let certification of freelancer.certifications; let last = last;">
+                <div *ngFor="let certification of freelancer.certifications; let last = last;"
+                    (mouseenter)="hover = true"
+                    (mouseleave)="hover = false">
                     <div>
-                        <h3>{{certification.name}}</h3>
+                        <div class="title">
+                            <h3>{{certification.name}}</h3>
+                            <button mat-icon-button color="primary" *ngIf="role === 'FREELANCER' && hover === true" 
+                                (click)="openEditCertificationDialog(certification)">
+                                <mat-icon>edit</mat-icon>
+                            </button>
+                            <button mat-icon-button color="warn" *ngIf="role === 'FREELANCER' && hover === true" 
+                                (click)="deleteCertification(certification.id)">
+                                <mat-icon>delete</mat-icon>
+                            </button>
+                        </div>
                         <span>{{certification.provider}}</span><br>
                         <span>{{certification.attended.start.getFullYear()}} - {{certification.attended.end.getFullYear()}}</span>
                     </div>

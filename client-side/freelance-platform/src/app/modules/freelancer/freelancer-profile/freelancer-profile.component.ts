@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
-import { Availability, Freelancer } from '../models/freelancer.model';
+import { Availability, Certification, Freelancer } from '../models/freelancer.model';
 import { FreelancerService } from '../services/freelancer.service';
 import { LanguageProficiencyLevel } from '../../shared/models/language.model';
 import { MatDialog } from '@angular/material/dialog';
 import { AddEducationDialogComponent } from './dialogs/add-education-dialog/add-education-dialog.component';
-import { AddCertificationDialogComponent } from './dialogs/add-certification-dialog/add-certification-dialog.component';
+import { AddCertificationDialogComponent } from './dialogs/certification/add-certification-dialog/add-certification-dialog.component';
 import { AddEmploymentDialogComponent } from './dialogs/add-employment-dialog/add-employment-dialog.component';
 import { AddSkillDialogComponent } from './dialogs/add-skill-dialog/add-skill-dialog.component';
 import { ExperienceLevel } from '../../shared/models/experience-level.model';
@@ -13,6 +13,9 @@ import { ActivatedRoute } from '@angular/router';
 import { Feedback } from '../../feedback/models/feedback.model';
 import { FeedbackService } from '../../feedback/services/feedback.service';
 import { JobInfoDialogComponent } from '../../job/jobs-management/dialogs/job-info-dialog/job-info-dialog.component';
+import { SnackBarsService } from '../../shared/services/snack-bars.service';
+import { ConfirmationDialogComponent } from '../../shared/dialogs/confirmation-dialog/confirmation-dialog.component';
+import { EditCertificationDialogComponent } from './dialogs/certification/edit-certification-dialog/edit-certification-dialog.component';
 
 @Component({
   selector: 'app-freelancer-profile',
@@ -20,6 +23,8 @@ import { JobInfoDialogComponent } from '../../job/jobs-management/dialogs/job-in
   styleUrls: ['./freelancer-profile.component.scss']
 })
 export class FreelancerProfileComponent {
+
+  hover: boolean = false;
 
   role: string = '';
   freelancer: Freelancer = new Freelancer();
@@ -31,7 +36,8 @@ export class FreelancerProfileComponent {
     private dialog: MatDialog,
     private authService: AuthService,
     private feedbackService: FeedbackService,
-    private route: ActivatedRoute) {
+    private route: ActivatedRoute,
+    private snackBarService: SnackBarsService) {
       const id = this.route.snapshot.paramMap.get('id');
       if(id)
         this.freelancerId = id;
@@ -81,6 +87,21 @@ export class FreelancerProfileComponent {
       width: '40%',
       height: '72%'
     });
+  }
+
+  openEditCertificationDialog(certification: Certification) {
+    EditCertificationDialogComponent.open(this.dialog, certification);
+  }
+
+  deleteCertification(certificationId: string) {
+    const confirmDialog = ConfirmationDialogComponent.open(this.dialog, 'You are about to delete your certification.');
+    confirmDialog.afterClosed().subscribe((res) => {
+      if (!res)
+        return;
+      this.freelancerService.deleteCertification(certificationId).subscribe({
+        complete: () => this.snackBarService.primary('Certification deleted successfully')
+      });
+    }); 
   }
 
   openAddEmploymentDialog() {

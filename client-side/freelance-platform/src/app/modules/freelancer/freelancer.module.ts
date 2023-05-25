@@ -23,9 +23,10 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import {MatChipsModule} from '@angular/material/chips';
 import { SharedModule } from '../shared/shared.module';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
-import { AddCertificationDialogComponent } from './freelancer-profile/dialogs/add-certification-dialog/add-certification-dialog.component';
+import { AddCertificationDialogComponent } from './freelancer-profile/dialogs/certification/add-certification-dialog/add-certification-dialog.component';
 import { AddEmploymentDialogComponent } from './freelancer-profile/dialogs/add-employment-dialog/add-employment-dialog.component';
 import { AddSkillDialogComponent } from './freelancer-profile/dialogs/add-skill-dialog/add-skill-dialog.component';
+import { EditCertificationDialogComponent } from './freelancer-profile/dialogs/certification/edit-certification-dialog/edit-certification-dialog.component';
 
 export const freelancerRoutes: Routes = [
   { path: 'freelancer/profile/:id', component: FreelancerProfileComponent}
@@ -38,7 +39,8 @@ export const freelancerRoutes: Routes = [
     AddEducationDialogComponent,
     AddCertificationDialogComponent,
     AddEmploymentDialogComponent,
-    AddSkillDialogComponent
+    AddSkillDialogComponent,
+    EditCertificationDialogComponent
   ],
   imports: [
     HttpClientModule,

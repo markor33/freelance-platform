@@ -1,7 +1,7 @@
-import { Contact } from "../../shared/models/contact.model";
-import { ExperienceLevel } from "../../shared/models/experience-level.model";
-import { LanguageProficiencyLevel } from "../../shared/models/language.model";
-import { ProfileSummary, HourlyRate, Availability } from "./freelancer.model";
+import { Contact } from "src/app/modules/shared/models/contact.model";
+import { ExperienceLevel } from "src/app/modules/shared/models/experience-level.model";
+import { LanguageProficiencyLevel } from "src/app/modules/shared/models/language.model";
+import { ProfileSummary, HourlyRate, Availability } from "../freelancer.model";
 
 export class CreateFreelancerCommand {
     firstName: string = '';

@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
-import { AddEmploymentCommand } from '../../../models/add-employment-command.model';
 import { FreelancerService } from '../../../services/freelancer.service';
 import { SnackBarsService } from 'src/app/modules/shared/services/snack-bars.service';
 import { MatDialogRef } from '@angular/material/dialog';
 import { convertToUTCDate } from 'src/app/modules/shared/utils/date-helper.util';
+import { AddEmploymentCommand } from '../../../models/commands/add-employment-command.model';
 
 @Component({
   selector: 'app-add-employment-dialog',
