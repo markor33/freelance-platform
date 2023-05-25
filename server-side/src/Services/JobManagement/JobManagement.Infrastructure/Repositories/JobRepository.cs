@@ -18,6 +18,7 @@ namespace JobManagement.Infrastructure.Repositories
         public async Task<Job> GetByIdAsync(Guid id)
         {
             return await _context.Jobs.Where(j => j.Id== id)
+                .Include(s => s.Skills)
                 .Include(j => j.Proposals)
                 .Include(j => j.Questions)
                 .Include(j => j.Contracts)

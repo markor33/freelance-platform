@@ -2,7 +2,7 @@
 using MediatR;
 using System.Runtime.Serialization;
 
-namespace JobManagement.Application.Commands
+namespace JobManagement.Application.Commands.ContractCommands
 {
     [DataContract]
     public class FinishContractCommand : IRequest<Result>

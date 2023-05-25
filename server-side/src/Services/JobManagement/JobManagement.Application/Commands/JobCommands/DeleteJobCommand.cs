@@ -3,7 +3,7 @@ using MediatR;
 using System.Runtime.Serialization;
 using System.Text.Json.Serialization;
 
-namespace JobManagement.Application.Commands
+namespace JobManagement.Application.Commands.JobCommands
 {
     [DataContract]
     public class DeleteJobCommand : IRequest<Result>

@@ -4,7 +4,7 @@ import { Question } from '../models/question.model';
 import {COMMA, ENTER} from '@angular/cdk/keycodes';
 import { MatChipEditedEvent, MatChipInputEvent } from '@angular/material/chips';
 import { JobService } from '../services/job.service';
-import { MatDialogRef } from '@angular/material/dialog';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { SnackBarsService } from '../../shared/services/snack-bars.service';
 import { Profession, Skill } from '../../shared/models/profession.mode';
 import { ProfessionService } from '../../shared/services/profession.service';
@@ -91,6 +91,13 @@ export class CreateJobDialogComponent {
     if (index >= 0) {
       this.createJobCommand.questions[index].text = value;
     }
+  }
+
+  static open(dialog: MatDialog): MatDialogRef<CreateJobDialogComponent> {
+    return dialog.open(CreateJobDialogComponent, {
+      width: '50%',
+      height: '80%'
+    });
   }
 
 }

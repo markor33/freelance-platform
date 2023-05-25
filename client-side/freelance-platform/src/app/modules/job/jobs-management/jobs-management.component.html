@@ -39,6 +39,7 @@
                     </button>
                     <mat-menu #menu="matMenu">
                         <button mat-menu-item (click)="openJobInfoDialog(element)">Info</button>
+                        <button mat-menu-item (click)="editJobInfoDialog(element)">Edit</button>
                         <button mat-menu-item [routerLink]="['/job', element.id, 'proposal-management']">Proposals</button>
                         <button mat-menu-item *ngIf="(element.numOfActiveContracts > 0 || element.numOfFinishedContracts > 0)" [routerLink]="['/job', element.id, 'contract-management']">Contracts</button>
                         <button mat-menu-item *ngIf="element.status === 1" (click)="jobDone(element)">Done</button>

@@ -5,7 +5,7 @@ using JobManagement.Domain.AggregatesModel.JobAggregate;
 using JobManagement.Domain.AggregatesModel.JobAggregate.Entities;
 using MediatR;
 
-namespace JobManagement.Application.Commands
+namespace JobManagement.Application.Commands.ProposalCommands
 {
     public class CreateProposalCommandHandler : IRequestHandler<CreateProposalCommand, Result<Proposal>>
     {
@@ -25,7 +25,7 @@ namespace JobManagement.Application.Commands
                 return Result.Fail("Job does not exist");
 
             var proposal = new Proposal(request.FreelancerId, request.Text, request.Payment);
-            foreach(var answer in request.Answers)
+            foreach (var answer in request.Answers)
                 proposal.AddAnswer(answer);
             var addProposalResult = job.AddProposal(proposal);
             if (addProposalResult.IsFailed)

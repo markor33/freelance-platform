@@ -1,19 +1,19 @@
-﻿using MediatR;
-using FluentResults;
-using System.Runtime.Serialization;
-using System.Text.Json.Serialization;
+﻿using FluentResults;
 using JobManagement.Domain.AggregatesModel.JobAggregate;
+using JobManagement.Domain.AggregatesModel.JobAggregate.Entities;
 using JobManagement.Domain.AggregatesModel.JobAggregate.Enums;
 using JobManagement.Domain.AggregatesModel.JobAggregate.ValueObjects;
-using JobManagement.Domain.AggregatesModel.JobAggregate.Entities;
+using MediatR;
+using System.Runtime.Serialization;
+using System.Text.Json.Serialization;
 
-namespace JobManagement.Application.Commands
+namespace JobManagement.Application.Commands.JobCommands
 {
     [DataContract]
-    public class CreateJobCommand : IRequest<Result<Job>>
+    public class EditJobCommand : IRequest<Result<Job>>
     {
         [DataMember]
-        public Guid ClientId { get; private set; }
+        public Guid JobId { get; set; }
         [DataMember]
         public string Title { get; private set; }
         [DataMember]
@@ -29,14 +29,13 @@ namespace JobManagement.Application.Commands
         [DataMember]
         public List<Guid> Skills { get; private set; }
 
-
-        public CreateJobCommand() { }
+        public EditJobCommand() { }
 
         [JsonConstructor]
-        public CreateJobCommand(Guid clientId, string title, string description, 
-            ExperienceLevel experienceLevel, Payment payment, List<Question> questions, Guid professionId, List<Guid> skills)
+        public EditJobCommand(Guid jobId, string title, string description, ExperienceLevel experienceLevel, 
+            Payment payment, List<Question> questions, Guid professionId, List<Guid> skills)
         {
-            ClientId = clientId;
+            JobId = jobId;
             Title = title;
             Description = description;
             ExperienceLevel = experienceLevel;
@@ -45,5 +44,6 @@ namespace JobManagement.Application.Commands
             ProfessionId = professionId;
             Skills = skills;
         }
+
     }
 }

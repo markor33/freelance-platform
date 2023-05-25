@@ -12,6 +12,7 @@ namespace JobManagement.Infrastructure
         public DbSet<Job> Jobs { get; set; }
         public DbSet<Proposal> Proposals { get; set; }
         public DbSet<Profession> Professions { get; set; }
+        public DbSet<Question> Questions { get; set; }
         public DbSet<Skill> Skills { get; set; }
         public DbSet<Contract> Contracts { get; set; }
 

@@ -43,7 +43,9 @@ namespace JobManagement.IntegrationTests.Controllers.JobScenarios
                 "Desc",
                 ExperienceLevel.JUNIOR,
                 new Payment(50, "EUR", PaymentType.FIXED_RATE),
-                profession);
+                profession,
+                new List<Question>(),
+                new List<Skill>());
 
             job = await jobRepository.CreateAsync(job);
             await jobRepository.UnitOfWork.SaveEntitiesAsync();

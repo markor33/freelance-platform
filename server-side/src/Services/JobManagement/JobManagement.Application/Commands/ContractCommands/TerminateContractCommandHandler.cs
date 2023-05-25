@@ -3,7 +3,7 @@ using JobManagement.Domain.AggregatesModel.JobAggregate;
 using JobManagement.Domain.AggregatesModel.JobAggregate.Enums;
 using MediatR;
 
-namespace JobManagement.Application.Commands
+namespace JobManagement.Application.Commands.ContractCommands
 {
     public class TerminateContractCommandHandler : IRequestHandler<TerminateContractCommand, Result>
     {

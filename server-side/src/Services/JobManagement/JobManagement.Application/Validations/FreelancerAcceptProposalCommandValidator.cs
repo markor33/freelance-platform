@@ -1,5 +1,5 @@
 ﻿using FluentValidation;
-using JobManagement.Application.Commands;
+using JobManagement.Application.Commands.ContractCommands;
 
 namespace JobManagement.Application.Validations
 {

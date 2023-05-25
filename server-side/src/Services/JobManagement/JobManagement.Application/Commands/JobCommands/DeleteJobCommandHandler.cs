@@ -2,7 +2,7 @@
 using JobManagement.Domain.AggregatesModel.JobAggregate;
 using MediatR;
 
-namespace JobManagement.Application.Commands
+namespace JobManagement.Application.Commands.JobCommands
 {
     public class DeleteJobCommandHandler : IRequestHandler<DeleteJobCommand, Result>
     {
@@ -19,7 +19,7 @@ namespace JobManagement.Application.Commands
             if (job is null)
                 return Result.Fail("Job does not exist");
 
-            var deleteResult =  job.Delete();
+            var deleteResult = job.Delete();
             if (deleteResult.IsFailed)
                 return deleteResult;
 

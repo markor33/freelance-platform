@@ -1,4 +1,4 @@
-﻿using JobManagement.Application.Commands;
+﻿using JobManagement.Application.Commands.JobCommands;
 using JobManagement.Application.Queries;
 using JobManagement.Domain.AggregatesModel.JobAggregate.Entities;
 using JobManagement.Domain.AggregatesModel.JobAggregate.Enums;

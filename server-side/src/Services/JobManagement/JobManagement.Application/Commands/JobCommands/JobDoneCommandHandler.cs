@@ -3,7 +3,7 @@ using FluentResults;
 using JobManagement.Domain.AggregatesModel.JobAggregate;
 using MediatR;
 
-namespace JobManagement.Application.Commands
+namespace JobManagement.Application.Commands.JobCommands
 {
     public class JobDoneCommandHandler : IRequestHandler<JobDoneCommand, Result>
     {

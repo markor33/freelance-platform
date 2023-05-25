@@ -77,7 +77,9 @@ namespace JobManagement.IntegrationTests.Setup
                 "Desc",
                 ExperienceLevel.JUNIOR,
                 new Payment(50, "EUR", PaymentType.FIXED_RATE),
-                profession);
+                profession,
+                new List<Question>(),
+                new List<Skill>());
             var proposal = new Proposal(
                 Guid.Parse("3f006187-d73f-4bdb-bb13-81a4e488d6f8"),
                 "Text",
