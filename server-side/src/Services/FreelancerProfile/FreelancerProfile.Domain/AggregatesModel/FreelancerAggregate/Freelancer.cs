@@ -153,6 +153,30 @@ namespace FreelancerProfile.Domain.AggregatesModel.FreelancerAggregate
             AddDomainEvent(new EmploymentAddedDomainEvent(Id, employment));
         }
 
+        public Result<Employment> UpdateEmployment(Guid employmentId, string company, string title, DateRange period, string description)
+        {
+            var employment = Employments.FirstOrDefault(e => e.Id == employmentId);
+            if (employment is null)
+                return Result.Fail("Employment does not exist");
+
+            employment.Update(company, title, period, description);
+            AddDomainEvent(new EmploymentEdittedDomainEvent(Id, employment));
+
+            return Result.Ok(employment);
+        }
+
+        public Result DeleteEmployment(Guid employmentId)
+        {
+            var employment = Employments.FirstOrDefault(e => e.Id == employmentId);
+            if (employment is null)
+                return Result.Fail("Employment does not exist");
+
+            Employments.Remove(employment);
+            AddDomainEvent(new EmploymentDeletedDomainEvent(Id, employment.Id));
+
+            return Result.Ok();
+        }
+
         public void AddPortfolioProject(PortfolioProject portfolioProject)
         {
             PortfolioProjects.Add(portfolioProject);

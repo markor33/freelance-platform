@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
-import { Availability, Certification, Education, Freelancer } from '../models/freelancer.model';
+import { Availability, Certification, Education, Employment, Freelancer } from '../models/freelancer.model';
 import { FreelancerService } from '../services/freelancer.service';
 import { LanguageProficiencyLevel } from '../../shared/models/language.model';
 import { MatDialog } from '@angular/material/dialog';
 import { AddEducationDialogComponent } from './dialogs/education/add-education-dialog/add-education-dialog.component';
 import { AddCertificationDialogComponent } from './dialogs/certification/add-certification-dialog/add-certification-dialog.component';
-import { AddEmploymentDialogComponent } from './dialogs/add-employment-dialog/add-employment-dialog.component';
+import { AddEmploymentDialogComponent } from './dialogs/employment/add-employment-dialog/add-employment-dialog.component';
 import { AddSkillDialogComponent } from './dialogs/add-skill-dialog/add-skill-dialog.component';
 import { ExperienceLevel } from '../../shared/models/experience-level.model';
 import { AuthService } from '../../auth/services/auth.service';
@@ -17,6 +17,7 @@ import { SnackBarsService } from '../../shared/services/snack-bars.service';
 import { ConfirmationDialogComponent } from '../../shared/dialogs/confirmation-dialog/confirmation-dialog.component';
 import { EditCertificationDialogComponent } from './dialogs/certification/edit-certification-dialog/edit-certification-dialog.component';
 import { EditEducationDialogComponent } from './dialogs/education/edit-education-dialog/edit-education-dialog.component';
+import { EditEmploymentDialogComponent } from './dialogs/employment/edit-employment-dialog/edit-employment-dialog.component';
 
 @Component({
   selector: 'app-freelancer-profile',
@@ -28,6 +29,7 @@ export class FreelancerProfileComponent {
   educationHover: boolean = false;
   certificationHover: boolean = false;
   skillsHover: boolean = false;
+  employmentHover: boolean = false;
 
   role: string = '';
   freelancer: Freelancer = new Freelancer();
@@ -117,10 +119,22 @@ export class FreelancerProfileComponent {
   }
 
   openAddEmploymentDialog() {
-    this.dialog.open(AddEmploymentDialogComponent, {
-      width: '40%',
-      height: '72%'
-    });
+    AddEmploymentDialogComponent.open(this.dialog);
+  }
+
+  openEditEmploymentDialog(employment: Employment) {
+    EditEmploymentDialogComponent.open(this.dialog, employment);
+  }
+
+  deleteEmployment(employmentId: string) {
+    const confirmDialog = ConfirmationDialogComponent.open(this.dialog, 'You are about to delete your employment.');
+    confirmDialog.afterClosed().subscribe((res) => {
+      if (!res)
+        return;
+      this.freelancerService.deleteEmployment(employmentId).subscribe({
+        complete: () => this.snackBarService.primary('Employment deleted successfully')
+      });
+    }); 
   }
 
   openAddSkillDialog() {

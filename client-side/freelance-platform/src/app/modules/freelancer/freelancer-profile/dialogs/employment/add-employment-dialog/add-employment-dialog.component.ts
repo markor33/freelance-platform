@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
-import { FreelancerService } from '../../../services/freelancer.service';
+import { FreelancerService } from '../../../../services/freelancer.service';
 import { SnackBarsService } from 'src/app/modules/shared/services/snack-bars.service';
-import { MatDialogRef } from '@angular/material/dialog';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { convertToUTCDate } from 'src/app/modules/shared/utils/date-helper.util';
-import { AddEmploymentCommand } from '../../../models/commands/add-employment-command.model';
+import { AddEmploymentCommand } from '../../../../models/commands/add-employment-command.model';
 
 @Component({
   selector: 'app-add-employment-dialog',
@@ -34,6 +34,13 @@ export class AddEmploymentDialogComponent {
   employmentSuccessfullyAdded() {
     this.snackBars.primary('Employment successfully added');
     this.dialogRef.close();
+  }
+
+  static open(dialog: MatDialog): MatDialogRef<AddEmploymentDialogComponent> {
+    return dialog.open(AddEmploymentDialogComponent, {
+      width: '40%',
+      height: '71%'
+    });
   }
 
 }

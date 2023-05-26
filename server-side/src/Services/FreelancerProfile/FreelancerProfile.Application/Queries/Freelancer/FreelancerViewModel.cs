@@ -35,7 +35,8 @@ namespace FreelancerProfile.Application.Queries
         public void UpdateEducation(EducationViewModel education)
         {
             var index = Educations.FindIndex(e => e.Id == education.Id);
-            Educations[index] = education;
+            if (index != -1)
+                Educations[index] = education;
         }
 
         public void DeleteEducation(Guid educationId)
@@ -53,7 +54,8 @@ namespace FreelancerProfile.Application.Queries
         public void UpdateCertification(CertificationViewModel certification)
         {
             var index = Certifications.FindIndex(c => c.Id == certification.Id);
-            Certifications[index] = certification;
+            if (index != -1)
+                Certifications[index] = certification;
         }
 
         public void DeleteCertification(Guid certificationId)
@@ -66,6 +68,20 @@ namespace FreelancerProfile.Application.Queries
         public void AddEmployment(EmploymentViewModel employment)
         {
             Employments.Add(employment);
+        }
+
+        public void UpdateEmployment(EmploymentViewModel employment)
+        {
+            var index = Employments.FindIndex(e => e.Id == employment.Id);
+            if (index != -1)
+                Employments[index] = employment;
+        }
+
+        public void DeleteEmployment(Guid employmentId)
+        {
+            var employment = Employments.FirstOrDefault(e => e.Id == employmentId);
+            if (employment is not null)
+                Employments.Remove(employment);
         }
 
         public void SetSkills(List<SkillViewModel> skills) => Skills = skills;

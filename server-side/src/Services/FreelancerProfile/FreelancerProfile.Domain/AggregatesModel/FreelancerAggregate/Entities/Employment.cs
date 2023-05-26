@@ -20,5 +20,13 @@ namespace FreelancerProfile.Domain.AggregatesModel.FreelancerAggregate.Entities
             Description = description;
         }
 
+        public void Update(string company, string title, DateRange period, string description)
+        {
+            Company = company;
+            Title = title;
+            Period = period;
+            Description = description;
+        }
+
     }
 }
