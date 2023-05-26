@@ -7,7 +7,7 @@ namespace FreelancerProfile.Application.Validations
     {
         public AddEducationCommandValidator()
         {
-            RuleFor(x => x.UserId).NotEmpty();
+            RuleFor(x => x.FreelancerId).NotEmpty();
 
             RuleFor(x => x.SchoolName).NotEmpty();
 

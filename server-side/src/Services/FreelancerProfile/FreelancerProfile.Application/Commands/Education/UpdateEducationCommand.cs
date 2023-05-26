@@ -5,7 +5,7 @@ using System.Text.Json.Serialization;
 
 namespace FreelancerProfile.Application.Commands
 {
-    public class EditEducationCommand : IRequest<Result<Education>>
+    public class UpdateEducationCommand : IRequest<Result<Education>>
     {
         public Guid FreelancerId { get; set; }
         public Guid EducationId { get; private set; }
@@ -15,7 +15,7 @@ namespace FreelancerProfile.Application.Commands
         public DateTime End { get; private set; }
 
         [JsonConstructor]
-        public EditEducationCommand(Guid educationId, string schoolName, string degree, DateTime start, DateTime end)
+        public UpdateEducationCommand(Guid educationId, string schoolName, string degree, DateTime start, DateTime end)
         {
             EducationId = educationId;
             SchoolName = schoolName;

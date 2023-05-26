@@ -67,6 +67,10 @@ namespace FreelancerProfile.Domain.AggregatesModel.FreelancerAggregate
             ProfessionId = profession.Id;
             LanguageKnowledges = new List<LanguageKnowledge>();
             Skills = new List<Skill>();
+            Educations = new List<Education>();
+            Certifications = new List<Certification>();
+            Employments = new List<Employment>();
+            PortfolioProjects = new List<PortfolioProject>();
             AddDomainEvent(new FreelancerCreatedDomainEvent(this));
         }
 
@@ -87,6 +91,12 @@ namespace FreelancerProfile.Domain.AggregatesModel.FreelancerAggregate
             AddDomainEvent(new SkillsUpdatedDomainEvent(Id, Skills));
         }
 
+        public void UpdateProfileSummary(ProfileSummary profileSummary)
+        {
+            ProfileSummary = profileSummary;
+            AddDomainEvent(new ProfileSummaryUpdatedDomainEvent(Id, profileSummary));
+        }
+
         public void AddEducation(Education education)
         {
             Educations.Add(education);
@@ -100,7 +110,7 @@ namespace FreelancerProfile.Domain.AggregatesModel.FreelancerAggregate
                 return Result.Fail("Education does not exist");
 
             education.Update(schoolName, degree, attended);
-            AddDomainEvent(new EducationEdittedDomainEvent(Id, education));
+            AddDomainEvent(new EducationUpdatedDomainEvent(Id, education));
 
             return Result.Ok(education);
         }
@@ -130,7 +140,7 @@ namespace FreelancerProfile.Domain.AggregatesModel.FreelancerAggregate
                 return Result.Fail("Cerfitication does not exist");
 
             certification.Update(name, provider, attended, description);
-            AddDomainEvent(new CertificationEdittedDomainEvent(Id, certification));
+            AddDomainEvent(new CertificationUpdatedDomainEvent(Id, certification));
 
             return Result.Ok(certification);
         }
@@ -160,7 +170,7 @@ namespace FreelancerProfile.Domain.AggregatesModel.FreelancerAggregate
                 return Result.Fail("Employment does not exist");
 
             employment.Update(company, title, period, description);
-            AddDomainEvent(new EmploymentEdittedDomainEvent(Id, employment));
+            AddDomainEvent(new EmploymentUpdatedDomainEvent(Id, employment));
 
             return Result.Ok(employment);
         }

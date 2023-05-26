@@ -28,9 +28,20 @@ namespace FreelancerProfile.API.Controllers
             _mapper = mapper;
         }
 
+        [HttpPost]
+        [Authorize(Roles = "FREELANCER"), ProfileOwnerAuthorization]
+        public async Task<ActionResult<CertificationViewModel>> AddCertification(AddCertificationCommand command)
+        {
+            command.FreelancerId = _identityService.GetDomainUserId();
+            var commandResult = await _mediator.Send(command);
+            if (commandResult.IsFailed)
+                return BadRequest(commandResult.Errors.ToStringList());
+            return Ok(_mapper.Map<CertificationViewModel>(commandResult.Value));
+        }
+
         [HttpPut("{certificationId}")]
         [Authorize(Roles = "FREELANCER"), ProfileOwnerAuthorization]
-        public async Task<ActionResult<CertificationViewModel>> Update(EditCertificationCommand command)
+        public async Task<ActionResult<CertificationViewModel>> Update(UpdateCertificationCommand command)
         {
             var freelancerId = _identityService.GetDomainUserId();
             command.FreelancerId = freelancerId;

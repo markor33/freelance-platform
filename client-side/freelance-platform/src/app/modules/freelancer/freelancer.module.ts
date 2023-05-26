@@ -29,6 +29,7 @@ import { AddSkillDialogComponent } from './freelancer-profile/dialogs/add-skill-
 import { EditCertificationDialogComponent } from './freelancer-profile/dialogs/certification/edit-certification-dialog/edit-certification-dialog.component';
 import { EditEducationDialogComponent } from './freelancer-profile/dialogs/education/edit-education-dialog/edit-education-dialog.component';
 import { EditEmploymentDialogComponent } from './freelancer-profile/dialogs/employment/edit-employment-dialog/edit-employment-dialog.component';
+import { EditProfileSummaryDialogComponent } from './freelancer-profile/dialogs/edit-profile-summary-dialog/edit-profile-summary-dialog.component';
 
 export const freelancerRoutes: Routes = [
   { path: 'freelancer/profile/:id', component: FreelancerProfileComponent}
@@ -44,7 +45,8 @@ export const freelancerRoutes: Routes = [
     AddSkillDialogComponent,
     EditCertificationDialogComponent,
     EditEducationDialogComponent,
-    EditEmploymentDialogComponent
+    EditEmploymentDialogComponent,
+    EditProfileSummaryDialogComponent
   ],
   imports: [
     HttpClientModule,

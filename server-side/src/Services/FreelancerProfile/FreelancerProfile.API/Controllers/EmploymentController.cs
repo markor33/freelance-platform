@@ -28,9 +28,19 @@ namespace FreelancerProfile.API.Controllers
             _mapper = mapper;
         }
 
+        [HttpPost()]
+        public async Task<ActionResult<EmploymentViewModel>> AddEmployment(AddEmploymentCommand command)
+        {
+            command.FreelancerId = _identityService.GetDomainUserId();
+            var commandResult = await _mediator.Send(command);
+            if (commandResult.IsFailed)
+                return BadRequest(commandResult.Errors.ToStringList());
+            return Ok(_mapper.Map<EmploymentViewModel>(commandResult.Value));
+        }
+
         [HttpPut("{employmentId}")]
         [Authorize(Roles = "FREELANCER"), ProfileOwnerAuthorization]
-        public async Task<ActionResult<EmploymentViewModel>> Update(EditEmploymentCommand command)
+        public async Task<ActionResult<EmploymentViewModel>> Update(UpdateEmploymentCommand command)
         {
             var freelancerId = _identityService.GetDomainUserId();
             command.FreelancerId = freelancerId;

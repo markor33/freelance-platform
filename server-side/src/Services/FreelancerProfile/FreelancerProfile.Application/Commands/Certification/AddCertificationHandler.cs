@@ -17,7 +17,7 @@ namespace FreelancerProfile.Application.Commands
 
         public async Task<Result<Certification>> Handle(AddCertificationCommand request, CancellationToken cancellationToken)
         {
-            var freelancer = await _freelancerRepository.GetByUserIdAsync(request.UserId);
+            var freelancer = await _freelancerRepository.GetByIdAsync(request.FreelancerId);
             if (freelancer is null)
                 return Result.Fail("Freelancer does not exist");
 

@@ -3,7 +3,7 @@ using FreelancerProfile.Application.Commands;
 
 namespace FreelancerProfile.Application.Validations
 {
-    public class EditCertificationCommandValidator : AbstractValidator<EditCertificationCommand>
+    public class EditCertificationCommandValidator : AbstractValidator<UpdateCertificationCommand>
     {
         public EditCertificationCommandValidator()
         {

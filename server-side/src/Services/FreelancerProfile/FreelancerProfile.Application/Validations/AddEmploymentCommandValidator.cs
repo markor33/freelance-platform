@@ -9,7 +9,7 @@ namespace FreelancerProfile.Application.Validations
     {
         public AddEmploymentCommandValidator()
         {
-            RuleFor(x => x.UserId).NotEmpty();
+            RuleFor(x => x.FreelancerId).NotEmpty();
 
             RuleFor(x => x.Title).NotEmpty();
 

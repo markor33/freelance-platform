@@ -29,12 +29,12 @@
                     <b>Languages:</b>
                 </span>
                 <div *ngFor="let languageKnowledge of freelancer.languageKnowledges">
-                    <span><b>{{languageKnowledge.language.name}}:</b></span>&nbsp;<span>{{languageProficiencyLevelToString(languageKnowledge.profiencyLevel)}}</span><br>
+                    <span><b>{{languageKnowledge.language.name}}:</b></span>&nbsp;<span>{{enumConverter.languageProficiencyLevelToString(languageKnowledge.profiencyLevel)}}</span><br>
                 </div>
             </div>
             <span class="availability icon-text-align">
                 <mat-icon>calendar_month</mat-icon>&nbsp;
-                <span><b>Availability:</b></span>&nbsp;<span>{{availabilityToString(freelancer.availability)}}</span>
+                <span><b>Availability:</b></span>&nbsp;<span>{{enumConverter.availabilityToString(freelancer.availability)}}</span>
             </span>
         </div>
         <div class="profession">
@@ -47,17 +47,25 @@
             <div>
                 <span class="icon-text-align">
                     <mat-icon>bolt</mat-icon>&nbsp;
-                    <b>Experience level:</b>&nbsp;<span>{{experienceLevelToString(freelancer.experienceLevel)}}</span>
+                    <b>Experience level:</b>&nbsp;<span>{{enumConverter.experienceLevelToString(freelancer.experienceLevel)}}</span>
                 </span>
             </div>
         </div>
     </div>
     <div class="main-content">
-        <div class="profile-summary">
-            <h2>{{freelancer.profileSummary.title}}</h2>
+        <div class="profile-summary"
+            (mouseenter)="profileSummaryHover = true"
+            (mouseleave)="profileSummaryHover = false">
+            <div class="content-actions">
+                <h2>{{freelancer.profileSummary.title}}</h2>
+                <button mat-icon-button color="primary" *ngIf="role === 'FREELANCER' && profileSummaryHover === true" 
+                    (click)="openEditProfileSummaryDialog(freelancer.profileSummary)">
+                    <mat-icon>edit</mat-icon>
+                </button>
+            </div>
             <div class="description">{{freelancer.profileSummary.description}}</div>
         </div>
-        <div class="feedbacks">
+        <div class="feedbacks" *ngIf="feedbacks.length !== 0">
             <h2>Feedbacks:</h2>&nbsp;
             <div class="feedback" *ngFor="let feedback of feedbacks; let last = last">
                 <h3><a (click)="openJobInfoDialog(feedback.jobId)">{{feedback.jobTitle}}</a></h3>

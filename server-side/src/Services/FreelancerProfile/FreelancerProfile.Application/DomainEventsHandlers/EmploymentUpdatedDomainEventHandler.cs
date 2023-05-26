@@ -5,18 +5,18 @@ using MediatR;
 
 namespace FreelancerProfile.Application.DomainEventsHandlers
 {
-    public class EmploymentEdittedDomainEventHandler : INotificationHandler<EmploymentEdittedDomainEvent>
+    public class EmploymentupdatedDomainEventHandler : INotificationHandler<EmploymentUpdatedDomainEvent>
     {
         private readonly IFreelancerReadModelRepository _repository;
         private readonly IMapper _mapper;
 
-        public EmploymentEdittedDomainEventHandler(IFreelancerReadModelRepository repository, IMapper mapper)
+        public EmploymentupdatedDomainEventHandler(IFreelancerReadModelRepository repository, IMapper mapper)
         {
             _repository = repository;
             _mapper = mapper;
         }
 
-        public async Task Handle(EmploymentEdittedDomainEvent notification, CancellationToken cancellationToken)
+        public async Task Handle(EmploymentUpdatedDomainEvent notification, CancellationToken cancellationToken)
         {
             var freelancer = await _repository.GetByIdAsync(notification.FreelancerId);
             freelancer.UpdateEmployment(_mapper.Map<EmploymentViewModel>(notification.Employment));

@@ -3,7 +3,7 @@ using FreelancerProfile.Application.Commands;
 
 namespace FreelancerProfile.Application.Validations
 {
-    public class EditEmploymentCommandValidator : AbstractValidator<EditEmploymentCommand>
+    public class EditEmploymentCommandValidator : AbstractValidator<UpdateEmploymentCommand>
     {
         public EditEmploymentCommandValidator()
         {

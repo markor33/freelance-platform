@@ -3,12 +3,12 @@ using MediatR;
 
 namespace FreelancerProfile.Domain.AggregatesModel.FreelancerAggregate.Events
 {
-    public class EducationEdittedDomainEvent : INotification
+    public class EducationUpdatedDomainEvent : INotification
     {
         public Guid FreelancerId { get; private set; }
         public Education Education { get; private set; }
 
-        public EducationEdittedDomainEvent(Guid freelancerId, Education education)
+        public EducationUpdatedDomainEvent(Guid freelancerId, Education education)
         {
             FreelancerId = freelancerId;
             Education = education;

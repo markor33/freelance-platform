@@ -29,10 +29,9 @@ namespace FreelancerProfile.IntegrationTests.Setup
                 using var scope = BuildServiceProvider(services).CreateScope();
                 var scopedServices = scope.ServiceProvider;
                 var db = scopedServices.GetRequiredService<FreelancerProfileContext>();
-                var mapper = scopedServices.GetRequiredService<IMapper>();
                 var readDb = scopedServices.GetRequiredService<IMongoDbFactory>();
 
-                InitializeDatabase(db, readDb, mapper);
+                InitializeDatabase(db, readDb);
             });
         }
 
@@ -43,10 +42,8 @@ namespace FreelancerProfile.IntegrationTests.Setup
             services.Remove(services.SingleOrDefault(d => d.ServiceType == typeof(IEventBusSubscriptionsManager)));
             services.Remove(services.SingleOrDefault(d => d.ServiceType == typeof(IRabbitMQPersistentConnection)));
             services.Remove(services.SingleOrDefault(d => d.ServiceType == typeof(IEventBus)));
-            services.Remove(services.SingleOrDefault(d => d.ServiceType == typeof(MongoDBSettings)));
             services.Configure<MongoDBSettings>(options =>
             {
-                options.ConnectionURI = "mongodb+srv://fpuser:rJQgWthMythGsp3l@cluster0.gszadiv.mongodb.net/?retryWrites=true&w=majority";
                 options.DatabaseName= "freelancer-profile-test";
             });
             services.AddSingleton<IEventBus>(sp => (new Mock<IEventBus>()).Object);
@@ -65,41 +62,14 @@ namespace FreelancerProfile.IntegrationTests.Setup
 
         private static void InitializeDatabase(
             FreelancerProfileContext context,
-            IMongoDbFactory db,
-            IMapper mapper)
+            IMongoDbFactory db)
         {
             context.Database.EnsureCreated();
-            var readFreelancerRepository = db.GetCollection<FreelancerViewModel>();
-
-            FillFreelancers(context, readFreelancerRepository, mapper);
-
-            context.SaveChanges();
-        }
-
-        private static void FillFreelancers(
-            FreelancerProfileContext context, 
-            IMongoCollection<FreelancerViewModel> readRepository,
-            IMapper mapper)
-        {
-            // write model
             context.Database.ExecuteSqlRaw(@"DELETE FROM ""Freelancers"" CASCADE;");
-            var address = new Address("Serbia", "Novi Sad", "Tolstojeva", "56", "21000");
-            var contact = new Contact("Central Europe Standard Time", address, "064546589");
-            var profileSummary = new ProfileSummary("Title", "Desc");
-            var hourlyRate = new HourlyRate(25, "EUR");
-            var profession = context.Professions.Find(Guid.Parse("523c9ba1-4e91-4a75-85c3-cf386c078aa9"));
-            var freelancer = new Freelancer(
-                Guid.Parse("338391db-978c-4884-8ba0-689da98ed9f1"), 
-                "Mika", "Mikic", contact, true, profileSummary,
-                hourlyRate, Availability.FULL_TIME, ExperienceLevel.MEDIOR, 
-                profession);
-            var skill = context.Skills.Find(Guid.Parse("f15e6311-d454-4625-a0ad-397ff111c172"));
-            freelancer.AddSkill(skill);
-            context.Freelancers.Add(freelancer);
+            context.SaveChanges();
 
-            // read model
-            readRepository.DeleteMany(Builders<FreelancerViewModel>.Filter.Empty);
-            readRepository.InsertOne(mapper.Map<FreelancerViewModel>(freelancer));
+            var readFreelancerRepository = db.GetCollection<FreelancerViewModel>();
+            readFreelancerRepository.DeleteMany(Builders<FreelancerViewModel>.Filter.Empty);
         }
 
         private static void FillLanguages(FreelancerProfileContext context)

@@ -1,28 +1,18 @@
 ﻿using FluentResults;
 using FreelancerProfile.Domain.AggregatesModel.FreelancerAggregate.Entities;
 using MediatR;
-using System.Runtime.Serialization;
 using System.Text.Json.Serialization;
 
 namespace FreelancerProfile.Application.Commands
 {
-    [DataContract]
     public class AddEmploymentCommand : IRequest<Result<Employment>>
     {
-        [DataMember]
-        public Guid UserId { get; set; }
-        [DataMember]
+        public Guid FreelancerId { get; set; }
         public string Company { get; private set; }
-        [DataMember]
         public string Title { get; private set; }
-        [DataMember]
         public DateTime Start { get; private set; }
-        [DataMember]
         public DateTime End { get; private set; }
-        [DataMember]
         public string? Description { get; private set; }
-
-        public AddEmploymentCommand() { }
 
         [JsonConstructor]
         public AddEmploymentCommand(string company, string title, DateTime start, DateTime end, string? description)

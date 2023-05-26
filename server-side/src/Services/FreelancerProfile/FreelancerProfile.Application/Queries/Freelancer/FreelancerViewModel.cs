@@ -27,6 +27,8 @@ namespace FreelancerProfile.Application.Queries
         public List<CertificationViewModel> Certifications { get; private set; }
         public List<EmploymentViewModel> Employments { get; private set; }
 
+        public void UpdateProfileSummary(ProfileSummary profileSummary) => ProfileSummary = profileSummary;
+
         public void AddEducation(EducationViewModel education)
         {
             Educations.Add(education);

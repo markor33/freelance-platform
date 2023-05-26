@@ -6,16 +6,16 @@ using MediatR;
 
 namespace FreelancerProfile.Application.Commands
 {
-    public class EditEducationCommandHandler : IRequestHandler<EditEducationCommand, Result<Education>>
+    public class UpdateEducationCommandHandler : IRequestHandler<UpdateEducationCommand, Result<Education>>
     {
         private readonly IFreelancerRepository _freelancerRepository;
 
-        public EditEducationCommandHandler(IFreelancerRepository freelancerRepository)
+        public UpdateEducationCommandHandler(IFreelancerRepository freelancerRepository)
         {
             _freelancerRepository = freelancerRepository;
         }
 
-        public async Task<Result<Education>> Handle(EditEducationCommand request, CancellationToken cancellationToken)
+        public async Task<Result<Education>> Handle(UpdateEducationCommand request, CancellationToken cancellationToken)
         {
             var freelancer = await _freelancerRepository.GetByIdAsync(request.FreelancerId);
             if (freelancer is null)

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Availability, Certification, Education, Employment, Freelancer } from '../models/freelancer.model';
+import { Availability, Certification, Education, Employment, Freelancer, ProfileSummary } from '../models/freelancer.model';
 import { FreelancerService } from '../services/freelancer.service';
 import { LanguageProficiencyLevel } from '../../shared/models/language.model';
 import { MatDialog } from '@angular/material/dialog';
@@ -18,6 +18,8 @@ import { ConfirmationDialogComponent } from '../../shared/dialogs/confirmation-d
 import { EditCertificationDialogComponent } from './dialogs/certification/edit-certification-dialog/edit-certification-dialog.component';
 import { EditEducationDialogComponent } from './dialogs/education/edit-education-dialog/edit-education-dialog.component';
 import { EditEmploymentDialogComponent } from './dialogs/employment/edit-employment-dialog/edit-employment-dialog.component';
+import { EditProfileSummaryDialogComponent } from './dialogs/edit-profile-summary-dialog/edit-profile-summary-dialog.component';
+import { EnumConverter } from '../../shared/utils/enum-string-converter.util';
 
 @Component({
   selector: 'app-freelancer-profile',
@@ -26,6 +28,7 @@ import { EditEmploymentDialogComponent } from './dialogs/employment/edit-employm
 })
 export class FreelancerProfileComponent {
 
+  profileSummaryHover: boolean = false;
   educationHover: boolean = false;
   certificationHover: boolean = false;
   skillsHover: boolean = false;
@@ -42,7 +45,8 @@ export class FreelancerProfileComponent {
     private authService: AuthService,
     private feedbackService: FeedbackService,
     private route: ActivatedRoute,
-    private snackBarService: SnackBarsService) {
+    private snackBarService: SnackBarsService,
+    public enumConverter: EnumConverter) {
       const id = this.route.snapshot.paramMap.get('id');
       if(id)
         this.freelancerId = id;
@@ -55,29 +59,9 @@ export class FreelancerProfileComponent {
     });
     this.feedbackService.getByFreelancer(this.freelancerId).subscribe((feedbacks) => this.feedbacks = feedbacks);
   }
-  
-  availabilityToString(availability: Availability): string {
-    if (availability == Availability.FULL_TIME)
-      return 'Full time';
-    return 'Part time';
-  }
 
-  experienceLevelToString(experienceLevel: ExperienceLevel): string {
-    if (experienceLevel == ExperienceLevel.JUNIOR)
-      return 'Junior';
-    else if (experienceLevel == ExperienceLevel.MEDIOR)
-      return 'Medior';
-    return 'Senior';
-  }
-
-  languageProficiencyLevelToString(languageProficiencyLevel: LanguageProficiencyLevel): string {
-    if (languageProficiencyLevel == LanguageProficiencyLevel.BASIC)
-      return 'Basic';
-    else if (languageProficiencyLevel == LanguageProficiencyLevel.CONVERSATIONAL)
-      return 'Conversational';
-    else if (languageProficiencyLevel == LanguageProficiencyLevel.FLUENT)
-      return 'Fluent';
-    return 'Native';
+  openEditProfileSummaryDialog(profileSummary: ProfileSummary) {
+    EditProfileSummaryDialogComponent.open(this.dialog, profileSummary);
   }
 
   openAddEducationDialog() {
