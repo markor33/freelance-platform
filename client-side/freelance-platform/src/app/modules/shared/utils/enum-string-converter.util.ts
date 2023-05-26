@@ -4,11 +4,35 @@ import { ExperienceLevel } from "../models/experience-level.model";
 import { JobStatus } from "../../job/models/job.model";
 import { ProposalStatus } from "../../job/models/proposal.model";
 import { ContractStatus } from "../../contract/models/contract.model";
+import { Availability } from "../../freelancer/models/freelancer.model";
+import { LanguageProficiencyLevel } from "../models/language.model";
 
 @Injectable({
     providedIn: 'root'
 })
 export class EnumConverter {
+
+    availabilityToString(availability: Availability): string {
+        switch(availability) {
+            case Availability.FULL_TIME:
+                return 'Full time';
+            case Availability.PART_TIME:
+                return 'Part time';
+        }
+    }
+
+    languageProficiencyLevelToString(languageProficiencyLevel: LanguageProficiencyLevel): string {
+        switch(languageProficiencyLevel) {
+            case LanguageProficiencyLevel.BASIC:
+                return 'Basic';
+            case LanguageProficiencyLevel.CONVERSATIONAL:
+                return 'Conversational';
+            case LanguageProficiencyLevel.FLUENT:
+                return 'Fluent';
+            case LanguageProficiencyLevel.NATIVE:
+                return 'Native';
+        }
+    }
 
     paymentTypeToString(paymentType: PaymentType): string {
         switch(paymentType) {

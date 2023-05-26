@@ -11,6 +11,11 @@ namespace FreelancerProfile.API.Security
             _context = context;
         }
 
+        public Guid GetDomainUserId()
+        {
+            return new Guid(_context.HttpContext.User.FindFirst("DomainUserId").Value);
+        }
+
         public Guid GetUserId()
         {
             return new Guid(_context.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value);

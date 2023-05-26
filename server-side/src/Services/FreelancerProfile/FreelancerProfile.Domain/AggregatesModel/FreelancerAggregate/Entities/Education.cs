@@ -20,5 +20,12 @@ namespace FreelancerProfile.Domain.AggregatesModel.FreelancerAggregate.Entities
             Degree = degree;
             Attended = attended;
         }
+
+        public void Update(string schoolName, string degree, DateRange attended)
+        {
+            SchoolName = schoolName;
+            Degree = degree;
+            Attended = attended;
+        }
     }
 }

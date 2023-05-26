@@ -67,6 +67,10 @@ namespace FreelancerProfile.Domain.AggregatesModel.FreelancerAggregate
             ProfessionId = profession.Id;
             LanguageKnowledges = new List<LanguageKnowledge>();
             Skills = new List<Skill>();
+            Educations = new List<Education>();
+            Certifications = new List<Certification>();
+            Employments = new List<Employment>();
+            PortfolioProjects = new List<PortfolioProject>();
             AddDomainEvent(new FreelancerCreatedDomainEvent(this));
         }
 
@@ -75,28 +79,22 @@ namespace FreelancerProfile.Domain.AggregatesModel.FreelancerAggregate
             LanguageKnowledges.Add(languageKnowledge);
         }
 
-        public Result AddSkill(Skill skill)
+        public void UpdateSkills(List<Skill> skills)
         {
-            if (skill.ProfessionId != ProfessionId)
-                return Result.Fail($"Freelancers profession does not contain {skill.Name} skill");
+            var skillsToRemove = Skills.Where(s => !skills.Any(ns => ns.Id == s.Id)).ToList();
+            foreach (var skillToRemove in skillsToRemove)
+                Skills.Remove(skillToRemove);
 
-            if (Skills.Contains(skill))
-                return Result.Fail($"Skill '{skill.Name}' already added");
+            var skillsToAdd = skills.Where(ns => !Skills.Any(s => s.Id == ns.Id)).ToList();
+            Skills.AddRange(skillsToAdd);
 
-            Skills.Add(skill);
-            AddDomainEvent(new SkillAddedDomainEvent(Id, skill));
-            return Result.Ok();
+            AddDomainEvent(new SkillsUpdatedDomainEvent(Id, Skills));
         }
 
-        public Result AddSkill(List<Skill> skills)
+        public void UpdateProfileSummary(ProfileSummary profileSummary)
         {
-            foreach (var skill in skills)
-            {
-                var result = AddSkill(skill);
-                if (result.IsFailed)
-                    return result;
-            }
-            return Result.Ok();
+            ProfileSummary = profileSummary;
+            AddDomainEvent(new ProfileSummaryUpdatedDomainEvent(Id, profileSummary));
         }
 
         public void AddEducation(Education education)
@@ -105,16 +103,88 @@ namespace FreelancerProfile.Domain.AggregatesModel.FreelancerAggregate
             AddDomainEvent(new EducationAddedDomainEvent(Id, education));
         }
 
+        public Result<Education> UpdateEducation(Guid educationId, string schoolName, string degree, DateRange attended)
+        {
+            var education = Educations.FirstOrDefault(e => e.Id == educationId);
+            if (education is null)
+                return Result.Fail("Education does not exist");
+
+            education.Update(schoolName, degree, attended);
+            AddDomainEvent(new EducationUpdatedDomainEvent(Id, education));
+
+            return Result.Ok(education);
+        }
+
+        public Result DeleteEducation(Guid educationId)
+        {
+            var education = Educations.FirstOrDefault(e => e.Id == educationId);
+            if (education is null)
+                return Result.Fail("Education does not exist");
+
+            Educations.Remove(education);
+            AddDomainEvent(new EducationDeletedDomainEvent(Id, education.Id));
+
+            return Result.Ok();
+        }
+
         public void AddCertification(Certification certification)
         {
             Certifications.Add(certification);
             AddDomainEvent(new CertificationAddedDomainEvent(Id, certification));
         }
 
+        public Result<Certification> UpdateCertification(Guid certificationId, string name, string provider, DateRange attended, string? description)
+        {
+            var certification = Certifications.FirstOrDefault(c => c.Id == certificationId);
+            if (certification is null)
+                return Result.Fail("Cerfitication does not exist");
+
+            certification.Update(name, provider, attended, description);
+            AddDomainEvent(new CertificationUpdatedDomainEvent(Id, certification));
+
+            return Result.Ok(certification);
+        }
+
+        public Result DeleteCertification(Guid certificationId)
+        {
+            var certification = Certifications.FirstOrDefault(c => c.Id == certificationId);
+            if (certification is null)
+                return Result.Fail("Cerfitication does not exist");
+
+            Certifications.Remove(certification);
+            AddDomainEvent(new CertificationDeletedDomainEvent(Id, certificationId));
+
+            return Result.Ok();
+        }
+
         public void AddEmployment(Employment employment)
         {
             Employments.Add(employment);
             AddDomainEvent(new EmploymentAddedDomainEvent(Id, employment));
+        }
+
+        public Result<Employment> UpdateEmployment(Guid employmentId, string company, string title, DateRange period, string description)
+        {
+            var employment = Employments.FirstOrDefault(e => e.Id == employmentId);
+            if (employment is null)
+                return Result.Fail("Employment does not exist");
+
+            employment.Update(company, title, period, description);
+            AddDomainEvent(new EmploymentUpdatedDomainEvent(Id, employment));
+
+            return Result.Ok(employment);
+        }
+
+        public Result DeleteEmployment(Guid employmentId)
+        {
+            var employment = Employments.FirstOrDefault(e => e.Id == employmentId);
+            if (employment is null)
+                return Result.Fail("Employment does not exist");
+
+            Employments.Remove(employment);
+            AddDomainEvent(new EmploymentDeletedDomainEvent(Id, employment.Id));
+
+            return Result.Ok();
         }
 
         public void AddPortfolioProject(PortfolioProject portfolioProject)

@@ -29,7 +29,7 @@ export class EditJobDialogComponent {
   allSkills: Skill[] = [];
   skillsControl = new FormControl<Skill[]>([]);
 
-  editJobCommand: EditJobCommand = new EditJobCommand();
+  editJobCommand: EditJobCommand;
 
   constructor(
     private jobService: JobService,
@@ -38,17 +38,10 @@ export class EditJobDialogComponent {
     private dialogRef: MatDialogRef<EditJobDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: { job: Job }) {
       this.job = data.job;
+      this.editJobCommand = new EditJobCommand(this.job);
   }
 
   ngOnInit() {
-    this.editJobCommand.jobId = this.job.id;
-    this.editJobCommand.title = this.job.title;
-    this.editJobCommand.description = this.job.description;
-    this.editJobCommand.experienceLevel = this.job.experienceLevel;
-    this.editJobCommand.payment = this.job.payment;
-    this.editJobCommand.professionId = this.job.profession.id;
-    this.editJobCommand.questions = this.job.questions;
-    this.editJobCommand.skills = this.job.skills.map((skill) => skill.id);
     this.professionService.get().subscribe((professions) => this.professions = professions);
     this.professionService.getSkills(this.job.profession.id).subscribe((skills) => {
       this.allSkills = skills;

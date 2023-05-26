@@ -24,6 +24,9 @@ namespace FreelancerProfile.Infrastructure.Repositories
         {
             return await _context.Freelancers
                 .Include(f => f.Skills)
+                .Include(f => f.Educations)
+                .Include(f => f.Certifications)
+                .Include(f => f.Employments)
                 .Where(f => f.Id == id).FirstOrDefaultAsync(); 
         }
 
@@ -31,6 +34,9 @@ namespace FreelancerProfile.Infrastructure.Repositories
         {
             return await _context.Freelancers
                 .Include(f => f.Skills)
+                .Include(f => f.Educations)
+                .Include(f => f.Certifications)
+                .Include(f => f.Employments)
                 .Where(f => f.UserId== userId).FirstOrDefaultAsync();
         }
     }

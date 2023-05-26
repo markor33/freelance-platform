@@ -1,16 +1,18 @@
 ﻿using AutoMapper;
 using FreelancerProfile.API.Extensions;
 using FreelancerProfile.API.Security;
+using FreelancerProfile.API.Security.AuthorizationFilters;
 using FreelancerProfile.Application.Commands;
 using FreelancerProfile.Application.Queries;
+using FreelancerProfile.Domain.AggregatesModel.FreelancerAggregate.ValueObjects;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Net;
 
 namespace FreelancerProfile.API.Controllers
 {
     [Route("api/[controller]")]
-    [Authorize(Roles = "FREELANCER")]
     [ApiController]
     public class FreelancerController : ControllerBase
     {
@@ -42,6 +44,7 @@ namespace FreelancerProfile.API.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "FREELANCER")]
         public async Task<ActionResult<FreelancerViewModel>> Create(CreateFreelancerCommand command)
         {
             command.UserId = _identityService.GetUserId();
@@ -51,44 +54,26 @@ namespace FreelancerProfile.API.Controllers
             return Ok(_mapper.Map<FreelancerViewModel>(commandResult.Value));
         }
 
-        [HttpPost("education")]
-        public async Task<ActionResult<EducationViewModel>> AddEducation(AddEducationCommand command)
+        [HttpPut("{id}/profile-summary")]
+        [Authorize(Roles = "FREELANCER"), ProfileOwnerAuthorization]
+        public async Task<ActionResult<ProfileSummary>> UpdateProfileSummary(ProfileSummary profileSummary)
         {
-            command.UserId = _identityService.GetUserId();
+            var freelancerId = _identityService.GetDomainUserId();
+            var command = new UpdateProfileSummaryCommand(freelancerId, profileSummary);
             var commandResult = await _mediator.Send(command);
             if (commandResult.IsFailed)
                 return BadRequest(commandResult.Errors.ToStringList());
-            return Ok(_mapper.Map<EducationViewModel>(commandResult.Value));
-        }
-
-        [HttpPost("certification")]
-        public async Task<ActionResult<CertificationViewModel>> AddCertification(AddCertificationCommand command)
-        {
-            command.UserId = _identityService.GetUserId();
-            var commandResult = await _mediator.Send(command);
-            if (commandResult.IsFailed)
-                return BadRequest(commandResult.Errors.ToStringList());
-            return Ok(_mapper.Map<CertificationViewModel>(commandResult.Value));
-        }
-
-        [HttpPost("employment")]
-        public async Task<ActionResult<EmploymentViewModel>> AddEmployment(AddEmploymentCommand command)
-        {
-            command.UserId = _identityService.GetUserId();
-            var commandResult = await _mediator.Send(command);
-            if (commandResult.IsFailed)
-                return BadRequest(commandResult.Errors.ToStringList());
-            return Ok(_mapper.Map<EmploymentViewModel>(commandResult.Value));
+            return Ok(_mapper.Map<ProfileSummary>(commandResult.Value));
         }
 
         [HttpPost("skill")]
-        public async Task<ActionResult> AddSkill(AddSkillCommand command)
+        public async Task<ActionResult<List<SkillViewModel>>> AddSkill(AddSkillCommand command)
         {
             command.UserId = _identityService.GetUserId();
             var commandResult = await _mediator.Send(command);
             if (commandResult.IsFailed)
                 return BadRequest(commandResult.Errors.ToStringList());
-            return Ok();
+            return Ok(_mapper.Map<List<SkillViewModel>>(commandResult.Value));
         }
 
     }

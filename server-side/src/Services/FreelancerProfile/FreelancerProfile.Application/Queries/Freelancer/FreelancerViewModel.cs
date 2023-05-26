@@ -27,9 +27,25 @@ namespace FreelancerProfile.Application.Queries
         public List<CertificationViewModel> Certifications { get; private set; }
         public List<EmploymentViewModel> Employments { get; private set; }
 
+        public void UpdateProfileSummary(ProfileSummary profileSummary) => ProfileSummary = profileSummary;
+
         public void AddEducation(EducationViewModel education)
         {
             Educations.Add(education);
+        }
+
+        public void UpdateEducation(EducationViewModel education)
+        {
+            var index = Educations.FindIndex(e => e.Id == education.Id);
+            if (index != -1)
+                Educations[index] = education;
+        }
+
+        public void DeleteEducation(Guid educationId)
+        {
+            var education = Educations.FirstOrDefault(e => e.Id == educationId);
+            if (education is not null)
+                Educations.Remove(education);
         }
 
         public void AddCertification(CertificationViewModel certification)
@@ -37,21 +53,40 @@ namespace FreelancerProfile.Application.Queries
             Certifications.Add(certification);
         }
 
-        public void AddSkill(SkillViewModel skill)
+        public void UpdateCertification(CertificationViewModel certification)
         {
-            Skills.Add(skill);
+            var index = Certifications.FindIndex(c => c.Id == certification.Id);
+            if (index != -1)
+                Certifications[index] = certification;
         }
 
-        public void AddSkill(List<SkillViewModel> skills)
+        public void DeleteCertification(Guid certificationId)
         {
-            foreach (var skill in skills)
-                AddSkill(skill);
+            var certification = Certifications.FirstOrDefault(c => c.Id == certificationId);
+            if (certification is not null)
+                Certifications.Remove(certification);
         }
 
         public void AddEmployment(EmploymentViewModel employment)
         {
             Employments.Add(employment);
         }
+
+        public void UpdateEmployment(EmploymentViewModel employment)
+        {
+            var index = Employments.FindIndex(e => e.Id == employment.Id);
+            if (index != -1)
+                Employments[index] = employment;
+        }
+
+        public void DeleteEmployment(Guid employmentId)
+        {
+            var employment = Employments.FirstOrDefault(e => e.Id == employmentId);
+            if (employment is not null)
+                Employments.Remove(employment);
+        }
+
+        public void SetSkills(List<SkillViewModel> skills) => Skills = skills;
 
     }
 

@@ -17,15 +17,19 @@ import { MatIconModule } from '@angular/material/icon';
 import {MatDividerModule} from '@angular/material/divider';
 import { FreelancerProfileComponent } from './freelancer-profile/freelancer-profile.component';
 import { MatCardModule } from '@angular/material/card';
-import { AddEducationDialogComponent } from './freelancer-profile/dialogs/add-education-dialog/add-education-dialog.component';
+import { AddEducationDialogComponent } from './freelancer-profile/dialogs/education/add-education-dialog/add-education-dialog.component';
 import { MatNativeDateModule, MatOptionModule } from '@angular/material/core';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import {MatChipsModule} from '@angular/material/chips';
 import { SharedModule } from '../shared/shared.module';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
-import { AddCertificationDialogComponent } from './freelancer-profile/dialogs/add-certification-dialog/add-certification-dialog.component';
-import { AddEmploymentDialogComponent } from './freelancer-profile/dialogs/add-employment-dialog/add-employment-dialog.component';
+import { AddCertificationDialogComponent } from './freelancer-profile/dialogs/certification/add-certification-dialog/add-certification-dialog.component';
+import { AddEmploymentDialogComponent } from './freelancer-profile/dialogs/employment/add-employment-dialog/add-employment-dialog.component';
 import { AddSkillDialogComponent } from './freelancer-profile/dialogs/add-skill-dialog/add-skill-dialog.component';
+import { EditCertificationDialogComponent } from './freelancer-profile/dialogs/certification/edit-certification-dialog/edit-certification-dialog.component';
+import { EditEducationDialogComponent } from './freelancer-profile/dialogs/education/edit-education-dialog/edit-education-dialog.component';
+import { EditEmploymentDialogComponent } from './freelancer-profile/dialogs/employment/edit-employment-dialog/edit-employment-dialog.component';
+import { EditProfileSummaryDialogComponent } from './freelancer-profile/dialogs/edit-profile-summary-dialog/edit-profile-summary-dialog.component';
 
 export const freelancerRoutes: Routes = [
   { path: 'freelancer/profile/:id', component: FreelancerProfileComponent}
@@ -38,7 +42,11 @@ export const freelancerRoutes: Routes = [
     AddEducationDialogComponent,
     AddCertificationDialogComponent,
     AddEmploymentDialogComponent,
-    AddSkillDialogComponent
+    AddSkillDialogComponent,
+    EditCertificationDialogComponent,
+    EditEducationDialogComponent,
+    EditEmploymentDialogComponent,
+    EditProfileSummaryDialogComponent
   ],
   imports: [
     HttpClientModule,
