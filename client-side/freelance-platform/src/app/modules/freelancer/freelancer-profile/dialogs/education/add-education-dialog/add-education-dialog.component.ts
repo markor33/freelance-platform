@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
-import { FreelancerService } from '../../../services/freelancer.service';
-import { MatDialogRef } from '@angular/material/dialog';
+import { FreelancerService } from '../../../../services/freelancer.service';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { SnackBarsService } from 'src/app/modules/shared/services/snack-bars.service';
 import { convertToUTCDate } from 'src/app/modules/shared/utils/date-helper.util';
-import { AddEducationCommand } from '../../../models/commands/add-education-command.model';
+import { AddEducationCommand } from '../../../../models/commands/add-education-command.model';
 
 @Component({
   selector: 'app-add-education-dialog',
@@ -35,6 +35,13 @@ export class AddEducationDialogComponent {
   educationSuccessfullyAdded(): void {
     this.snackBars.primary('Education successfully added');
     this.dialogRef.close()
+  }
+
+  static open(dialog: MatDialog): MatDialogRef<AddEducationDialogComponent> {
+    return dialog.open(AddEducationDialogComponent, {
+      width: '40%',
+      height: '50%'
+    });
   }
 
 }

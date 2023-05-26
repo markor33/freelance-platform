@@ -10,6 +10,7 @@ import { AddEmploymentCommand } from '../models/commands/add-employment-command.
 import { AddSkillCommand } from '../models/commands/add-skill-command.model';
 import { CreateFreelancerCommand } from '../models/commands/create-freelancer-command.model';
 import { EditCertificationCommand } from '../models/commands/edit-certification-command.model';
+import { EditEducationCommand } from '../models/commands/edit-education-command.model';
 
 @Injectable({
   providedIn: 'root'
@@ -48,6 +49,29 @@ export class FreelancerService {
       .pipe(
         map((education) => {
           this.currentFreelancer.educations.push(education);
+        })
+      );
+  }
+
+  editEducation(editEducationCommand: EditEducationCommand): Observable<void> {
+    const url = `api/freelancer/freelancer/${this.currentFreelancer.id}/education/${editEducationCommand.educationId}`;
+    return this.httpClient.put<Education>(url, editEducationCommand)
+      .pipe(
+        map((education) => {
+          const index = this.currentFreelancer.educations.findIndex(c => c.id === education.id);
+          if (index != -1)
+            this.currentFreelancer.educations[index] = education;
+        })
+      );
+  }
+
+  deleteEducation(educationId: string): Observable<any> {
+    return this.httpClient.delete<any>(`api/freelancer/freelancer/${this.currentFreelancer.id}/education/${educationId}`)
+      .pipe(
+        map(() => {
+          const index = this.currentFreelancer.educations.findIndex(c => c.id === educationId);
+          if (index != -1)
+            this.currentFreelancer.educations.splice(index, 1);
         })
       );
   }

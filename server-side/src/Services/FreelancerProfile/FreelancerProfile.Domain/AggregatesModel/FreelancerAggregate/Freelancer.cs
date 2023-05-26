@@ -105,6 +105,30 @@ namespace FreelancerProfile.Domain.AggregatesModel.FreelancerAggregate
             AddDomainEvent(new EducationAddedDomainEvent(Id, education));
         }
 
+        public Result<Education> UpdateEducation(Guid educationId, string schoolName, string degree, DateRange attended)
+        {
+            var education = Educations.FirstOrDefault(e => e.Id == educationId);
+            if (education is null)
+                return Result.Fail("Education does not exist");
+
+            education.Update(schoolName, degree, attended);
+            AddDomainEvent(new EducationEdittedDomainEvent(Id, education));
+
+            return Result.Ok(education);
+        }
+
+        public Result DeleteEducation(Guid educationId)
+        {
+            var education = Educations.FirstOrDefault(e => e.Id == educationId);
+            if (education is null)
+                return Result.Fail("Education does not exist");
+
+            Educations.Remove(education);
+            AddDomainEvent(new EducationDeletedDomainEvent(Id, education.Id));
+
+            return Result.Ok();
+        }
+
         public void AddCertification(Certification certification)
         {
             Certifications.Add(certification);

@@ -13,8 +13,6 @@ import { convertToUTCDate } from 'src/app/modules/shared/utils/date-helper.util'
 })
 export class EditCertificationDialogComponent {
 
-  certification: Certification = new Certification();
-
   editCertificationCommand: EditCertificationCommand;
 
   constructor(
@@ -22,8 +20,7 @@ export class EditCertificationDialogComponent {
     private freelancerService: FreelancerService,
     private snackBars: SnackBarsService,
     @Inject(MAT_DIALOG_DATA) public data: { certification: Certification }) {
-      this.certification = data.certification;
-      this.editCertificationCommand = new EditCertificationCommand(this.certification);
+      this.editCertificationCommand = new EditCertificationCommand(data.certification);
   }
 
   edit() {

@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
-import { Availability, Certification, Freelancer } from '../models/freelancer.model';
+import { Availability, Certification, Education, Freelancer } from '../models/freelancer.model';
 import { FreelancerService } from '../services/freelancer.service';
 import { LanguageProficiencyLevel } from '../../shared/models/language.model';
 import { MatDialog } from '@angular/material/dialog';
-import { AddEducationDialogComponent } from './dialogs/add-education-dialog/add-education-dialog.component';
+import { AddEducationDialogComponent } from './dialogs/education/add-education-dialog/add-education-dialog.component';
 import { AddCertificationDialogComponent } from './dialogs/certification/add-certification-dialog/add-certification-dialog.component';
 import { AddEmploymentDialogComponent } from './dialogs/add-employment-dialog/add-employment-dialog.component';
 import { AddSkillDialogComponent } from './dialogs/add-skill-dialog/add-skill-dialog.component';
@@ -16,6 +16,7 @@ import { JobInfoDialogComponent } from '../../job/jobs-management/dialogs/job-in
 import { SnackBarsService } from '../../shared/services/snack-bars.service';
 import { ConfirmationDialogComponent } from '../../shared/dialogs/confirmation-dialog/confirmation-dialog.component';
 import { EditCertificationDialogComponent } from './dialogs/certification/edit-certification-dialog/edit-certification-dialog.component';
+import { EditEducationDialogComponent } from './dialogs/education/edit-education-dialog/edit-education-dialog.component';
 
 @Component({
   selector: 'app-freelancer-profile',
@@ -24,7 +25,8 @@ import { EditCertificationDialogComponent } from './dialogs/certification/edit-c
 })
 export class FreelancerProfileComponent {
 
-  hover: boolean = false;
+  educationHover: boolean = false;
+  certificationHover: boolean = false;
 
   role: string = '';
   freelancer: Freelancer = new Freelancer();
@@ -76,17 +78,26 @@ export class FreelancerProfileComponent {
   }
 
   openAddEducationDialog() {
-    this.dialog.open(AddEducationDialogComponent, {
-      width: '40%',
-      height: '47%'
-    })
+    AddEducationDialogComponent.open(this.dialog);
+  }
+
+  openEditEducationDialog(education: Education) {
+    EditEducationDialogComponent.open(this.dialog, education);
+  }
+
+  deleteEducation(educationId: string) {
+    const confirmDialog = ConfirmationDialogComponent.open(this.dialog, 'You are about to delete your education.');
+    confirmDialog.afterClosed().subscribe((res) => {
+      if (!res)
+        return;
+      this.freelancerService.deleteEducation(educationId).subscribe({
+        complete: () => this.snackBarService.primary('Education deleted successfully')
+      });
+    }); 
   }
 
   openAddCertificationDialog() {
-    this.dialog.open(AddCertificationDialogComponent, {
-      width: '40%',
-      height: '72%'
-    });
+    AddCertificationDialogComponent.open(this.dialog);
   }
 
   openEditCertificationDialog(certification: Certification) {

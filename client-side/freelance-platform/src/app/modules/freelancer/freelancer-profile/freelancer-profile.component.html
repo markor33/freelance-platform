@@ -76,9 +76,21 @@
                 </button>
             </span>
             <div class="education-content">
-                <div *ngFor="let education of freelancer.educations; let last = last">
+                <div *ngFor="let education of freelancer.educations; let last = last"
+                    (mouseenter)="educationHover = true"
+                    (mouseleave)="educationHover = false">
                     <div>
-                        <h3>{{education.schoolName}}</h3>
+                        <div class="content-actions">
+                            <h3>{{education.schoolName}}</h3>
+                            <button mat-icon-button color="primary" *ngIf="role === 'FREELANCER' && educationHover === true" 
+                                (click)="openEditEducationDialog(education)">
+                                <mat-icon>edit</mat-icon>
+                            </button>
+                            <button mat-icon-button color="warn" *ngIf="role === 'FREELANCER' && educationHover === true" 
+                                (click)="deleteEducation(education.id)">
+                                <mat-icon>delete</mat-icon>
+                            </button>
+                        </div>
                         <span>{{education.degree}}</span><br>
                         <span>{{education.attended.start.getFullYear()}} - {{education.attended.end.getFullYear()}}</span>
                     </div>
@@ -95,16 +107,16 @@
             </span>
             <div class="certification-content">
                 <div *ngFor="let certification of freelancer.certifications; let last = last;"
-                    (mouseenter)="hover = true"
-                    (mouseleave)="hover = false">
+                    (mouseenter)="certificationHover = true"
+                    (mouseleave)="certificationHover = false">
                     <div>
-                        <div class="title">
+                        <div class="content-actions">
                             <h3>{{certification.name}}</h3>
-                            <button mat-icon-button color="primary" *ngIf="role === 'FREELANCER' && hover === true" 
+                            <button mat-icon-button color="primary" *ngIf="role === 'FREELANCER' && certificationHover === true" 
                                 (click)="openEditCertificationDialog(certification)">
                                 <mat-icon>edit</mat-icon>
                             </button>
-                            <button mat-icon-button color="warn" *ngIf="role === 'FREELANCER' && hover === true" 
+                            <button mat-icon-button color="warn" *ngIf="role === 'FREELANCER' && certificationHover === true" 
                                 (click)="deleteCertification(certification.id)">
                                 <mat-icon>delete</mat-icon>
                             </button>

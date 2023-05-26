@@ -32,6 +32,19 @@ namespace FreelancerProfile.Application.Queries
             Educations.Add(education);
         }
 
+        public void UpdateEducation(EducationViewModel education)
+        {
+            var index = Educations.FindIndex(e => e.Id == education.Id);
+            Educations[index] = education;
+        }
+
+        public void DeleteEducation(Guid educationId)
+        {
+            var education = Educations.FirstOrDefault(e => e.Id == educationId);
+            if (education is not null)
+                Educations.Remove(education);
+        }
+
         public void AddCertification(CertificationViewModel certification)
         {
             Certifications.Add(certification);

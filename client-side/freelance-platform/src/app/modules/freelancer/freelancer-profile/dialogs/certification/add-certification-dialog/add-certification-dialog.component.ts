@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { AddCertificationCommand } from '../../../../models/commands/add-certification-command.model';
-import { MatDialogRef } from '@angular/material/dialog';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { FreelancerService } from '../../../../services/freelancer.service';
 import { SnackBarsService } from 'src/app/modules/shared/services/snack-bars.service';
 import { convertToUTCDate } from 'src/app/modules/shared/utils/date-helper.util';
@@ -34,6 +34,13 @@ export class AddCertificationDialogComponent {
   certificationSuccessfullyAdded() {
     this.snackBars.primary('Certification successfully added');
     this.dialogRef.close()
+  }
+
+  static open(dialog: MatDialog): MatDialogRef<AddCertificationDialogComponent> {
+    return dialog.open(AddCertificationDialogComponent, {
+      width: '40%',
+      height: '72%'
+    });
   }
 
 }
