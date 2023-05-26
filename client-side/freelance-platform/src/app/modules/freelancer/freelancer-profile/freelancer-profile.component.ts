@@ -27,6 +27,7 @@ export class FreelancerProfileComponent {
 
   educationHover: boolean = false;
   certificationHover: boolean = false;
+  skillsHover: boolean = false;
 
   role: string = '';
   freelancer: Freelancer = new Freelancer();
@@ -123,10 +124,7 @@ export class FreelancerProfileComponent {
   }
 
   openAddSkillDialog() {
-    this.dialog.open(AddSkillDialogComponent, {
-      width: '40%',
-      height: '72%'
-    });
+    AddSkillDialogComponent.open(this.dialog, this.freelancer.skills);
   }
 
   openJobInfoDialog(jobId: string) {

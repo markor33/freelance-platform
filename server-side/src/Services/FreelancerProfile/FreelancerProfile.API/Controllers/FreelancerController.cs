@@ -6,6 +6,7 @@ using FreelancerProfile.Application.Queries;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Net;
 
 namespace FreelancerProfile.API.Controllers
 {
@@ -82,13 +83,13 @@ namespace FreelancerProfile.API.Controllers
         }
 
         [HttpPost("skill")]
-        public async Task<ActionResult> AddSkill(AddSkillCommand command)
+        public async Task<ActionResult<List<SkillViewModel>>> AddSkill(AddSkillCommand command)
         {
             command.UserId = _identityService.GetUserId();
             var commandResult = await _mediator.Send(command);
             if (commandResult.IsFailed)
                 return BadRequest(commandResult.Errors.ToStringList());
-            return Ok();
+            return Ok(_mapper.Map<List<SkillViewModel>>(commandResult.Value));
         }
 
     }

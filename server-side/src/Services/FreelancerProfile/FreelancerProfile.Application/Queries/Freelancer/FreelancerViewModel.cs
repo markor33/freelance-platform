@@ -63,21 +63,12 @@ namespace FreelancerProfile.Application.Queries
                 Certifications.Remove(certification);
         }
 
-        public void AddSkill(SkillViewModel skill)
-        {
-            Skills.Add(skill);
-        }
-
-        public void AddSkill(List<SkillViewModel> skills)
-        {
-            foreach (var skill in skills)
-                AddSkill(skill);
-        }
-
         public void AddEmployment(EmploymentViewModel employment)
         {
             Employments.Add(employment);
         }
+
+        public void SetSkills(List<SkillViewModel> skills) => Skills = skills;
 
     }
 

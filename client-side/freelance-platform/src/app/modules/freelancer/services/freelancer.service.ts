@@ -118,10 +118,10 @@ export class FreelancerService {
   }
 
   addSkills(addSkillsCommand: AddSkillCommand): Observable<void> {
-    return this.httpClient.post<any>('api/freelancer/freelancer/skill', addSkillsCommand, this.httpOptions)
+    return this.httpClient.post<Skill[]>('api/freelancer/freelancer/skill', addSkillsCommand, this.httpOptions)
       .pipe(
-        map((res) => {
-          // this.freelancerSource.value?.skills.concat(skills);
+        map((skills) => {
+          this.currentFreelancer.skills = skills;
         })
       );
   }

@@ -71,7 +71,7 @@
         <div class="education">
             <span class="title icon-text-align">
                 <h2>Education:</h2>&nbsp;
-                <button mat-icon-button color="primary" *ngIf="role === 'FREELANCER'" (click)="openAddEducationDialog()">
+                <button mat-icon-button color="primary" *ngIf="role === 'FREELANCER' && educationHover === true" (click)="openAddEducationDialog()">
                     <mat-icon>add_circle</mat-icon>
                 </button>
             </span>
@@ -101,7 +101,7 @@
         <div class="certification">
             <span class="title icon-text-align">
                 <h2>Certification:</h2>&nbsp;
-                <button mat-icon-button color="primary" *ngIf="role === 'FREELANCER'" (click)="openAddCertificationDialog()">
+                <button mat-icon-button color="primary" *ngIf="role === 'FREELANCER' && certificationHover === true" (click)="openAddCertificationDialog()">
                     <mat-icon>add_circle</mat-icon>
                 </button>
             </span>
@@ -128,11 +128,13 @@
                 </div>
             </div>
         </div>
-        <div class="skill">
+        <div class="skill"
+            (mouseenter)="skillsHover = true"
+            (mouseleave)="skillsHover = false">
             <span class="title icon-text-align">
                 <h2>Skills:</h2>&nbsp;
-                <button mat-icon-button color="primary" *ngIf="role === 'FREELANCER'" (click)="openAddSkillDialog()">
-                    <mat-icon>add_circle</mat-icon>
+                <button mat-icon-button color="primary" *ngIf="role === 'FREELANCER' && skillsHover === true" (click)="openAddSkillDialog()">
+                    <mat-icon>edit</mat-icon>
                 </button>
             </span>
             <div class="skill-content">

@@ -1,9 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, Inject } from '@angular/core';
 import { ProfessionService } from 'src/app/modules/shared/services/profession.service';
 import { FreelancerService } from '../../../services/freelancer.service';
 import { Skill } from 'src/app/modules/shared/models/profession.mode';
 import { FormControl } from '@angular/forms';
-import { MatDialogRef } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { SnackBarsService } from 'src/app/modules/shared/services/snack-bars.service';
 import { AddSkillCommand } from '../../../models/commands/add-skill-command.model';
 
@@ -14,6 +14,7 @@ import { AddSkillCommand } from '../../../models/commands/add-skill-command.mode
 })
 export class AddSkillDialogComponent {
 
+  selectedSkills: Skill[];
   addSkillCommand = new AddSkillCommand();
 
   allSkills: Skill[] = [];
@@ -23,12 +24,20 @@ export class AddSkillDialogComponent {
     private dialogRef: MatDialogRef<AddSkillDialogComponent>,
     private professionService: ProfessionService,
     private freelancerService: FreelancerService,
-    private snackBars: SnackBarsService) { }
+    private snackBars: SnackBarsService,
+    @Inject(MAT_DIALOG_DATA) public data: { skills: Skill[] }) {
+      this.selectedSkills = data.skills;
+     }
 
   ngOnInit() {
     const professionId = this.freelancerService.currentFreelancer.profession.id;
-    this.professionService.getSkills(professionId as string).subscribe({
-      next: (skills) => this.allSkills = skills
+    this.professionService.getSkills(professionId as string).subscribe((skills) => {
+      this.allSkills = skills;
+      const selectedSkills: Skill[] = this.selectedSkills.map((skill) => {
+        const selectedSkill: Skill | undefined = this.allSkills.find((s) => s.id === skill.id);
+        return selectedSkill as Skill;
+      });
+      this.skillsControl.setValue(selectedSkills);
     });
   }
 
@@ -40,7 +49,7 @@ export class AddSkillDialogComponent {
     this.skillsControl.setValue(skills);
   }
 
-  addSkills() {
+  submit() {
     this.addSkillCommand.skills = (this.skillsControl.value as Skill[]).map((skill) => skill.id);
     this.freelancerService.addSkills(this.addSkillCommand).subscribe({
       complete: this.skillsSuccessfullyAdded.bind(this)
@@ -48,8 +57,16 @@ export class AddSkillDialogComponent {
   }
 
   skillsSuccessfullyAdded() {
-    this.snackBars.primary('Skills successfully added');
+    this.snackBars.primary('Skills successfully updated');
     this.dialogRef.close();
+  }
+
+  static open(dialog: MatDialog, skills: Skill[]): MatDialogRef<AddSkillDialogComponent> {
+    return dialog.open(AddSkillDialogComponent, {
+      width: '40%',
+      height: '45%',
+      data: { skills: skills }
+    });
   }
 
 }

@@ -75,28 +75,16 @@ namespace FreelancerProfile.Domain.AggregatesModel.FreelancerAggregate
             LanguageKnowledges.Add(languageKnowledge);
         }
 
-        public Result AddSkill(Skill skill)
+        public void UpdateSkills(List<Skill> skills)
         {
-            if (skill.ProfessionId != ProfessionId)
-                return Result.Fail($"Freelancers profession does not contain {skill.Name} skill");
+            var skillsToRemove = Skills.Where(s => !skills.Any(ns => ns.Id == s.Id)).ToList();
+            foreach (var skillToRemove in skillsToRemove)
+                Skills.Remove(skillToRemove);
 
-            if (Skills.Contains(skill))
-                return Result.Fail($"Skill '{skill.Name}' already added");
+            var skillsToAdd = skills.Where(ns => !Skills.Any(s => s.Id == ns.Id)).ToList();
+            Skills.AddRange(skillsToAdd);
 
-            Skills.Add(skill);
-            AddDomainEvent(new SkillAddedDomainEvent(Id, skill));
-            return Result.Ok();
-        }
-
-        public Result AddSkill(List<Skill> skills)
-        {
-            foreach (var skill in skills)
-            {
-                var result = AddSkill(skill);
-                if (result.IsFailed)
-                    return result;
-            }
-            return Result.Ok();
+            AddDomainEvent(new SkillsUpdatedDomainEvent(Id, Skills));
         }
 
         public void AddEducation(Education education)
