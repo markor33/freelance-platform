@@ -40,11 +40,9 @@ namespace NotiftChat.IntegrationTests.Setup
             services.Remove(services.SingleOrDefault(d => d.ServiceType == typeof(IEventBusSubscriptionsManager)));
             services.Remove(services.SingleOrDefault(d => d.ServiceType == typeof(IRabbitMQPersistentConnection)));
             services.Remove(services.SingleOrDefault(d => d.ServiceType == typeof(IEventBus)));
-            services.Remove(services.SingleOrDefault(d => d.ServiceType == typeof(MongoDBSettings)));
             services.Configure<MongoDBSettings>(options =>
             {
-                options.ConnectionURI = "mongodb+srv://fpuser:rJQgWthMythGsp3l@cluster0.gszadiv.mongodb.net/?retryWrites=true&w=majority";
-                options.DatabaseName = "freelancer-platform-NotifyChat-test";
+                options.DatabaseName = "NotifyChat-test";
             });
             services.AddSingleton<IEventBus>(sp => (new Mock<IEventBus>()).Object);
 

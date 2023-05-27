@@ -15,7 +15,7 @@ using Moq;
 using Shouldly;
 using Xunit;
 
-namespace FreelancerProfile.IntegrationTests.Controllers.FreelancerProfileScenarios
+namespace FreelancerProfile.IntegrationTests.Controllers
 {
     [Collection("FreelancerProfileScenarios")]
     public partial class FreelancerProfileScenarios : BaseIntegrationTest

@@ -19,7 +19,7 @@ export class ContractService {
   }
 
   getByFreelancer(): Observable<Contract[]> {
-    return this.httpClient.get<Contract[]>(`api/job/job/contract/freelancer`);
+    return this.httpClient.get<Contract[]>(`api/job/contract/freelancer`);
   }
   
   finish(jobId: string, contractId: string): Observable<any> {

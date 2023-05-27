@@ -31,7 +31,7 @@ export class ProposalService {
   }
 
   get(id: string): Observable<Proposal> {
-    return this.httpClient.get<Proposal>(`api/job/job/proposal/${id}`, this.httpOptions);
+    return this.httpClient.get<Proposal>(`api/job/proposal/${id}`, this.httpOptions);
   }
 
   getAnswers(id: string):Observable<Answer[]> {
@@ -44,7 +44,7 @@ export class ProposalService {
 
   create(createProposalCommand: CreateProposalCommand): Observable<Observable<boolean | null>> {
     createProposalCommand.freelancerId = this.freelancerId;
-    return this.httpClient.post<Proposal>('api/job/job/proposal', createProposalCommand, this.httpOptions)
+    return this.httpClient.post<Proposal>(`api/job/proposal`, createProposalCommand, this.httpOptions)
     .pipe(
       map((proposal) => {
         this.isConfirmed(proposal.id);

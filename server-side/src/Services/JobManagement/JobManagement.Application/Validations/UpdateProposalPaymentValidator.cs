@@ -3,9 +3,9 @@ using JobManagement.Application.Commands.ProposalCommands;
 
 namespace JobManagement.Application.Validations
 {
-    public class EditProposalPaymentValidator : AbstractValidator<EditProposalPaymentCommand>
+    public class UpdateProposalPaymentValidator : AbstractValidator<UpdateProposalPaymentCommand>
     {
-        public EditProposalPaymentValidator()
+        public UpdateProposalPaymentValidator()
         {
             RuleFor(x => x.JobId).NotEmpty();
 

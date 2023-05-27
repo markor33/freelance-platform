@@ -1,26 +1,42 @@
-﻿using JobManagement.API.Extensions;
+﻿using AutoMapper;
+using JobManagement.API.Extensions;
+using JobManagement.API.Security;
 using JobManagement.API.Security.AuthorizationFilters;
 using JobManagement.Application.Commands.ContractCommands;
 using JobManagement.Application.Queries;
+using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace JobManagement.API.Controllers
 {
-    public partial class JobController
+    [Route("api/")]
+    [ApiController]
+    public class ContractController : ControllerBase
     {
 
-        [HttpGet("contract/freelancer")]
+        private readonly IMediator _mediator;
+        private readonly IIdentityService _identityService;
+        private readonly IContractQueries _contractQueries;
+
+        public ContractController(IMediator mediator, IIdentityService identityService, IContractQueries contractQueries)
+        {
+            _mediator = mediator;
+            _identityService = identityService;
+            _contractQueries = contractQueries;
+        }
+
+        [HttpGet("[controller]/freelancer")]
         [Authorize(Roles = "FREELANCER")]
-        public async Task<ActionResult<List<ContractViewModel>>> GetContractsByFreelancer()
+        public async Task<ActionResult<List<ContractViewModel>>> GetByFreelancer()
         {
             var freelancerId = _identityService.GetDomainUserId();
             return await _contractQueries.GetByFreelancer(freelancerId);
         }
 
-        [HttpPost("{id}/contract/proposal/{proposalId}")]
+        [HttpPost("job/{id}/[controller]/proposal/{proposalId}")]
         [Authorize(Roles = "FREELANCER"), ProposalOwnerAuthorization]
-        public async Task<ActionResult> CreateContract(Guid id, Guid proposalId)
+        public async Task<ActionResult> Create(Guid id, Guid proposalId)
         {
             var command = new MakeContractCommand(id, proposalId);
             var commandResult = await _mediator.Send(command);
@@ -29,9 +45,9 @@ namespace JobManagement.API.Controllers
             return Ok();
         }
 
-        [HttpPut("{id}/contract/{contractId}/status/finished")]
+        [HttpPut("job/{id}/[controller]/{contractId}/status/finished")]
         [Authorize(Roles = "CLIENT"), JobOwnerAuthorization]
-        public async Task<ActionResult> FinishContract(Guid id, Guid contractId)
+        public async Task<ActionResult> Finish(Guid id, Guid contractId)
         {
             var command = new FinishContractCommand(id, contractId);
             var commandResult = await _mediator.Send(command);
@@ -40,9 +56,9 @@ namespace JobManagement.API.Controllers
             return Ok();
         }
 
-        [HttpPut("{id}/contract/{contractId}/status/terminated")]
+        [HttpPut("job/{id}/[controller]/{contractId}/status/terminated")]
         [Authorize(Roles = "CLIENT"), JobOwnerAuthorization]
-        public async Task<ActionResult> TerminateContract(Guid id, Guid contractId)
+        public async Task<ActionResult> Terminate(Guid id, Guid contractId)
         {
             var command = new TerminateContractCommand(id, contractId);
             var commandResult = await _mediator.Send(command);
