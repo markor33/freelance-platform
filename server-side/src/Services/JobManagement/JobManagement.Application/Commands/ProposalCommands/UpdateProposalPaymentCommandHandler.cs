@@ -6,12 +6,12 @@ using MediatR;
 
 namespace JobManagement.Application.Commands.ProposalCommands
 {
-    public class EditProposalPaymentCommandHandler : IRequestHandler<EditProposalPaymentCommand, Result>
+    public class UpdateProposalPaymentCommandHandler : IRequestHandler<UpdateProposalPaymentCommand, Result>
     {
         private readonly IJobRepository _jobRepository;
         private readonly IEventBus _eventBus;
 
-        public EditProposalPaymentCommandHandler(
+        public UpdateProposalPaymentCommandHandler(
             IJobRepository jobRepository,
             IEventBus eventBus)
         {
@@ -19,7 +19,7 @@ namespace JobManagement.Application.Commands.ProposalCommands
             _eventBus = eventBus;
         }
 
-        public async Task<Result> Handle(EditProposalPaymentCommand request, CancellationToken cancellationToken)
+        public async Task<Result> Handle(UpdateProposalPaymentCommand request, CancellationToken cancellationToken)
         {
             var job = await _jobRepository.GetByIdAsync(request.JobId);
             if (job is null)

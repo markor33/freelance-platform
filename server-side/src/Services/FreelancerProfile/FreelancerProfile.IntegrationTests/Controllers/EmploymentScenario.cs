@@ -15,91 +15,90 @@ using Moq;
 using Shouldly;
 using Xunit;
 
-namespace FreelancerProfile.IntegrationTests.Controllers.FreelancerProfileScenarios
+namespace FreelancerProfile.IntegrationTests.Controllers
 {
-    public class EducationScenarios : BaseIntegrationTest
+    public class EmploymentScenarios : BaseIntegrationTest
     {
+        public EmploymentScenarios(TestDatabaseFactory factory) : base(factory) { }
 
-        public EducationScenarios(TestDatabaseFactory factory) : base(factory) { }
-
-        private static EducationController SetupController(IServiceScope scope, Guid freelancerId)
+        private static EmploymentController SetupController(IServiceScope scope, Guid freelancerId)
         {
             var mediator = scope.ServiceProvider.GetRequiredService<IMediator>();
             var mapper = scope.ServiceProvider.GetRequiredService<IMapper>();
             var identityService = new Mock<IIdentityService>();
             identityService.Setup(i => i.GetDomainUserId()).Returns(freelancerId);
-            return new EducationController(mediator, identityService.Object, mapper);
+            return new EmploymentController(mediator, identityService.Object, mapper);
         }
 
         [Fact]
-        public async Task Add_Education_ReturnsOk()
+        public async Task Add_Employment_ReturnsOk()
         {
             using var scope = Factory.Services.CreateScope();
             var freelancer = await FreelancerProfileScenarios.CreateTestFreelancer(scope);
             var controller = SetupController(scope, freelancer.Id);
-            var addEducationCommand = GetTestAddEducationCommand();
+            var addEmploymentCommand = GetTestAddEmploymentCommand();
 
-            var result = await controller.AddEducation(addEducationCommand);
+            var result = await controller.AddEmployment(addEmploymentCommand);
 
             result.Result.ShouldBeOfType(typeof(OkObjectResult));
-            ((OkObjectResult)result.Result).Value.ShouldBeOfType(typeof(EducationViewModel));
+            ((OkObjectResult)result.Result).Value.ShouldBeOfType(typeof(EmploymentViewModel));
         }
 
         [Fact]
-        public async Task Update_Education_ReturnsOk()
+        public async Task Update_Employment_ReturnsOk()
         {
             using var scope = Factory.Services.CreateScope();
             var freelancer = await FreelancerProfileScenarios.CreateTestFreelancer(scope);
-            var education = await CreateTestEducation(scope, freelancer);
+            var employment = await CreateTestEmployment(scope, freelancer);
             var controller = SetupController(scope, freelancer.Id);
-            var updateEducationCommand = GetTestUpdateEducationCommand(education.Id);
+            var updateEmploymentCommand = GetTestUpdateEmploymentCommand(employment.Id);
 
-            var result = await controller.Update(updateEducationCommand);
+            var result = await controller.Update(updateEmploymentCommand);
 
             result.Result.ShouldBeOfType(typeof(OkObjectResult));
-            ((OkObjectResult)result.Result).Value.ShouldBeOfType(typeof(EducationViewModel));
+            ((OkObjectResult)result.Result).Value.ShouldBeOfType(typeof(EmploymentViewModel));
         }
 
         [Fact]
-        public async Task Delete_Education_ReturnsOk()
+        public async Task Delete_Employment_ReturnsOk()
         {
             using var scope = Factory.Services.CreateScope();
             var freelancer = await FreelancerProfileScenarios.CreateTestFreelancer(scope);
-            var education = await CreateTestEducation(scope, freelancer);
+            var employment = await CreateTestEmployment(scope, freelancer);
             var controller = SetupController(scope, freelancer.Id);
 
-            var result = await controller.Delete(freelancer.Id, education.Id);
+            var result = await controller.Delete(freelancer.Id, employment.Id);
 
             result.ShouldBeOfType(typeof(OkResult));
         }
 
-        private static AddEducationCommand GetTestAddEducationCommand()
+        private static AddEmploymentCommand GetTestAddEmploymentCommand()
             => new(
-                "FTN",
-                "Dipl. ing.",
+                "Microsoft",
+                "Software Engineer",
                 DateTime.Now,
-                DateTime.Now.AddMonths(5));
+                DateTime.Now.AddMonths(5),
+                "Desc");
 
-        private static UpdateEducationCommand GetTestUpdateEducationCommand(Guid educationId)
+        private static UpdateEmploymentCommand GetTestUpdateEmploymentCommand(Guid employmentId)
             => new(
-                educationId,
-                "schoolName",
-                "degree",
+                employmentId,
+                "company",
+                "title",
                 DateTime.Now,
-                DateTime.Now.AddMonths(1)
-                );
+                DateTime.Now.AddMonths(1),
+                "desc");
 
-        private static async Task<Education> CreateTestEducation(IServiceScope scope, Freelancer freelancer)
+        private static async Task<Employment> CreateTestEmployment(IServiceScope scope, Freelancer freelancer)
         {
             var context = scope.ServiceProvider.GetRequiredService<FreelancerProfileContext>();
 
-            var education = new Education("schoolName", "degree", new DateRange(DateTime.Now, DateTime.Now.AddMonths(1)));
-            freelancer.AddEducation(education);
+            var employment = new Employment("company", "title", new DateRange(DateTime.Now, DateTime.Now.AddMonths(1)), "desc");
+            freelancer.AddEmployment(employment);
 
             await context.SaveChangesAsync();
 
-            return education;
+            return employment;
         }
-
     }
 }

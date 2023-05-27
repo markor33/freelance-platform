@@ -6,13 +6,13 @@ using MediatR;
 
 namespace JobManagement.Application.Commands.JobCommands
 {
-    public class EditJobCommandHandler : IRequestHandler<EditJobCommand, Result<Job>>
+    public class UpdateJobCommandHandler : IRequestHandler<UpdateJobCommand, Result<Job>>
     {
         private readonly IJobRepository _jobRepository;
         private readonly IProfessionService _professionService;
         private readonly ISkillService _skillService;
 
-        public EditJobCommandHandler(
+        public UpdateJobCommandHandler(
             IJobRepository jobRepository,
             IProfessionService professionService,
             ISkillService skillService)
@@ -22,7 +22,7 @@ namespace JobManagement.Application.Commands.JobCommands
             _skillService = skillService;
         }
 
-        public async Task<Result<Job>> Handle(EditJobCommand request, CancellationToken cancellationToken)
+        public async Task<Result<Job>> Handle(UpdateJobCommand request, CancellationToken cancellationToken)
         {
             var job = await _jobRepository.GetByIdAsync(request.JobId);
             if (job is null)

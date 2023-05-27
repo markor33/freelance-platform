@@ -16,7 +16,7 @@ using Moq;
 using Shouldly;
 using Xunit;
 
-namespace FreelancerProfile.IntegrationTests.Controllers.FreelancerProfileScenarios
+namespace FreelancerProfile.IntegrationTests.Controllers
 {
     public class CertificationScenarios : BaseIntegrationTest
     {

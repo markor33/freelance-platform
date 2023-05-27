@@ -58,7 +58,7 @@ export class JobService {
   }
 
   getByClient(): Observable<Job[]> {
-    return this.httpClient.get<Job[]>(`api/job/job/client/${this.clientId}`, this.httpOptions);
+    return this.httpClient.get<Job[]>(`api/job/job/client`, this.httpOptions);
   }
 
   done(id: string): Observable<void> {

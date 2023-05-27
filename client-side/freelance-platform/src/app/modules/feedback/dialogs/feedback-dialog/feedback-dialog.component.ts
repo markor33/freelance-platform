@@ -37,9 +37,12 @@ export class FeedbackDialogComponent {
   }
 
   submitFeedback() {
-    this.feedbackService.create(this.contractId, this.feedback).subscribe(() => {
-      this.snackBarService.primary('Feedback submitted successfully');
-      this.ngOnInit();
+    this.feedbackService.create(this.contractId, this.feedback).subscribe({
+      complete: () => {
+        this.snackBarService.primary('Feedback submitted successfully');
+        this.ngOnInit();
+      },
+      error: (err) => this.snackBarService.error(err.error[0])
     });
   }
 

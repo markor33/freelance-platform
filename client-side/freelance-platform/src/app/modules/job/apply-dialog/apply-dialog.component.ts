@@ -54,7 +54,7 @@ export class ApplyDialogComponent {
       this.createProposalCommand.answers.push({ id: '', questionId: answer.question.id, text: answer.answer, question: new Question('')});
     this.proposalService.create(this.createProposalCommand).subscribe({
       next: (isConfirmedObserver) => isConfirmedObserver.subscribe({ next: this.proposalStatusChanged.bind(this)}),
-      error: (err) => this.snackBars.error('Error')
+      error: (err) => this.snackBars.error(err.error[0])
     });
   }
 
