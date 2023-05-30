@@ -1,9 +1,10 @@
 ﻿using FreelancerProfile.Application.Queries;
 using FreelancerProfile.Application.Services;
 using FreelancerProfile.Domain.AggregatesModel.FreelancerAggregate;
-using FreelancerProfile.Infrastructure.ReadModel.Repositories;
-using FreelancerProfile.Infrastructure.ReadModel.Settings;
-using FreelancerProfile.Infrastructure.Repositories;
+using FreelancerProfile.Infrastructure.Persistence.ReadModel.Repositories;
+using FreelancerProfile.Infrastructure.Persistence.ReadModel.Settings;
+using FreelancerProfile.Infrastructure.Persistence.Repositories;
+using FreelancerProfile.Infrastructure.Persistence.Services;
 using FreelancerProfile.Infrastructure.Services;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -21,6 +22,8 @@ namespace ProfileManagemenet.Infrastructure
             services.AddTransient(typeof(ILanguageService), typeof(LanguageService));
             services.AddTransient(typeof(IProfessionService), typeof(ProfessionService));
             services.AddTransient(typeof(ISkillService), typeof(SkillService));
+
+            services.AddScoped(typeof(IFileUploader), typeof(AzureBlobStorageService));
 
             return services;
         }
