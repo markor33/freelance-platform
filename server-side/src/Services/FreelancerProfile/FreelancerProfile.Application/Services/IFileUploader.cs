@@ -4,6 +4,6 @@ namespace FreelancerProfile.Application.Services
 {
     public interface IFileUploader
     {
-        Task<string> Upload(IFormFile file);
+        Task<string> UploadProfilePicture(Guid freelancerId, IFormFile file);
     }
 }

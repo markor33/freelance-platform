@@ -22,7 +22,7 @@ namespace FreelancerProfile.Application.Commands
             if (freelancer is null)
                 return Result.Fail("Freelancer does not exist");
 
-            var pictureUrl = await _fileUploader.Upload(request.PictureFile);
+            var pictureUrl = await _fileUploader.UploadProfilePicture(freelancer.Id, request.PictureFile);
             freelancer.SetProfilePicture(pictureUrl);
 
             await _freelancerRepository.UnitOfWork.SaveEntitiesAsync();

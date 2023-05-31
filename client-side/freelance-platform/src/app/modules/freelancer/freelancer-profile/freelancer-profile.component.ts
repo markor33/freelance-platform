@@ -20,6 +20,7 @@ import { EditEducationDialogComponent } from './dialogs/education/edit-education
 import { EditEmploymentDialogComponent } from './dialogs/employment/edit-employment-dialog/edit-employment-dialog.component';
 import { EditProfileSummaryDialogComponent } from './dialogs/edit-profile-summary-dialog/edit-profile-summary-dialog.component';
 import { EnumConverter } from '../../shared/utils/enum-string-converter.util';
+import { SetProfilePictureDialogComponent } from './dialogs/set-profile-picture-dialog/set-profile-picture-dialog.component';
 
 @Component({
   selector: 'app-freelancer-profile',
@@ -58,6 +59,10 @@ export class FreelancerProfileComponent {
       next: (freelancer) => this.freelancer = freelancer
     });
     this.feedbackService.getByFreelancer(this.freelancerId).subscribe((feedbacks) => this.feedbacks = feedbacks);
+  }
+
+  openSetProfilePictureDialog() {
+    SetProfilePictureDialogComponent.open(this.dialog);
   }
 
   openEditProfileSummaryDialog(profileSummary: ProfileSummary) {
@@ -127,6 +132,12 @@ export class FreelancerProfileComponent {
 
   openJobInfoDialog(jobId: string) {
     JobInfoDialogComponent.open(this.dialog, jobId);
+  }
+
+  getProfilePictureUrl(): string {
+    if (this.freelancer.profilePictureUrl !== null)
+      return this.freelancer.profilePictureUrl;
+    return 'assets/blank-profile-picture.png';
   }
 
   getRange(value: number): number[] {

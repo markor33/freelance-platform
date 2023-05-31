@@ -1,7 +1,7 @@
 <div class="container">
     <div class="side-content">
         <div class="general-info">
-            <img class="profile-picture" src="https://pbs.twimg.com/media/FjU2lkcWYAgNG6d.jpg">
+            <img class="profile-picture" [src]="getProfilePictureUrl()" (click)="openSetProfilePictureDialog()">
             <span class="name">{{freelancer.firstName + ' ' + freelancer.lastName.charAt(0)}}.</span>
             <div>
                 <span class="icon-text-align">

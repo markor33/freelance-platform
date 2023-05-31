@@ -4,14 +4,10 @@ using FreelancerProfile.API.Security;
 using FreelancerProfile.API.Security.AuthorizationFilters;
 using FreelancerProfile.Application.Commands;
 using FreelancerProfile.Application.Queries;
-using FreelancerProfile.Application.Services;
 using FreelancerProfile.Domain.AggregatesModel.FreelancerAggregate.ValueObjects;
-using FreelancerProfile.Infrastructure.Services;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using System.Net;
-using System.Text.Json;
 
 namespace FreelancerProfile.API.Controllers
 {
@@ -77,7 +73,7 @@ namespace FreelancerProfile.API.Controllers
             var commandResult = await _mediator.Send(command);
             if (commandResult.IsFailed)
                 return BadRequest(commandResult.Errors.ToStringList());
-            return Ok(commandResult.Value);
+            return Content(commandResult.Value, "text/plain");
         }
 
         [HttpPost("skill")]

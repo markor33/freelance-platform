@@ -45,6 +45,12 @@ export class FreelancerService {
       );
   }
 
+  setProfilePicture(profilePicture: File): Observable<string> {
+    var form = new FormData();
+    form.append('profilePicture', profilePicture);
+    return this.httpClient.put<string>(`api/freelancer/freelancer/${this.currentFreelancer.id}/profile-picture`, form);
+  }
+
   editProfileSummary(profileSummary: ProfileSummary): Observable<void> {
     return this.httpClient.put<ProfileSummary>(`api/freelancer/freelancer/${this.currentFreelancer.id}/profile-summary`, profileSummary)
       .pipe(

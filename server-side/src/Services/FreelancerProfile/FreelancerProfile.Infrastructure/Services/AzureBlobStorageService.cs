@@ -1,4 +1,5 @@
 ﻿using Azure.Storage.Blobs;
+using Azure.Storage.Blobs.Models;
 using FreelancerProfile.Application.Services;
 using Microsoft.AspNetCore.Http;
 
@@ -15,14 +16,27 @@ namespace FreelancerProfile.Infrastructure.Services
                 "profile-pictures");
         }
 
-        public async Task<string> Upload(IFormFile file)
+        public async Task<string> UploadProfilePicture(Guid freelancerId, IFormFile file)
         {
-            var fileName = $"{Guid.NewGuid()}{Path.GetExtension(file.FileName)}";
+            await DeleteCurrentProfilePicture(freelancerId);
+
+            var fileName = $"{freelancerId}{Path.GetExtension(file.FileName)}";
             using var stream = file.OpenReadStream();
             var response = await _containerClient.UploadBlobAsync(fileName, stream, default);
 
             var blobClient = _containerClient.GetBlobClient(fileName);
             return blobClient.Uri.ToString();
         }
+
+        private async Task DeleteCurrentProfilePicture(Guid freelancerId)
+        {
+            var currentProfilePicture = _containerClient.GetBlobsAsync(prefix: freelancerId.ToString());
+            await foreach (var picture in currentProfilePicture)
+            {
+                var existingBlob = _containerClient.GetBlobClient(picture.Name);
+                await existingBlob.DeleteAsync();
+            }
+        }
+
     }
 }
