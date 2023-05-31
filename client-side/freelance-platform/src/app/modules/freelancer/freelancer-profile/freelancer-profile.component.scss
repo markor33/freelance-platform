@@ -53,6 +53,10 @@ $my-palette: mat.define-palette(mat.$indigo-palette);
     border-radius: 50%;
 }
 
+.profile-picture:hover {
+    cursor: pointer;
+} 
+
 .name {
     margin-top: 1%;
     font-size: xx-large;

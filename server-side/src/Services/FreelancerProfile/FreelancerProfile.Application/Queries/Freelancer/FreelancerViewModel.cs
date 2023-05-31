@@ -21,11 +21,14 @@ namespace FreelancerProfile.Application.Queries
         public HourlyRate HourlyRate { get; private set; }
         public Availability Availability { get; private set; }
         public ExperienceLevel ExperienceLevel { get; private set; }
+        public string? ProfilePictureUrl { get; private set; }
         public ProfessionViewModel Profession { get; private set; }
         public List<SkillViewModel> Skills { get; private set; }
         public List<EducationViewModel> Educations { get; private set; }
         public List<CertificationViewModel> Certifications { get; private set; }
         public List<EmploymentViewModel> Employments { get; private set; }
+
+        public void SetProfilePictureUrl(string url) => ProfilePictureUrl = url;
 
         public void UpdateProfileSummary(ProfileSummary profileSummary) => ProfileSummary = profileSummary;
 

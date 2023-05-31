@@ -1,4 +1,3 @@
-using FreelancerProfile.Infrastructure;
 using Microsoft.EntityFrameworkCore;
 using ProfileManagemenet.Infrastructure;
 using FreelancerProfile.Application;
@@ -9,13 +8,15 @@ using EventBus;
 using EventBusRabbitMQ;
 using RabbitMQ.Client;
 using FreelancerProfile.Application.IntegrationEvents.Handlers;
-using FreelancerProfile.Infrastructure.ReadModel.Settings;
 using Npgsql;
 using System.Data;
 using FreelancerProfile.API.GrpcServices;
 using Microsoft.AspNetCore.Server.Kestrel.Core;
 using System.Net;
 using EventBus.Extensions;
+using FreelancerProfile.Infrastructure.Persistence.ReadModel.Settings;
+using FreelancerProfile.Infrastructure.Persistence;
+using FreelancerProfile.Infrastructure.Settings;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -29,6 +30,9 @@ builder.Services.AddScoped<IDbConnection>(provider => new NpgsqlConnection(conne
 
 var mongoDbSettings = builder.Configuration.GetSection("MongoDB");
 builder.Services.Configure<MongoDBSettings>(mongoDbSettings);
+
+var azureBlobStorageSettings = builder.Configuration.GetSection("Azure");
+builder.Services.Configure<AzureBlobStorageSettings>(azureBlobStorageSettings);
 
 builder.Services.AddAuthentication("Bearer")
     .AddJwtBearer("Bearer", options =>

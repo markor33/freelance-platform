@@ -22,6 +22,7 @@ namespace FreelancerProfile.Domain.AggregatesModel.FreelancerAggregate
         public Availability Availability { get; private set; }
         public ExperienceLevel ExperienceLevel { get; private set; }
         public Guid ProfessionId { get; private set; }
+        public string? ProfilePictureUrl { get; private set; }
         public Profession Profession { get; private set; }
         public List<Skill> Skills { get; private set; }
         public List<Education> Educations { get; private set; }
@@ -72,6 +73,12 @@ namespace FreelancerProfile.Domain.AggregatesModel.FreelancerAggregate
             Employments = new List<Employment>();
             PortfolioProjects = new List<PortfolioProject>();
             AddDomainEvent(new FreelancerCreatedDomainEvent(this));
+        }
+
+        public void SetProfilePicture(string profilePictureUrl)
+        {
+            ProfilePictureUrl = profilePictureUrl;
+            AddDomainEvent(new ProfilePictureChangedDomainEvent(Id, profilePictureUrl));
         }
 
         public void AddLanguageKnowledge(LanguageKnowledge languageKnowledge)

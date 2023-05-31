@@ -14,6 +14,7 @@ export class Freelancer {
     isPublic: boolean = false;
     joined: Date = new Date();
     availability: Availability = Availability.FULL_TIME;
+    profilePictureUrl: string = '';
     languageKnowledges: LanguageKnowledge[] = new Array();
     profession: Profession = new Profession();
     skills: Skill[] = new Array();

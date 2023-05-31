@@ -30,6 +30,7 @@ import { EditCertificationDialogComponent } from './freelancer-profile/dialogs/c
 import { EditEducationDialogComponent } from './freelancer-profile/dialogs/education/edit-education-dialog/edit-education-dialog.component';
 import { EditEmploymentDialogComponent } from './freelancer-profile/dialogs/employment/edit-employment-dialog/edit-employment-dialog.component';
 import { EditProfileSummaryDialogComponent } from './freelancer-profile/dialogs/edit-profile-summary-dialog/edit-profile-summary-dialog.component';
+import { SetProfilePictureDialogComponent } from './freelancer-profile/dialogs/set-profile-picture-dialog/set-profile-picture-dialog.component';
 
 export const freelancerRoutes: Routes = [
   { path: 'freelancer/profile/:id', component: FreelancerProfileComponent}
@@ -46,7 +47,8 @@ export const freelancerRoutes: Routes = [
     EditCertificationDialogComponent,
     EditEducationDialogComponent,
     EditEmploymentDialogComponent,
-    EditProfileSummaryDialogComponent
+    EditProfileSummaryDialogComponent,
+    SetProfilePictureDialogComponent
   ],
   imports: [
     HttpClientModule,

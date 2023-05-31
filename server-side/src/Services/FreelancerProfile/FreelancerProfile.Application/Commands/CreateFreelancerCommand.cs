@@ -10,17 +10,19 @@ namespace FreelancerProfile.Application.Commands
     public class CreateFreelancerCommand : IRequest<Result<Freelancer>>
     {
         public Guid UserId { get; set; }
-        public string FirstName { get; private set; }
-        public string LastName { get; private set; }
-        public Contact Contact { get; private set; }
-        public bool IsProfilePublic { get; private set; }
-        public ProfileSummary ProfileSummary { get; private set; }
-        public HourlyRate HourlyRate { get; private set; }
-        public Availability Availability { get; private set; }
-        public ExperienceLevel ExperienceLevel { get; private set; }
-        public Guid ProfessionId { get; private set; }
-        public int LanguageId { get; private set; }
-        public LanguageProficiencyLevel LanguageProficiencyLevel { get; private set; }
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
+        public Contact Contact { get; set; }
+        public bool IsProfilePublic { get; set; }
+        public ProfileSummary ProfileSummary { get; set; }
+        public HourlyRate HourlyRate { get; set; }
+        public Availability Availability { get; set; }
+        public ExperienceLevel ExperienceLevel { get; set; }
+        public Guid ProfessionId { get;  set; }
+        public int LanguageId { get;  set; }
+        public LanguageProficiencyLevel LanguageProficiencyLevel { get;  set; }
+
+        public CreateFreelancerCommand() { }
 
         [JsonConstructor]
         public CreateFreelancerCommand(Guid userId, string firstName, string lastName,

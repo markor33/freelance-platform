@@ -6,7 +6,7 @@ using FreelancerProfile.Application.Queries;
 using FreelancerProfile.Domain.AggregatesModel.FreelancerAggregate;
 using FreelancerProfile.Domain.AggregatesModel.FreelancerAggregate.Entities;
 using FreelancerProfile.Domain.AggregatesModel.FreelancerAggregate.ValueObjects;
-using FreelancerProfile.Infrastructure;
+using FreelancerProfile.Infrastructure.Persistence;
 using FreelancerProfile.IntegrationTests.Setup;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
