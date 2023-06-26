@@ -5,17 +5,23 @@ using FreelancerProfile.Infrastructure.Persistence.EntityConfiguration;
 using FreelancerProfile.Infrastructure.Persistence.EntitySeed;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Storage;
+using System.Data;
 
 namespace FreelancerProfile.Infrastructure.Persistence
 {
     public class FreelancerProfileContext : DbContext, IUnitOfWork
     {
         private readonly IMediator _mediator;
+        private IDbContextTransaction _currentTransaction;
 
         public DbSet<Freelancer> Freelancers { get; set; }
         public DbSet<Language> Languages { get; set; }
         public DbSet<Profession> Professions { get; set; }
         public DbSet<Skill> Skills { get; set; }
+
+        public IDbContextTransaction GetCurrentTransaction() => _currentTransaction;
+        public bool HasActiveTransaction => _currentTransaction != null;
 
         public FreelancerProfileContext(
             DbContextOptions<FreelancerProfileContext> options,
@@ -46,5 +52,52 @@ namespace FreelancerProfile.Infrastructure.Persistence
                 return false;
             }
         }
+
+        public async Task BeginTransactionAsync()
+        {
+            if (_currentTransaction != null) return;
+
+            _currentTransaction = await Database.BeginTransactionAsync(IsolationLevel.ReadCommitted);
+
+        }
+
+        public async Task CommitTransactionAsync()
+        {
+            try
+            {
+                await SaveChangesAsync();
+                await _currentTransaction.CommitAsync();
+            }
+            catch
+            {
+                await RollbackTransactionAsync();
+                throw;
+            }
+            finally
+            {
+                if (_currentTransaction != null)
+                {
+                    _currentTransaction.Dispose();
+                    _currentTransaction = null;
+                }
+            }
+        }
+
+        public async Task RollbackTransactionAsync()
+        {
+            try
+            {
+                await _currentTransaction?.RollbackAsync();
+            }
+            finally
+            {
+                if (_currentTransaction != null)
+                {
+                    _currentTransaction.Dispose();
+                    _currentTransaction = null;
+                }
+            }
+        }
+
     }
 }

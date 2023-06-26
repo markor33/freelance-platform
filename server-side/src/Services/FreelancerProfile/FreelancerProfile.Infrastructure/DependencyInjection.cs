@@ -1,4 +1,5 @@
-﻿using FreelancerProfile.Application.Queries;
+﻿using FreelancerProfile.Application.IntegrationEvents;
+using FreelancerProfile.Application.Queries;
 using FreelancerProfile.Application.Services;
 using FreelancerProfile.Domain.AggregatesModel.FreelancerAggregate;
 using FreelancerProfile.Infrastructure.Persistence.ReadModel.Repositories;
@@ -19,6 +20,7 @@ namespace ProfileManagemenet.Infrastructure
             services.AddScoped(typeof(IMongoDbFactory), typeof(MongoDbFactory));
             services.AddTransient(typeof(IFreelancerReadModelRepository), typeof(FreelancerReadModelRepository));
 
+            services.AddScoped(typeof(IFreelancerProfileIntegrationEventService), typeof(FreelancerProfileIntegrationEventService));
             services.AddTransient(typeof(ILanguageService), typeof(LanguageService));
             services.AddTransient(typeof(IProfessionService), typeof(ProfessionService));
             services.AddTransient(typeof(ISkillService), typeof(SkillService));

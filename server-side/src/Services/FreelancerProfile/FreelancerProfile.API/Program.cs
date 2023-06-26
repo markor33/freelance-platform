@@ -17,6 +17,11 @@ using EventBus.Extensions;
 using FreelancerProfile.Infrastructure.Persistence.ReadModel.Settings;
 using FreelancerProfile.Infrastructure.Persistence;
 using FreelancerProfile.Infrastructure.Settings;
+using IntegrationEventLog.EFCore;
+using IntegrationEventLog.EFCore.Services;
+using System.Data.Common;
+using Azure.Storage.Blobs.Models;
+using FreelancerProfile.Application.IntegrationEvents.Events;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -27,6 +32,12 @@ builder.Services.AddSwaggerGen();
 var connectionString = builder.Configuration.GetConnectionString("FreelancerProfile");
 builder.Services.AddDbContext<FreelancerProfileContext>(options => options.UseNpgsql(connectionString));
 builder.Services.AddScoped<IDbConnection>(provider => new NpgsqlConnection(connectionString));
+
+builder.Services.AddDbContext<IntegrationEventLogContext>(options => options.UseNpgsql(connectionString));
+builder.Services.AddTransient<Func<DbConnection, IIntegrationEventLogService>>(sp => (DbConnection c) => new IntegrationEventLogService(c));
+builder.Services.AddIntegrationEventsList(typeof(ProposalCreatedIntegrationEvent).Assembly);
+
+builder.Services.AddHostedService<IntegrationEventSenderService>();
 
 var mongoDbSettings = builder.Configuration.GetSection("MongoDB");
 builder.Services.Configure<MongoDBSettings>(mongoDbSettings);

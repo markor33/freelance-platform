@@ -29,4 +29,8 @@
     <ProjectReference Include="..\FreelancerProfile.Domain\FreelancerProfile.Domain.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="IntegrationEventHandlers\" />
+  </ItemGroup>
+
 </Project>

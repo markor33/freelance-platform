@@ -7,6 +7,10 @@ namespace FreelancerProfile.Application.IntegrationEvents.Events
         public Guid JobId { get; init; }
         public Guid ProposalId { get; init; }
 
+        public CreditsReservedIntegrationEvent()
+        {
+        }
+
         public CreditsReservedIntegrationEvent(Guid jobId, Guid proposalId)
         {
             JobId = jobId;
