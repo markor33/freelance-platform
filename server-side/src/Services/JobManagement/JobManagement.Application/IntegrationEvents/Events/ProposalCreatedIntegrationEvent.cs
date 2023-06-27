@@ -1,4 +1,5 @@
 ﻿using EventBus.Events;
+using System.Text.Json.Serialization;
 
 namespace JobManagement.Application.IntegrationEvents.Events
 {
@@ -9,6 +10,11 @@ namespace JobManagement.Application.IntegrationEvents.Events
         public Guid ProposalId { get; init; }
         public int PriceInCredits { get; init; }
 
+        public ProposalCreatedIntegrationEvent()
+        {
+        }
+
+        [JsonConstructor]
         public ProposalCreatedIntegrationEvent(Guid freelancerId, Guid jobId, Guid proposalId, int priceInCredits)
         {
             FreelancerId = freelancerId;

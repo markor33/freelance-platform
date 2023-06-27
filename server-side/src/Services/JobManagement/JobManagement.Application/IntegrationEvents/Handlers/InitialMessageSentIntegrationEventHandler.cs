@@ -1,32 +1,23 @@
 ﻿using EventBus.Abstractions;
+using JobManagement.Application.Commands.ProposalCommands;
 using JobManagement.Application.IntegrationEvents.Events;
-using JobManagement.Application.Notifications;
-using JobManagement.Domain.AggregatesModel.JobAggregate;
-using JobManagement.Domain.AggregatesModel.JobAggregate.Enums;
+using MediatR;
 
 namespace JobManagement.Application.IntegrationEvents.Handlers
 {
     public class InitialMessageSentIntegrationEventHandler : IIntegrationEventHandler<InitialMessageSentIntegrationEvent>
     {
-        private readonly IJobRepository _jobRepository;
-        private readonly IEventBus _eventBus;
+        private readonly IMediator _mediator;
 
-        public InitialMessageSentIntegrationEventHandler(IJobRepository jobRepository, IEventBus eventBus)
+        public InitialMessageSentIntegrationEventHandler(IMediator mediator)
         {
-            _jobRepository = jobRepository;
-            _eventBus = eventBus;
+            _mediator = mediator;
         }
 
         public async Task HandleAsync(InitialMessageSentIntegrationEvent @event)
         {
-            var job = await _jobRepository.GetByIdAsync(@event.JobId);
-
-            job.ChangeProposalStatus(@event.ProposalId, ProposalStatus.INTERVIEW);
-
-            await _jobRepository.UnitOfWork.SaveEntitiesAsync();
-
-            var interviewStageStartedNotification = new InterviewStageStartedNotification(@event.FreelancerId, job.Id, job.Title, @event.ProposalId);
-            _eventBus.Publish(interviewStageStartedNotification);
+            var command = new ProcessInitialMessageSentCommand(@event.JobId, @event.ProposalId, @event.FreelancerId);
+            await _mediator.Send(command);
         }
     }
 

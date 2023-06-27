@@ -1,4 +1,5 @@
 ﻿using EventBus.Events;
+using System.Text.Json.Serialization;
 
 namespace FeedbackManagement.API.IntegrationEvents.Events
 {
@@ -9,6 +10,11 @@ namespace FeedbackManagement.API.IntegrationEvents.Events
         public Guid ClientId { get; private set; }
         public Guid FreelancerId { get; private set; }
 
+        public ContractFinishedIntegrationEvent()
+        {
+        }
+
+        [JsonConstructor]
         public ContractFinishedIntegrationEvent(Guid contractId, Guid jobId, Guid clientId, Guid freelancerId)
         {
             ContractId = contractId;

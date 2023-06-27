@@ -23,7 +23,7 @@ namespace IntegrationEventLog.EFCore.Services
 
         public Task StartAsync(CancellationToken cancellationToken)
         {
-            _timer = new Timer(ProcessOutbox, null, TimeSpan.Zero, TimeSpan.FromSeconds(10));
+            _timer = new Timer(ProcessOutbox, null, TimeSpan.Zero, TimeSpan.FromSeconds(0.5));
 
             return Task.CompletedTask;
         }

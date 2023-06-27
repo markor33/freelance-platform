@@ -12,7 +12,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace IntegrationEventLog.EFCore.Migrations
 {
     [DbContext(typeof(IntegrationEventLogContext))]
-    [Migration("20230625200309_OutboxModel")]
+    [Migration("20230626020336_OutboxModel")]
     partial class OutboxModel
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

@@ -1,4 +1,5 @@
 ﻿using EventBus.Events;
+using System.Text.Json.Serialization;
 
 namespace FreelancerProfile.Application.IntegrationEvents.Events
 {
@@ -11,6 +12,7 @@ namespace FreelancerProfile.Application.IntegrationEvents.Events
         {
         }
 
+        [JsonConstructor]
         public CreditsLimitExceededIntegrationEvent(Guid jobId, Guid proposalId)
         {
             JobId = jobId;
