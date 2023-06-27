@@ -11,3 +11,5 @@ Each microservice in our architecture has its own implementation approach. Some 
 Communication between microservices is achieved asynchronously using an event bus, with RabbitMQ as the underlying messaging system. This ensures that all our services can communicate effectively and that they remain loosely coupled, promoting a more maintainable and resilient system architecture.
 
 The following diagram provides an rough overview of the architecture:
+
+![Architecture Overview](architecture-overview.png)
