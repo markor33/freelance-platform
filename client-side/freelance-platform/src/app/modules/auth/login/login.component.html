@@ -1,0 +1,42 @@
+<mat-card>
+    <mat-card-title style="text-align: center;">
+        <h2>Log in</h2>
+    </mat-card-title>
+    <mat-card-content>
+        <form class="login" (ngSubmit)="login()">
+            <mat-form-field appearance="outline">
+                <mat-icon matPrefix>person</mat-icon>
+                <mat-label>Username</mat-label>
+                <input matInput type="text" required [(ngModel)]="credentials.username" name="username">
+            </mat-form-field>
+            <mat-form-field appearance="outline">
+                <mat-icon matPrefix>password</mat-icon>
+                <mat-label>Password</mat-label>
+                <input matInput [type]="hidePassword ? 'password' : 'text'" required [(ngModel)]="credentials.password" name="password">
+                <button mat-icon-button matSuffix (click)="hidePassword = !hidePassword" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hidePassword">
+                    <mat-icon>{{hidePassword ? 'visibility_off' : 'visibility'}}</mat-icon>
+                </button>
+            </mat-form-field>
+            <div class="remember-me-container">
+                <mat-checkbox>Remember me</mat-checkbox>
+                <a href="">Forgot password?</a>
+            </div>
+            <button mat-raised-button color="primary" type="submit">Log in</button>
+        </form>
+        <div class="divider-container">
+            <div class="line"><mat-divider></mat-divider></div>
+            <div class="text mat-typography">or</div>
+            <div class="line"><mat-divider></mat-divider></div>
+        </div>
+        <div class="integration-login">
+            <button mat-raised-button class="google-button" style="background-color: #34A853; color: white;">
+                <mat-icon svgIcon="google-logo"></mat-icon>
+                <span>Continue with Google</span>
+            </button>
+        </div>
+        <mat-divider style="margin-top: 7%;"></mat-divider>
+        <div class="register-info-container">
+            <span>Don't have an account? <a [routerLink]="['/auth/register']">Sign Up</a></span>
+        </div>
+    </mat-card-content>
+</mat-card>

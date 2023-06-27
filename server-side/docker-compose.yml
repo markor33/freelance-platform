@@ -1,0 +1,160 @@
+version: '3.4'
+
+services:
+  identity.api:
+    image: ${DOCKER_REGISTRY-}identityapi
+    build:
+      context: .
+      dockerfile: src/Services/Identity/Identity.API/Dockerfile
+    depends_on:
+     - identity.db
+    ports:
+     - 50000:80
+
+  job-management.api:
+    image: ${DOCKER_REGISTRY-}jobapi
+    build:
+      context: .
+      dockerfile: src/Services/JobManagement/JobManagement.API/Dockerfile
+    depends_on:
+     - job-management.db
+    ports:
+     - 51000:80
+     - 51001:5000
+
+  freelancer-profile.api:
+    image: ${DOCKER_REGISTRY-}freelancerapi
+    build:
+      context: .
+      dockerfile: src/Services/FreelancerProfile/FreelancerProfile.API/Dockerfile
+    depends_on:
+     - freelancer-profile.db
+    ports:
+     - 52000:80
+     - 52001:5000
+
+  client-profile.api:
+    image: ${DOCKER_REGISTRY-}clientprofileapi
+    build:
+      context: .
+      dockerfile: src/Services/ClientProfile/ClientProfile.API/Dockerfile
+    depends_on:
+     - client-profile.db
+    ports:
+     - 53000:80
+     - 53001:5000
+
+  feedback-management.api:
+    image: ${DOCKER_REGISTRY-}feedbackmanagementapi
+    build:
+      context: .
+      dockerfile: src/Services/FeedbackManagement/FeedbackManagement.API/Dockerfile
+    depends_on:
+     - feedback-management.db
+    ports:
+    - 54000:80
+    - 54001:5000
+
+  identity.db:
+    image: postgres
+    restart: always
+    environment:
+     POSTGRES_USERNAME: postgres
+     POSTGRES_PASSWORD: 123456
+    volumes:
+     - identity-data:/var/lib/postgresql/data
+    ports:
+     - 40000:5432
+
+  freelancer-profile.db:
+    image: postgres
+    restart: always
+    environment:
+     POSTGRES_USERNAME: postgres
+     POSTGRES_PASSWORD: 123456
+    volumes:
+     - freelancer-profile-data:/var/lib/postgresql/data
+    ports:
+     - 41000:5432
+
+  client-profile.db:
+    image: postgres
+    restart: always
+    environment:
+     POSTGRES_USERNAME: postgres
+     POSTGRES_PASSWORD: 123456
+    volumes:
+     - client-profile-data:/var/lib/postgresql/data
+    ports:
+     - 42000:5432
+
+  job-management.db:
+    image: postgres
+    restart: always
+    environment:
+     POSTGRES_USERNAME: postgres
+     POSTGRES_PASSWORD: 123456
+    volumes:
+     - job-management-data:/var/lib/postgresql/data
+    ports:
+     - 43000:5432
+
+  feedback-management.db:
+    image: postgres
+    restart: always
+    environment:
+     POSTGRES_USERNAME: postgres
+     POSTGRES_PASSWORD: 123456
+    volumes:
+     - feedback-management-data:/var/lib/postgresql/data
+    ports:
+     - 44000:5432
+
+  web.bff:
+    image: ${DOCKER_REGISTRY-}webbff
+    build:
+      context: .
+      dockerfile: src/ApiGateways/Web.Bff/Web.Bff/Dockerfile
+    ports:
+     - 10000:80
+
+  rabbitmq:
+    image: rabbitmq:3.8-management-alpine
+    hostname: rabbitmq
+    ports:
+      - "60000:5672"
+      - "61000:15672"
+    volumes:
+      - rabbitmq_data:/var/lib/rabbitmq
+    environment:
+      RABBITMQ_DEFAULT_USER: guest
+      RABBITMQ_DEFAULT_PASS: guest
+
+  notifychat.signalr:
+    image: ${DOCKER_REGISTRY-}notifychatsignalr
+    build:
+      context: .
+      dockerfile: src/Services/NotifyChat/NotifyChat.SignalR/Dockerfile
+    ports:
+      - "62000:80"
+      - "62001:5000"
+
+  mongo:
+    image: mongo:latest
+    volumes:
+      - mongo_data:/data/db
+    ports:
+      - 27017:27017
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: example
+    restart: always
+
+volumes:
+ identity-data:
+ freelancer-profile-data:
+ mongo_data:
+ client-profile-data:
+ job-management-data:
+ feedback-management-data:
+ rabbitmq_data:

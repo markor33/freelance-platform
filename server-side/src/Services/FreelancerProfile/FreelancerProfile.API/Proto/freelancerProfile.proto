@@ -1,0 +1,27 @@
+﻿syntax = "proto3";
+
+option csharp_namespace = "GrpcFreelancerProfile";
+
+service FreelancerProfile {
+	rpc GetFreelancerBasicDataByUserId(GetFreelancerBasicDataByUserIdRequest) returns (FreelancerBasicData);
+	rpc GetFreelancerBasicDataById(GetFreelancerBasicDataByIdRequest) returns (FreelancerBasicData);
+}
+
+message GetFreelancerBasicDataByIdRequest {
+	string id = 1;
+}
+
+message GetFreelancerBasicDataByUserIdRequest {
+	string userId = 1;
+}
+
+message FreelancerBasicData {
+	string id = 1;
+	string firstName = 2;
+	string lastName = 3;
+	string professionId = 4;
+	int32 experienceLevel = 5;
+	string timeZoneID = 6;
+	string country = 7;
+	string city = 8;
+}

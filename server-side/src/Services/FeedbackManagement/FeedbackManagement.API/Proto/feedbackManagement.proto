@@ -1,0 +1,46 @@
+﻿syntax = "proto3";
+
+option csharp_namespace = "GrpcFeedbackManagement";
+import "google/protobuf/timestamp.proto";
+
+service Feedback {
+	rpc GetFeedbackByContract(GetFeedbackByContractRequest) returns (GetFeedbackByContractResponse);
+	rpc GetFreelancerFeedback(GetFreelancerFeedbackRequest) returns (GetFreelancerFeedbackResponse);
+	rpc GetAverageFreelancerRating(GetAverageFreelancerRatingRequest) returns (AverageRatingResponse);
+	rpc GetAverageClientRating(GetAverageClientRatingRequest) returns (AverageRatingResponse);
+}
+
+message GetFreelancerFeedbackResponse {
+	repeated FeedbackDTO feedbacks = 1;
+}
+
+message GetFreelancerFeedbackRequest {
+	string freelancerId = 1;
+}
+
+message GetAverageClientRatingRequest {
+	string clientId = 1;
+}
+
+message AverageRatingResponse {
+	float averageRating = 1;
+}
+
+message GetAverageFreelancerRatingRequest {
+	string freelancerId = 1;
+}
+
+message GetFeedbackByContractRequest {
+	string contractId = 1;
+}
+
+message GetFeedbackByContractResponse {
+	FeedbackDTO clientFeedback = 1;
+	FeedbackDTO freelancerFeedback = 2;
+}
+
+message FeedbackDTO {
+	string jobId = 1;
+	int32 rating = 2;
+	string text = 3;
+}

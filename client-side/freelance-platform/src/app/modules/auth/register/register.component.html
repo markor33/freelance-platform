@@ -1,0 +1,58 @@
+<mat-card>
+    <mat-card-title style="text-align: center;">
+        <h2>Register</h2>
+    </mat-card-title>
+    <mat-card-content>
+        <form class="register" (ngSubmit)="register()">
+            <mat-form-field appearance="outline">
+                <mat-icon matPrefix>person</mat-icon>
+                <mat-label>Username</mat-label>
+                <input matInput type="text" [(ngModel)]="registration.username" name="username" required>
+            </mat-form-field>
+            <mat-form-field appearance="outline">
+                <mat-icon matPrefix>mail</mat-icon>
+                <mat-label>Email</mat-label>
+                <input matInput type="text" [(ngModel)]="registration.email" name="email" required>
+            </mat-form-field>
+            <mat-form-field appearance="outline">
+                <mat-icon matPrefix>password</mat-icon>
+                <mat-label>Password</mat-label>
+                <input matInput [type]="hidePassword ? 'password' : 'text'" [(ngModel)]="registration.password" name="password" required>
+                <button mat-icon-button matSuffix (click)="hidePassword = !hidePassword" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hidePassword">
+                    <mat-icon>{{hidePassword ? 'visibility_off' : 'visibility'}}</mat-icon>
+                </button>
+            </mat-form-field>
+            <mat-form-field appearance="outline">
+                <mat-icon matPrefix>password</mat-icon>
+                <mat-label>Confirm password</mat-label>
+                <input matInput [type]="hidePassword ? 'password' : 'text'" [(ngModel)]="registration.confirmPassword" name="confirmPassword" required>
+                <button mat-icon-button matSuffix (click)="hidePassword = !hidePassword" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hidePassword">
+                    <mat-icon>{{hidePassword ? 'visibility_off' : 'visibility'}}</mat-icon>
+                </button>
+            </mat-form-field>
+            <section>
+                <label>I am:</label>
+                <mat-radio-group [(ngModel)]="registration.role" name="role">
+                    <mat-radio-button [value]="0">Freelancer</mat-radio-button>
+                    <mat-radio-button [value]="1">Client</mat-radio-button>
+                </mat-radio-group>
+            </section>
+            <button mat-raised-button color="primary" type="submit">Register</button>
+        </form>
+        <div class="divider-container">
+            <div class="line"><mat-divider></mat-divider></div>
+            <div class="text mat-typography">or</div>
+            <div class="line"><mat-divider></mat-divider></div>
+        </div>
+        <div class="integration-login">
+            <button mat-raised-button class="google-button" style="background-color: #34A853; color: white;">
+                <mat-icon svgIcon="google-logo"></mat-icon>
+                <span>Continue with Google</span>
+            </button>
+        </div>
+        <mat-divider style="margin-top: 7%;"></mat-divider>
+        <div class="login-info-container">
+            <span>Already have an account? <a [routerLink]="['/auth/login']">Log in</a></span>
+        </div>
+    </mat-card-content>
+</mat-card>
