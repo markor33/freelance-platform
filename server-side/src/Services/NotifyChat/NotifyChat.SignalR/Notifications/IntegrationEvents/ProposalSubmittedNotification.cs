@@ -1,4 +1,5 @@
 ﻿using EventBus.Events;
+using System.Text.Json.Serialization;
 
 namespace NotifyChat.Notifications.IntegrationEvents
 {
@@ -8,6 +9,7 @@ namespace NotifyChat.Notifications.IntegrationEvents
         public Guid JobId { get; private init; }
         public string JobName { get; private init; }
 
+        [JsonConstructor]
         public ProposalSubmittedNotification(Guid clientId, Guid jobId, string jobName)
         {
             ClientId = clientId;

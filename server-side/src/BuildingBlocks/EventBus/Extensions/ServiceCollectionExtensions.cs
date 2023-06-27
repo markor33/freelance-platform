@@ -1,4 +1,5 @@
 ﻿using EventBus.Abstractions;
+using EventBus.Events;
 using Microsoft.Extensions.DependencyInjection;
 using System.Reflection;
 
@@ -14,6 +15,17 @@ namespace EventBus.Extensions
 
             foreach (var handlerType in handlerTypes)
                 serviceCollection.AddScoped(handlerType);
+        }
+
+        public static void AddIntegrationEventsList(this IServiceCollection serviceCollection, Assembly assembly)
+        {
+            var eventInstances = assembly.GetTypes()
+                .Where(t => t.BaseType == typeof(IntegrationEvent) && !t.IsAbstract)
+                .Select(Activator.CreateInstance)
+                .Cast<IntegrationEvent>()
+                .ToList();
+
+            serviceCollection.AddSingleton(eventInstances);
         }
     }
 }

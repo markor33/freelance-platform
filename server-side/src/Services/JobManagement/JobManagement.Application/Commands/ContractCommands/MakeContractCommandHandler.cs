@@ -1,5 +1,5 @@
-﻿using EventBus.Abstractions;
-using FluentResults;
+﻿using FluentResults;
+using JobManagement.Application.IntegrationEvents;
 using JobManagement.Application.Notifications;
 using JobManagement.Domain.AggregatesModel.JobAggregate;
 using MediatR;
@@ -9,14 +9,14 @@ namespace JobManagement.Application.Commands.ContractCommands
     public class MakeContractCommandHandler : IRequestHandler<MakeContractCommand, Result>
     {
         private readonly IJobRepository _jobRepository;
-        private readonly IEventBus _eventBus;
+        private readonly IJobIntegrationEventService _integrationEventService;
 
         public MakeContractCommandHandler(
             IJobRepository jobRepository,
-            IEventBus eventBus)
+            IJobIntegrationEventService integrationEventService)
         {
             _jobRepository = jobRepository;
-            _eventBus = eventBus;
+            _integrationEventService = integrationEventService;
         }
 
         public async Task<Result> Handle(MakeContractCommand request, CancellationToken cancellationToken)
@@ -30,7 +30,7 @@ namespace JobManagement.Application.Commands.ContractCommands
             await _jobRepository.UnitOfWork.SaveEntitiesAsync();
 
             var notification = new ContractMadeNotification(contract.Id, job.Id, job.Title, request.ProposalId, job.ClientId);
-            _eventBus.Publish(notification);
+            await _integrationEventService.SaveEventAsync(notification);
 
             return Result.Ok();
         }

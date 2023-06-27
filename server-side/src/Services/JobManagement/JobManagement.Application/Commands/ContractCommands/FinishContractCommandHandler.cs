@@ -1,5 +1,5 @@
-﻿using EventBus.Abstractions;
-using FluentResults;
+﻿using FluentResults;
+using JobManagement.Application.IntegrationEvents;
 using JobManagement.Application.IntegrationEvents.Events;
 using JobManagement.Application.Notifications;
 using JobManagement.Domain.AggregatesModel.JobAggregate;
@@ -11,12 +11,14 @@ namespace JobManagement.Application.Commands.ContractCommands
     public class FinishContractCommandHandler : IRequestHandler<FinishContractCommand, Result>
     {
         private readonly IJobRepository _jobRepository;
-        private readonly IEventBus _eventBus;
+        private readonly IJobIntegrationEventService _integrationEventService;
 
-        public FinishContractCommandHandler(IJobRepository jobRepository, IEventBus eventBus)
+        public FinishContractCommandHandler(
+            IJobRepository jobRepository,
+            IJobIntegrationEventService integrationEventService)
         {
             _jobRepository = jobRepository;
-            _eventBus = eventBus;
+            _integrationEventService = integrationEventService;
         }
 
         public async Task<Result> Handle(FinishContractCommand request, CancellationToken cancellationToken)
@@ -32,9 +34,9 @@ namespace JobManagement.Application.Commands.ContractCommands
             await _jobRepository.UnitOfWork.SaveEntitiesAsync();
 
             var notification = new ContractFinishedNotification(request.ContractId, result.Value.FreelancerId, request.JobId, job.Title);
-            _eventBus.Publish(notification);
+            await _integrationEventService.SaveEventAsync(notification);
             var integrationEvent = new ContractFinishedIntegrationEvent(request.ContractId, job.Id, job.ClientId, result.Value.FreelancerId);
-            _eventBus.Publish(integrationEvent);
+            await _integrationEventService.SaveEventAsync(integrationEvent);
 
             return Result.Ok();
         }

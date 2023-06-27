@@ -12,7 +12,7 @@ namespace EventBus.Events
         public IntegrationEvent()
         {
             Id = Guid.NewGuid();
-            CreationDate = DateTime.Now;
+            CreationDate = DateTime.UtcNow;
         }
 
 

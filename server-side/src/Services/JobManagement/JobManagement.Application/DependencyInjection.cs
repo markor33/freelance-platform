@@ -10,9 +10,11 @@ namespace JobManagement.Application
     {
         public static IServiceCollection AddApplication(this IServiceCollection services)
         {
+            services.AddValidatorsFromAssembly(typeof(DependencyInjection).Assembly);
+
             services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(typeof(DependencyInjection).Assembly));
             services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehavior<,>));
-            services.AddValidatorsFromAssembly(typeof(DependencyInjection).Assembly);
+            services.AddTransient(typeof(IPipelineBehavior<,>), typeof(TransactionBehavior<,>));
 
             services.AddTransient(typeof(IJobQueries), typeof(JobQueries));
             services.AddTransient(typeof(IProposalQueries), typeof(ProposalQueries));

@@ -1,8 +1,7 @@
-﻿using EventBus.Abstractions;
-using FluentResults;
+﻿using FluentResults;
+using JobManagement.Application.IntegrationEvents;
 using JobManagement.Application.Notifications;
 using JobManagement.Domain.AggregatesModel.JobAggregate;
-using JobManagement.Domain.AggregatesModel.JobAggregate.Enums;
 using MediatR;
 
 namespace JobManagement.Application.Commands.ProposalCommands
@@ -10,14 +9,14 @@ namespace JobManagement.Application.Commands.ProposalCommands
     public class ApproveProposalCommandHandler : IRequestHandler<ApproveProposalCommand, Result>
     {
         private readonly IJobRepository _jobRepository;
-        private readonly IEventBus _eventBus;
+        private readonly IJobIntegrationEventService _integrationEventService;
 
         public ApproveProposalCommandHandler(
             IJobRepository jobRepository,
-            IEventBus eventBus)
+            IJobIntegrationEventService integrationEventService)
         {
             _jobRepository = jobRepository;
-            _eventBus = eventBus;
+            _integrationEventService = integrationEventService;
         }
 
         public async Task<Result> Handle(ApproveProposalCommand request, CancellationToken cancellationToken)
@@ -26,13 +25,13 @@ namespace JobManagement.Application.Commands.ProposalCommands
             if (job is null)
                 return Result.Fail("Job does not exist");
 
-            job.ChangeProposalStatus(request.ProposalId, ProposalStatus.CLIENT_APPROVED);
+            job.SetProposalStatusToClientApproved(request.ProposalId);
 
             await _jobRepository.UnitOfWork.SaveEntitiesAsync();
 
             var proposal = job.GetProposal(request.ProposalId);
             var notification = new ProposalApprovedNotification(job.Id, job.Title, proposal.Id, proposal.FreelancerId);
-            _eventBus.Publish(notification);
+            await _integrationEventService.SaveEventAsync(notification);
 
             return Result.Ok();
         }

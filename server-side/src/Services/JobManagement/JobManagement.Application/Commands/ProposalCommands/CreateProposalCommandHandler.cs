@@ -1,5 +1,5 @@
-﻿using EventBus.Abstractions;
-using FluentResults;
+﻿using FluentResults;
+using JobManagement.Application.IntegrationEvents;
 using JobManagement.Application.IntegrationEvents.Events;
 using JobManagement.Domain.AggregatesModel.JobAggregate;
 using JobManagement.Domain.AggregatesModel.JobAggregate.Entities;
@@ -10,12 +10,14 @@ namespace JobManagement.Application.Commands.ProposalCommands
     public class CreateProposalCommandHandler : IRequestHandler<CreateProposalCommand, Result<Proposal>>
     {
         private readonly IJobRepository _jobRepository;
-        private readonly IEventBus _eventBus;
+        private readonly IJobIntegrationEventService _integrationEventService;
 
-        public CreateProposalCommandHandler(IJobRepository jobRepository, IEventBus eventBus)
+        public CreateProposalCommandHandler(
+            IJobRepository jobRepository, 
+            IJobIntegrationEventService integrationEventService)
         {
             _jobRepository = jobRepository;
-            _eventBus = eventBus;
+            _integrationEventService = integrationEventService;
         }
 
         public async Task<Result<Proposal>> Handle(CreateProposalCommand request, CancellationToken cancellationToken)
@@ -36,7 +38,7 @@ namespace JobManagement.Application.Commands.ProposalCommands
                 return Result.Fail("Proposal creation failed");
 
             var eventMessage = new ProposalCreatedIntegrationEvent(request.FreelancerId, job.Id, proposal.Id, job.Credits);
-            _eventBus.Publish(eventMessage);
+            await _integrationEventService.SaveEventAsync(eventMessage);
 
             return Result.Ok(proposal);
         }

@@ -1,4 +1,5 @@
 ﻿using EventBus.Events;
+using System.Text.Json.Serialization;
 
 namespace JobManagement.Application.Notifications
 {
@@ -9,6 +10,11 @@ namespace JobManagement.Application.Notifications
         public Guid JobId { get; private set; }
         public string JobTitle { get; private set; }
 
+        public ContractFinishedNotification()
+        {
+        }
+
+        [JsonConstructor]
         public ContractFinishedNotification(Guid contractId, Guid freelancerId, Guid jobId, string jobTitle)
         {
             ContractId = contractId;

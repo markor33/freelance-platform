@@ -1,33 +1,24 @@
 ﻿using EventBus.Abstractions;
+using FreelancerProfile.Application.Commands;
 using FreelancerProfile.Application.IntegrationEvents.Events;
-using FreelancerProfile.Domain.AggregatesModel.FreelancerAggregate;
+using MediatR;
 
 namespace FreelancerProfile.Application.IntegrationEvents.Handlers
 {
     public class ProposalCreatedIntegrationEventHandler : IIntegrationEventHandler<ProposalCreatedIntegrationEvent>
     {
-        private readonly IFreelancerRepository _freelancerRepository;
-        private readonly IEventBus _eventBus;
+        private readonly IMediator _mediator;
 
-        public ProposalCreatedIntegrationEventHandler(IFreelancerRepository freelancerRepository, IEventBus eventBus)
+        public ProposalCreatedIntegrationEventHandler(IMediator mediator)
         {
-            _freelancerRepository = freelancerRepository;
-            _eventBus = eventBus;
+            _mediator = mediator;
         }
 
-        
         public async Task HandleAsync(ProposalCreatedIntegrationEvent @event)
         {
-            var freelancer = await _freelancerRepository.GetByIdAsync(@event.FreelancerId);
-
-            var result = freelancer.SubtractCredits(@event.PriceInCredits);
-
-            if (!result)
-                _eventBus.Publish(new CreditsLimitExceededIntegrationEvent(@event.JobId, @event.ProposalId));
-            else
-                _eventBus.Publish(new CreditsReservedIntegrationEvent(@event.JobId, @event.ProposalId));
-
-            await _freelancerRepository.UnitOfWork.SaveChangesAsync();
+            var command = new SubtractCreditsCommand(@event.FreelancerId, @event.JobId, @event.ProposalId, @event.PriceInCredits);
+            await _mediator.Send(command);
         }
+
     }
 }

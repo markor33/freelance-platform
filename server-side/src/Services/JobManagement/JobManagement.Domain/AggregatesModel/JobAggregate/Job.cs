@@ -135,15 +135,22 @@ namespace JobManagement.Domain.AggregatesModel.JobAggregate
             return Result.Ok();
         }
 
-        public Result ChangeProposalStatus(Guid id, ProposalStatus status)
+        public void SetProposalStatusToSent(Guid id)
         {
             var proposal = GetProposal(id);
-            if (proposal is null)
-                return Result.Fail("Proposal does not exist");
+            proposal.ChangeStatus(ProposalStatus.SENT);
+        }
 
-            proposal.ChangeStatus(status);
+        public void SetProposalStatusToInterview(Guid id)
+        {
+            var proposal = GetProposal(id);
+            proposal.ChangeStatus(ProposalStatus.INTERVIEW);
+        }
 
-            return Result.Ok();
+        public void SetProposalStatusToClientApproved(Guid id)
+        {
+            var proposal = GetProposal(id);
+            proposal.ChangeStatus(ProposalStatus.CLIENT_APPROVED);
         }
 
         public Proposal GetProposal(Guid proposalId) => Proposals.FirstOrDefault(p => p.Id == proposalId);

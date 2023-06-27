@@ -14,13 +14,14 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="6.0.16" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="6.0.16" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="6.0.19" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="6.0.19" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="6.0.0" />
     <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="6.0.8" />
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\..\BuildingBlocks\IntegrationEventLog.EFCore\IntegrationEventLog.EFCore.csproj" />
     <ProjectReference Include="..\JobManagement.Application\JobManagement.Application.csproj" />
     <ProjectReference Include="..\JobManagement.Domain\JobManagement.Domain.csproj" />
   </ItemGroup>

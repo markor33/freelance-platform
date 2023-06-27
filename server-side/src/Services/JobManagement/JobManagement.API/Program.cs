@@ -2,6 +2,8 @@ using EventBus;
 using EventBus.Abstractions;
 using EventBus.Extensions;
 using EventBusRabbitMQ;
+using IntegrationEventLog.EFCore.Services;
+using IntegrationEventLog.EFCore;
 using JobManagement.API.GrpcServices;
 using JobManagement.API.Security;
 using JobManagement.Application;
@@ -15,8 +17,8 @@ using Microsoft.IdentityModel.Tokens;
 using Npgsql;
 using RabbitMQ.Client;
 using System.Data;
+using System.Data.Common;
 using System.Net;
-using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -27,6 +29,12 @@ builder.Services.AddSwaggerGen();
 var connectionString = builder.Configuration.GetConnectionString("JobManagemenet");
 builder.Services.AddDbContext<JobManagementContext>(options => options.UseNpgsql(connectionString));
 builder.Services.AddScoped<IDbConnection>(provider => new NpgsqlConnection(connectionString));
+
+builder.Services.AddDbContext<IntegrationEventLogContext>(options => options.UseNpgsql(connectionString));
+builder.Services.AddTransient<Func<DbConnection, IIntegrationEventLogService>>(sp => (DbConnection c) => new IntegrationEventLogService(c));
+builder.Services.AddIntegrationEventsList(typeof(ProposalCreatedIntegrationEvent).Assembly);
+
+builder.Services.AddHostedService<IntegrationEventSenderService>();
 
 builder.Services.AddAuthentication("Bearer")
     .AddJwtBearer("Bearer", options =>

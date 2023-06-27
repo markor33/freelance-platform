@@ -1,25 +1,24 @@
 ﻿using EventBus.Abstractions;
+using JobManagement.Application.Commands.ProposalCommands;
 using JobManagement.Application.IntegrationEvents.Events;
-using JobManagement.Domain.AggregatesModel.JobAggregate;
+using MediatR;
 
 namespace JobManagement.Application.IntegrationEvents.Handlers
 {
     public class CreditsLimitExceededIntegrationEventHandler : IIntegrationEventHandler<CreditsLimitExceededIntegrationEvent>
     {
-        private readonly IJobRepository _jobRepository;
+        private readonly IMediator _mediator;
 
-        public CreditsLimitExceededIntegrationEventHandler(IJobRepository jobRepository)
+        public CreditsLimitExceededIntegrationEventHandler(IMediator mediator)
         {
-            _jobRepository = jobRepository;
+            _mediator = mediator;
         }
 
         public async Task HandleAsync(CreditsLimitExceededIntegrationEvent @event)
         {
-            var job = await _jobRepository.GetByIdAsync(@event.JobId);
-
-            job.RemoveProposal(@event.ProposalId);
-
-            await _jobRepository.UnitOfWork.SaveChangesAsync();
+            var command = new DeleteProposalCommand(@event.JobId, @event.ProposalId);
+            
+            await _mediator.Send(command);
         }
 
     }
