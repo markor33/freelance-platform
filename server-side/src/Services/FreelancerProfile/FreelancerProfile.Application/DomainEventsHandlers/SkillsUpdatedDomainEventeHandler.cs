@@ -18,11 +18,8 @@ namespace FreelancerProfile.Application.DomainEventsHandlers
 
         public async Task Handle(SkillsUpdatedDomainEvent notification, CancellationToken cancellationToken)
         {
-            var freelancer = await _repository.GetByIdAsync(notification.FreelancerId);
-
-            freelancer.SetSkills(notification.Skills.Select(s => _mapper.Map<SkillViewModel>(s)).ToList());
-
-            await _repository.UpdateAsync(freelancer);
+            var skills = notification.Skills.Select(s => _mapper.Map<SkillViewModel>(s)).ToList();
+            await _repository.UpdateAsync(notification.FreelancerId, fr => fr.Skills, skills);
         }
     }
 }

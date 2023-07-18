@@ -15,10 +15,7 @@ namespace FreelancerProfile.Application.DomainEventsHandlers
 
         public async Task Handle(ProfilePictureChangedDomainEvent notification, CancellationToken cancellationToken)
         {
-            var freelancer = await _repository.GetByIdAsync(notification.FreelancerId);
-            freelancer.SetProfilePictureUrl(notification.ProfilePictureUrl);
-
-            await _repository.UpdateAsync(freelancer);
+            await _repository.UpdateAsync(notification.FreelancerId, fr => fr.ProfilePictureUrl, notification.ProfilePictureUrl);
         }
     }
 }

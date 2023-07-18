@@ -18,10 +18,8 @@ namespace FreelancerProfile.Application.DomainEventsHandlers
 
         public async Task Handle(EmploymentAddedDomainEvent notification, CancellationToken cancellationToken)
         {
-            var freelancer = await _repository.GetByIdAsync(notification.FreelancerId);
-            freelancer.AddEmployment(_mapper.Map<EmploymentViewModel>(notification.Employment));
-
-            await _repository.UpdateAsync(freelancer);
+            var employment = _mapper.Map<EmploymentViewModel>(notification.Employment);
+            await _repository.AddToNestedListAsync(notification.FreelancerId, fr => fr.Employments, employment);
         }
     }
 }

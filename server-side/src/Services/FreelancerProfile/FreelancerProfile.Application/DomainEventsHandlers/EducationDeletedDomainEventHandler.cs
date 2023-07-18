@@ -15,10 +15,7 @@ namespace FreelancerProfile.Application.DomainEventsHandlers
 
         public async Task Handle(EducationDeletedDomainEvent notification, CancellationToken cancellationToken)
         {
-            var freelancer = await _repository.GetByIdAsync(notification.FreelancerId);
-            freelancer.DeleteEducation(notification.EducationId);
-
-            await _repository.UpdateAsync(freelancer);
+            await _repository.RemoveFromNestedListAsync(notification.FreelancerId, fr => fr.Educations, notification.EducationId);
         }
     }
 }

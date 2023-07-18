@@ -15,10 +15,7 @@ namespace FreelancerProfile.Application.DomainEventsHandlers
 
         public async Task Handle(CertificationDeletedDomainEvent notification, CancellationToken cancellationToken)
         {
-            var freelancer = await _repository.GetByIdAsync(notification.FreelancerId);
-            freelancer.DeleteCertification(notification.Certificationid);
-
-            await _repository.UpdateAsync(freelancer);
+            await _repository.RemoveFromNestedListAsync(notification.FreelancerId, fr => fr.Certifications, notification.Certificationid);
         }
     }
 }
