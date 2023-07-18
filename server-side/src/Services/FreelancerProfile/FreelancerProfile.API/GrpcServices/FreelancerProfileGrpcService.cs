@@ -1,4 +1,4 @@
-﻿using FreelancerProfile.Application.Queries;
+﻿using FreelancerProfile.Domain.AggregatesModel.FreelancerAggregate;
 using Grpc.Core;
 using GrpcFreelancerProfile;
 
@@ -6,47 +6,37 @@ namespace FreelancerProfile.API.GrpcServices
 {
     public class FreelancerProfileGrpcService : GrpcFreelancerProfile.FreelancerProfile.FreelancerProfileBase
     {
-        private readonly IFreelancerQueries _queries;
+        private readonly IFreelancerRepository _freelancerRepository;
 
-        public FreelancerProfileGrpcService(IFreelancerQueries freelancerQueries)
+        public FreelancerProfileGrpcService(IFreelancerRepository freelancerRepository)
         {
-            _queries = freelancerQueries;
+            _freelancerRepository = freelancerRepository;
         }
 
         public override async Task<FreelancerBasicData> GetFreelancerBasicDataById(GetFreelancerBasicDataByIdRequest request, ServerCallContext context)
         {
-            var result = await _queries.GetByIdAsync(Guid.Parse(request.Id));
-            if (result.IsFailed)
-                throw new RpcException(new Status(StatusCode.NotFound, "Freelancer not found"));
-
-            var freelancer = result.Value;
-            return new FreelancerBasicData()
-            {
-                Id = freelancer.Id.ToString(),
-                FirstName = freelancer.FirstName,
-                LastName = freelancer.LastName,
-                ExperienceLevel = (int)freelancer.ExperienceLevel,
-                ProfessionId = freelancer.Profession.Id.ToString(),
-                TimeZoneID = freelancer.Contact.TimeZoneId,
-                Country = freelancer.Contact.Address.Country,
-                City = freelancer.Contact.Address.City
-            };
+            var freelancer = await _freelancerRepository.GetByIdAsync(Guid.Parse(request.Id));
+            return ConvertToFreelancerBasicData(freelancer);
         }
 
         public async override Task<FreelancerBasicData> GetFreelancerBasicDataByUserId(GetFreelancerBasicDataByUserIdRequest request, ServerCallContext context)
         {
-            var result = await _queries.GetByUserIdAsync(Guid.Parse(request.UserId));
-            if (result.IsFailed)
+            var freelancer = await _freelancerRepository.GetByUserIdAsync(Guid.Parse(request.UserId));
+            return ConvertToFreelancerBasicData(freelancer);
+        }
+
+        private static FreelancerBasicData ConvertToFreelancerBasicData(Freelancer freelancer)
+        {
+            if (freelancer is null)
                 throw new RpcException(new Status(StatusCode.NotFound, "Freelancer not found"));
 
-            var freelancer = result.Value;
             return new FreelancerBasicData()
             {
                 Id = freelancer.Id.ToString(),
                 FirstName = freelancer.FirstName,
                 LastName = freelancer.LastName,
                 ExperienceLevel = (int)freelancer.ExperienceLevel,
-                ProfessionId = freelancer.Profession.Id.ToString(),
+                ProfessionId = freelancer.ProfessionId.ToString() ?? string.Empty,
                 TimeZoneID = freelancer.Contact.TimeZoneId,
                 Country = freelancer.Contact.Address.Country,
                 City = freelancer.Contact.Address.City

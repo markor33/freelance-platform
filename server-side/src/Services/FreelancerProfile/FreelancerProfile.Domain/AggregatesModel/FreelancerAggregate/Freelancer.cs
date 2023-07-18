@@ -21,7 +21,7 @@ namespace FreelancerProfile.Domain.AggregatesModel.FreelancerAggregate
         public List<LanguageKnowledge> LanguageKnowledges { get; private set; }
         public Availability Availability { get; private set; }
         public ExperienceLevel ExperienceLevel { get; private set; }
-        public Guid ProfessionId { get; private set; }
+        public Guid? ProfessionId { get; private set; } = null;
         public string? ProfilePictureUrl { get; private set; }
         public Profession Profession { get; private set; }
         public List<Skill> Skills { get; private set; }
@@ -30,42 +30,15 @@ namespace FreelancerProfile.Domain.AggregatesModel.FreelancerAggregate
         public List<Employment> Employments { get; private set; }
         public List<PortfolioProject> PortfolioProjects { get; private set; }
 
-        public Freelancer()
-        {
-            Credits = 10;
-            LanguageKnowledges = new List<LanguageKnowledge>();
-            Skills = new List<Skill>();
-            Educations = new List<Education>();
-            Certifications = new List<Certification>();
-            Employments = new List<Employment>();
-            PortfolioProjects = new List<PortfolioProject>();
-        }
+        public Freelancer() { }
 
-        public Freelancer(
-            Guid userId, 
-            string firstName, 
-            string lastName, 
-            Contact contact,
-            bool isProfilePublic,
-            ProfileSummary profileSummary,
-            HourlyRate hourlyRate,
-            Availability availability,
-            ExperienceLevel experienceLevel,
-            Profession profession)
+        public Freelancer(Guid userId, string firstName, string lastName, Contact contact)
         {
-            Id = new Guid();
             UserId = userId;
             FirstName = firstName;
             LastName = lastName;
             Contact = contact;
-            IsProfilePublic = isProfilePublic;
             Joined = DateTime.Now;
-            ProfileSummary = profileSummary;
-            HourlyRate = hourlyRate;
-            Availability = availability;
-            ExperienceLevel = experienceLevel;
-            Profession = profession;
-            ProfessionId = profession.Id;
             LanguageKnowledges = new List<LanguageKnowledge>();
             Skills = new List<Skill>();
             Educations = new List<Education>();
@@ -73,6 +46,26 @@ namespace FreelancerProfile.Domain.AggregatesModel.FreelancerAggregate
             Employments = new List<Employment>();
             PortfolioProjects = new List<PortfolioProject>();
             AddDomainEvent(new FreelancerCreatedDomainEvent(this));
+        }
+
+        public void SetupProfile(
+            bool isProfilePublic,
+            ProfileSummary profileSummary,
+            HourlyRate hourlyRate,
+            Availability availability,
+            ExperienceLevel experienceLevel,
+            Profession profession,
+            LanguageKnowledge languageKnowledge)
+        {
+            IsProfilePublic = isProfilePublic;
+            ProfileSummary = profileSummary;
+            HourlyRate = hourlyRate;
+            Availability = availability;
+            ExperienceLevel = experienceLevel;
+            Profession = profession;
+            ProfessionId = profession.Id;
+            AddLanguageKnowledge(languageKnowledge);
+            AddDomainEvent(new ProfileSetupCompletedDomainEvent(this));
         }
 
         public void SetProfilePicture(string profilePictureUrl)

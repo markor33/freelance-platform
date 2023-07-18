@@ -5,51 +5,6 @@
             <ng-template matStepLabel>General</ng-template>
             <div class="general-info-container">
                 <div class="name-container">
-                    <mat-form-field appearance="outline">
-                        <mat-label>First name</mat-label>
-                        <input matInput type="text" required formControlName="firstName">
-                    </mat-form-field>
-                    <mat-form-field appearance="outline">
-                        <mat-label>Last name</mat-label>
-                        <input matInput type="text" required formControlName="lastName">
-                    </mat-form-field>
-                </div>
-                <fieldset formGroupName="contact">
-                    <div class="contact-container">
-                        <fieldset formGroupName="address">
-                            <div>
-                                <mat-form-field appearance="outline">
-                                    <mat-label>Country</mat-label>
-                                    <input matInput type="text" required formControlName="country">
-                                </mat-form-field>
-                                <mat-form-field appearance="outline">
-                                    <mat-label>City</mat-label>
-                                    <input matInput type="text" required formControlName="city">
-                                </mat-form-field>
-                            </div>
-                            <mat-form-field appearance="outline">
-                                <mat-label>Street</mat-label>
-                                <input matInput type="text" required formControlName="street">
-                            </mat-form-field>
-                            <div>
-                                <mat-form-field appearance="outline">
-                                    <mat-label>Number</mat-label>
-                                    <input matInput type="text" required formControlName="number">
-                                </mat-form-field>
-                                <mat-form-field appearance="outline">
-                                    <mat-label>Zip code</mat-label>
-                                    <input matInput type="text" required formControlName="zipCode">
-                                </mat-form-field>
-                            </div>
-                        </fieldset>
-                        <mat-form-field appearance="outline">
-                            <mat-label>Phone number</mat-label>
-                            <input matInput type="text" required formControlName="phoneNumber">
-                            <span matTextPrefix>+&nbsp;</span>
-                        </mat-form-field>
-                    </div>
-                </fieldset>
-                <div class="name-container">
                     <mat-form-field>
                         <mat-label>Availability</mat-label>
                         <mat-select required formControlName="availability">
@@ -141,7 +96,7 @@
         </form>
     </mat-step>
     <mat-step state="usd" [stepControl]="hourlyRateGroup">
-        <form [formGroup]="hourlyRateGroup" (ngSubmit)="completeRegistration()">
+        <form [formGroup]="hourlyRateGroup" (ngSubmit)="setupProfile()">
             <ng-template matStepLabel>Your hourly rate</ng-template>
             <div class="hourly-rate-container">
                 <div class="inputs">

@@ -2,13 +2,12 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Certification, Education, Employment, Freelancer, ProfileSummary } from '../models/freelancer.model';
 import { BehaviorSubject, Observable, map } from 'rxjs';
-import { AuthService } from '../../auth/services/auth.service';
 import { AddCertificationCommand } from '../models/commands/add-certification-command.model';
 import { Skill } from '../../shared/models/profession.mode';
 import { AddEducationCommand } from '../models/commands/add-education-command.model';
 import { AddEmploymentCommand } from '../models/commands/add-employment-command.model';
 import { AddSkillCommand } from '../models/commands/add-skill-command.model';
-import { CreateFreelancerCommand } from '../models/commands/create-freelancer-command.model';
+import { ProfileSetupCommand } from '../models/commands/profile-setup-command.model';
 import { EditCertificationCommand } from '../models/commands/edit-certification-command.model';
 import { EditEducationCommand } from '../models/commands/edit-education-command.model';
 import { EditEmploymentCommand } from '../models/commands/edit-employment-command.model';
@@ -18,28 +17,26 @@ import { EditEmploymentCommand } from '../models/commands/edit-employment-comman
 })
 export class FreelancerService {
 
-  httpOptions = {
-    headers: { 'Content-Type': 'application/json' }
-  };
+  private profileSetupCompletedSource = new BehaviorSubject<boolean | undefined>(undefined);
+  public profileSetupCompletedObserver = this.profileSetupCompletedSource.asObservable();
 
   currentFreelancer: Freelancer = new Freelancer();
 
-  constructor(private httpClient: HttpClient, private authService: AuthService) { }
+  constructor(private httpClient: HttpClient) { }
 
-  completeRegistration(createCommand: CreateFreelancerCommand): Observable<any> {
-    return this.httpClient.post<Freelancer>('api/freelancer/freelancer', createCommand, this.httpOptions)
-    .pipe(
-      map((res) => {
-        this.authService.addDomainData(res.id, res.firstName, res.lastName);
-      })
-    );
+  setupProfile(profileSetupCommand: ProfileSetupCommand): Observable<any> {
+    return this.httpClient.put<Freelancer>(`api/freelancer/freelancer`, profileSetupCommand)
+      .pipe(
+        map(() => this.profileSetupCompletedSource.next(true))
+      );
   }
 
   get(freelancerId: string): Observable<Freelancer> {
-    return this.httpClient.get<Freelancer>(`api/freelancer/freelancer/${freelancerId}`, this.httpOptions)
+    return this.httpClient.get<Freelancer>(`api/freelancer/freelancer/${freelancerId}`)
       .pipe(
         map((freelancer) => {
           this.currentFreelancer = freelancer;
+          this.profileSetupCompletedSource.next(freelancer.profession !== null);
           return freelancer;
         })
       );
@@ -61,7 +58,7 @@ export class FreelancerService {
   }
 
   addEducation(addEducationCommand: AddEducationCommand): Observable<void> {
-    return this.httpClient.post<Education>(`api/freelancer/freelancer/${this.currentFreelancer.id}/education`, addEducationCommand, this.httpOptions)
+    return this.httpClient.post<Education>(`api/freelancer/freelancer/${this.currentFreelancer.id}/education`, addEducationCommand)
       .pipe(
         map((education) => {
           this.currentFreelancer.educations.push(education);
@@ -93,7 +90,7 @@ export class FreelancerService {
   }
 
   addCertification(addCertificationCommand: AddCertificationCommand): Observable<void> {
-    return this.httpClient.post<Certification>(`api/freelancer/freelancer/${this.currentFreelancer.id}/certification`, addCertificationCommand, this.httpOptions)
+    return this.httpClient.post<Certification>(`api/freelancer/freelancer/${this.currentFreelancer.id}/certification`, addCertificationCommand)
       .pipe(
         map((certification) => {
           this.currentFreelancer.certifications.push(certification);
@@ -125,7 +122,7 @@ export class FreelancerService {
   }
 
   addEmployment(addEmploymentCommand: AddEmploymentCommand): Observable<void> {
-    return this.httpClient.post<Employment>(`api/freelancer/freelancer/${this.currentFreelancer.id}/employment`, addEmploymentCommand, this.httpOptions)
+    return this.httpClient.post<Employment>(`api/freelancer/freelancer/${this.currentFreelancer.id}/employment`, addEmploymentCommand)
       .pipe(
         map((employment) => {
           this.currentFreelancer.employments.push(employment);
@@ -157,7 +154,7 @@ export class FreelancerService {
   }
 
   addSkills(addSkillsCommand: AddSkillCommand): Observable<void> {
-    return this.httpClient.post<Skill[]>('api/freelancer/freelancer/skill', addSkillsCommand, this.httpOptions)
+    return this.httpClient.post<Skill[]>('api/freelancer/freelancer/skill', addSkillsCommand)
       .pipe(
         map((skills) => {
           this.currentFreelancer.skills = skills;

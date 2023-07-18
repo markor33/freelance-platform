@@ -59,7 +59,7 @@ namespace FreelancerProfile.IntegrationTests.Controllers
             result.Result.ShouldBeOfType(typeof(BadRequestObjectResult));
         }
 
-        private static CreateFreelancerCommand GetTestCreateFreelancerCommand()
+        private static ProfileSetupCommand GetTestCreateFreelancerCommand()
             => new(
                 Guid.NewGuid(),
                 "Pera",

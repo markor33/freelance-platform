@@ -20,7 +20,14 @@ namespace FreelancerProfile.Application.Behaviors
                 return await next();
             }
 
-            await _unitOfWork.BeginTransactionAsync();
+            try
+            {
+                await _unitOfWork.BeginTransactionAsync();
+            }
+            catch (Exception ex)
+            {
+                var a = 1;
+            }
             var response = await next();
             await _unitOfWork.CommitTransactionAsync();
 

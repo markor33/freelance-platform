@@ -1,12 +1,8 @@
-import { Contact } from "src/app/modules/shared/models/contact.model";
 import { ExperienceLevel } from "src/app/modules/shared/models/experience-level.model";
 import { LanguageProficiencyLevel } from "src/app/modules/shared/models/language.model";
 import { ProfileSummary, HourlyRate, Availability } from "../freelancer.model";
 
-export class CreateFreelancerCommand {
-    firstName: string = '';
-    lastName: string = '';
-    contact: Contact = new Contact();
+export class ProfileSetupCommand {
     profileSummary: ProfileSummary = new ProfileSummary();
     hourlyRate: HourlyRate = new HourlyRate();
     isProfilePublic: boolean = false;

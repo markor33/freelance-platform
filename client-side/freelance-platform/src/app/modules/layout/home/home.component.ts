@@ -1,13 +1,11 @@
 import { Component } from '@angular/core';
-import { MatDialog, MatDialogRef } from '@angular/material/dialog';
-import { CompleteRegisterDialogComponent } from '../../freelancer/complete-register-dialog/complete-register-dialog.component';
+import { MatDialog } from '@angular/material/dialog';
+import { CompleteRegisterDialogComponent } from '../../freelancer/profile-setup-dialog/profile-setup-dialog.component';
 import { AuthService } from '../../auth/services/auth.service';
-import { ClientCompleteRegistrationComponent } from '../../client/client-complete-registration/client-complete-registration.component';
-import { Observable } from 'rxjs';
-import { ComponentType } from '@angular/cdk/portal';
 import { NotificationService } from '../../notification/services/notification.service';
 import { ChatService } from '../../chat/services/chat.service';
 import { Router } from '@angular/router';
+import { FreelancerService } from '../../freelancer/services/freelancer.service';
 
 @Component({
   selector: 'app-home',
@@ -21,55 +19,47 @@ export class HomeComponent {
   showNewChatMessageDot: boolean = false;
   isUserLogged: boolean = false;
   userRole: string = '';
+  userDomainId: string | undefined;
 
   constructor(
     private dialog: MatDialog,
     private router: Router,
     private authService: AuthService,
     private notificationService: NotificationService,
-    private chatService: ChatService) {
+    private chatService: ChatService,
+    private freelancerService: FreelancerService) {
       this.authService.userObserver.subscribe({
         next: (user) => {
-          this.isUserLogged = user !== null;
-          this.userRole = user?.role as string;
+          this.userDomainId = user?.domainId;
+          this.isUserLogged = this.authService.isLogged();
+          this.userRole = this.authService.getUserRole();
         }
       });
+
       this.notificationService.newNotificationReceivedObserver.subscribe((res) => this.showNewNotificationDot = res);
+
       this.chatService.newMessageObserver.subscribe((res) => {
         if (res === null) this.showNewChatMessageDot = false;
         else this.showNewChatMessageDot = true;
       });
+
+      this.freelancerService.profileSetupCompletedObserver.subscribe((isCompleted) => {
+        if (isCompleted === false)
+          CompleteRegisterDialogComponent.open(this.dialog);
+      });
   }
 
   ngOnInit() {
-    if (this.authService.hasDomainData()) {
-      this.route();
-      return;
-    }
     if (this.userRole === 'FREELANCER')
-      this.dialog.open(CompleteRegisterDialogComponent, { width: '40%', height: '65%' });
-    else
-      this.dialog.open(ClientCompleteRegistrationComponent, { width: '40%', height: '65%' });
-    console.log('init');
+      this.freelancerService.get(this.userDomainId as string).subscribe();
+    this.route();
   }
 
   route() {
-    console.log('asdasdasd');
     if (this.userRole === 'FREELANCER')
       this.router.navigate(['job']);
     else
       this.router.navigate(['job-management']);
-  }
-
-  isRegistrationComplete(profileObserver: Observable<any | null>, dialog: ComponentType<any>): void {
-    profileObserver.subscribe((profile) => {
-      if (profile != null)
-        return;
-        this.dialog.open(dialog, {
-          width: '40%',
-          height: '65%'
-        });
-    });
   }
 
   navigateToProfile() {

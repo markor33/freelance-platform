@@ -20,7 +20,6 @@ using FreelancerProfile.Infrastructure.Settings;
 using IntegrationEventLog.EFCore;
 using IntegrationEventLog.EFCore.Services;
 using System.Data.Common;
-using Azure.Storage.Blobs.Models;
 using FreelancerProfile.Application.IntegrationEvents.Events;
 
 var builder = WebApplication.CreateBuilder(args);
