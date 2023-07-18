@@ -10,12 +10,12 @@ import { ExperienceLevel } from '../../shared/models/experience-level.model';
 import { LanguageService } from '../../shared/services/language.service';
 import { ProfessionService } from '../../shared/services/profession.service';
 import { AuthService } from '../../auth/services/auth.service';
-import { CreateFreelancerCommand } from '../models/commands/create-freelancer-command.model';
+import { ProfileSetupCommand } from '../models/commands/profile-setup-command.model';
 
 @Component({
-  selector: 'app-complete-register-dialog',
-  templateUrl: './complete-register-dialog.component.html',
-  styleUrls: ['./complete-register-dialog.component.scss'],
+  selector: 'app-profile-setup-dialog',
+  templateUrl: './profile-setup-dialog.component.html',
+  styleUrls: ['./profile-setup-dialog.component.scss'],
   providers: [
     {
       provide: STEPPER_GLOBAL_OPTIONS,
@@ -25,24 +25,14 @@ import { CreateFreelancerCommand } from '../models/commands/create-freelancer-co
 })
 export class CompleteRegisterDialogComponent {
 
+  isCompleted: boolean = false;
+
   languages: Language[] = [];
   professions: Profession[] = [];
 
   generalFormGroup = this.formBuilder.group({
-    firstName: new FormControl('', Validators.required),
-    lastName: new FormControl('', Validators.required),
     isProfilePublic: new FormControl(true, Validators.required),
     availability: new FormControl(0, Validators.required),
-    contact: new FormGroup({
-      address: new FormGroup({
-        country: new FormControl('', Validators.required),
-        city: new FormControl('', Validators.required),
-        street: new FormControl('', Validators.required),
-        number: new FormControl('', Validators.required),
-        zipCode: new FormControl('', Validators.required),
-      }),
-      phoneNumber: new FormControl('', Validators.required),
-    }),
   });
 
   professionGroup = this.formBuilder.group({
@@ -83,16 +73,14 @@ export class CompleteRegisterDialogComponent {
     this.professionService.get().subscribe((professions) => this.professions = professions);
     
     this.dialogRef.afterClosed().subscribe(() => {
-      if (!this.authService.hasDomainData())
-        this.dialog.open(CompleteRegisterDialogComponent, {
-          width: '40%',
-          height: '65%'
-        });
+      if (!this.isCompleted)
+        CompleteRegisterDialogComponent.open(this.dialog);
     });
+
   }
 
-  parseToCommandModel(): CreateFreelancerCommand {
-    var command = this.generalFormGroup.value as CreateFreelancerCommand;
+  parseToCommandModel(): ProfileSetupCommand {
+    var command = this.generalFormGroup.value as ProfileSetupCommand;
     command.hourlyRate = this.hourlyRateGroup.value as HourlyRate;
     command.profileSummary = this.profileSummaryGroup.value as ProfileSummary;
     let languageKnowledge = this.languageKnowledgeGroup.value as LanguageKnowledge;
@@ -100,15 +88,24 @@ export class CompleteRegisterDialogComponent {
     command.languageProficiencyLevel = languageKnowledge.profiencyLevel;
     command.professionId = (this.professionGroup.value.profession as Profession).id;
     command.experienceLevel =  this.professionGroup.value.experienceLevel as ExperienceLevel;
-    command.contact.timeZoneId = 'Central Europe Standard Time'; // HARDCODED
     return command;
   }
 
-  completeRegistration(): void {
+  setupProfile(): void {
     var createCommand = this.parseToCommandModel();
-    this.freelancerService.completeRegistration(createCommand).subscribe({
-      complete: () => this.dialogRef.close(),
+    this.freelancerService.setupProfile(createCommand).subscribe({
+      complete: () => {
+        this.isCompleted = true;
+        this.dialogRef.close();
+      },
       error: () => console.log('error')
+    });
+  }
+
+  static open(dialog: MatDialog): MatDialogRef<CompleteRegisterDialogComponent> {
+    return dialog.open(CompleteRegisterDialogComponent, {
+      width: '40%',
+      height: '65%'
     });
   }
 

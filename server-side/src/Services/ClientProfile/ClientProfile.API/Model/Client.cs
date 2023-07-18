@@ -5,7 +5,7 @@ namespace ClientProfile.API.Model
     public class Client
     {
         public Guid Id { get; private set; }
-        public Guid UserId { get; set; }
+        public Guid UserId { get; private set; }
         public string FirstName { get; private set; }
         public string LastName { get; private set; }
         public Contact Contact { get; private set; } 
@@ -13,9 +13,10 @@ namespace ClientProfile.API.Model
         public Client() { }
 
         [JsonConstructor]
-        public Client(string firstName, string lastName, Contact contact)
+        public Client(Guid userId, string firstName, string lastName, Contact contact)
         {
             Id = Guid.NewGuid();
+            UserId = userId;
             FirstName = firstName;
             LastName = lastName;
             Contact = contact;

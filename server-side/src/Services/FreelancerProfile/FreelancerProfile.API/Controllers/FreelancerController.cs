@@ -42,10 +42,11 @@ namespace FreelancerProfile.API.Controllers
             return Ok(queryResult.Value);
         }
 
-        [HttpPost]
+        [HttpPut]
         [Authorize(Roles = "FREELANCER")]
-        public async Task<ActionResult<FreelancerViewModel>> Create(CreateFreelancerCommand command)
+        public async Task<ActionResult<FreelancerViewModel>> Create(ProfileSetupCommand command)
         {
+            command.FreelancerId = _identityService.GetDomainUserId();
             command.UserId = _identityService.GetUserId();
             var commandResult = await _mediator.Send(command);
             if (commandResult.IsFailed)

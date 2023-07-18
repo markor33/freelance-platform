@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { CompleteRegisterDialogComponent } from './complete-register-dialog.component';
+import { CompleteRegisterDialogComponent } from './profile-setup-dialog.component';
 
 describe('CompleteRegisterDialogComponent', () => {
   let component: CompleteRegisterDialogComponent;

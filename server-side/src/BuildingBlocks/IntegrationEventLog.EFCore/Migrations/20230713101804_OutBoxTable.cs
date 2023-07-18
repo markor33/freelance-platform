@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace IntegrationEventLog.EFCore.Migrations
 {
-    public partial class OutboxModel : Migration
+    public partial class OutBoxTable : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
