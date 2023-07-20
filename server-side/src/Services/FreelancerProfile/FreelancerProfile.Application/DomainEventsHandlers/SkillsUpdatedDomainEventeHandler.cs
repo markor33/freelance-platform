@@ -5,7 +5,7 @@ using MediatR;
 
 namespace FreelancerProfile.Application.DomainEventsHandlers
 {
-    public class SkillsUpdatedDomainEventeHandler : INotificationHandler<SkillsUpdatedDomainEvent>
+    public class SkillsUpdatedDomainEventeHandler : INotificationHandler<SkillsUpdated>
     {
         private readonly IFreelancerReadModelRepository _repository;
         private readonly IMapper _mapper;
@@ -16,10 +16,10 @@ namespace FreelancerProfile.Application.DomainEventsHandlers
             _mapper = mapper;
         }
 
-        public async Task Handle(SkillsUpdatedDomainEvent notification, CancellationToken cancellationToken)
+        public async Task Handle(SkillsUpdated notification, CancellationToken cancellationToken)
         {
-            var skills = notification.Skills.Select(s => _mapper.Map<SkillViewModel>(s)).ToList();
-            await _repository.UpdateAsync(notification.FreelancerId, fr => fr.Skills, skills);
+            var skills = _mapper.Map<List<SkillViewModel>>(notification.Skills);
+            await _repository.UpdateAsync(notification.AggregateId, fr => fr.Skills, skills);
         }
     }
 }

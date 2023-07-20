@@ -1,16 +1,17 @@
 ﻿using FreelancerProfile.Domain.AggregatesModel.FreelancerAggregate.ValueObjects;
+using FreelancerProfile.Domain.SeedWork;
 using MediatR;
+using System.Text.Json.Serialization;
 
 namespace FreelancerProfile.Domain.AggregatesModel.FreelancerAggregate.Events
 {
-    public class ProfileSummaryUpdatedDomainEvent : INotification
+    public class ProfileSummaryUpdated : DomainEvent, INotification
     {
-        public Guid FreelancerId { get; private set; }
         public ProfileSummary ProfileSummary { get; private set; }
 
-        public ProfileSummaryUpdatedDomainEvent(Guid freelancerId, ProfileSummary profileSummary)
+        [JsonConstructor]
+        public ProfileSummaryUpdated(Guid aggregateId, ProfileSummary profileSummary) : base(aggregateId)
         {
-            FreelancerId = freelancerId;
             ProfileSummary = profileSummary;
         }
 

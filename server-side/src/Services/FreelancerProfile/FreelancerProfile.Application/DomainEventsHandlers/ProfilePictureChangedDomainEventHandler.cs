@@ -4,7 +4,7 @@ using MediatR;
 
 namespace FreelancerProfile.Application.DomainEventsHandlers
 {
-    public class ProfilePictureChangedDomainEventHandler : INotificationHandler<ProfilePictureChangedDomainEvent>
+    public class ProfilePictureChangedDomainEventHandler : INotificationHandler<ProfilePictureChanged>
     {
         private readonly IFreelancerReadModelRepository _repository;
 
@@ -13,9 +13,9 @@ namespace FreelancerProfile.Application.DomainEventsHandlers
             _repository = repository;
         }
 
-        public async Task Handle(ProfilePictureChangedDomainEvent notification, CancellationToken cancellationToken)
+        public async Task Handle(ProfilePictureChanged notification, CancellationToken cancellationToken)
         {
-            await _repository.UpdateAsync(notification.FreelancerId, fr => fr.ProfilePictureUrl, notification.ProfilePictureUrl);
+            await _repository.UpdateAsync(notification.AggregateId, fr => fr.ProfilePictureUrl, notification.ProfilePictureUrl);
         }
     }
 }

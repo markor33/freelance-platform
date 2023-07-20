@@ -31,9 +31,11 @@ export class EditEducationDialogComponent {
         this.snackBars.primary('Education edit successful');
         this.dialogRef.close();
       },
-      error: (err) => this.snackBars.error(err.error[0])
+      error: (err) => console.log(err)
     });
   }
+
+  // this.snackBars.error(err.error[0])
 
   static open(dialog: MatDialog, education: Education) {
     return dialog.open(EditEducationDialogComponent, {

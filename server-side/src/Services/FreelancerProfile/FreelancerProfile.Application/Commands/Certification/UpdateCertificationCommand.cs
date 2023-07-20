@@ -1,11 +1,10 @@
 ﻿using FluentResults;
-using FreelancerProfile.Domain.AggregatesModel.FreelancerAggregate.Entities;
 using MediatR;
 using System.Text.Json.Serialization;
 
 namespace FreelancerProfile.Application.Commands
 {
-    public class UpdateCertificationCommand : IRequest<Result<Certification>>
+    public class UpdateCertificationCommand : IRequest<Result>
     {
         public Guid FreelancerId { get; set; }
         public Guid CertificationId { get; private set; }

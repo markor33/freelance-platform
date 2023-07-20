@@ -41,14 +41,14 @@ namespace FreelancerProfile.API.Controllers
 
         [HttpPut("{certificationId}")]
         [Authorize(Roles = "FREELANCER"), ProfileOwnerAuthorization]
-        public async Task<ActionResult<CertificationViewModel>> Update(UpdateCertificationCommand command)
+        public async Task<ActionResult> Update(UpdateCertificationCommand command)
         {
             var freelancerId = _identityService.GetDomainUserId();
             command.FreelancerId = freelancerId;
             var commandResult = await _mediator.Send(command);
             if (commandResult.IsFailed)
                 return BadRequest(commandResult.Errors.ToStringList());
-            return Ok(_mapper.Map<CertificationViewModel>(commandResult.Value));
+            return Ok();
         }
 
         [HttpDelete("{certificationId}")]

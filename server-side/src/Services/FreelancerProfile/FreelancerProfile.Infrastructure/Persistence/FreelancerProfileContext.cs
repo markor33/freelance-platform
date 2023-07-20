@@ -3,6 +3,7 @@ using FreelancerProfile.Domain.AggregatesModel.FreelancerAggregate.Entities;
 using FreelancerProfile.Domain.SeedWork;
 using FreelancerProfile.Infrastructure.Persistence.EntityConfiguration;
 using FreelancerProfile.Infrastructure.Persistence.EntitySeed;
+using FreelancerProfile.Infrastructure.Persistence.EventStore;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage;
@@ -13,20 +14,24 @@ namespace FreelancerProfile.Infrastructure.Persistence
     public class FreelancerProfileContext : DbContext, IUnitOfWork
     {
         private readonly IMediator _mediator;
+        private readonly IEventStore _eventStore;
         private IDbContextTransaction _currentTransaction;
 
         public DbSet<Freelancer> Freelancers { get; set; }
         public DbSet<Language> Languages { get; set; }
         public DbSet<Profession> Professions { get; set; }
         public DbSet<Skill> Skills { get; set; }
+        public DbSet<DomainEventLog> DomainEventLogs { get; set; }
 
         public IDbContextTransaction GetCurrentTransaction() => _currentTransaction;
         public bool HasActiveTransaction => _currentTransaction != null;
 
         public FreelancerProfileContext(
             DbContextOptions<FreelancerProfileContext> options,
+            IEventStore eventStore,
             IMediator mediator) : base(options)
         {
+            _eventStore = eventStore;
             _mediator = mediator;
         }
 
@@ -41,6 +46,8 @@ namespace FreelancerProfile.Infrastructure.Persistence
         {
             try
             {
+                await _eventStore.SaveEventsAsync(this);
+
                 await base.SaveChangesAsync(cancellationToken);
 
                 await _mediator.DispatchDomainEventsAsync(this);

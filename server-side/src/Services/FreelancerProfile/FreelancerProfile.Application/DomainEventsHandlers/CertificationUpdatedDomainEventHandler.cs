@@ -5,7 +5,7 @@ using MediatR;
 
 namespace FreelancerProfile.Application.DomainEventsHandlers
 {
-    public class CertificationUpdatedDomainEventHandler : INotificationHandler<CertificationUpdatedDomainEvent>
+    public class CertificationUpdatedDomainEventHandler : INotificationHandler<CertificationUpdated>
     {
         private readonly IFreelancerReadModelRepository _repository;
         private readonly IMapper _mapper;
@@ -16,10 +16,12 @@ namespace FreelancerProfile.Application.DomainEventsHandlers
             _mapper = mapper;
         }
 
-        public async Task Handle(CertificationUpdatedDomainEvent notification, CancellationToken cancellationToken)
+        public async Task Handle(CertificationUpdated notification, CancellationToken cancellationToken)
         {
-            var certification = _mapper.Map<CertificationViewModel>(notification.Certification);
-            await _repository.UpdateNestedListItemAsync(notification.FreelancerId, fr => fr.Certifications, certification.Id, certification);
+            // var certification = _mapper.Map<CertificationViewModel>(notification.CertificationId);
+            var certification = new CertificationViewModel(notification.CertificationId, notification.Name, 
+                notification.Provider, notification.Attended, notification.Description);
+            await _repository.UpdateNestedListItemAsync(notification.AggregateId, fr => fr.Certifications, certification.Id, certification);
         }
     }
 }

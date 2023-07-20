@@ -40,14 +40,14 @@ namespace FreelancerProfile.API.Controllers
 
         [HttpPut("{employmentId}")]
         [Authorize(Roles = "FREELANCER"), ProfileOwnerAuthorization]
-        public async Task<ActionResult<EmploymentViewModel>> Update(UpdateEmploymentCommand command)
+        public async Task<ActionResult> Update(UpdateEmploymentCommand command)
         {
             var freelancerId = _identityService.GetDomainUserId();
             command.FreelancerId = freelancerId;
             var commandResult = await _mediator.Send(command);
             if (commandResult.IsFailed)
                 return BadRequest(commandResult.Errors.ToStringList());
-            return Ok(_mapper.Map<EmploymentViewModel>(commandResult.Value));
+            return Ok();
         }
 
         [HttpDelete("{employmentId}")]

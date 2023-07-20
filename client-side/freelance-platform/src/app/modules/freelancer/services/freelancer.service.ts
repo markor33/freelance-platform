@@ -68,12 +68,15 @@ export class FreelancerService {
 
   editEducation(editEducationCommand: EditEducationCommand): Observable<void> {
     const url = `api/freelancer/freelancer/${this.currentFreelancer.id}/education/${editEducationCommand.educationId}`;
-    return this.httpClient.put<Education>(url, editEducationCommand)
+    return this.httpClient.put<any>(url, editEducationCommand)
       .pipe(
-        map((education) => {
-          const index = this.currentFreelancer.educations.findIndex(c => c.id === education.id);
-          if (index != -1)
+        map(() => {
+          const index = this.currentFreelancer.educations.findIndex(c => c.id === editEducationCommand.educationId);
+          if (index != -1) {
+            const education = Object.assign(new Education(), this.currentFreelancer.educations[index]);
+            education.update(editEducationCommand);
             this.currentFreelancer.educations[index] = education;
+          }
         })
       );
   }
@@ -100,12 +103,15 @@ export class FreelancerService {
 
   editCertification(editCertificationCommand: EditCertificationCommand): Observable<void> {
     const url = `api/freelancer/freelancer/${this.currentFreelancer.id}/certification/${editCertificationCommand.certificationId}`;
-    return this.httpClient.put<Certification>(url, editCertificationCommand)
+    return this.httpClient.put<any>(url, editCertificationCommand)
       .pipe(
-        map((certification) => {
-          const index = this.currentFreelancer.certifications.findIndex(c => c.id === certification.id);
-          if (index != -1)
+        map(() => {
+          const index = this.currentFreelancer.certifications.findIndex(c => c.id === editCertificationCommand.certificationId);
+          if (index != -1) {
+            const certification = Object.assign(new Certification(), this.currentFreelancer.certifications[index]);
+            certification.update(editCertificationCommand);
             this.currentFreelancer.certifications[index] = certification;
+          }
         })
       );
   }
@@ -132,12 +138,15 @@ export class FreelancerService {
 
   editEmployment(editEmploymentCommand: EditEmploymentCommand): Observable<void> {
     const url = `api/freelancer/freelancer/${this.currentFreelancer.id}/employment/${editEmploymentCommand.employmentId}`
-    return this.httpClient.put<Employment>(url, editEmploymentCommand)
+    return this.httpClient.put<any>(url, editEmploymentCommand)
       .pipe(
-        map((employment) => {
-          const index = this.currentFreelancer.employments.findIndex(c => c.id === employment.id);
-          if (index != -1)
+        map(() => {
+          const index = this.currentFreelancer.employments.findIndex(c => c.id === editEmploymentCommand.employmentId);
+          if (index != -1) {
+            const employment = Object.assign(new Employment(), this.currentFreelancer.employments[index]);
+            employment.update(editEmploymentCommand);
             this.currentFreelancer.employments[index] = employment;
+          }
         })
       );
   }

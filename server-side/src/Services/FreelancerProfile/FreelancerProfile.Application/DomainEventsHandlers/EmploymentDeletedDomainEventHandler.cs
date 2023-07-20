@@ -4,7 +4,7 @@ using MediatR;
 
 namespace FreelancerProfile.Application.DomainEventsHandlers
 {
-    public class EmploymentDeletedDomainEventHandler : INotificationHandler<EmploymentDeletedDomainEvent>
+    public class EmploymentDeletedDomainEventHandler : INotificationHandler<EmploymentDeleted>
     {
         private readonly IFreelancerReadModelRepository _repository;
 
@@ -13,9 +13,9 @@ namespace FreelancerProfile.Application.DomainEventsHandlers
             _repository = repository;
         }
 
-        public async Task Handle(EmploymentDeletedDomainEvent notification, CancellationToken cancellationToken)
+        public async Task Handle(EmploymentDeleted notification, CancellationToken cancellationToken)
         {
-            await _repository.RemoveFromNestedListAsync(notification.FreelancerId, fr => fr.Employments, notification.EmploymentId);
+            await _repository.RemoveFromNestedListAsync(notification.AggregateId, fr => fr.Employments, notification.EmploymentId);
         }
     }
 }

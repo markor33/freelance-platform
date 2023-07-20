@@ -21,16 +21,14 @@ namespace FreelancerProfile.Application.Commands
             if (freelancer is null)
                 return Result.Fail("Freelancer does not exist");
 
-            var updateResult = freelancer.UpdateEmployment(request.EmploymentId, request.Company, request.Title,
+            freelancer.UpdateEmployment(request.EmploymentId, request.Company, request.Title, 
                 new DateRange(request.Start, request.End), request.Description);
-            if (updateResult.IsFailed)
-                return updateResult;
 
-            var result = await _freelancerRepository.UnitOfWork.SaveEntitiesAsync();
+            var result = await _freelancerRepository.UnitOfWork.SaveEntitiesAsync(cancellationToken);
             if (!result)
                 return Result.Fail("Edit employment action failed");
 
-            return Result.Ok(updateResult.Value);
+            return Result.Ok();
         }
     }
 }
