@@ -15,7 +15,7 @@ namespace FreelancerProfile.Application.Commands
 
         public async Task<bool> Handle(CreateFreelancerCommand request, CancellationToken cancellationToken)
         {
-            var freelancer = new Freelancer(request.UserId, request.FirstName, request.LastName, request.Contact);
+            var freelancer = Freelancer.Create(request.UserId, request.FirstName, request.LastName, request.Contact);
 
             await _freelancerRepository.CreateAsync(freelancer);
             var result = await _freelancerRepository.UnitOfWork.SaveEntitiesAsync(cancellationToken);

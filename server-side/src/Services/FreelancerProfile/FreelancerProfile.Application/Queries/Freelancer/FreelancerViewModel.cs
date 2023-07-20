@@ -17,79 +17,41 @@ namespace FreelancerProfile.Application.Queries
         public bool IsProfilePublic { get; private set; }
         public DateTime Joined { get; private set; }
         public ProfileSummary ProfileSummary { get; private set; }
-        public List<LanguageKnowledge> LanguageKnowledges { get; private set; }
+        public List<LanguageKnowledge> LanguageKnowledges { get; private set; } = new();
         public HourlyRate HourlyRate { get; private set; }
         public Availability Availability { get; private set; }
         public ExperienceLevel ExperienceLevel { get; private set; }
         public string? ProfilePictureUrl { get; private set; }
         public ProfessionViewModel Profession { get; private set; }
-        public List<SkillViewModel> Skills { get; private set; }
-        public List<EducationViewModel> Educations { get; private set; }
-        public List<CertificationViewModel> Certifications { get; private set; }
-        public List<EmploymentViewModel> Employments { get; private set; }
+        public List<SkillViewModel> Skills { get; private set; } = new();
+        public List<EducationViewModel> Educations { get; private set; } = new();
+        public List<CertificationViewModel> Certifications { get; private set; } = new();
+        public List<EmploymentViewModel> Employments { get; private set; } = new();
 
-        public void SetProfilePictureUrl(string url) => ProfilePictureUrl = url;
-
-        public void UpdateProfileSummary(ProfileSummary profileSummary) => ProfileSummary = profileSummary;
-
-        public void AddEducation(EducationViewModel education)
+        public FreelancerViewModel(Guid id, Guid userId, string firstName, string lastName, Contact contact)
         {
-            Educations.Add(education);
+            Id = id;
+            UserId = userId;
+            FirstName = firstName;
+            LastName = lastName;
+            Contact = contact;
         }
 
-        public void UpdateEducation(EducationViewModel education)
+        public void ProfileSetup(
+            ProfileSummary profileSummary,
+            HourlyRate hourlyRate,
+            Availability availability,
+            ExperienceLevel experienceLevel,
+            ProfessionViewModel profession,
+            LanguageKnowledge languageKnowledge)
         {
-            var index = Educations.FindIndex(e => e.Id == education.Id);
-            if (index != -1)
-                Educations[index] = education;
+            ProfileSummary = profileSummary;
+            HourlyRate = hourlyRate;
+            Availability = availability;
+            ExperienceLevel = experienceLevel;
+            Profession = profession;
+            LanguageKnowledges.Add(languageKnowledge);
         }
-
-        public void DeleteEducation(Guid educationId)
-        {
-            var education = Educations.FirstOrDefault(e => e.Id == educationId);
-            if (education is not null)
-                Educations.Remove(education);
-        }
-
-        public void AddCertification(CertificationViewModel certification)
-        {
-            Certifications.Add(certification);
-        }
-
-        public void UpdateCertification(CertificationViewModel certification)
-        {
-            var index = Certifications.FindIndex(c => c.Id == certification.Id);
-            if (index != -1)
-                Certifications[index] = certification;
-        }
-
-        public void DeleteCertification(Guid certificationId)
-        {
-            var certification = Certifications.FirstOrDefault(c => c.Id == certificationId);
-            if (certification is not null)
-                Certifications.Remove(certification);
-        }
-
-        public void AddEmployment(EmploymentViewModel employment)
-        {
-            Employments.Add(employment);
-        }
-
-        public void UpdateEmployment(EmploymentViewModel employment)
-        {
-            var index = Employments.FindIndex(e => e.Id == employment.Id);
-            if (index != -1)
-                Employments[index] = employment;
-        }
-
-        public void DeleteEmployment(Guid employmentId)
-        {
-            var employment = Employments.FirstOrDefault(e => e.Id == employmentId);
-            if (employment is not null)
-                Employments.Remove(employment);
-        }
-
-        public void SetSkills(List<SkillViewModel> skills) => Skills = skills;
 
     }
 
@@ -99,6 +61,14 @@ namespace FreelancerProfile.Application.Queries
         public string SchoolName { get; private set; }
         public string Degree { get; private set; }
         public DateRange Attended { get; private set; }
+
+        public EducationViewModel(Guid id, string schoolName, string degree, DateRange attended)
+        {
+            Id = id;
+            SchoolName = schoolName;
+            Degree = degree;
+            Attended = attended;
+        }
     }
 
     public class CertificationViewModel
@@ -108,6 +78,15 @@ namespace FreelancerProfile.Application.Queries
         public string Provider { get; private set; }
         public DateRange Attended { get; private set; }
         public string Description { get; private set; }
+
+        public CertificationViewModel(Guid id, string name, string provider, DateRange attended, string description)
+        {
+            Id = id;
+            Name = name;
+            Provider = provider;
+            Attended = attended;
+            Description = description;
+        }
     }
 
     public class EmploymentViewModel
@@ -117,6 +96,15 @@ namespace FreelancerProfile.Application.Queries
         public string Title { get; private set; }
         public DateRange Period { get; private set; }
         public string Description { get; private set; }
+
+        public EmploymentViewModel(Guid id, string company, string title, DateRange period, string description)
+        {
+            Id = id;
+            Company = company;
+            Title = title;
+            Period = period;
+            Description = description;
+        }
     }
 
 }

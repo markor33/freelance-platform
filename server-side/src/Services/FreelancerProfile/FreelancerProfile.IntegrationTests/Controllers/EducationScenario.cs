@@ -56,8 +56,7 @@ namespace FreelancerProfile.IntegrationTests.Controllers
 
             var result = await controller.Update(updateEducationCommand);
 
-            result.Result.ShouldBeOfType(typeof(OkObjectResult));
-            ((OkObjectResult)result.Result).Value.ShouldBeOfType(typeof(EducationViewModel));
+            result.ShouldBeOfType(typeof(OkResult));
         }
 
         [Fact]

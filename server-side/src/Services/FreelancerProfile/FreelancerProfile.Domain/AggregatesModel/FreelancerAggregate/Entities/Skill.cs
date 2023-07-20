@@ -12,6 +12,11 @@ namespace FreelancerProfile.Domain.AggregatesModel.FreelancerAggregate.Entities
 
         public Skill() { }
 
+        public Skill(Guid id)
+        {
+            Id = id;
+        }
+
         public Skill(Guid id, Guid professionId, string name, string description)
         {
             Id = id;

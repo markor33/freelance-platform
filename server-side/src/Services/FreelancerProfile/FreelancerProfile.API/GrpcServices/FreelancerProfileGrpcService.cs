@@ -1,4 +1,5 @@
-﻿using FreelancerProfile.Domain.AggregatesModel.FreelancerAggregate;
+﻿using FreelancerProfile.Application.Queries;
+using FreelancerProfile.Domain.AggregatesModel.FreelancerAggregate;
 using Grpc.Core;
 using GrpcFreelancerProfile;
 
@@ -7,25 +8,29 @@ namespace FreelancerProfile.API.GrpcServices
     public class FreelancerProfileGrpcService : GrpcFreelancerProfile.FreelancerProfile.FreelancerProfileBase
     {
         private readonly IFreelancerRepository _freelancerRepository;
+        private readonly IFreelancerQueries _freelancerQueries;
 
-        public FreelancerProfileGrpcService(IFreelancerRepository freelancerRepository)
+        public FreelancerProfileGrpcService(
+            IFreelancerRepository freelancerRepository, 
+            IFreelancerQueries freelancerQueries)
         {
-            _freelancerRepository = freelancerRepository;
+            _freelancerQueries = freelancerQueries;
         }
+
 
         public override async Task<FreelancerBasicData> GetFreelancerBasicDataById(GetFreelancerBasicDataByIdRequest request, ServerCallContext context)
         {
-            var freelancer = await _freelancerRepository.GetByIdAsync(Guid.Parse(request.Id));
-            return ConvertToFreelancerBasicData(freelancer);
+            var freelancer = await _freelancerQueries.GetByIdAsync(Guid.Parse(request.Id));
+            return ConvertToFreelancerBasicData(freelancer.Value);
         }
 
         public async override Task<FreelancerBasicData> GetFreelancerBasicDataByUserId(GetFreelancerBasicDataByUserIdRequest request, ServerCallContext context)
         {
-            var freelancer = await _freelancerRepository.GetByUserIdAsync(Guid.Parse(request.UserId));
-            return ConvertToFreelancerBasicData(freelancer);
+            var freelancer = await _freelancerQueries.GetByUserIdAsync(Guid.Parse(request.UserId));
+            return ConvertToFreelancerBasicData(freelancer.Value);
         }
 
-        private static FreelancerBasicData ConvertToFreelancerBasicData(Freelancer freelancer)
+        private static FreelancerBasicData ConvertToFreelancerBasicData(FreelancerViewModel freelancer)
         {
             if (freelancer is null)
                 throw new RpcException(new Status(StatusCode.NotFound, "Freelancer not found"));
@@ -36,7 +41,7 @@ namespace FreelancerProfile.API.GrpcServices
                 FirstName = freelancer.FirstName,
                 LastName = freelancer.LastName,
                 ExperienceLevel = (int)freelancer.ExperienceLevel,
-                ProfessionId = freelancer.ProfessionId.ToString() ?? string.Empty,
+                ProfessionId = freelancer.Profession?.Id.ToString() ?? string.Empty,
                 TimeZoneID = freelancer.Contact.TimeZoneId,
                 Country = freelancer.Contact.Address.Country,
                 City = freelancer.Contact.Address.City

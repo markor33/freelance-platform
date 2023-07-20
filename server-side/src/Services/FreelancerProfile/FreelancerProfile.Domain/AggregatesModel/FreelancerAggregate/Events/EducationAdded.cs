@@ -1,16 +1,17 @@
 ﻿using FreelancerProfile.Domain.AggregatesModel.FreelancerAggregate.Entities;
+using FreelancerProfile.Domain.SeedWork;
 using MediatR;
+using System.Text.Json.Serialization;
 
 namespace FreelancerProfile.Domain.AggregatesModel.FreelancerAggregate.Events
 {
-    public class EducationAddedDomainEvent : INotification
+    public class EducationAdded : DomainEvent, INotification
     {
-        public Guid FreelancerId { get; private set; }
         public Education Education { get; private set; }
 
-        public EducationAddedDomainEvent(Guid freelancerId, Education education)
+        [JsonConstructor]
+        public EducationAdded(Guid aggregateId, Education education) : base(aggregateId)
         {
-            FreelancerId = freelancerId;
             Education = education;
         }
     }

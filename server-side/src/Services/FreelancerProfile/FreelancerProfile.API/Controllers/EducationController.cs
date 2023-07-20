@@ -41,14 +41,14 @@ namespace FreelancerProfile.API.Controllers
 
         [HttpPut("{educationId}")]
         [Authorize(Roles = "FREELANCER"), ProfileOwnerAuthorization]
-        public async Task<ActionResult<EducationViewModel>> Update(UpdateEducationCommand command)
+        public async Task<ActionResult> Update(UpdateEducationCommand command)
         {
             var freelancerId = _identityService.GetDomainUserId();
             command.FreelancerId = freelancerId;
             var commandResult = await _mediator.Send(command);
             if (commandResult.IsFailed)
                 return BadRequest(commandResult.Errors.ToStringList());
-            return Ok(_mapper.Map<EducationViewModel>(commandResult.Value));
+            return Ok();
         }
 
         [HttpDelete("{educationId}")]

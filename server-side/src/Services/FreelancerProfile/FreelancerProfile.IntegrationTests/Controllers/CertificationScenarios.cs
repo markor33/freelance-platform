@@ -70,8 +70,7 @@ namespace FreelancerProfile.IntegrationTests.Controllers
 
             var result = await controller.Update(updateCertificationCommand);
 
-            result.Result.ShouldBeOfType(typeof(OkObjectResult));
-            ((OkObjectResult)result.Result).Value.ShouldBeOfType(typeof(CertificationViewModel));
+            result.ShouldBeOfType(typeof(OkResult));
         }
 
         private static AddCertificationCommand GetTestAddCertificationCommand()

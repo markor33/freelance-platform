@@ -1,6 +1,6 @@
-﻿using FreelancerProfile.Domain.AggregatesModel.FreelancerAggregate.Events;
-using FreelancerProfile.Domain.AggregatesModel.FreelancerAggregate.ValueObjects;
+﻿using FreelancerProfile.Domain.AggregatesModel.FreelancerAggregate.ValueObjects;
 using FreelancerProfile.Domain.SeedWork;
+using System.Text.Json.Serialization;
 
 namespace FreelancerProfile.Domain.AggregatesModel.FreelancerAggregate.Entities
 {
@@ -12,6 +12,16 @@ namespace FreelancerProfile.Domain.AggregatesModel.FreelancerAggregate.Entities
         public string? Description { get; private set; }
 
         public Certification() { }
+
+        [JsonConstructor]
+        public Certification(Guid id, string name, string provider, DateRange attended, string? description)
+        {
+            Id = id;
+            Name = name;
+            Provider = provider;
+            Attended = attended;
+            Description = description;
+        }
 
         public Certification(string name, string provider, DateRange attended, string? description)
         {

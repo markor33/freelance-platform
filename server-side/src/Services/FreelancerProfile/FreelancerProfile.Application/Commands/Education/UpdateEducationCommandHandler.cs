@@ -21,16 +21,13 @@ namespace FreelancerProfile.Application.Commands
             if (freelancer is null)
                 return Result.Fail("Freelancer does not exist");
 
-            var updateResult = freelancer.UpdateEducation(request.EducationId, request.SchoolName, request.Degree,
-                new DateRange(request.Start, request.End));
-            if (updateResult.IsFailed)
-                return updateResult;
+            freelancer.UpdateEducation(request.EducationId, request.SchoolName, request.Degree, new DateRange(request.Start, request.End));
 
             var result = await _freelancerRepository.UnitOfWork.SaveEntitiesAsync();
             if (!result)
                 return Result.Fail("Edit education action failed");
 
-            return Result.Ok(updateResult.Value);
+            return Result.Ok();
         }
     }
 }

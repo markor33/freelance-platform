@@ -2,7 +2,7 @@
 
 namespace FreelancerProfile.Domain.SeedWork
 {
-    public abstract class Entity<TId> : EntityBase
+    public abstract class Entity<TId>
     {
         private TId _id;
 

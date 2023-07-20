@@ -10,7 +10,6 @@ namespace FreelancerProfile.Application.Commands
     public class ProfileSetupCommand : IRequest<Result<Freelancer>>
     {
         public Guid FreelancerId { get; set; }
-        public Guid UserId { get; set; }
         public bool IsProfilePublic { get; private set; }
         public ProfileSummary ProfileSummary { get; private set; }
         public HourlyRate HourlyRate { get; private set; }
