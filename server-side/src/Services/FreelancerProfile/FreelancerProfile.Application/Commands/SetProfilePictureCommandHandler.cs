@@ -1,6 +1,6 @@
 ﻿using FluentResults;
 using FreelancerProfile.Application.Services;
-using FreelancerProfile.Domain.AggregatesModel.FreelancerAggregate;
+using FreelancerProfile.Domain.Repositories;
 using MediatR;
 
 namespace FreelancerProfile.Application.Commands

@@ -1,6 +1,6 @@
-﻿using FreelancerProfile.Domain.SeedWork;
-using JobManagement.Domain.AggregatesModel.JobAggregate;
+﻿using JobManagement.Domain.SeedWork;
 using MediatR;
+using JobManagement.Domain.Repositories;
 
 namespace JobManagement.Application.Behaviors
 {

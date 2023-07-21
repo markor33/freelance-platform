@@ -1,6 +1,7 @@
-﻿using FreelancerProfile.Domain.SeedWork;
+﻿using FreelancerProfile.Domain.AggregatesModel.FreelancerAggregate;
+using FreelancerProfile.Domain.SeedWork;
 
-namespace FreelancerProfile.Domain.AggregatesModel.FreelancerAggregate
+namespace FreelancerProfile.Domain.Repositories
 {
     public interface IFreelancerRepository : IRepository<Freelancer>
     {

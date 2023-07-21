@@ -1,7 +1,7 @@
 ﻿using FluentResults;
 using JobManagement.Application.IntegrationEvents;
 using JobManagement.Application.Notifications;
-using JobManagement.Domain.AggregatesModel.JobAggregate;
+using JobManagement.Domain.Repositories;
 using MediatR;
 
 namespace JobManagement.Application.Commands.ProposalCommands
@@ -25,10 +25,8 @@ namespace JobManagement.Application.Commands.ProposalCommands
             if (job is null)
                 return Result.Fail("Job does not exist");
 
+            job.ChangeProposalPayment(request.ProposalId, request.Payment);
             var proposal = job.GetProposal(request.ProposalId);
-            if (proposal is null)
-                return Result.Fail("Proposal does not exist");
-            proposal.ChangePayment(request.Payment);
 
             await _jobRepository.UnitOfWork.SaveEntitiesAsync(cancellationToken);
 

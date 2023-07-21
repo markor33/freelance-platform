@@ -1,6 +1,7 @@
-﻿using FreelancerProfile.Domain.SeedWork;
+﻿using JobManagement.Domain.SeedWork;
 using JobManagement.Domain.AggregatesModel.JobAggregate.Enums;
 using JobManagement.Domain.AggregatesModel.JobAggregate.ValueObjects;
+using System.Text.Json.Serialization;
 
 namespace JobManagement.Domain.AggregatesModel.JobAggregate.Entities
 {
@@ -23,6 +24,18 @@ namespace JobManagement.Domain.AggregatesModel.JobAggregate.Entities
             Started = DateTime.UtcNow;
             Finished = null;
             Status = ContractStatus.ACTIVE;
+        }
+
+        [JsonConstructor]
+        public Contract(Guid id, Guid clientId, Guid freelancerId, Payment payment, DateTime started, DateTime? finished, ContractStatus status)
+        {
+            Id = id;
+            ClientId = clientId;
+            FreelancerId = freelancerId;
+            Payment = payment;
+            Started = started;
+            Finished = finished;
+            Status = status;
         }
 
         public void ChangeStatus(ContractStatus status)

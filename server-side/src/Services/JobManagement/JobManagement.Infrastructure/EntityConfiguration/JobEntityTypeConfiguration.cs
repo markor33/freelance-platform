@@ -1,5 +1,4 @@
 ﻿using JobManagement.Domain.AggregatesModel.JobAggregate;
-using JobManagement.Domain.AggregatesModel.JobAggregate.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
@@ -10,6 +9,10 @@ namespace JobManagement.Infrastructure.EntityConfiguration
         public void Configure(EntityTypeBuilder<Job> builder)
         {
             builder.ToTable("Jobs");
+
+            builder.Ignore(f => f.Changes);
+
+            builder.Ignore(f => f.Version);
 
             builder.HasKey(x => x.Id);
 

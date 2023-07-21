@@ -1,4 +1,5 @@
 ﻿using FreelancerProfile.Domain.AggregatesModel.FreelancerAggregate;
+using FreelancerProfile.Domain.Repositories;
 using MediatR;
 
 

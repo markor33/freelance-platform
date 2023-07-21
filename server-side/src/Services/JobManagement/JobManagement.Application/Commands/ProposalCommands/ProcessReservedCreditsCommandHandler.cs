@@ -1,6 +1,6 @@
 ﻿using JobManagement.Application.IntegrationEvents;
 using JobManagement.Application.Notifications;
-using JobManagement.Domain.AggregatesModel.JobAggregate;
+using JobManagement.Domain.Repositories;
 using MediatR;
 
 namespace JobManagement.Application.Commands.ProposalCommands
@@ -23,6 +23,8 @@ namespace JobManagement.Application.Commands.ProposalCommands
             var job = await _jobRepository.GetByIdAsync(request.JobId);
 
             job.SetProposalStatusToSent(request.ProposalId);
+
+            await _jobRepository.UnitOfWork.SaveEntitiesAsync(cancellationToken);
 
             var proposalSubmittedNotification = new ProposalSubmittedNotification(job.ClientId, job.Id, job.Title);
             await _integrationEventService.SaveEventAsync(proposalSubmittedNotification);

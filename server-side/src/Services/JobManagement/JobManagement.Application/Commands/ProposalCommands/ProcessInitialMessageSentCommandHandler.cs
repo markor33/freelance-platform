@@ -1,6 +1,6 @@
 ﻿using JobManagement.Application.IntegrationEvents;
 using JobManagement.Application.Notifications;
-using JobManagement.Domain.AggregatesModel.JobAggregate;
+using JobManagement.Domain.Repositories;
 using MediatR;
 
 namespace JobManagement.Application.Commands.ProposalCommands

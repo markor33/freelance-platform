@@ -1,5 +1,5 @@
 ﻿using FluentResults;
-using JobManagement.Domain.AggregatesModel.JobAggregate;
+using JobManagement.Domain.Repositories;
 using MediatR;
 
 namespace JobManagement.Application.Commands.JobCommands

@@ -80,10 +80,24 @@ namespace FreelancerProfile.Domain.AggregatesModel.FreelancerAggregate
             Causes(@event);
         }
 
-        public void UpdateSkills(List<Skill> skills)
+        public void AddSkills(List<Skill> skills)
         {
-            var @event = new SkillsUpdated(Id, skills);
-            Causes(@event);
+            if (!skills.Any())
+                return;
+
+            Skills.AddRange(skills);
+            var @event = new SkillsUpdated(Id, Skills);
+            Changes.Add(@event);
+        }
+
+        public void RemoveSkills(List<Skill> skills)
+        {
+            if (!skills.Any())
+                return;
+
+            Skills.RemoveAll(s => skills.Any(rs => rs.Id == s.Id));
+            var @event = new SkillsUpdated(Id, Skills);
+            Changes.Add(@event);
         }
 
         public void AddEducation(Education education)
@@ -181,12 +195,13 @@ namespace FreelancerProfile.Domain.AggregatesModel.FreelancerAggregate
 
         private void When(SkillsUpdated @event)
         {
-            var skillsToRemove = Skills.Where(s => !@event.Skills.Any(ns => ns.Id == s.Id)).ToList();
+            Skills = @event.Skills;
+            /*var skillsToRemove = Skills.Where(s => !@event.Skills.Any(ns => ns.Id == s.Id)).ToList();
             foreach (var skillToRemove in skillsToRemove)
                 Skills.Remove(skillToRemove);
 
             var skillsToAdd = @event.Skills.Where(ns => !Skills.Any(s => s.Id == ns.Id)).ToList();
-            Skills.AddRange(skillsToAdd);
+            Skills.AddRange(skillsToAdd);*/
         }
 
         private void When(EducationAdded @event)

@@ -31,6 +31,11 @@ namespace FreelancerProfile.Infrastructure.Persistence.LoadingStrategy
             }
 
             _context.Entry(freelancer).State = EntityState.Unchanged;
+            freelancer.LanguageKnowledges.ForEach(x => _context.Entry(x).State = EntityState.Unchanged);
+            freelancer.Skills.ForEach(x => _context.Entry(x).State = EntityState.Unchanged);
+            freelancer.Educations.ForEach(x => _context.Entry(x).State = EntityState.Unchanged);
+            freelancer.Certifications.ForEach(x => _context.Entry(x).State = EntityState.Unchanged);
+            freelancer.Employments.ForEach(x => _context.Entry(x).State = EntityState.Unchanged);
 
             return freelancer;
         }

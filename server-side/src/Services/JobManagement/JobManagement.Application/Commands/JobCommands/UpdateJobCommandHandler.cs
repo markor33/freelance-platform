@@ -1,7 +1,7 @@
 ﻿using FluentResults;
-using JobManagement.Application.Services;
 using JobManagement.Domain.AggregatesModel.JobAggregate;
 using JobManagement.Domain.AggregatesModel.JobAggregate.Entities;
+using JobManagement.Domain.Repositories;
 using MediatR;
 
 namespace JobManagement.Application.Commands.JobCommands
@@ -9,17 +9,14 @@ namespace JobManagement.Application.Commands.JobCommands
     public class UpdateJobCommandHandler : IRequestHandler<UpdateJobCommand, Result<Job>>
     {
         private readonly IJobRepository _jobRepository;
-        private readonly IProfessionService _professionService;
-        private readonly ISkillService _skillService;
+        private readonly ISkillRepository _skillRepository;
 
         public UpdateJobCommandHandler(
             IJobRepository jobRepository,
-            IProfessionService professionService,
-            ISkillService skillService)
+            ISkillRepository skillRepository)
         {
             _jobRepository = jobRepository;
-            _professionService = professionService;
-            _skillService = skillService;
+            _skillRepository = skillRepository;
         }
 
         public async Task<Result<Job>> Handle(UpdateJobCommand request, CancellationToken cancellationToken)
@@ -28,33 +25,20 @@ namespace JobManagement.Application.Commands.JobCommands
             if (job is null)
                 return Result.Fail("Job does not exist");
 
-            var profession = await _professionService.GetByIdAsync(request.ProfessionId);
-            if (profession is null)
-                return Result.Fail($"Profession with '{request.ProfessionId}' id, does not exist");
+            var skillsToRemove = job.Skills.Where(s => !request.Skills.Any(ns => ns == s.Id)).ToList();
+            job.RemoveSkills(skillsToRemove);
 
-            var skills = await GetSkills(request.Skills);
+            var skillsToAdd = request.Skills.Where(ns => !job.Skills.Any(s => s.Id == ns)).ToList();
+            var skills = await _skillRepository.GetByIdsAsync(skillsToAdd);
+            job.AddSkills(skills);
 
-            job.Update(request.Title, request.Description, request.ExperienceLevel, request.Payment, profession, request.Questions, skills);
+            job.Update(request.Title, request.Description, request.ExperienceLevel, request.Payment, request.ProfessionId, request.Questions, skills);
 
             var result = await _jobRepository.UnitOfWork.SaveEntitiesAsync();
             if (!result)
                 return Result.Fail("job update failed");
 
             return Result.Ok(job);
-        }
-
-        private async Task<List<Skill>> GetSkills(List<Guid> skillIds)
-        {
-            var skills = new List<Skill>();
-            foreach (var skillId in skillIds)
-            {
-                var skill = await _skillService.GetByIdAsync(skillId);
-                if (skill is null)
-                    continue;
-
-                skills.Add(skill);
-            }
-            return skills;
         }
 
     }

@@ -1,6 +1,5 @@
 ﻿using FluentResults;
-using JobManagement.Domain.AggregatesModel.JobAggregate;
-using JobManagement.Domain.AggregatesModel.JobAggregate.Enums;
+using JobManagement.Domain.Repositories;
 using MediatR;
 
 namespace JobManagement.Application.Commands.ContractCommands
@@ -20,7 +19,7 @@ namespace JobManagement.Application.Commands.ContractCommands
             if (job is null)
                 return Result.Fail("Job does not exist");
 
-            job.ChangeContractStatus(request.ContractId, ContractStatus.TERMINATED);
+            job.TerminateContract(request.ContractId);
 
             await _jobRepository.UnitOfWork.SaveEntitiesAsync();
 

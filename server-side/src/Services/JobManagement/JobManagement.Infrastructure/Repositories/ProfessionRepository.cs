@@ -1,14 +1,14 @@
-﻿using JobManagement.Application.Services;
-using JobManagement.Domain.AggregatesModel.JobAggregate.Entities;
+﻿using JobManagement.Domain.AggregatesModel.JobAggregate.Entities;
+using JobManagement.Domain.Repositories;
 using Microsoft.EntityFrameworkCore;
 
-namespace JobManagement.Infrastructure.Services
+namespace JobManagement.Infrastructure.Repositories
 {
-    public class ProfessionService : IProfessionService
+    public class ProfessionRepository : IProfessionRepository
     {
         private readonly JobManagementContext _context;
 
-        public ProfessionService(JobManagementContext context)
+        public ProfessionRepository(JobManagementContext context)
         {
             _context = context;
         }

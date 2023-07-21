@@ -1,14 +1,14 @@
-﻿using FreelancerProfile.Application.Services;
-using FreelancerProfile.Domain.AggregatesModel.FreelancerAggregate.Entities;
+﻿using FreelancerProfile.Domain.AggregatesModel.FreelancerAggregate.Entities;
+using FreelancerProfile.Domain.Repositories;
 using Microsoft.EntityFrameworkCore;
 
-namespace FreelancerProfile.Infrastructure.Persistence.Services
+namespace FreelancerProfile.Infrastructure.Persistence.Repositories
 {
-    public class LanguageService : ILanguageService
+    public class LanguageRepository : ILanguageRepository
     {
         private readonly FreelancerProfileContext _context;
 
-        public LanguageService(FreelancerProfileContext context)
+        public LanguageRepository(FreelancerProfileContext context)
         {
             _context = context;
         }

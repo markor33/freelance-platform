@@ -1,9 +1,10 @@
 ﻿using JobManagement.Domain.AggregatesModel.JobAggregate.Entities;
 
-namespace JobManagement.Application.Services
+namespace JobManagement.Domain.Repositories
 {
-    public interface IProfessionService
+    public interface IProfessionRepository
     {
         Task<Profession> GetByIdAsync(Guid id);
     }
+
 }
