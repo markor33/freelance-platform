@@ -1,14 +1,14 @@
-﻿using FreelancerProfile.Application.Services;
-using FreelancerProfile.Domain.AggregatesModel.FreelancerAggregate.Entities;
+﻿using FreelancerProfile.Domain.AggregatesModel.FreelancerAggregate.Entities;
+using FreelancerProfile.Domain.Repositories;
 using Microsoft.EntityFrameworkCore;
 
-namespace FreelancerProfile.Infrastructure.Persistence.Services
+namespace FreelancerProfile.Infrastructure.Persistence.Repositories
 {
-    public class ProfessionService : IProfessionService
+    public class ProfessionRepository : IProfessionRepository
     {
         private readonly FreelancerProfileContext _context;
 
-        public ProfessionService(FreelancerProfileContext context)
+        public ProfessionRepository(FreelancerProfileContext context)
         {
             _context = context;
         }

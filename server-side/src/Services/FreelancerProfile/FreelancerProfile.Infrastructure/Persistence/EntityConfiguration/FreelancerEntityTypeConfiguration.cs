@@ -11,6 +11,7 @@ namespace FreelancerProfile.Infrastructure.Persistence.EntityConfiguration
             builder.ToTable("Freelancers");
 
             builder.Ignore(f => f.Changes);
+
             builder.Ignore(f => f.Version);
 
             builder.HasKey(f => f.Id);

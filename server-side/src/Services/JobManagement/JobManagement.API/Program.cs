@@ -19,6 +19,7 @@ using RabbitMQ.Client;
 using System.Data;
 using System.Data.Common;
 using System.Net;
+using JobManagement.Infrastructure.LoadingStrategy;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -29,6 +30,9 @@ builder.Services.AddSwaggerGen();
 var connectionString = builder.Configuration.GetConnectionString("JobManagemenet");
 builder.Services.AddDbContext<JobManagementContext>(options => options.UseNpgsql(connectionString));
 builder.Services.AddScoped<IDbConnection>(provider => new NpgsqlConnection(connectionString));
+
+var loadingStrategySettings = builder.Configuration.GetSection("LoadingStrategy");
+builder.Services.Configure<LoadingStrategySettings>(loadingStrategySettings);
 
 builder.Services.AddDbContext<IntegrationEventLogContext>(options => options.UseNpgsql(connectionString));
 builder.Services.AddTransient<Func<DbConnection, IIntegrationEventLogService>>(sp => (DbConnection c) => new IntegrationEventLogService(c));

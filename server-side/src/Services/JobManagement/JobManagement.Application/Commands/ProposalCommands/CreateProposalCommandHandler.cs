@@ -1,8 +1,8 @@
 ﻿using FluentResults;
 using JobManagement.Application.IntegrationEvents;
 using JobManagement.Application.IntegrationEvents.Events;
-using JobManagement.Domain.AggregatesModel.JobAggregate;
 using JobManagement.Domain.AggregatesModel.JobAggregate.Entities;
+using JobManagement.Domain.Repositories;
 using MediatR;
 
 namespace JobManagement.Application.Commands.ProposalCommands
@@ -26,15 +26,14 @@ namespace JobManagement.Application.Commands.ProposalCommands
             if (job is null)
                 return Result.Fail("Job does not exist");
 
-            var proposal = new Proposal(request.FreelancerId, request.Text, request.Payment);
-            foreach (var answer in request.Answers)
-                proposal.AddAnswer(answer);
+            var proposal = Proposal.Create(request.FreelancerId, request.Text, request.Payment, request.Answers);
+
             var addProposalResult = job.AddProposal(proposal);
             if (addProposalResult.IsFailed)
                 return addProposalResult;
 
-            var result = await _jobRepository.UnitOfWork.SaveChangesAsync(cancellationToken);
-            if (result == 0)
+            var result = await _jobRepository.UnitOfWork.SaveEntitiesAsync(cancellationToken);
+            if (!result)
                 return Result.Fail("Proposal creation failed");
 
             var eventMessage = new ProposalCreatedIntegrationEvent(request.FreelancerId, job.Id, proposal.Id, job.Credits);

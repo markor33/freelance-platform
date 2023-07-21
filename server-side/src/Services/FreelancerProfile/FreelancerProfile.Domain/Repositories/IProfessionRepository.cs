@@ -1,9 +1,10 @@
 ﻿using FreelancerProfile.Domain.AggregatesModel.FreelancerAggregate.Entities;
 
-namespace FreelancerProfile.Application.Services
+namespace FreelancerProfile.Domain.Repositories
 {
-    public interface IProfessionService
+    public interface IProfessionRepository
     {
         Task<Profession> GetByIdAsync(Guid id);
     }
+
 }

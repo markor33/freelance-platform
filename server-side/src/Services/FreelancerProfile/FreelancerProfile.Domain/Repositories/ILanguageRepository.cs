@@ -1,8 +1,8 @@
 ﻿using FreelancerProfile.Domain.AggregatesModel.FreelancerAggregate.Entities;
 
-namespace FreelancerProfile.Application.Services
+namespace FreelancerProfile.Domain.Repositories
 {
-    public interface ILanguageService
+    public interface ILanguageRepository
     {
         Task<Language> GetByIdAsync(int id);
     }

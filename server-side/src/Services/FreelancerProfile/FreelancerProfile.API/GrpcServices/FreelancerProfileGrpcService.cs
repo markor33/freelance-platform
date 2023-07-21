@@ -1,5 +1,5 @@
 ﻿using FreelancerProfile.Application.Queries;
-using FreelancerProfile.Domain.AggregatesModel.FreelancerAggregate;
+using FreelancerProfile.Domain.Repositories;
 using Grpc.Core;
 using GrpcFreelancerProfile;
 

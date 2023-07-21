@@ -17,7 +17,7 @@ namespace JobManagement.Infrastructure.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "6.0.16")
+                .HasAnnotation("ProductVersion", "6.0.19")
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
@@ -253,6 +253,31 @@ namespace JobManagement.Infrastructure.Migrations
                     b.HasIndex("ProfessionId");
 
                     b.ToTable("Jobs", (string)null);
+                });
+
+            modelBuilder.Entity("JobManagement.Infrastructure.EventStore.DomainEventLog", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<Guid>("AggregateId")
+                        .HasColumnType("uuid");
+
+                    b.Property<DateTime>("Created")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("EventData")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("EventType")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("DomainEventLogs", (string)null);
                 });
 
             modelBuilder.Entity("JobSkill", b =>

@@ -1,4 +1,4 @@
-﻿namespace FreelancerProfile.Domain.SeedWork
+﻿namespace JobManagement.Domain.SeedWork
 {
     public interface IUnitOfWork : IDisposable
     {
