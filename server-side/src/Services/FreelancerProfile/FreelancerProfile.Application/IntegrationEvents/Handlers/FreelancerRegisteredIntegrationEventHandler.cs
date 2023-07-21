@@ -16,7 +16,7 @@ namespace FreelancerProfile.Application.IntegrationEvents.Handlers
 
         public async Task HandleAsync(FreelancerRegisteredIntegrationEvent @event)
         {
-            var command = new CreateFreelancerCommand(@event.UserId, @event.LastName, @event.LastName, @event.Contact);
+            var command = new CreateFreelancerCommand(@event.UserId, @event.FirstName, @event.LastName, @event.Contact);
             await _mediator.Send(command);
         }
     }

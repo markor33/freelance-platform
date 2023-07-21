@@ -72,6 +72,9 @@ namespace FreelancerProfile.Domain.AggregatesModel.FreelancerAggregate
             var @event = new ProfileSetupCompleted(Id, isProfilePublic, profileSummary, hourlyRate, 
                 availability, experienceLevel, profession, languageKnowledge);
             Causes(@event);
+
+            var @creditsAdded = new CreditsAdded(Id, 100);
+            Causes(@creditsAdded);
         }
 
         public void UpdateProfileSummary(ProfileSummary profileSummary)
@@ -163,7 +166,10 @@ namespace FreelancerProfile.Domain.AggregatesModel.FreelancerAggregate
         public bool SubtractCredits(int credits)
         {
             if (Credits < credits) return false;
-            Credits -= credits;
+
+            var @event = new CreditsSubtracted(Id, credits);
+            Causes(@event);
+
             return true;
         }
 
@@ -186,6 +192,16 @@ namespace FreelancerProfile.Domain.AggregatesModel.FreelancerAggregate
             Profession = @event.Profession;
             ProfessionId = @event.ProfessionId;
             LanguageKnowledges.Add(@event.LanguageKnowledge);
+        }
+
+        private void When(CreditsAdded @event)
+        {
+            Credits += @event.Amount;
+        }
+
+        private void When(CreditsSubtracted @event)
+        {
+            Credits -= @event.Amount;
         }
 
         private void When(ProfileSummaryUpdated @event)
