@@ -105,11 +105,10 @@ namespace JobManagement.IntegrationTests.Controllers
         {
             var context = scope.ServiceProvider.GetRequiredService<JobManagementContext>();
 
-            var proposal = new Proposal(
+            var proposal = Proposal.Create(
                 Guid.Parse("eacfeae5-f0fb-4f91-a6e6-514de27bab57"),
                 "Text",
-                new Payment(50, "EUR", PaymentType.FIXED_RATE),
-                proposalStatus);
+                new Payment(50, "EUR", PaymentType.FIXED_RATE), new List<Answer>(), proposalStatus);
 
             job.AddProposal(proposal);
             await context.SaveChangesAsync();
