@@ -2,6 +2,7 @@
 using EventBus;
 using EventBus.Abstractions;
 using EventBusRabbitMQ;
+using JobManagement.Application.IntegrationEvents;
 using JobManagement.Application.Queries;
 using JobManagement.Domain.AggregatesModel.JobAggregate;
 using JobManagement.Domain.AggregatesModel.JobAggregate.Entities;
@@ -41,6 +42,10 @@ namespace JobManagement.IntegrationTests.Setup
             services.Remove(services.SingleOrDefault(d => d.ServiceType == typeof(IRabbitMQPersistentConnection)));
             services.Remove(services.SingleOrDefault(d => d.ServiceType == typeof(IEventBus)));
             services.AddSingleton<IEventBus>(sp => (new Mock<IEventBus>()).Object);
+
+            services.Remove(services.SingleOrDefault(d => d.ServiceType == typeof(IJobIntegrationEventService)));
+            services.AddScoped<IJobIntegrationEventService>(sp => new Mock<IJobIntegrationEventService>().Object);
+
             services.AddDbContext<JobManagementContext>(opt =>
             {
                 opt.UseNpgsql(CreateConnectionStringForTest());
