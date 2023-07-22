@@ -1,4 +1,4 @@
-﻿using JobManagement.Domain.AggregatesModel.JobAggregate;
+﻿using JobManagement.Domain.Repositories;
 using MediatR;
 
 namespace JobManagement.Application.Commands.ProposalCommands
@@ -18,7 +18,7 @@ namespace JobManagement.Application.Commands.ProposalCommands
 
             job.RemoveProposal(request.ProposalId);
 
-            await _jobRepository.UnitOfWork.SaveChangesAsync(cancellationToken);
+            await _jobRepository.UnitOfWork.SaveEntitiesAsync(cancellationToken);
 
             return Unit.Value;
         }

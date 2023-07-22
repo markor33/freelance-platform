@@ -34,7 +34,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="DTO\" />
 	<Protobuf Include="Proto\freelancerProfile.proto" GrpcServices="Server" />
   </ItemGroup>
 

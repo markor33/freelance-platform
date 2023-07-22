@@ -1,4 +1,4 @@
-﻿using FreelancerProfile.Domain.SeedWork;
+﻿using JobManagement.Domain.SeedWork;
 using JobManagement.Domain.AggregatesModel.JobAggregate;
 using JobManagement.Domain.AggregatesModel.JobAggregate.Entities;
 using JobManagement.Infrastructure.EntityConfiguration;
@@ -6,11 +6,13 @@ using JobManagement.Infrastructure.EntitySeed;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage;
 using System.Data;
+using JobManagement.Infrastructure.EventStore;
 
 namespace JobManagement.Infrastructure
 {
     public class JobManagementContext : DbContext, IUnitOfWork
     {
+        private readonly IEventStore _eventStore;
         private IDbContextTransaction _currentTransaction;
 
         public DbSet<Job> Jobs { get; set; }
@@ -19,10 +21,16 @@ namespace JobManagement.Infrastructure
         public DbSet<Question> Questions { get; set; }
         public DbSet<Skill> Skills { get; set; }
         public DbSet<Contract> Contracts { get; set; }
+        public DbSet<DomainEventLog> DomainEventLogs { get; set; }
         public IDbContextTransaction GetCurrentTransaction() => _currentTransaction;
         public bool HasActiveTransaction => _currentTransaction != null;
 
-        public JobManagementContext(DbContextOptions<JobManagementContext> options) : base(options) { }
+        public JobManagementContext(
+            DbContextOptions<JobManagementContext> options, 
+            IEventStore eventStore) : base(options)
+        {
+            _eventStore = eventStore;
+        }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -34,7 +42,10 @@ namespace JobManagement.Infrastructure
         {
             try
             {
+                await _eventStore.SaveEventsAsync(this);
+
                 await base.SaveChangesAsync(cancellationToken);
+
                 return true;
             }
             catch (Exception ex)

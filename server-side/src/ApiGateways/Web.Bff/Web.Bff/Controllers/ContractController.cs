@@ -10,7 +10,6 @@ namespace Web.Bff.Controllers
     public class ContractController : ControllerBase
     {
         private readonly IContractService _contractService;
-        private readonly IIdentityService _identityService;
 
         public ContractController(IContractService contractService)
         {

@@ -11,7 +11,6 @@ import { FreelancerModule } from './modules/freelancer/freelancer.module';
 import { SharedModule } from './modules/shared/shared.module';
 import { LayoutModule } from './modules/layout/layout.module';
 import { JsonDateInterceptor } from './modules/shared/utils/json-date-interceptor';
-import { ClientModule } from './modules/client/client.module';
 import { JobModule } from './modules/job/job.module';
 import { NotificationModule } from './modules/notification/notification.module';
 import { ContractModule } from './modules/contract/contract.module';
@@ -30,7 +29,6 @@ import { FeedbackModule } from './modules/feedback/feedback.module';
         SharedModule,
         AuthModule,
         FreelancerModule,
-        ClientModule,
         JobModule,
         ContractModule,
         NotificationModule,
@@ -38,7 +36,7 @@ import { FeedbackModule } from './modules/feedback/feedback.module';
         LayoutModule,
         JwtModule.forRoot({
             config: {
-              tokenGetter: () => JSON.parse(localStorage.getItem('user') as string)?.jwt
+              tokenGetter: () => JSON.parse(localStorage.getItem('jwt') as string)
             }
         })
     ],

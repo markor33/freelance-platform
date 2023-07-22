@@ -13,7 +13,7 @@ namespace FeedbackManagement.API.Security
 
         public Guid GetDomainUserId()
         {
-            return new Guid(_context.HttpContext.User.FindFirst("DomainUserId").Value);
+            return new Guid(_context.HttpContext.User.FindFirst("domainUserId").Value);
         }
 
         public string GetRole()

@@ -1,10 +1,10 @@
-﻿using JobManagement.Application.IntegrationEvents;
-using JobManagement.Application.Services;
-using JobManagement.Domain.AggregatesModel.JobAggregate;
+﻿using JobManagement.Infrastructure.LoadingStrategy;
+using JobManagement.Application.IntegrationEvents;
 using JobManagement.Infrastructure.Persistence.Services;
 using JobManagement.Infrastructure.Repositories;
-using JobManagement.Infrastructure.Services;
 using Microsoft.Extensions.DependencyInjection;
+using JobManagement.Infrastructure.EventStore;
+using JobManagement.Domain.Repositories;
 
 namespace JobManagement.Infrastructure
 {
@@ -12,11 +12,17 @@ namespace JobManagement.Infrastructure
     {
         public static IServiceCollection AddInfrastructure(this IServiceCollection services)
         {
-            services.AddTransient(typeof(IJobRepository), typeof(JobRepository));
+            services.AddScoped(typeof(IJobRepository), typeof(JobRepository));
+            services.AddScoped(typeof(IProfessionRepository), typeof(ProfessionRepository));
+            services.AddScoped(typeof(ISkillRepository), typeof(SkillRepository));
+
+            services.AddScoped<ILoadingStrategyFactory, LoadingStrategyFactory>();
+            services.AddScoped<StandardLoadingStrategy>();
+            services.AddScoped<EventSourcingLoadingStrategy>();
+
+            services.AddScoped(typeof(IEventStore), typeof(EventStore.EventStore));
 
             services.AddScoped(typeof(IJobIntegrationEventService), typeof(JobIntegrationEventService));
-            services.AddTransient(typeof(IProfessionService), typeof(ProfessionService));
-            services.AddTransient(typeof(ISkillService), typeof(SkillService));
 
             return services;
         }

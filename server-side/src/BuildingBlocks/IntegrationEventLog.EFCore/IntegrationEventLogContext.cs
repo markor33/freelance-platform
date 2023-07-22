@@ -7,7 +7,7 @@ namespace IntegrationEventLog.EFCore
     {
         public DbSet<IntegrationEventLogEntry> IntegrationEventLogs { get; set; }
 
-        public IntegrationEventLogContext(DbContextOptions options) : base(options) { }
+        public IntegrationEventLogContext(DbContextOptions<IntegrationEventLogContext> options) : base(options) { }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

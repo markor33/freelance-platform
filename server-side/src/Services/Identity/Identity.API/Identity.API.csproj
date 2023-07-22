@@ -37,7 +37,12 @@
   <ItemGroup>
 	<Protobuf Include="..\..\..\Services\FreelancerProfile\FreelancerProfile.API\Proto\freelancerProfile.proto" GrpcServices="Client" />
 	<Protobuf Include="..\..\..\Services\ClientProfile\ClientProfile.API\Proto\clientProfile.proto" GrpcServices="Client" />
-    <Folder Include="Data\Migrations\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\BuildingBlocks\EventBusRabbitMQ\EventBusRabbitMQ.csproj" />
+    <ProjectReference Include="..\..\..\BuildingBlocks\EventBus\EventBus.csproj" />
+    <ProjectReference Include="..\..\..\BuildingBlocks\IntegrationEventLog.EFCore\IntegrationEventLog.EFCore.csproj" />
   </ItemGroup>
 
 </Project>

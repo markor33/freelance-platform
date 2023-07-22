@@ -71,7 +71,7 @@ namespace JobManagement.IntegrationTests.Setup
         {
             context.Database.ExecuteSqlRaw(@"DELETE FROM ""Jobs"" CASCADE;");
             var profession = context.Professions.Find(Guid.Parse("d6861f65-0950-4c7f-b5b1-de644f923fbb"));
-            var job = new Job(
+            var job = Job.Create(
                 Guid.Parse("e1372d50-c4af-4f53-9050-457635d49b7c"),
                 "Title",
                 "Desc",
@@ -80,10 +80,10 @@ namespace JobManagement.IntegrationTests.Setup
                 profession,
                 new List<Question>(),
                 new List<Skill>());
-            var proposal = new Proposal(
+            var proposal = Proposal.Create(
                 Guid.Parse("3f006187-d73f-4bdb-bb13-81a4e488d6f8"),
                 "Text",
-                new Payment(50, "EUR", PaymentType.FIXED_RATE), ProposalStatus.SENT);
+                new Payment(50, "EUR", PaymentType.FIXED_RATE), new List<Answer>(), ProposalStatus.SENT);
             job.AddProposal(proposal);
             context.Jobs.Add(job);
         }

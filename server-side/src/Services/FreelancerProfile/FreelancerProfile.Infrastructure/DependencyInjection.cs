@@ -1,7 +1,9 @@
 ﻿using FreelancerProfile.Application.IntegrationEvents;
 using FreelancerProfile.Application.Queries;
 using FreelancerProfile.Application.Services;
-using FreelancerProfile.Domain.AggregatesModel.FreelancerAggregate;
+using FreelancerProfile.Domain.Repositories;
+using FreelancerProfile.Infrastructure.Persistence.EventStore;
+using FreelancerProfile.Infrastructure.Persistence.LoadingStrategy;
 using FreelancerProfile.Infrastructure.Persistence.ReadModel.Repositories;
 using FreelancerProfile.Infrastructure.Persistence.ReadModel.Settings;
 using FreelancerProfile.Infrastructure.Persistence.Repositories;
@@ -15,15 +17,21 @@ namespace ProfileManagemenet.Infrastructure
     {
         public static IServiceCollection AddInfrastructure(this IServiceCollection services)
         {
-            services.AddTransient(typeof(IFreelancerRepository), typeof(FreelancerRepository));
+            services.AddScoped(typeof(IFreelancerRepository), typeof(FreelancerRepository));
+            services.AddScoped(typeof(ILanguageRepository), typeof(LanguageRepository));
+            services.AddScoped(typeof(IProfessionRepository), typeof(ProfessionRepository));
+            services.AddScoped(typeof(ISkillRepository), typeof(SkillRepository));
+
+            services.AddScoped<ILoadingStrategyFactory, LoadingStrategyFactory>();
+            services.AddScoped<StandardLoadingStrategy>();
+            services.AddScoped<EventSourcingLoadingStrategy>();
+
+            services.AddScoped(typeof(IEventStore), typeof(EventStore));
 
             services.AddScoped(typeof(IMongoDbFactory), typeof(MongoDbFactory));
             services.AddTransient(typeof(IFreelancerReadModelRepository), typeof(FreelancerReadModelRepository));
 
             services.AddScoped(typeof(IFreelancerProfileIntegrationEventService), typeof(FreelancerProfileIntegrationEventService));
-            services.AddTransient(typeof(ILanguageService), typeof(LanguageService));
-            services.AddTransient(typeof(IProfessionService), typeof(ProfessionService));
-            services.AddTransient(typeof(ISkillService), typeof(SkillService));
 
             services.AddScoped(typeof(IFileUploader), typeof(AzureBlobStorageService));
 

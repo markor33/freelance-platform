@@ -1,4 +1,4 @@
-﻿using JobManagement.Domain.AggregatesModel.JobAggregate;
+﻿using JobManagement.Domain.Repositories;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 
@@ -22,8 +22,9 @@ namespace JobManagement.API.Security.AuthorizationFilters
             var userDomainId = _identityService.GetDomainUserId();
             var jobId = context.RouteData.Values["id"].ToString();
 
-            var job = await _jobRepository.GetByIdAsync(Guid.Parse(jobId));
-            if (job.ClientId != userDomainId)
+            var isJobOwner = await _jobRepository.IsJobOwner(Guid.Parse(jobId), userDomainId);
+
+            if (!isJobOwner)
                 context.Result = new UnauthorizedResult();
         }
     }

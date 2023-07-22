@@ -29,6 +29,8 @@
 
   <ItemGroup>
     <Folder Include="Infrastructure\Migrations\" />
+    <ProjectReference Include="..\..\..\BuildingBlocks\EventBusRabbitMQ\EventBusRabbitMQ.csproj" />
+    <ProjectReference Include="..\..\..\BuildingBlocks\EventBus\EventBus.csproj" />
 	<Protobuf Include="Proto/clientProfile.proto" GrpcServices="Server" />
   </ItemGroup>
 

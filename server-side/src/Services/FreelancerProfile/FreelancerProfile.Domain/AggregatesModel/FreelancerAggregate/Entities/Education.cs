@@ -1,5 +1,6 @@
 ﻿using FreelancerProfile.Domain.AggregatesModel.FreelancerAggregate.ValueObjects;
 using FreelancerProfile.Domain.SeedWork;
+using System.Text.Json.Serialization;
 
 namespace FreelancerProfile.Domain.AggregatesModel.FreelancerAggregate.Entities
 {
@@ -12,6 +13,15 @@ namespace FreelancerProfile.Domain.AggregatesModel.FreelancerAggregate.Entities
         public Education()
         {
 
+        }
+
+        [JsonConstructor]
+        public Education(Guid id, string schoolName, string degree, DateRange attended)
+        {
+            Id = id;
+            SchoolName = schoolName;
+            Degree = degree;
+            Attended = attended;
         }
 
         public Education(string schoolName, string degree, DateRange attended)

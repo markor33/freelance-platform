@@ -20,8 +20,8 @@ using FreelancerProfile.Infrastructure.Settings;
 using IntegrationEventLog.EFCore;
 using IntegrationEventLog.EFCore.Services;
 using System.Data.Common;
-using Azure.Storage.Blobs.Models;
 using FreelancerProfile.Application.IntegrationEvents.Events;
+using FreelancerProfile.Infrastructure.Persistence.LoadingStrategy;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -41,6 +41,9 @@ builder.Services.AddHostedService<IntegrationEventSenderService>();
 
 var mongoDbSettings = builder.Configuration.GetSection("MongoDB");
 builder.Services.Configure<MongoDBSettings>(mongoDbSettings);
+
+var loadingStrategySettings = builder.Configuration.GetSection("LoadingStrategy");
+builder.Services.Configure<LoadingStrategySettings>(loadingStrategySettings);
 
 var azureBlobStorageSettings = builder.Configuration.GetSection("Azure");
 builder.Services.Configure<AzureBlobStorageSettings>(azureBlobStorageSettings);

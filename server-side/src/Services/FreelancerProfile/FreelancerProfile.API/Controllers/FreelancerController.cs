@@ -42,11 +42,11 @@ namespace FreelancerProfile.API.Controllers
             return Ok(queryResult.Value);
         }
 
-        [HttpPost]
+        [HttpPut]
         [Authorize(Roles = "FREELANCER")]
-        public async Task<ActionResult<FreelancerViewModel>> Create(CreateFreelancerCommand command)
+        public async Task<ActionResult<FreelancerViewModel>> SetupProfile(ProfileSetupCommand command)
         {
-            command.UserId = _identityService.GetUserId();
+            command.FreelancerId = _identityService.GetDomainUserId();
             var commandResult = await _mediator.Send(command);
             if (commandResult.IsFailed)
                 return BadRequest(commandResult.Errors.ToStringList());
@@ -79,7 +79,7 @@ namespace FreelancerProfile.API.Controllers
         [HttpPost("skill")]
         public async Task<ActionResult<List<SkillViewModel>>> AddSkill(AddSkillCommand command)
         {
-            command.UserId = _identityService.GetUserId();
+            command.FreelancerId = _identityService.GetDomainUserId();
             var commandResult = await _mediator.Send(command);
             if (commandResult.IsFailed)
                 return BadRequest(commandResult.Errors.ToStringList());

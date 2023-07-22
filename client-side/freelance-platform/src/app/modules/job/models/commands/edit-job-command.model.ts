@@ -18,7 +18,7 @@ export class EditJobCommand {
         this.title = job.title;
         this.description = job.description;
         this.professionId = job.profession.id;
-        this.skills = job.skills.map((skill) => skill.id);
+        this.skills = job.skills?.map((skill) => skill?.id);
         this.experienceLevel = job.experienceLevel;
         this.payment = job.payment;
         this.questions = job.questions;

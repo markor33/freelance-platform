@@ -5,7 +5,7 @@ using MediatR;
 
 namespace FreelancerProfile.Application.DomainEventsHandlers
 {
-    public class EducationAddedDomainEventHandler : INotificationHandler<EducationAddedDomainEvent>
+    public class EducationAddedDomainEventHandler : INotificationHandler<EducationAdded>
     {
         private readonly IFreelancerReadModelRepository _repository;
         private readonly IMapper _mapper;
@@ -16,12 +16,10 @@ namespace FreelancerProfile.Application.DomainEventsHandlers
             _mapper = mapper;
         }
 
-        public async Task Handle(EducationAddedDomainEvent notification, CancellationToken cancellationToken)
+        public async Task Handle(EducationAdded notification, CancellationToken cancellationToken)
         {
-            var freelancer = await _repository.GetByIdAsync(notification.FreelancerId);
-            freelancer.AddEducation(_mapper.Map<EducationViewModel>(notification.Education));
-
-            await _repository.UpdateAsync(freelancer);
+            var education = _mapper.Map<EducationViewModel>(notification.Education);
+            await _repository.AddToNestedListAsync(notification.AggregateId, fr => fr.Educations, education);
         }
     }
 }

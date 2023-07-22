@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule, Routes } from '@angular/router';
-import { CompleteRegisterDialogComponent } from './complete-register-dialog/complete-register-dialog.component';
+import { CompleteRegisterDialogComponent } from './profile-setup-dialog/profile-setup-dialog.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';

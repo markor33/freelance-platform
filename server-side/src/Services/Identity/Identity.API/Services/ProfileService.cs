@@ -1,5 +1,5 @@
-﻿using GrpcClientProfile;
-using GrpcFreelancerProfile;
+﻿using Identity.API.Constants;
+using Identity.API.GrpcServices;
 using Identity.API.Models;
 using IdentityModel;
 using IdentityServer4.Models;
@@ -11,17 +11,14 @@ namespace Identity.API.Services
 {
     public class ProfileService : IProfileService
     {
-        private readonly FreelancerProfile.FreelancerProfileClient _freelancerProfileClient;
-        private readonly ClientProfile.ClientProfileClient _clientProfileClient;
+        private readonly IUserBasicDomainDataService _userBasicDomainDataService;
         private readonly UserManager<ApplicationUser> _userManager;
 
         public ProfileService(
-            FreelancerProfile.FreelancerProfileClient freelancerClient, 
-            ClientProfile.ClientProfileClient clientProfileClient,
+            IUserBasicDomainDataService userBasicDomainDataService,
             UserManager<ApplicationUser> userManager)
         {
-            _freelancerProfileClient = freelancerClient;
-            _clientProfileClient = clientProfileClient;
+            _userBasicDomainDataService = userBasicDomainDataService;
             _userManager = userManager;
         }
 
@@ -29,33 +26,17 @@ namespace Identity.API.Services
         {
             var user = await _userManager.GetUserAsync(context.Subject);
             var role = (await _userManager.GetRolesAsync(user)).First();
-            string? domainUserId = "";
-            if (role == "CLIENT")
-            {
-                var request = new GetClientBasicDataByUserIdRequest() { UserId = user.Id.ToString() };
-                try
-                {
-                    var clientData = await _clientProfileClient.GetClientBasicDataByUserIdAsync(request);
-                    domainUserId = clientData.Id;
-                }
-                catch(Exception ex) { }
-            }
-            else
-            {
-                var request = new GetFreelancerBasicDataByUserIdRequest() { UserId = user.Id.ToString() };
-                try
-                {
 
-                    var freelancerData = await _freelancerProfileClient.GetFreelancerBasicDataByUserIdAsync(request);
-                    domainUserId = freelancerData.Id;
-                }
-                catch(Exception ex) { }
-            }
+            var basicData = await _userBasicDomainDataService.GetBasicDataAsync(user.Id, role);
+
             var claims = new List<Claim>
             {
                 new Claim(JwtClaimTypes.Role, role),
-                new Claim("DomainUserId", domainUserId)
+                new Claim(CustomClaimTypes.DomainUserId, basicData.DomainId.ToString()),
+                new Claim(CustomClaimTypes.FirstName, basicData.FirstName),
+                new Claim(CustomClaimTypes.LastName, basicData.LastName)
             };
+
             context.IssuedClaims.AddRange(claims);
         }
 

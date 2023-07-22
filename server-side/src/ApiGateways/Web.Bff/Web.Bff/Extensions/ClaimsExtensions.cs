@@ -23,7 +23,7 @@ namespace Web.Bff.Extensions
 
         public static string GetUserDomainId(this IEnumerable<Claim> claims)
         {
-            var userDomainIdClaim = claims.FirstOrDefault(c => c.Type == "DomainUserId");
+            var userDomainIdClaim = claims.FirstOrDefault(c => c.Type == "domainUserId");
             if (userDomainIdClaim is null)
                 return string.Empty;
             return userDomainIdClaim.Value;

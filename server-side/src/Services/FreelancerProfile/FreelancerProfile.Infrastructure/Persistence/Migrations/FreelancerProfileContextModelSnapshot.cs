@@ -17,7 +17,7 @@ namespace FreelancerProfile.Infrastructure.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "6.0.16")
+                .HasAnnotation("ProductVersion", "6.0.19")
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
@@ -313,7 +313,7 @@ namespace FreelancerProfile.Infrastructure.Migrations
                         .HasMaxLength(100)
                         .HasColumnType("character varying(100)");
 
-                    b.Property<Guid>("ProfessionId")
+                    b.Property<Guid?>("ProfessionId")
                         .HasColumnType("uuid");
 
                     b.Property<string>("ProfilePictureUrl")
@@ -330,6 +330,31 @@ namespace FreelancerProfile.Infrastructure.Migrations
                         .IsUnique();
 
                     b.ToTable("Freelancers", (string)null);
+                });
+
+            modelBuilder.Entity("FreelancerProfile.Infrastructure.Persistence.EventStore.DomainEventLog", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<Guid>("AggregateId")
+                        .HasColumnType("uuid");
+
+                    b.Property<DateTime>("Created")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("EventData")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("EventType")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("DomainEventLogs", (string)null);
                 });
 
             modelBuilder.Entity("FreelancerSkill", b =>
@@ -503,9 +528,7 @@ namespace FreelancerProfile.Infrastructure.Migrations
                 {
                     b.HasOne("FreelancerProfile.Domain.AggregatesModel.FreelancerAggregate.Entities.Profession", "Profession")
                         .WithMany()
-                        .HasForeignKey("ProfessionId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("ProfessionId");
 
                     b.OwnsOne("FreelancerProfile.Domain.AggregatesModel.FreelancerAggregate.ValueObjects.Contact", "Contact", b1 =>
                         {

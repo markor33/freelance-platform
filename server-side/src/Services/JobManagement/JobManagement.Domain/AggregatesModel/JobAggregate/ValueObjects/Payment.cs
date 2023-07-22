@@ -1,4 +1,4 @@
-﻿using FreelancerProfile.Domain.SeedWork;
+﻿using JobManagement.Domain.SeedWork;
 using JobManagement.Domain.AggregatesModel.JobAggregate.Enums;
 using System.Text.Json.Serialization;
 

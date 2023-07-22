@@ -31,7 +31,13 @@ namespace IntegrationEventLog.EFCore
 
         public IntegrationEventLogEntry DeserializeJsonContent(Type type)
         {
-            IntegrationEvent = JsonSerializer.Deserialize(Data, type, s_caseInsensitiveOptions) as IntegrationEvent;
+            try {
+                IntegrationEvent = JsonSerializer.Deserialize(Data, type, s_caseInsensitiveOptions) as IntegrationEvent;
+            }
+            catch (Exception ex)
+            {
+                var a = 1;
+            }
             return this;
         }
 

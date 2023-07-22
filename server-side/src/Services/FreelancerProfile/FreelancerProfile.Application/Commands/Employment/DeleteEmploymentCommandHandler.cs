@@ -1,5 +1,5 @@
 ﻿using FluentResults;
-using FreelancerProfile.Domain.AggregatesModel.FreelancerAggregate;
+using FreelancerProfile.Domain.Repositories;
 using MediatR;
 
 namespace FreelancerProfile.Application.Commands
@@ -19,11 +19,9 @@ namespace FreelancerProfile.Application.Commands
             if (freelancer is null)
                 return Result.Fail("Freelancer does not exist");
 
-            var deleteResult = freelancer.DeleteEmployment(request.EmploymentId);
-            if (deleteResult.IsFailed)
-                return deleteResult;
+            freelancer.DeleteEmployment(request.EmploymentId);
 
-            var result = await _freelancerRepository.UnitOfWork.SaveEntitiesAsync();
+            var result = await _freelancerRepository.UnitOfWork.SaveEntitiesAsync(cancellationToken);
             if (!result)
                 return Result.Fail("Delete employment action failed");
 

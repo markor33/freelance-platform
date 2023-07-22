@@ -68,7 +68,6 @@ builder.Services.AddTransient(typeof(IJobManagementService), typeof(JobManagemen
 builder.Services.AddTransient(typeof(IProposalService), typeof(ProposalService));
 builder.Services.AddTransient(typeof(IContractService), typeof(ContractService));
 builder.Services.AddTransient(typeof(IFeedbackService), typeof(FeedbackService));
-builder.Services.AddTransient(typeof(IIdentityService), typeof(IdentityService));
 
 var app = builder.Build();
 

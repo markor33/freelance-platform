@@ -1,15 +1,20 @@
 ﻿using FreelancerProfile.Domain.AggregatesModel.FreelancerAggregate;
+using FreelancerProfile.Domain.Repositories;
 using FreelancerProfile.Domain.SeedWork;
-using Microsoft.EntityFrameworkCore;
+using FreelancerProfile.Infrastructure.Persistence.LoadingStrategy;
 
 namespace FreelancerProfile.Infrastructure.Persistence.Repositories
 {
     public class FreelancerRepository : IFreelancerRepository
     {
+        private readonly IAggregateLoadingStrategy _loadingStrategy;
         private readonly FreelancerProfileContext _context;
 
-        public FreelancerRepository(FreelancerProfileContext context)
+        public FreelancerRepository(
+            ILoadingStrategyFactory loadingStrategyFactory, 
+            FreelancerProfileContext context)
         {
+            _loadingStrategy = loadingStrategyFactory.CreateLoadingStrategy();
             _context = context;
         }
 
@@ -22,22 +27,7 @@ namespace FreelancerProfile.Infrastructure.Persistence.Repositories
 
         public async Task<Freelancer> GetByIdAsync(Guid id)
         {
-            return await _context.Freelancers
-                .Include(f => f.Skills)
-                .Include(f => f.Educations)
-                .Include(f => f.Certifications)
-                .Include(f => f.Employments)
-                .Where(f => f.Id == id).FirstOrDefaultAsync();
-        }
-
-        public async Task<Freelancer> GetByUserIdAsync(Guid userId)
-        {
-            return await _context.Freelancers
-                .Include(f => f.Skills)
-                .Include(f => f.Educations)
-                .Include(f => f.Certifications)
-                .Include(f => f.Employments)
-                .Where(f => f.UserId == userId).FirstOrDefaultAsync();
+            return await _loadingStrategy.GetByIdAsync(id);
         }
     }
 }

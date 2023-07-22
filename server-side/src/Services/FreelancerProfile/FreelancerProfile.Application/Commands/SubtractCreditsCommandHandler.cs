@@ -1,6 +1,6 @@
 ﻿using FreelancerProfile.Application.IntegrationEvents;
 using FreelancerProfile.Application.IntegrationEvents.Events;
-using FreelancerProfile.Domain.AggregatesModel.FreelancerAggregate;
+using FreelancerProfile.Domain.Repositories;
 using MediatR;
 
 namespace FreelancerProfile.Application.Commands

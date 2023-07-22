@@ -3,7 +3,6 @@ using JobManagement.API.Controllers;
 using JobManagement.API.Security;
 using JobManagement.Application.Commands.JobCommands;
 using JobManagement.Application.Queries;
-using JobManagement.Application.Services;
 using JobManagement.Domain.AggregatesModel.JobAggregate;
 using JobManagement.Domain.AggregatesModel.JobAggregate.Entities;
 using JobManagement.Domain.AggregatesModel.JobAggregate.Enums;
@@ -137,7 +136,7 @@ namespace JobManagement.IntegrationTests.Controllers
             var context = scope.ServiceProvider.GetRequiredService<JobManagementContext>();
 
             var profession = context.Professions.Find(Guid.Parse("d6861f65-0950-4c7f-b5b1-de644f923fbb"));
-            var job = new Job(
+            var job = Job.Create(
                 Guid.Parse("e1372d50-c4af-4f53-9050-457635d49b7c"),
                 "Title",
                 "Desc",
