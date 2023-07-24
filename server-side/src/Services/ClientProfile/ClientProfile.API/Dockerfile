@@ -6,16 +6,16 @@ EXPOSE 80
 
 FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
 WORKDIR /src
-COPY ["src/Services/Client/Client.API/Client.API.csproj", "src/Services/Client/Client.API/"]
-RUN dotnet restore "src/Services/Client/Client.API/Client.API.csproj"
+COPY ["src/Services/ClientProfile/ClientProfile.API/ClientProfile.API.csproj", "src/Services/ClientProfile/ClientProfile.API/"]
+RUN dotnet restore "src/Services/ClientProfile/ClientProfile.API/ClientProfile.API.csproj"
 COPY . .
-WORKDIR "/src/src/Services/Client/Client.API"
-RUN dotnet build "Client.API.csproj" -c Release -o /app/build
+WORKDIR "/src/src/Services/ClientProfile/ClientProfile.API"
+RUN dotnet build "ClientProfile.API.csproj" -c Release -o /app/build
 
 FROM build AS publish
-RUN dotnet publish "Client.API.csproj" -c Release -o /app/publish /p:UseAppHost=false
+RUN dotnet publish "ClientProfile.API.csproj" -c Release -o /app/publish /p:UseAppHost=false
 
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
-ENTRYPOINT ["dotnet", "Client.API.dll"]
+ENTRYPOINT ["dotnet", "ClientProfile.API.dll"]
