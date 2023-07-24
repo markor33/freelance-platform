@@ -11,7 +11,7 @@ on:
             - github-workflow/job-management-api
         paths:
             - server-side/src/Services/JobManagement/**
-            - .github/workflows/freelancer-profile-api.yml
+            - .github/workflows/job-management-api-api.yml
 
     pull_request:
         branches:
@@ -20,7 +20,7 @@ on:
             - github-workflow/job-management-api
         paths:
             - server-side/src/Services/JobManagement/**
-            - .github/workflows/freelancer-profile-api.yml
+            - .github/workflows/job-management-api-api.yml
 
 jobs:
 
