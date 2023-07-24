@@ -17,6 +17,7 @@ using Xunit;
 
 namespace JobManagement.IntegrationTests.Controllers
 {
+    [Collection("Database collection")]
     public class ProposalScenarios : BaseIntegrationTest
     {
         public ProposalScenarios(TestDatabaseFactory factory) : base(factory) { }

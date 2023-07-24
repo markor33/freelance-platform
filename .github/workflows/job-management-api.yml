@@ -1,23 +1,25 @@
-name: freelancer-profile.api
+name: job-management.api
 
 env:
-    SERVICE: freelancer-profile.api
+    SERVICE: job-management.api
 
 on:
     push:
         branches:
             - main
             - develop
+            - github-workflow/job-management-api
         paths:
-            - server-side/src/Services/FreelancerProfile/**
+            - server-side/src/Services/JobManagement/**
             - .github/workflows/freelancer-profile-api.yml
 
     pull_request:
         branches:
             - main
             - develop
+            - github-workflow/job-management-api
         paths:
-            - server-side/src/Services/FreelancerProfile/**
+            - server-side/src/Services/JobManagement/**
             - .github/workflows/freelancer-profile-api.yml
 
 jobs:
@@ -52,5 +54,5 @@ jobs:
             - uses: ./.github/workflows/composite/build-test
               with:
                 service: ${{ env.SERVICE }}
-                project_path: src/Services/FreelancerProfile/FreelancerProfile.API
-                tests_path: src/Services/FreelancerProfile/FreelancerProfile.IntegrationTests
+                project_path: src/Services/JobManagement/JobManagement.API
+                tests_path: src/Services/JobManagement/JobManagement.IntegrationTests

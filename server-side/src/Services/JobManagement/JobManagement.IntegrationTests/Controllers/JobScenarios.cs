@@ -18,7 +18,7 @@ using Xunit;
 
 namespace JobManagement.IntegrationTests.Controllers
 {
-    [Collection("JobScenarios")]
+    [Collection("Database collection")]
     public partial class JobScenarios : BaseIntegrationTest
     {
         public JobScenarios(TestDatabaseFactory factory) : base(factory) { }
@@ -118,7 +118,7 @@ namespace JobManagement.IntegrationTests.Controllers
                 ExperienceLevel.JUNIOR,
                 new Payment(50, "EUR", PaymentType.FIXED_RATE),
                 new List<Question>(),
-                Guid.Parse("d6861f65-0950-4c7f-b5b1-de644f923fbb"),
+                Guid.Parse("523c9ba1-4e91-4a75-85c3-cf386c078aa9"),
                 new List<Guid>());
 
         private static UpdateJobCommand GetTestUpdateJobCommand(Guid jobId)
@@ -128,14 +128,14 @@ namespace JobManagement.IntegrationTests.Controllers
                 ExperienceLevel.JUNIOR,
                 new Payment(200, "USD", PaymentType.FIXED_RATE),
                 new List<Question>(),
-                Guid.Parse("d6861f65-0950-4c7f-b5b1-de644f923fbb"),
+                Guid.Parse("523c9ba1-4e91-4a75-85c3-cf386c078aa9"),
                 new List<Guid>());
 
         public static async Task<Job> CreateTestJob(IServiceScope scope)
         {
             var context = scope.ServiceProvider.GetRequiredService<JobManagementContext>();
 
-            var profession = context.Professions.Find(Guid.Parse("d6861f65-0950-4c7f-b5b1-de644f923fbb"));
+            var profession = context.Professions.Find(Guid.Parse("523c9ba1-4e91-4a75-85c3-cf386c078aa9"));
             var job = Job.Create(
                 Guid.Parse("e1372d50-c4af-4f53-9050-457635d49b7c"),
                 "Title",
