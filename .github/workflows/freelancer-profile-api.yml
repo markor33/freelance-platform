@@ -6,14 +6,18 @@ env:
 on:
     push:
         branches:
-            - test
+            - main
+            - develop
+            - github-workflow/freelancer-profile-api
         paths:
             - server-side/src/Services/FreelancerProfile/**
             - .github/workflows/freelancer-profile-api.yml
 
     pull_request:
         branches:
-            -test
+            - main
+            - develop
+            - github-workflow/freelancer-profile-api
         paths:
             - server-side/src/Services/FreelancerProfile/**
             - .github/workflows/freelancer-profile-api.yml
