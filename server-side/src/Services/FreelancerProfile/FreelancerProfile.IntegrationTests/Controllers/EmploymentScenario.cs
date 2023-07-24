@@ -17,6 +17,7 @@ using Xunit;
 
 namespace FreelancerProfile.IntegrationTests.Controllers
 {
+    [Collection("Database collection")]
     public class EmploymentScenarios : BaseIntegrationTest
     {
         public EmploymentScenarios(TestDatabaseFactory factory) : base(factory) { }

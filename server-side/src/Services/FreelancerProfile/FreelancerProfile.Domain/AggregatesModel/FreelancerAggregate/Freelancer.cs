@@ -15,8 +15,8 @@ namespace FreelancerProfile.Domain.AggregatesModel.FreelancerAggregate
         public DateTime Joined { get; private set; }
         public int Credits { get; private set; }
         public bool IsProfilePublic { get; private set; }
-        public ProfileSummary ProfileSummary { get; private set; }
-        public HourlyRate HourlyRate { get; private set; }
+        public ProfileSummary? ProfileSummary { get; private set; }
+        public HourlyRate? HourlyRate { get; private set; }
         public List<LanguageKnowledge> LanguageKnowledges { get; private set; } = new();
         public Availability Availability { get; private set; }
         public ExperienceLevel ExperienceLevel { get; private set; }
