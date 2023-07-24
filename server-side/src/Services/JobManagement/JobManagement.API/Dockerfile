@@ -6,19 +6,19 @@ EXPOSE 80
 
 FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
 WORKDIR /src
-COPY ["src/Services/Job/Job.API/Job.API.csproj", "src/Services/Job/Job.API/"]
-COPY ["src/Services/Job/Job.Application/Job.Application.csproj", "src/Services/Job/Job.Application/"]
-COPY ["src/Services/Job/Job.Domain/Job.Domain.csproj", "src/Services/Job/Job.Domain/"]
-COPY ["src/Services/Job/Job.Infrastructure/Job.Infrastructure.csproj", "src/Services/Job/Job.Infrastructure/"]
-RUN dotnet restore "src/Services/Job/Job.API/Job.API.csproj"
+COPY ["src/Services/JobManagement/JobManagement.API/JobManagement.API.csproj", "src/Services/JobManagement/JobManagement.API/"]
+COPY ["src/Services/JobManagement/JobManagement.Application/JobManagement.Application.csproj", "src/Services/JobManagement/JobManagement.Application/"]
+COPY ["src/Services/JobManagement/JobManagement.Domain/JobManagement.Domain.csproj", "src/Services/JobManagement/JobManagement.Domain/"]
+COPY ["src/Services/JobManagement/JobManagement.Infrastructure/JobManagement.Infrastructure.csproj", "src/Services/JobManagement/JobManagement.Infrastructure/"]
+RUN dotnet restore "src/Services/JobManagement/JobManagement.API/JobManagement.API.csproj"
 COPY . .
-WORKDIR "/src/src/Services/Job/Job.API"
-RUN dotnet build "Job.API.csproj" -c Release -o /app/build
+WORKDIR "/src/src/Services/JobManagement/JobManagement.API"
+RUN dotnet build "JobManagement.API.csproj" -c Release -o /app/build
 
 FROM build AS publish
-RUN dotnet publish "Job.API.csproj" -c Release -o /app/publish /p:UseAppHost=false
+RUN dotnet publish "JobManagement.API.csproj" -c Release -o /app/publish /p:UseAppHost=false
 
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
-ENTRYPOINT ["dotnet", "Job.API.dll"]
+ENTRYPOINT ["dotnet", "JobManagement.API.dll"]
