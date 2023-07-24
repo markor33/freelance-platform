@@ -8,7 +8,6 @@ on:
         branches:
             - main
             - develop
-            - github-workflow/client-profile-api
         paths:
             - server-side/src/Services/ClientProfile/**
             - .github/workflows/client-profile-api.yml
@@ -17,7 +16,6 @@ on:
         branches:
             - main
             - develop
-            - github-workflow/client-profile-api
         paths:
             - server-side/src/Services/ClientProfile/**
             - .github/workflows/client-profile-api.yml
