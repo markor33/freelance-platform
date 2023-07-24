@@ -42,6 +42,7 @@ namespace NotiftChat.IntegrationTests.Setup
             services.Remove(services.SingleOrDefault(d => d.ServiceType == typeof(IEventBus)));
             services.Configure<MongoDBSettings>(options =>
             {
+                options.ConnectionURI = "mongodb://root:example@localhost:27017/";
                 options.DatabaseName = "NotifyChat-test";
             });
             services.AddSingleton<IEventBus>(sp => (new Mock<IEventBus>()).Object);

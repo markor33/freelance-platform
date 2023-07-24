@@ -1,0 +1,46 @@
+name: notifychat.signalr
+
+env:
+    SERVICE: notifychat.signalr
+
+on:
+    push:
+        branches:
+            - main
+            - develop
+            - github-workflow/notify-chat
+        paths:
+            - server-side/src/Services/NotifyChat/**
+            - .github/workflows/notift-chat-signalr.yml
+
+    pull_request:
+        branches:
+            - main
+            - develop
+            - github-workflow/notify-chat
+        paths:
+            - server-side/src/Services/NotifyChat/**
+            - .github/workflows/notift-chat-signalr.yml
+
+jobs:
+
+    build-integation-test:
+
+        runs-on: ubuntu-latest
+        services:
+
+            mongo:
+                image: mongo:latest
+                env:
+                    MONGO_INITDB_ROOT_USERNAME: root
+                    MONGO_INITDB_ROOT_PASSWORD: example
+                ports:
+                    - 27017:27017
+
+        steps:
+            - uses: actions/checkout@v3
+            - uses: ./.github/workflows/composite/build-test
+              with:
+                service: ${{ env.SERVICE }}
+                project_path: src/Services/NotifyChat/NotifyChat.SignalR
+                tests_path: src/Services/NotifyChat/NotifyChat.IntegrationTests
