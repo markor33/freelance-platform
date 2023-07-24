@@ -1,0 +1,34 @@
+name: client-profile.api
+
+env:
+    SERVICE: client-profile.api
+
+on:
+    push:
+        branches:
+            - main
+            - develop
+        paths:
+            - server-side/src/Services/ClientProfile/**
+            - .github/workflows/client-profile-api.yml
+
+    pull_request:
+        branches:
+            - main
+            - develop
+        paths:
+            - server-side/src/Services/ClientProfile/**
+            - .github/workflows/client-profile-api.yml
+
+jobs:
+
+    build:
+
+        runs-on: ubuntu-latest
+
+        steps:
+            - uses: actions/checkout@v3
+            - uses: ./.github/workflows/composite/build
+              with:
+                service: ${{ env.SERVICE }}
+
