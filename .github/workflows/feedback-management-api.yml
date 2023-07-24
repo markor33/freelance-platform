@@ -1,0 +1,36 @@
+name: feedback-management.api
+
+env:
+    SERVICE: feedback-management.api
+
+on:
+    push:
+        branches:
+            - main
+            - develop
+            - github-workflow/feedback-management-api
+        paths:
+            - server-side/src/Services/FeedbackManagement/**
+            - .github/workflows/feedback-management-api.yml
+
+    pull_request:
+        branches:
+            - main
+            - develop
+            - github-workflow/feedback-management-api
+        paths:
+            - server-side/src/Services/FeedbackManagement/**
+            - .github/workflows/feedback-management-api.yml
+
+jobs:
+
+    build:
+
+        runs-on: ubuntu-latest
+
+        steps:
+            - uses: actions/checkout@v3
+            - uses: ./.github/workflows/composite/build
+              with:
+                service: ${{ env.SERVICE }}
+
