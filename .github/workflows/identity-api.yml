@@ -1,0 +1,36 @@
+name: identity.api
+
+env:
+    SERVICE: identity.api
+
+on:
+    push:
+        branches:
+            - main
+            - develop
+            - github-workflow/identity-api
+        paths:
+            - server-side/src/Services/Identity/**
+            - .github/workflows/identity-api.yml
+
+    pull_request:
+        branches:
+            - main
+            - develop
+            - github-workflow/identity-api
+        paths:
+            - server-side/src/Services/Identity/**
+            - .github/workflows/identity-api.yml
+
+jobs:
+
+    build:
+
+        runs-on: ubuntu-latest
+
+        steps:
+            - uses: actions/checkout@v3
+            - uses: ./.github/workflows/composite/build
+              with:
+                service: ${{ env.SERVICE }}
+
