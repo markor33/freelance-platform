@@ -17,6 +17,7 @@ using Xunit;
 
 namespace FreelancerProfile.IntegrationTests.Controllers
 {
+    [Collection("Database collection")]
     public class EducationScenarios : BaseIntegrationTest
     {
 

@@ -1,0 +1,54 @@
+name: freelancer-profile.api
+
+env:
+    SERVICE: freelancer-profile.api
+
+on:
+    push:
+        branches:
+            - test
+        paths:
+            - server-side/src/Services/FreelancerProfile/**
+            - .github/workflows/freelancer-profile-api.yml
+
+    pull_request:
+        branches:
+            -test
+        paths:
+            - server-side/src/Services/FreelancerProfile/**
+            - .github/workflows/freelancer-profile-api.yml
+
+jobs:
+
+    build-integation-test:
+
+        runs-on: ubuntu-latest
+        services:
+            postgres:
+                image: postgres:latest
+                env:
+                    POSTGRES_USERNAME: postgres
+                    POSTGRES_PASSWORD: 123456
+                options: >-
+                    --health-cmd pg_isready
+                    --health-interval 10s
+                    --health-timeout 5s
+                    --health-retries 5
+                ports:
+                    - 41000:5432
+
+            mongo:
+                image: mongo:latest
+                env:
+                    MONGO_INITDB_ROOT_USERNAME: root
+                    MONGO_INITDB_ROOT_PASSWORD: example
+                ports:
+                    - 27017:27017
+
+        steps:
+            - uses: actions/checkout@v3
+            - uses: ./.github/workflows/composite/build-test
+              with:
+                service: ${{ env.SERVICE }}
+                project_path: src/Services/FreelancerProfile/FreelancerProfile.API
+                tests_path: src/Services/FreelancerProfile/FreelancerProfile.IntegrationTests
