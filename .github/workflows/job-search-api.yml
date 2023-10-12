@@ -1,0 +1,34 @@
+name: job-search.api
+
+env:
+    SERVICE: job-search.api
+
+on:
+    push:
+        branches:
+            - main
+            - develop
+        paths:
+            - server-side/src/Services/JobSearch/**
+            - .github/workflows/job-search-api.yml
+
+    pull_request:
+        branches:
+            - main
+            - develop
+        paths:
+            - server-side/src/Services/JobSearch/**
+            - .github/workflows/job-search-api.yml
+
+jobs:
+
+    build:
+
+        runs-on: ubuntu-latest
+
+        steps:
+            - uses: actions/checkout@v3
+            - uses: ./.github/workflows/composite/build
+              with:
+                service: ${{ env.SERVICE }}
+

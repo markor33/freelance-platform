@@ -48,3 +48,10 @@ services:
     ports:
       - "80"
 
+
+  jobsearch.api:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+    ports:
+      - "80"
+

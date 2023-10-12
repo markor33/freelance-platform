@@ -37,7 +37,7 @@ export class ProposalInfoDialogComponent {
   static open(dialog: MatDialog, jobId: string, proposalId: string): MatDialogRef<ProposalInfoDialogComponent> {
     return dialog.open(ProposalInfoDialogComponent, {
       width: '50%',
-      height: '80%',
+      height: '100%',
       data: { jobId: jobId, proposalId: proposalId }
     })
   }
