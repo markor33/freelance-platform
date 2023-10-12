@@ -1,7 +1,7 @@
-name: job-search.api
+name: jobsearch.api
 
 env:
-    SERVICE: job-search.api
+    SERVICE: jobsearch.api
 
 on:
     push:
