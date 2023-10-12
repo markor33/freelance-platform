@@ -150,6 +150,34 @@ services:
       MONGO_INITDB_ROOT_PASSWORD: example
     restart: always
 
+  jobsearch.api:
+    image: ${DOCKER_REGISTRY-}jobsearchapi
+    build:
+      context: .
+      dockerfile: src/Services/JobSearch/JobSearch.API/Dockerfile
+    ports:
+     - "63000:80"
+
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:8.10.2
+    container_name: elasticsearch
+    environment:
+      - node.name=elasticsearch
+      - discovery.type=single-node
+      - xpack.security.enabled=false
+    ports:
+      - "9200:9200"
+      - "9300:9300"
+    volumes:
+      - es01-data:/usr/share/elasticsearch/data
+
+  kibana:
+    image: docker.elastic.co/kibana/kibana:8.10.2
+    ports:
+      - "5601:5601"
+    environment:
+      - ELASTICSEARCH_URL=http://elasticsearch:9200
+
 volumes:
  identity-data:
  freelancer-profile-data:
@@ -158,3 +186,5 @@ volumes:
  job-management-data:
  feedback-management-data:
  rabbitmq_data:
+ es01-data:
+
