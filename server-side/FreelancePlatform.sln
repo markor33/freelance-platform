@@ -71,9 +71,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IntegrationEventLog.EFCore"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "JobSearch", "JobSearch", "{8B124846-456C-4843-8812-2A64494DF928}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JobSearch.API", "src\Services\JobSearch\JobSearch.API\JobSearch.API.csproj", "{4358D5D8-2D42-4576-87B8-E416F0D9BAB8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JobSearch.API", "src\Services\JobSearch\JobSearch.API\JobSearch.API.csproj", "{4358D5D8-2D42-4576-87B8-E416F0D9BAB8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JobSearch.Elastic", "src\Services\JobSearch\JobSearch.Elastic\JobSearch.Elastic.csproj", "{7A8D2FFA-0DAA-44E0-85C3-F3DBDE2AE2DC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JobSearch.Elastic", "src\Services\JobSearch\JobSearch.Elastic\JobSearch.Elastic.csproj", "{7A8D2FFA-0DAA-44E0-85C3-F3DBDE2AE2DC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JobSearch.Abstractions", "src\Services\JobSearch\JobSearch.Abstractions\JobSearch.Abstractions.csproj", "{747D69E9-F9C3-46E1-A093-A04D2C306892}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -173,6 +175,10 @@ Global
 		{7A8D2FFA-0DAA-44E0-85C3-F3DBDE2AE2DC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7A8D2FFA-0DAA-44E0-85C3-F3DBDE2AE2DC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7A8D2FFA-0DAA-44E0-85C3-F3DBDE2AE2DC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{747D69E9-F9C3-46E1-A093-A04D2C306892}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{747D69E9-F9C3-46E1-A093-A04D2C306892}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{747D69E9-F9C3-46E1-A093-A04D2C306892}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{747D69E9-F9C3-46E1-A093-A04D2C306892}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -212,6 +218,7 @@ Global
 		{8B124846-456C-4843-8812-2A64494DF928} = {CD7CDB33-4F00-4266-8BAD-B2A789918803}
 		{4358D5D8-2D42-4576-87B8-E416F0D9BAB8} = {8B124846-456C-4843-8812-2A64494DF928}
 		{7A8D2FFA-0DAA-44E0-85C3-F3DBDE2AE2DC} = {8B124846-456C-4843-8812-2A64494DF928}
+		{747D69E9-F9C3-46E1-A093-A04D2C306892} = {8B124846-456C-4843-8812-2A64494DF928}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {92BDE447-A322-40F5-8E79-71D05B3A578B}

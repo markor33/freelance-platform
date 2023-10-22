@@ -1,4 +1,6 @@
 ﻿using FluentResults;
+using JobManagement.Application.IntegrationEvents;
+using JobManagement.Application.IntegrationEvents.Events;
 using JobManagement.Domain.AggregatesModel.JobAggregate;
 using JobManagement.Domain.Repositories;
 using MediatR;
@@ -10,15 +12,18 @@ namespace JobManagement.Application.Commands.JobCommands
         private readonly IJobRepository _jobRepository;
         private readonly IProfessionRepository _professionRepository;
         private readonly ISkillRepository _skillRepository;
+        private readonly IJobIntegrationEventService _integrationEventService;
 
         public CreateJobCommandHandler(
             IJobRepository jobRepository,
             IProfessionRepository professionRepository,
-            ISkillRepository skillRepository)
+            ISkillRepository skillRepository,
+            IJobIntegrationEventService integrationEventService)
         {
             _jobRepository = jobRepository;
             _professionRepository = professionRepository;
             _skillRepository = skillRepository;
+            _integrationEventService = integrationEventService;
         }
 
         public async Task<Result<Job>> Handle(CreateJobCommand request, CancellationToken cancellationToken)
@@ -37,6 +42,9 @@ namespace JobManagement.Application.Commands.JobCommands
 
             if (!result)
                 return Result.Fail("Job creation failed");
+
+            var eventMessage = new JobCreatedIntegrationEvent(job);
+            await _integrationEventService.SaveEventAsync(eventMessage);
 
             return Result.Ok(job);
         }

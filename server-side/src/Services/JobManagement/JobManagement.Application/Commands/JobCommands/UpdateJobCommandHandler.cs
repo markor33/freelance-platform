@@ -1,4 +1,6 @@
 ﻿using FluentResults;
+using JobManagement.Application.IntegrationEvents;
+using JobManagement.Application.IntegrationEvents.Events;
 using JobManagement.Domain.AggregatesModel.JobAggregate;
 using JobManagement.Domain.AggregatesModel.JobAggregate.Entities;
 using JobManagement.Domain.Repositories;
@@ -10,13 +12,16 @@ namespace JobManagement.Application.Commands.JobCommands
     {
         private readonly IJobRepository _jobRepository;
         private readonly ISkillRepository _skillRepository;
+        private readonly IJobIntegrationEventService _integrationEventService;
 
         public UpdateJobCommandHandler(
             IJobRepository jobRepository,
-            ISkillRepository skillRepository)
+            ISkillRepository skillRepository,
+            IJobIntegrationEventService integrationEventService)
         {
             _jobRepository = jobRepository;
             _skillRepository = skillRepository;
+            _integrationEventService = integrationEventService;
         }
 
         public async Task<Result<Job>> Handle(UpdateJobCommand request, CancellationToken cancellationToken)
@@ -37,6 +42,9 @@ namespace JobManagement.Application.Commands.JobCommands
             var result = await _jobRepository.UnitOfWork.SaveEntitiesAsync();
             if (!result)
                 return Result.Fail("job update failed");
+
+            var eventMessage = new JobUpdatedIntegrationEvent(job);
+            await _integrationEventService.SaveEventAsync(eventMessage);
 
             return Result.Ok(job);
         }
